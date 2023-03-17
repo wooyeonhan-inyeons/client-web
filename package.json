@@ -13,7 +13,7 @@
     "build-storybook": "build-storybook"
   },
   "lint-staged": {
-    "src/**/*": "prettier --write",
+    "src/**/*.{ts,tsx,js,jsx,md,svg,json}": "prettier --write",
     "src/**/*.{ts,tsx,js,jsx}": "eslint"
   },
   "dependencies": {

@@ -1,29 +1,46 @@
-import { Slider } from "@mui/material";
 import React from "react";
-import { UnDragBox } from "./drawBar";
+import { Slider } from "@mui/material";
+import { UnDragBox } from "../../../hook/components/common";
+import { colorSet } from "../../../common";
+import Global from "@mui/styled-engine-sc/GlobalStyles/GlobalStyles";
 
 const range = [
-  { value: 1, label: "1km" },
-  { value: 5, label: "5km" },
-  { value: 10, label: "10km" },
+  { value: 10, label: "10m" },
+  { value: 50, label: "50m" },
+  { value: 100, label: "100m" },
 ];
 
-function valueLabelFormat(value: number) {
-  return range.findIndex((mark) => mark.value === value) + 1;
-}
-
 function RangeBar() {
+  function valueLabelFormat(value: number) {
+    return range.findIndex((mark) => mark.value === value) + 1;
+  }
+
   return (
-    <UnDragBox sx={{ pt: 1 }}>
+    <UnDragBox>
+      <Global
+        styles={{
+          ".MuiSlider-root": {
+            height: "1px",
+          },
+          ".MuiSlider-root > .MuiSlider-mark": {
+            width: "10px",
+            height: "10px",
+            color: "#fff",
+            border: `1px solid ${colorSet.light.primary}`,
+            borderRadius: "50%",
+            opacity: 1,
+          },
+        }}
+      />
       <Slider
         aria-label="RangeBar values"
-        defaultValue={1}
+        defaultValue={10}
         valueLabelFormat={valueLabelFormat}
         step={null}
         valueLabelDisplay="off"
         marks={range}
-        min={1}
-        max={10}
+        min={10}
+        max={100}
       />
     </UnDragBox>
   );

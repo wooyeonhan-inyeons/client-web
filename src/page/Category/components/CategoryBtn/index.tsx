@@ -30,7 +30,7 @@ const CategoryBtn = (props: CategoryTextProps) => {
       <Button
         variant="contained"
         color={activeColor}
-        sx={{ width: 160, height: 80, borderRadius: 4 }}
+        sx={{ width: "11rem", height: "6rem", borderRadius: 4 }}
         onClick={handleButtonClick}
         style={{
           boxShadow: "0 1px 3px rgba(0,0,0,0.12)",

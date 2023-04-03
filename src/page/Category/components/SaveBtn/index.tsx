@@ -31,8 +31,8 @@ const SaveBtn = (props: SaveTextProps) => {
         variant="contained"
         color={activeColor}
         sx={{
-          width: 300,
-          height: 50,
+          width: "21rem",
+          height: "3.5rem",
           borderRadius: 4,
         }}
         onClick={handleButtonClick}

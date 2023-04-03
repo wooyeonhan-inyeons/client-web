@@ -34,6 +34,7 @@ const SaveBtn = (props: SaveTextProps) => {
           width: "21rem",
           height: "3.5rem",
           borderRadius: 4,
+          fontWeight: 600,
         }}
         onClick={handleButtonClick}
         style={{

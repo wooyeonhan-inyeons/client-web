@@ -1,9 +1,10 @@
 import React from "react";
+import CategoryBtn from "./components/CategoryBtn";
 
 const Category = () => {
   return (
     <>
-      <h1>Category Page</h1>
+      <CategoryBtn text="프롭스 전달"></CategoryBtn>
     </>
   );
 };

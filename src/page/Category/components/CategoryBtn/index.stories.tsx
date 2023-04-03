@@ -8,5 +8,5 @@ export default {
 } as ComponentMeta<typeof CategoryBtn>;
 
 export const Primary: ComponentStory<typeof CategoryBtn> = () => (
-  <CategoryBtn text="hihi"/> // props 테스트 문구
+  <CategoryBtn text="hihi" /> // props 테스트 문구
 );

@@ -1,29 +1,14 @@
 import { Button, CssBaseline, createTheme } from "@mui/material";
 import React from "react";
-import { useDrawer } from "./page/radar";
-import { ThemeProvider } from "@emotion/react";
-import { green } from "@mui/material/colors";
-
-const defaultTheme = createTheme({
-  palette: {
-    mode: "light",
-    primary: {
-      main: green[500],
-    },
-  },
-});
+import CategoryBtn from "./page/Category/components/CategoryBtn";
+import SaveBtn from "./page/Category/components/SaveBtn";
 
 function App() {
-  const { Drawer, toggleDrawer } = useDrawer();
   return (
-    <ThemeProvider theme={defaultTheme}>
-      {/* css 초기화 */}
-      <CssBaseline />
-      <div style={{ width: "300px", backgroundColor: "#ddd" }}>
-        <Button onClick={toggleDrawer}>Drawer 나와라</Button>
-        <Drawer />
-      </div>
-    </ThemeProvider>
+    <>
+      <CategoryBtn text="프롭스 전달"></CategoryBtn>
+      <SaveBtn text="선택 완료"></SaveBtn>
+    </>
   );
 }
 

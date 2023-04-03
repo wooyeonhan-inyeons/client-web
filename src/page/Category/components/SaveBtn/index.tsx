@@ -13,11 +13,11 @@ const theme = createTheme({
   },
 });
 
-type CategoryTextProps = {
+type SaveTextProps = {
   text: string;
 };
 
-const CategoryBtn = (props: CategoryTextProps) => {
+const SaveBtn = (props: SaveTextProps) => {
   // 클릭시 버튼 색상 변경
   const [activeColor, setActiveColor] = useState("primary");
 
@@ -30,7 +30,11 @@ const CategoryBtn = (props: CategoryTextProps) => {
       <Button
         variant="contained"
         color={activeColor}
-        sx={{ width: 160, height: 80, borderRadius: 4 }}
+        sx={{
+          width: 300,
+          height: 50,
+          borderRadius: 4,
+        }}
         onClick={handleButtonClick}
         style={{
           boxShadow: "0 1px 3px rgba(0,0,0,0.12)",
@@ -43,4 +47,4 @@ const CategoryBtn = (props: CategoryTextProps) => {
   );
 };
 
-export default CategoryBtn;
+export default SaveBtn;

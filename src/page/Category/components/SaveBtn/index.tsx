@@ -5,10 +5,10 @@ import Button from "@mui/material/Button";
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#EEF1EE",
+      main: "#00A651",
     },
     secondary: {
-      main: "#00A651",
+      main: "#EEF1EE",
     },
   },
 });

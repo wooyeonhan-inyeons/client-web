@@ -1,6 +1,9 @@
+// 카테고리 버튼 컴포넌트
+
 import React, { useState } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Button from "@mui/material/Button";
+
 
 const theme = createTheme({
   palette: {
@@ -24,7 +27,7 @@ const CategoryBtn = (props: CategoryTextProps) => {
   const handleButtonClick = () => {
     setActiveColor(activeColor === "primary" ? "secondary" : "primary");
   };
-
+  
   return (
     <ThemeProvider theme={theme}>
       <Button

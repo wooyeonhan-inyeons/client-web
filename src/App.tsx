@@ -1,10 +1,11 @@
 import React from "react";
-import CategoryPage from "./page/Category";
+import SwipeableTextMobileStepper from "./page/Login";
+// import CategoryPage from "./page/Category";
 
 function App() {
   return (
     <>
-      <CategoryPage />
+      <SwipeableTextMobileStepper />
     </>
   );
 }

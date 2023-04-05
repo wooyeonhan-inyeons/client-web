@@ -8,14 +8,26 @@ import RangeBar from "./components/RangeBar";
 import { SearchItem1 } from "./components/SearchButton";
 import { Player } from "@lottiefiles/react-lottie-player";
 import RadarLottie from "../../assets/radarLottie.json";
+import WooyeonItem from "./components/WooyeonItem";
 
 const Radar = () => {
   const { open, Drawer, toggleDrawer } = useDrawer();
 
   const searchItems = () => {
     if (open) toggleDrawer();
+    console.log(getRandomCircleEdgeCoordinates(5));
     console.log("우연찾아보기");
   };
+
+  function getRandomCircleEdgeCoordinates(radius: number): {
+    x: number;
+    y: number;
+  } {
+    const angle = Math.random() * 2 * Math.PI;
+    const x = radius * Math.cos(angle);
+    const y = radius * Math.sin(angle);
+    return { x, y };
+  }
 
   return (
     <>
@@ -26,14 +38,17 @@ const Radar = () => {
           height: "100vh",
           alignItems: "center",
           justifyContent: "center",
+          position: "fixed",
+          touchAction: "none",
           "& .lf-player-container": {
             position: "absolute",
-            width: "100%",
+            width: "100vh",
           },
         }}
       >
-        <Player autoplay loop src={RadarLottie} />
-        <Typography variant="body1">🍅</Typography>
+        <Player autoplay loop speed={0.5} src={RadarLottie} />
+        <Typography variant="h5">🍅</Typography>
+        <WooyeonItem name={"asd"} pos={getRandomCircleEdgeCoordinates(200)} />
       </Box>
       <SearchItem1 open={open} searchItems={searchItems} />
       {/* <SearchItem2 open={open} searchItems={searchItems} /> */}

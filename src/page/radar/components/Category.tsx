@@ -1,5 +1,5 @@
 import React from "react";
-import { useCategory } from "./useCategory";
+import { useCategory } from "../../../hook/useCategory";
 import { Box } from "@mui/material";
 import { Global } from "@emotion/react";
 

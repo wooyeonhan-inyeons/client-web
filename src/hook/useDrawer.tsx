@@ -43,7 +43,7 @@ const Drawer = ({ open, toggleDrawer, children }: DrawerProps) => {
 };
 
 function useDrawer() {
-  const [open, setOpen] = useState<boolean>(false);
+  const [open, setOpen] = useState<boolean>(true);
 
   const toggleDrawer = () => {
     setOpen(!open);

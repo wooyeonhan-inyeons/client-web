@@ -1,6 +1,6 @@
 import React, { ReactElement, useState } from "react";
 import { Button, styled } from "@mui/material";
-import { colorSet } from "../../../common";
+import { colorSet } from "../common";
 
 interface CategoryItemProps {
   children: ReactElement | string;

@@ -16,7 +16,7 @@ function RangeBar() {
   }
 
   return (
-    <UnDragBox sx={{ px: 2 }}>
+    <UnDragBox sx={{ px: 2, touchAction: "auto" }}>
       <Global
         styles={{
           ".MuiSlider-root": {
@@ -31,7 +31,7 @@ function RangeBar() {
             opacity: 1,
           },
           ".MuiSlider-root .MuiSlider-markLabel": {
-            fontSize: "0.1rem !important",
+            fontSize: "10px !important",
           },
         }}
       />

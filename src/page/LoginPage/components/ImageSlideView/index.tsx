@@ -25,14 +25,8 @@ const ImageSlideView = ({
             {Math.abs(activeStep - index) <= 2 ? (
               <Box
                 component="img"
-                sx={{
-                  display: "block",
-                  overflow: "hidden",
-                  width: "100%",
-                  pt: "5rem",
-                  pb: "5rem",
-                }}
-                src={step.imgPath}
+                src={step.src}
+                sx={{ position: "relative", top: step.css, left: "14rem" }}
               />
             ) : null}
           </div>

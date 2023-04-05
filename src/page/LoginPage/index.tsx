@@ -1,31 +1,11 @@
 import * as React from "react";
-import { useTheme } from "@mui/material/styles";
-import Box from "@mui/material/Box";
 import MobileStepper from "@mui/material/MobileStepper";
-import SwipeableViews from "react-swipeable-views";
-import { Container, CssBaseline, Grid, Typography } from "@mui/material";
-import SaveBtn from "../Category/components/SaveBtn";
+import { CssBaseline, Grid } from "@mui/material";
 import { Global } from "@emotion/react";
 import "./style.css";
 import TextSlideView from "./components/TextSlideView";
-// import loginImg1 from "./img/loginImg1.png";
-// import loginImg2 from "./img/loginImg1.png";
-// import loginImg3 from "./img/loginImg1.png";
-
-const images = [
-  {
-    imgPath:
-      "https://images.unsplash.com/photo-1537944434965-cf4679d1a598?auto=format&fit=crop&w=400&h=250&q=60",
-  },
-  {
-    imgPath:
-      "https://images.unsplash.com/photo-1538032746644-0212e812a9e7?auto=format&fit=crop&w=400&h=250&q=60",
-  },
-  {
-    imgPath:
-      "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=400&h=250",
-  },
-];
+import ImageSlideView from "./components/ImageSlideView";
+import { images } from "./components/ImageArray";
 
 const introduction = [
   {
@@ -45,8 +25,7 @@ const introduction = [
   },
 ];
 
-function SwipeableTextMobileStepper() {
-  const theme = useTheme();
+function LoginPage() {
   const [activeStep, setActiveStep] = React.useState(0);
   const maxSteps = images.length;
 
@@ -64,32 +43,14 @@ function SwipeableTextMobileStepper() {
           },
         }}
       />
+
       {/* 이미지 영역(상단) */}
       <Grid item>
-        <SwipeableViews
-          axis={theme.direction === "rtl" ? "x-reverse" : "x"}
-          index={activeStep}
-          onChangeIndex={handleStepChange}
-          enableMouseEvents
-        >
-          {images.map((step, index) => (
-            <div key={index}>
-              {Math.abs(activeStep - index) <= 2 ? (
-                <Box
-                  component="img"
-                  sx={{
-                    display: "block",
-                    overflow: "hidden",
-                    width: "100%",
-                    pt: "5rem",
-                    pb: "5rem",
-                  }}
-                  src={step.imgPath}
-                />
-              ) : null}
-            </div>
-          ))}
-        </SwipeableViews>
+        <ImageSlideView
+          introduction={introduction}
+          activeStep={activeStep}
+          handleStepChange={handleStepChange}
+        ></ImageSlideView>
       </Grid>
 
       <Grid item sx={{ backgroundColor: "white", pt: "1rem" }}>
@@ -121,4 +82,4 @@ function SwipeableTextMobileStepper() {
   );
 }
 
-export default SwipeableTextMobileStepper;
+export default LoginPage;

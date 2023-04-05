@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 
-
 const theme = createTheme({
   palette: {
     primary: {
@@ -27,7 +26,7 @@ const CategoryBtn = (props: CategoryTextProps) => {
   const handleButtonClick = () => {
     setActiveColor(activeColor === "primary" ? "secondary" : "primary");
   };
-  
+
   return (
     <ThemeProvider theme={theme}>
       <Button

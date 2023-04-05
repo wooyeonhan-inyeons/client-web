@@ -1,8 +1,8 @@
 import { Grid, Typography, useTheme } from "@mui/material";
 import SwipeableViews from "react-swipeable-views";
 import React from "react";
-import SaveBtn from "../../Category/components/SaveBtn";
-import { IntroductionProps } from "../types";
+import SaveBtn from "../../../Category/components/SaveBtn";
+import { IntroductionProps } from "../../types";
 
 const TextSlideView = ({
   introduction,

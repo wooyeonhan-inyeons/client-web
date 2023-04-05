@@ -5,5 +5,6 @@ export interface IntroductionProps {
     subText: string;
   }[];
   activeStep: number;
-  handleStepChange: () => void;
+  // eslint-disable-next-line no-unused-vars
+  handleStepChange: (step: number) => void;
 }

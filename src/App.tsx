@@ -1,8 +1,12 @@
 import React from "react";
-import "./App.css";
+import LoginPage from "./page/LoginPage";
 
 function App() {
-  return <></>;
+  return (
+    <>
+      <LoginPage />
+    </>
+  );
 }
 
 export default App;

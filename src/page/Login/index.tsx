@@ -6,7 +6,8 @@ import SwipeableViews from "react-swipeable-views";
 import { Container, CssBaseline, Grid, Typography } from "@mui/material";
 import SaveBtn from "../Category/components/SaveBtn";
 import { Global } from "@emotion/react";
-
+import "./style.css";
+import TextSlideView from "./components/TextSlideView";
 // import loginImg1 from "./img/loginImg1.png";
 // import loginImg2 from "./img/loginImg1.png";
 // import loginImg3 from "./img/loginImg1.png";
@@ -28,17 +29,17 @@ const images = [
 
 const introduction = [
   {
-    mainTextLine1: "레이더를 통해",
+    mainTextLine1: "<span class='pointText'>레이더</span>를 통해",
     mainTextLine2: "내 주변의 우연을 찾기",
     subText: "원하는 카테고리와 범위 설정하기!",
   },
   {
     mainTextLine1: "발견한 우연을",
-    mainTextLine2: "확인하고 댓글 입력하기",
+    mainTextLine2: "확인하고 <span class='pointText'>댓글 입력</span>하기",
     subText: "소통과 재미를 동시에!",
   },
   {
-    mainTextLine1: "지도에서 발견한 우연을",
+    mainTextLine1: "<span class='pointText'>지도</span>에서 발견한 우연을",
     mainTextLine2: "볼 수 있어요",
     subText: "발견했던 우연을 확인 가능!",
   },
@@ -110,39 +111,11 @@ function SwipeableTextMobileStepper() {
         </Grid>
 
         {/* 텍스트 영역(하단) */}
-        <Grid
-          container
-          sx={{ p: "1rem" }}
-          alignItems="center"
-          justifyContent="center"
-        >
-          <Grid item sx={{ p: "1rem" }}>
-            <SwipeableViews
-              axis={theme.direction === "rtl" ? "x-reverse" : "x"}
-              index={activeStep}
-              onChangeIndex={handleStepChange}
-              enableMouseEvents
-            >
-              {introduction.map((text, index) => (
-                <Grid item sx={{ pt: "2rem", pb: "2rem" }} key={index}>
-                  <Typography variant="h5" sx={{ fontWeight: 600 }}>
-                    {text.mainTextLine1} <br />
-                    {text.mainTextLine2}
-                  </Typography>
-                  <Typography
-                    variant="subtitle1"
-                    sx={{ color: "#A2A2A2", pt: "0.7rem" }}
-                  >
-                    {text.subText}
-                  </Typography>
-                </Grid>
-              ))}
-            </SwipeableViews>
-          </Grid>
-          <Grid item sx={{ p: "2rem" }}>
-            <SaveBtn text="시작하기" />
-          </Grid>
-        </Grid>
+        <TextSlideView
+          introduction={introduction}
+          activeStep={activeStep}
+          handleStepChange={handleStepChange}
+        />
       </Grid>
     </Grid>
   );

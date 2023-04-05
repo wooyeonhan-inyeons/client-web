@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import { Box, Theme } from "@mui/material";
 import { grey } from "@mui/material/colors";
+import { colorSet } from "../../common";
 
 interface ThemeProps {
   theme?: Theme;
@@ -18,14 +19,15 @@ export const StyledBox = styled(Box)(({ theme }: ThemeProps) => ({
   backgroundColor: theme?.palette?.mode === "light" ? "#fff" : grey[800],
 }));
 
-export const Puller = styled(Box)(({ theme }: ThemeProps) => ({
-  width: 30,
-  height: 6,
-  backgroundColor: theme?.palette?.mode === "light" ? grey[300] : grey[900],
+export const Puller = styled(Box)(() => ({
+  width: 50,
+  height: 5,
+  backgroundColor: colorSet.light.primary,
+  opacity: 0.3,
   borderRadius: 3,
   position: "absolute",
-  top: 8,
-  left: "calc(50% - 15px)",
+  top: 10,
+  left: "calc(50% - 25px)",
 }));
 
 export const UnDragBox = styled(Box)`

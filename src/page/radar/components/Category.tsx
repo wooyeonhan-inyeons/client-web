@@ -33,7 +33,10 @@ function Category() {
         }}
       >
         {wooyeonCategory.map((item) => (
-          <CategoryItem key={item.id} action={() => console.log("Category")}>
+          <CategoryItem
+            key={item.id}
+            action={() => console.log(`Category, ${item.value}`)}
+          >
             {item.value}
           </CategoryItem>
         ))}

@@ -22,6 +22,7 @@ function App() {
           body: {
             userSelect: "none",
           },
+          touchAction: "none",
         }}
       />
       <Radar />

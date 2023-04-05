@@ -30,6 +30,9 @@ function RangeBar() {
             borderRadius: "50%",
             opacity: 1,
           },
+          ".MuiSlider-root .MuiSlider-markLabel": {
+            fontSize: "0.1rem !important",
+          },
         }}
       />
       <Slider

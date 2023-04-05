@@ -14,7 +14,7 @@ export const SearchItem1 = ({ open, searchItems }: SearchItemProps) => {
       startIcon={"🔍"}
       style={{
         height: open ? "3.5rem" : "3rem",
-        width: open ? "100%" : "auto",
+        width: open ? "100%" : "15rem",
         minWidth: "10rem",
         borderRadius: open ? "0" : "1.5rem",
         position: "absolute",

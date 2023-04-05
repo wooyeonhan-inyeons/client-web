@@ -1,5 +1,5 @@
 import React, { ReactElement, useState } from "react";
-import { SwipeableDrawer } from "@mui/material";
+import { Box, SwipeableDrawer } from "@mui/material";
 import { Global } from "@emotion/react";
 import DrawrHandle from "./components/DrawrHandle";
 
@@ -34,14 +34,16 @@ const Drawer = ({ open, toggleDrawer, children }: DrawerProps) => {
         }}
       >
         <DrawrHandle drawerBleeding={drawerBleeding} />
-        {children}
+        <Box sx={{ zIndex: 10 }}>
+          <Box sx={{ px: 2 }}>{children}</Box>
+        </Box>
       </SwipeableDrawer>
     </>
   );
 };
 
 function useDrawer() {
-  const [open, setOpen] = useState<boolean>(true);
+  const [open, setOpen] = useState<boolean>(false);
 
   const toggleDrawer = () => {
     setOpen(!open);

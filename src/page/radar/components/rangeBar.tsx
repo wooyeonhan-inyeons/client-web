@@ -16,7 +16,7 @@ function RangeBar() {
   }
 
   return (
-    <UnDragBox>
+    <UnDragBox sx={{ px: 2 }}>
       <Global
         styles={{
           ".MuiSlider-root": {

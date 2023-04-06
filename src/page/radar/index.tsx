@@ -48,7 +48,8 @@ const Radar = () => {
       >
         <Player autoplay loop speed={0.5} src={RadarLottie} />
         <Typography variant="h5">🍅</Typography>
-        <WooyeonItem name={"asd"} pos={getRandomCircleEdgeCoordinates(200)} />
+
+        <WooyeonItem name={"asd"} pos={getRandomCircleEdgeCoordinates(150)} />
       </Box>
       <SearchItem1 open={open} searchItems={searchItems} />
       {/* <SearchItem2 open={open} searchItems={searchItems} /> */}

@@ -8,3 +8,9 @@ export interface IntroductionProps {
   // eslint-disable-next-line no-unused-vars
   handleStepChange: (step: number) => void;
 }
+
+export interface SnsProps {
+  sns: boolean;
+  text: string;
+  imgSrc: string;
+}

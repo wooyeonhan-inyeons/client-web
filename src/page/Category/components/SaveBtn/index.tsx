@@ -35,12 +35,10 @@ const SaveBtn = (props: SaveTextProps) => {
           height: "3.5rem",
           borderRadius: 4,
           fontWeight: 600,
-        }}
-        onClick={handleButtonClick}
-        style={{
           boxShadow: "0 1px 3px rgba(0,0,0,0.12)",
           fontSize: 20,
         }}
+        onClick={handleButtonClick}
       >
         {props.text}
       </Button>

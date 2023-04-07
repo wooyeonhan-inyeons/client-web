@@ -3,22 +3,21 @@ import { useDrawer } from "../../hook/useDrawer";
 import { StyledBox } from "../../hook/components/common";
 import { Box, Typography } from "@mui/material";
 
+import WooyeonItem from "./components/WooyeonItem";
+import { SearchItem1 } from "./components/SearchButton";
 import Category from "./components/Category";
 import RangeBar from "./components/RangeBar";
-import { SearchItem1 } from "./components/SearchButton";
-import { Player } from "@lottiefiles/react-lottie-player";
-import RadarLottie from "../../assets/radarLottie.json";
-import WooyeonItem from "./components/WooyeonItem";
+import { radarPage } from "./style";
 
 const Radar = () => {
   const { open, Drawer, toggleDrawer } = useDrawer();
 
   const searchItems = () => {
     if (open) toggleDrawer();
-    console.log(getRandomCircleEdgeCoordinates(5));
     console.log("우연찾아보기");
   };
 
+  //130, 255, 370
   function getRandomCircleEdgeCoordinates(radius: number): {
     x: number;
     y: number;
@@ -31,25 +30,15 @@ const Radar = () => {
 
   return (
     <>
-      <Box
-        sx={{
-          display: "flex",
-          width: "100%",
-          height: "100vh",
-          alignItems: "center",
-          justifyContent: "center",
-          position: "fixed",
-          touchAction: "none",
-          "& .lf-player-container": {
-            position: "absolute",
-            width: "100vh",
-          },
-        }}
-      >
-        <Player autoplay loop speed={0.5} src={RadarLottie} />
+      <Box sx={radarPage}>
+        <div className="radar_circle">
+          <div>
+            <div></div>
+          </div>
+        </div>
         <Typography variant="h5">🍅</Typography>
 
-        <WooyeonItem name={"asd"} pos={getRandomCircleEdgeCoordinates(150)} />
+        <WooyeonItem name={"asd"} pos={getRandomCircleEdgeCoordinates(255)} />
       </Box>
       <SearchItem1 open={open} searchItems={searchItems} />
       {/* <SearchItem2 open={open} searchItems={searchItems} /> */}

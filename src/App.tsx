@@ -1,7 +1,7 @@
 import React from "react";
+import Router from "./Router";
 import { CssBaseline, createTheme } from "@mui/material";
 import { Global, ThemeProvider } from "@emotion/react";
-import Radar from "./page/radar";
 
 const defaultTheme = createTheme({
   palette: {
@@ -25,7 +25,7 @@ function App() {
           touchAction: "none",
         }}
       />
-      <Radar />
+      <Router />
     </ThemeProvider>
   );
 }

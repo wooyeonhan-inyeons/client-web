@@ -14,17 +14,9 @@ const theme = createTheme({
 });
 
 export interface SaveTextProps {
-  /**
-  보여줄 텍스트
-  */
   text: string;
 }
 
-/**
- * 보여줄 텍스트2
- *
- * - 컴포넌트
- */
 const SaveBtn = (props: SaveTextProps) => {
   // 클릭시 버튼 색상 변경
   const [activeColor, setActiveColor] = useState("primary");
@@ -39,7 +31,7 @@ const SaveBtn = (props: SaveTextProps) => {
         variant="contained"
         color={activeColor}
         sx={{
-          width: "21rem",
+          width: "100%",
           height: "3.5rem",
           borderRadius: 4,
           fontWeight: 600,

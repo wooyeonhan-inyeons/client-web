@@ -33,8 +33,8 @@ const CategoryBtn = (props: CategoryTextProps) => {
         variant="contained"
         color={activeColor}
         sx={{
-          width: "11rem",
-          height: "6rem",
+          width: "100%",
+          height: "100%",
           borderRadius: 4,
           fontWeight: 600,
         }}

@@ -15,9 +15,9 @@ const theme = createTheme({
   },
 });
 
-type CategoryTextProps = {
+export interface CategoryTextProps {
   text: string;
-};
+}
 
 const CategoryBtn = (props: CategoryTextProps) => {
   // 클릭시 버튼 색상 변경

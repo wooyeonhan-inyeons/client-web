@@ -37,7 +37,7 @@ const Radar = () => {
     setWooyeons((prevWooyeons) => [...prevWooyeons, newWooyeon]);
   }
 
-  //130, 255, 370
+  //14.5, 27, 39.5
   function getRandomCircleEdgeCoordinates(radius: number): WooPos {
     const angle = Math.random() * 2 * Math.PI;
     const x = radius * Math.cos(angle);
@@ -46,7 +46,7 @@ const Radar = () => {
   }
 
   function wooyeonPositioning() {
-    const pos = getRandomCircleEdgeCoordinates(255);
+    const pos = getRandomCircleEdgeCoordinates(39.5);
 
     if (wooyeons.length === 0) {
       addWooyeon(pos);
@@ -57,11 +57,15 @@ const Radar = () => {
             (pos.y - item.pos.y) * (pos.y - item.pos.y)
         );
 
-        return distance < 100;
+        console.log("다른거 찾는 중");
+        return distance < 10;
       });
 
       if (!isInRange) {
         addWooyeon(pos);
+      } else {
+        // 겹치면 다른 값으로 재귀 호출
+        wooyeonPositioning();
       }
     }
   }
@@ -75,9 +79,20 @@ const Radar = () => {
           </div>
         </div>
         <Typography variant="h5">🍅</Typography>
-        {wooyeons.map((item) => (
-          <WooyeonItem key={item.name} name={item.name} pos={item.pos} />
-        ))}
+        <Box
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: "100vw",
+            height: "100vw",
+          }}
+        >
+          {wooyeons.map((item) => (
+            <WooyeonItem key={item.name} name={item.name} pos={item.pos} />
+          ))}
+        </Box>
       </Box>
       <SearchItem1 open={open} searchItems={searchItems} />
       {/* <SearchItem2 open={open} searchItems={searchItems} /> */}

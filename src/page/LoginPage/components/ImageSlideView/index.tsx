@@ -7,7 +7,6 @@ import { images } from "../ImageArray";
 
 const ImageSlideView = ({
   // eslint-disable-next-line no-unused-vars
-  introduction,
   activeStep,
   handleStepChange,
 }: IntroductionProps) => {

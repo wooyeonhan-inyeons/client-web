@@ -14,10 +14,14 @@ const CategoryPage = () => {
         direction="column"
         justifyContent="center"
         alignItems="center"
+        maxWidth="414px"
+        margin="0 auto"
+        padding="0rem 2rem 0rem 2rem"
+        spacing={0}
       >
         {/* 인사 문구 구역 */}
-        <Grid item sx={{ pt: "6rem", pb: "3rem" }}>
-          <Typography variant="h5" sx={{ fontWeight: 600 }}>
+        <Grid item sx={{ pt: "6rem", pb: "3rem", width: "100%" }}>
+          <Typography variant="h5" sx={{ fontWeight: 600, margin: 0 }}>
             안녕하세요 👋 <br />
             반복되는 일상속에서 <br />
             어떤 우연을 발견하고 싶으신가요?
@@ -31,15 +35,16 @@ const CategoryPage = () => {
         </Grid>
 
         {/* 카테고리 버튼 구역 */}
-        <Grid item xs={6}>
+        <Grid item margin="0 auto">
           <Grid
             container
-            spacing={2}
+            spacing={0}
             justifyContent="center"
             sx={{
               pt: "calc(100% - 17rem)",
               pb: "calc(100% - 19rem)",
-              pl: "calc(100% - 24rem)",
+              width: "100%",
+              gap: "1rem",
             }}
           >
             {category.map((text: string, index: number) => (
@@ -47,10 +52,8 @@ const CategoryPage = () => {
                 item
                 key={index}
                 sx={{
-                  width: "calc(100% - 13rem)",
+                  width: "calc(50% - 0.5rem)",
                   height: "6rem",
-                  margin: 0,
-                  padding: 0,
                 }}
               >
                 <CategoryBtn text={text} />
@@ -63,7 +66,7 @@ const CategoryPage = () => {
         <Grid
           item
           sx={{
-            width: "93%",
+            width: "100%",
           }}
         >
           <SaveBtn text="선택 완료" />

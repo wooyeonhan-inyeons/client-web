@@ -3,7 +3,6 @@ import CategoryBtn from "./components/CategoryBtn";
 import SaveBtn from "./components/SaveBtn";
 import Grid from "@mui/material/Grid";
 import { Typography } from "@mui/material";
-import { Calculate } from "@mui/icons-material";
 
 const CategoryPage = () => {
   const category = ["일상", "모임", "광고", "정보", "이벤트", "선물"];

@@ -34,7 +34,7 @@ function LoginPage() {
   };
 
   return (
-    <Grid container alignItems="center" justifyContent="center">
+    <Grid container alignItems="center" justifyContent="center" height="100vh">
       <CssBaseline />
       <Global
         styles={{

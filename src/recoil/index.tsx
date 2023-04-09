@@ -1,9 +1,12 @@
-/* Author : ChoiYongWon */
+import { atom } from "recoil";
+import { recoilPersist } from "recoil-persist";
+import { UserState } from "../interface";
 
-import React from "react";
+const { persistAtom } = recoilPersist();
 
-const recoil = () => {
-  return <></>;
-};
-
-export default recoil;
+const userState = atom<UserState>({
+  key: "userState",
+  default: { role: "GUEST", id: 0, name: "" },
+  effects_UNSTABLE: [persistAtom],
+});
+export default userState;

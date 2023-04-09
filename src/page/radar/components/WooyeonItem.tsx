@@ -8,18 +8,48 @@ interface WooyeonItemProps {
 }
 
 const WooyeonItem = ({ name, pos }: WooyeonItemProps) => {
+  const rand = Math.random();
+  const iconSize = 40;
+
   return (
     <Box
       sx={{
+        width: "10vw",
+        height: "10vw",
+        maxHeight: iconSize,
+        maxWidth: iconSize,
+        borderRadius: "50%",
+        overflow: "hidden",
         position: "absolute",
-        bottom: `50%`,
-        left: `50%`,
-        transform: `translate(${-50 + pos.x}%, ${50 + pos.y}%)`,
-        // transform: "translate(-50%, 50%)",
+        // bottom: "50%",
+        // left: "50%",
+        left: `${50 + pos.x}%`,
+        bottom: `${50 + pos.y}%`,
+        // transform: `translate(${-50 + pos.x}%, ${50 + pos.y}%)`,
+        transform: "translate(-50%, 50%)",
+        animation: `1.5s ${rand}s ease-in-out infinite alternate wooFlow`,
+        boxShadow: "inset -5px -4px 7px 3px #000",
+
+        "&>svg": {
+          opacity: 0.85,
+          width: "10vw",
+          height: "10vw",
+          maxHeight: iconSize,
+          maxWidth: iconSize,
+        },
+
+        "@keyframes wooFlow": {
+          from: {
+            transform: "translate(-50%, 50%)",
+          },
+          to: {
+            transform: "translate(-50%, 60%)",
+          },
+        },
       }}
     >
       <Avatar
-        name={name}
+        name={name + Date.now().toString()}
         variant="beam"
         colors={["#FFAD08", "#EDD75A", "#73B06F", "#0C8F8F", "#405059"]}
       />

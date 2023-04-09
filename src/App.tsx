@@ -1,7 +1,7 @@
 import React from "react";
+import Router from "./Router";
 import { CssBaseline, createTheme } from "@mui/material";
 import { Global, ThemeProvider } from "@emotion/react";
-import Radar from "./page/radar";
 
 const defaultTheme = createTheme({
   palette: {
@@ -21,11 +21,12 @@ function App() {
         styles={{
           body: {
             userSelect: "none",
+            backgroundColor: "#f9f9f9",
           },
           touchAction: "none",
         }}
       />
-      <Radar />
+      <Router />
     </ThemeProvider>
   );
 }

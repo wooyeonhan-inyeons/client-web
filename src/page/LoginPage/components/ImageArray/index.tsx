@@ -2,6 +2,7 @@ import loginImg1 from "../../img/loginImg1.png";
 import loginImg2 from "../../img/loginImg2.png";
 import loginImg3 from "../../img/loginImg3.png";
 
+// 예시 이미지
 // export const images = [
 //   {
 //     imgPath:

@@ -15,9 +15,9 @@ const theme = createTheme({
   },
 });
 
-type CategoryTextProps = {
+export interface CategoryTextProps {
   text: string;
-};
+}
 
 const CategoryBtn = (props: CategoryTextProps) => {
   // 클릭시 버튼 색상 변경
@@ -33,8 +33,8 @@ const CategoryBtn = (props: CategoryTextProps) => {
         variant="contained"
         color={activeColor}
         sx={{
-          width: "11rem",
-          height: "6rem",
+          width: "100%",
+          height: "100%",
           borderRadius: 4,
           fontWeight: 600,
         }}

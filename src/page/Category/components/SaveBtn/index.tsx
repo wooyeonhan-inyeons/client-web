@@ -13,9 +13,9 @@ const theme = createTheme({
   },
 });
 
-type SaveTextProps = {
+export interface SaveTextProps {
   text: string;
-};
+}
 
 const SaveBtn = (props: SaveTextProps) => {
   // 클릭시 버튼 색상 변경
@@ -31,16 +31,14 @@ const SaveBtn = (props: SaveTextProps) => {
         variant="contained"
         color={activeColor}
         sx={{
-          width: "21rem",
+          width: "100%",
           height: "3.5rem",
           borderRadius: 4,
           fontWeight: 600,
-        }}
-        onClick={handleButtonClick}
-        style={{
           boxShadow: "0 1px 3px rgba(0,0,0,0.12)",
           fontSize: 20,
         }}
+        onClick={handleButtonClick}
       >
         {props.text}
       </Button>

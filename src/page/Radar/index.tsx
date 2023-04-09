@@ -2,12 +2,11 @@ import React, { useState } from "react";
 import { useDrawer } from "../../hook/useDrawer";
 import { StyledBox } from "../../hook/components/common";
 import { Box, Typography } from "@mui/material";
-
+import { radarPage } from "./style";
 import WooyeonItem from "./components/WooyeonItem";
 import { SearchItem1 } from "./components/SearchButton";
 import Category from "./components/Category";
-import RangeBar from "./components/RangeBar";
-import { radarPage } from "./style";
+import RangeBar from "./components/rangeBar";
 
 interface WooPos {
   x: number;

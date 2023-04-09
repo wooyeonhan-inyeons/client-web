@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Button } from "@mui/material";
+import { Box, Button, Container } from "@mui/material";
 import { Link, Outlet } from "react-router-dom";
 import userState from "../../recoil";
 import { useRecoilState, useResetRecoilState } from "recoil";
@@ -33,7 +33,10 @@ function Main() {
           {user.role === "GUEST" ? "로그인" : "로그아웃"}
         </Button>
       </Box>
-      <Outlet />
+
+      <Container maxWidth="xs" sx={{ backgroundColor: "#fff" }}>
+        <Outlet />
+      </Container>
     </>
   );
 }

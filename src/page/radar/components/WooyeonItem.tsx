@@ -10,7 +10,7 @@ interface WooyeonItemProps {
 const WooyeonItem = ({ name, pos }: WooyeonItemProps) => {
   const rand = Math.random();
   const iconSize = 40;
-  console.log(pos);
+
   return (
     <Box
       sx={{

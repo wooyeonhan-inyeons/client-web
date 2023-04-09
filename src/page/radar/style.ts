@@ -4,8 +4,10 @@ export const radarPage = {
   height: "100vh",
   alignItems: "center",
   justifyContent: "center",
-  position: "fixed",
+  position: "relative",
   touchAction: "auto",
+  overflow: "hidden",
+
   "& .lf-player-container": {
     position: "absolute",
     width: "100vh",
@@ -17,20 +19,18 @@ export const radarPage = {
     position: "absolute",
     alignItems: "center",
     justifyContent: "center",
+    aspectRatio: "1 / 1",
   },
   "& > .radar_circle": {
-    width: "80vw",
-    height: "80vw",
+    width: "90%",
     animation: "1s linear 1s infinite alternate a1",
   },
   "& .radar_circle > div": {
-    width: "55vw",
-    height: "55vw",
+    width: "70%",
     animation: "1s linear 2s infinite alternate a1",
   },
   "& .radar_circle > div > div": {
-    width: "30vw",
-    height: "30vw",
+    width: "50%",
     animation: "1s linear 3s infinite alternate a1",
   },
   "@keyframes a1": {

@@ -23,8 +23,9 @@ const Radar = () => {
   const [wooyeons, setWooyeons] = useState<Wooyeons[]>([]);
 
   const searchItems = () => {
-    if (open) toggleDrawer();
-    console.log("우연찾아보기");
+    // if (open)
+    toggleDrawer();
+    console.log("[임시] 우연찾아보기");
     wooyeonPositioning();
   };
 
@@ -37,8 +38,12 @@ const Radar = () => {
     setWooyeons((prevWooyeons) => [...prevWooyeons, newWooyeon]);
   }
 
-  //14.5, 27, 39.5
-  function getRandomCircleEdgeCoordinates(radius: number): WooPos {
+  //14.5, 31, 45
+  function getRandomCircleEdgeCoordinates(distance: number): WooPos {
+    let radius = 14.5;
+    if (distance <= 30) radius = 31;
+    else if (distance <= 10) radius = 14.5;
+
     const angle = Math.random() * 2 * Math.PI;
     const x = radius * Math.cos(angle);
     const y = radius * Math.sin(angle);
@@ -46,7 +51,7 @@ const Radar = () => {
   }
 
   function wooyeonPositioning() {
-    const pos = getRandomCircleEdgeCoordinates(39.5);
+    const pos = getRandomCircleEdgeCoordinates(500);
 
     if (wooyeons.length === 0) {
       addWooyeon(pos);
@@ -85,8 +90,8 @@ const Radar = () => {
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
-            width: "100vw",
-            height: "100vw",
+            width: "100%",
+            aspectRatio: "1 / 1",
           }}
         >
           {wooyeons.map((item) => (

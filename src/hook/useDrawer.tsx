@@ -18,7 +18,12 @@ const Drawer = ({ open, toggleDrawer, children }: DrawerProps) => {
         styles={{
           ".MuiDrawer-root > .MuiPaper-root": {
             height: `calc(50% - ${drawerBleeding}px)`,
+            width: "100%",
             overflow: "visible",
+          },
+          ".MuiDrawer-root .MuiPaper-root": {
+            maxWidth: "444px",
+            margin: "0 auto",
           },
         }}
       />
@@ -44,7 +49,6 @@ const Drawer = ({ open, toggleDrawer, children }: DrawerProps) => {
 
 function useDrawer() {
   const [open, setOpen] = useState<boolean>(false);
-
   const toggleDrawer = () => {
     setOpen(!open);
   };

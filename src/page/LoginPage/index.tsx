@@ -42,6 +42,7 @@ function LoginPage() {
       maxWidth="414px"
       margin="0 auto"
       height="100vh"
+      padding="0rem 2rem 1rem 2rem"
     >
       <CssBaseline />
       <Global
@@ -53,7 +54,7 @@ function LoginPage() {
       />
 
       {/* 이미지 영역(상단) */}
-      <Grid item>
+      <Grid item width="100%" sx={{ margin: "0 auto" }}>
         <ImageSlideView
           introduction={introduction}
           activeStep={activeStep}

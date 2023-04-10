@@ -20,7 +20,7 @@ const ImageSlideView = ({
         enableMouseEvents
       >
         {images.map((step, index) => (
-          <div key={index}>
+          <span key={index}>
             {Math.abs(activeStep - index) <= 2 ? (
               <Box
                 component="img"
@@ -29,13 +29,13 @@ const ImageSlideView = ({
                 overflow="hidden"
                 sx={{
                   position: "relative",
-                  //   top: step.css,
-                  //   left: "14rem",
-                  //   overflow: "hidden",
+                  top: step.css,
+                  left: "14rem",
+                  overflow: "hidden",
                 }}
               />
             ) : null}
-          </div>
+          </span>
         ))}
       </SwipeableViews>
     </>

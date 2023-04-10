@@ -21,7 +21,7 @@ const introduction = [
   {
     mainTextLine1: "<span class='pointText'>지도</span>에서 발견한 우연을",
     mainTextLine2: "볼 수 있어요",
-    subText: "발견했던 우연을 확인 가능!",
+    subText: "발견했던 우연을 확인 가능!!!!!!!",
   },
 ];
 

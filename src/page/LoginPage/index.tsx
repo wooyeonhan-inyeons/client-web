@@ -21,7 +21,7 @@ const introduction = [
   {
     mainTextLine1: "<span class='pointText'>지도</span>에서 발견한 우연을",
     mainTextLine2: "볼 수 있어요",
-    subText: "발견했던 우연을 확인 가능!!!!!!!",
+    subText: "발견했던 우연을 확인 가능!",
   },
 ];
 
@@ -34,7 +34,16 @@ function LoginPage() {
   };
 
   return (
-    <Grid container alignItems="center" justifyContent="center">
+    <Grid
+      container
+      // direction="column"
+      alignItems="center"
+      justifyContent="center"
+      maxWidth="414px"
+      margin="0 auto"
+      height="100vh"
+      padding="0rem 2rem 1rem 2rem"
+    >
       <CssBaseline />
       <Global
         styles={{
@@ -45,7 +54,7 @@ function LoginPage() {
       />
 
       {/* 이미지 영역(상단) */}
-      <Grid item>
+      <Grid item width="100%">
         <ImageSlideView
           introduction={introduction}
           activeStep={activeStep}
@@ -53,7 +62,7 @@ function LoginPage() {
         ></ImageSlideView>
       </Grid>
 
-      <Grid item sx={{ backgroundColor: "white", pt: "1rem" }}>
+      <Grid item sx={{ backgroundColor: "white", pt: "1rem", margin: 0 }}>
         {/* 스와이프 Dot (•••) */}
         <Grid item>
           <MobileStepper
@@ -72,11 +81,13 @@ function LoginPage() {
         </Grid>
 
         {/* 텍스트 영역(하단) */}
-        <TextSlideView
-          introduction={introduction}
-          activeStep={activeStep}
-          handleStepChange={handleStepChange}
-        />
+        <Grid item>
+          <TextSlideView
+            introduction={introduction}
+            activeStep={activeStep}
+            handleStepChange={handleStepChange}
+          />
+        </Grid>
       </Grid>
     </Grid>
   );

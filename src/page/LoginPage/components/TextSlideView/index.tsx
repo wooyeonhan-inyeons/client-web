@@ -18,11 +18,11 @@ const TextSlideView = ({
       {/* 하반부 전체을 감싸는 Grid */}
       <Grid
         container
-        sx={{ p: "0rem" }}
+        // sx={{ p: "0rem" }}
         alignItems="center"
         justifyContent="center"
       >
-        <Grid item sx={{ p: "0rem" }}>
+        <Grid item>
           {/* 슬라이드 뷰 */}
           <SwipeableViews
             axis={theme.direction === "rtl" ? "x-reverse" : "x"}
@@ -59,7 +59,7 @@ const TextSlideView = ({
         </Grid>
 
         {/* 시작하기 버튼 */}
-        <Grid item sx={{ p: "0rem" }}>
+        <Grid item>
           {/* <SaveBtn text="시작하기" /> */}
           <SnsButton
             sns={false}

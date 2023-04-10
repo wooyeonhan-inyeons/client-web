@@ -34,7 +34,15 @@ function LoginPage() {
   };
 
   return (
-    <Grid container alignItems="center" justifyContent="center" height="100vh">
+    <Grid
+      container
+      // direction="column"
+      alignItems="center"
+      justifyContent="center"
+      maxWidth="414px"
+      margin="0 auto"
+      height="100vh"
+    >
       <CssBaseline />
       <Global
         styles={{
@@ -53,7 +61,7 @@ function LoginPage() {
         ></ImageSlideView>
       </Grid>
 
-      <Grid item sx={{ backgroundColor: "white", pt: "1rem" }}>
+      <Grid item sx={{ backgroundColor: "white", pt: "1rem", margin: 0 }}>
         {/* 스와이프 Dot (•••) */}
         <Grid item>
           <MobileStepper
@@ -72,11 +80,13 @@ function LoginPage() {
         </Grid>
 
         {/* 텍스트 영역(하단) */}
-        <TextSlideView
-          introduction={introduction}
-          activeStep={activeStep}
-          handleStepChange={handleStepChange}
-        />
+        <Grid item>
+          <TextSlideView
+            introduction={introduction}
+            activeStep={activeStep}
+            handleStepChange={handleStepChange}
+          />
+        </Grid>
       </Grid>
     </Grid>
   );

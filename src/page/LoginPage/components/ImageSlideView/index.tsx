@@ -25,7 +25,14 @@ const ImageSlideView = ({
               <Box
                 component="img"
                 src={step.src}
-                sx={{ position: "relative", top: step.css, left: "14rem" }}
+                height="calc(100%)"
+                overflow="hidden"
+                sx={{
+                  position: "relative",
+                  //   top: step.css,
+                  //   left: "14rem",
+                  //   overflow: "hidden",
+                }}
               />
             ) : null}
           </div>

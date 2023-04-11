@@ -25,5 +25,9 @@
     ],
     "no-unused-vars": "error"
   },
-  "ignorePatterns": ["src/**/*.test.ts", "src/frontend/generated/*"]
+  "ignorePatterns": [
+    "src/**/*.test.ts",
+    "src/frontend/generated/*",
+    "vite.config.ts"
+  ]
 }

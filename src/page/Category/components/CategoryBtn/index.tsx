@@ -4,6 +4,16 @@ import React, { useState } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 
+type ColorType =
+  | "primary"
+  | "inherit"
+  | "secondary"
+  | "success"
+  | "error"
+  | "info"
+  | "warning"
+  | undefined;
+
 const theme = createTheme({
   palette: {
     primary: {
@@ -15,9 +25,9 @@ const theme = createTheme({
   },
 });
 
-type CategoryTextProps = {
+export interface CategoryTextProps {
   text: string;
-};
+}
 
 const CategoryBtn = (props: CategoryTextProps) => {
   // 클릭시 버튼 색상 변경
@@ -31,10 +41,12 @@ const CategoryBtn = (props: CategoryTextProps) => {
     <ThemeProvider theme={theme}>
       <Button
         variant="contained"
-        color={activeColor}
+        color={activeColor as ColorType}
+        // color="primary"
+        href="#contained-buttons"
         sx={{
-          width: "11rem",
-          height: "6rem",
+          width: "100%",
+          height: "100%",
           borderRadius: 4,
           fontWeight: 600,
         }}

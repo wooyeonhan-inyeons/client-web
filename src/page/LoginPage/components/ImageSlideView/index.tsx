@@ -7,7 +7,6 @@ import { images } from "../ImageArray";
 
 const ImageSlideView = ({
   // eslint-disable-next-line no-unused-vars
-  introduction,
   activeStep,
   handleStepChange,
 }: IntroductionProps) => {
@@ -19,14 +18,28 @@ const ImageSlideView = ({
         index={activeStep}
         onChangeIndex={handleStepChange}
         enableMouseEvents
+        style={{ width: "100%" }}
       >
         {images.map((step, index) => (
-          <div key={index}>
+          <div
+            key={index}
+            style={{
+              overflow: "hidden",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
             {Math.abs(activeStep - index) <= 2 ? (
               <Box
                 component="img"
                 src={step.src}
-                sx={{ position: "relative", top: step.css, left: "14rem" }}
+                height="calc( 100% )"
+                overflow="hidden"
+                sx={{
+                  position: "relative",
+                  top: step.css,
+                  // left: "2rem",
+                }}
               />
             ) : null}
           </div>

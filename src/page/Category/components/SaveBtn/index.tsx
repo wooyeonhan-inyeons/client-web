@@ -13,9 +13,18 @@ const theme = createTheme({
   },
 });
 
-type SaveTextProps = {
+type ColorType =
+  | "primary"
+  | "inherit"
+  | "secondary"
+  | "success"
+  | "error"
+  | "info"
+  | "warning"
+  | undefined;
+export interface SaveTextProps {
   text: string;
-};
+}
 
 const SaveBtn = (props: SaveTextProps) => {
   // 클릭시 버튼 색상 변경
@@ -29,9 +38,9 @@ const SaveBtn = (props: SaveTextProps) => {
     <ThemeProvider theme={theme}>
       <Button
         variant="contained"
-        color={activeColor}
+        color={activeColor as ColorType}
         sx={{
-          width: "21rem",
+          width: "100%",
           height: "3.5rem",
           borderRadius: 4,
           fontWeight: 600,

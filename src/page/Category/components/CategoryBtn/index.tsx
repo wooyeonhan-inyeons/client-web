@@ -4,6 +4,16 @@ import React, { useState } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 
+type ColorType =
+  | "primary"
+  | "inherit"
+  | "secondary"
+  | "success"
+  | "error"
+  | "info"
+  | "warning"
+  | undefined;
+
 const theme = createTheme({
   palette: {
     primary: {
@@ -31,7 +41,9 @@ const CategoryBtn = (props: CategoryTextProps) => {
     <ThemeProvider theme={theme}>
       <Button
         variant="contained"
-        color={activeColor}
+        color={activeColor as ColorType}
+        // color="primary"
+        href="#contained-buttons"
         sx={{
           width: "100%",
           height: "100%",

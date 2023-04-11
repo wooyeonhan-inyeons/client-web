@@ -17,6 +17,7 @@ const CategoryPage = () => {
         margin="0 auto"
         padding="0rem 2rem 0rem 2rem"
         spacing={0}
+        height="100vh"
       >
         {/* 인사 문구 구역 */}
         <Grid item sx={{ pt: "6rem", pb: "3rem", width: "100%" }}>

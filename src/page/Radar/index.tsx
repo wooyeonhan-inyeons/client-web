@@ -7,6 +7,7 @@ import WooyeonItem from "./components/WooyeonItem";
 import { SearchItem1 } from "./components/SearchButton";
 import Category from "./components/Category";
 import RangeBar from "./components/rangeBar";
+import { Global } from "@emotion/react";
 
 interface WooPos {
   x: number;
@@ -76,6 +77,7 @@ const Radar = () => {
 
   return (
     <>
+      <Global styles={{ ".globalContainer .MuiBox-root": { padding: 0 } }} />
       <Box sx={radarPage}>
         <div className="radar_circle">
           <div>

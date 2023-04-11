@@ -21,7 +21,14 @@ const ImageSlideView = ({
         style={{ width: "100%" }}
       >
         {images.map((step, index) => (
-          <div key={index} style={{ overflow: "hidden" }}>
+          <div
+            key={index}
+            style={{
+              overflow: "hidden",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
             {Math.abs(activeStep - index) <= 2 ? (
               <Box
                 component="img"

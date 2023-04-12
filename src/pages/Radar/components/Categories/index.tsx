@@ -1,5 +1,5 @@
 import React from "react";
-import { useCategory } from "../../../hook/useCategory";
+import { useCategory } from "../../../../hook/useCategory";
 import { Box } from "@mui/material";
 import { Global } from "@emotion/react";
 
@@ -12,7 +12,7 @@ const wooyeonCategory = [
   { id: "gift", value: "선물" },
 ];
 
-function Category() {
+function Categories() {
   const { CategoryItem } = useCategory();
   return (
     <>
@@ -45,4 +45,4 @@ function Category() {
   );
 }
 
-export default Category;
+export default Categories;

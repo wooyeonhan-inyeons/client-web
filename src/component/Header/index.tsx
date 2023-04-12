@@ -11,7 +11,8 @@ function Header() {
 
   //임시 로그인 로그아웃
   const toggleUser = () => {
-    if (user.role === "GUEST") setUser({ role: "USER", id: 1, name: "lee" });
+    if (user.role === "GUEST")
+      setUser({ role: "USER", id: 1, name: "lee", first: true });
     else resetUser();
   };
 
@@ -21,7 +22,7 @@ function Header() {
         styles={{
           ".header_root": {
             position: "fixed",
-            zIndex: 9999,
+            zIndex: 1,
           },
           ".header_root > header": {
             backgroundColor: "#fff",

@@ -16,12 +16,12 @@ const Drawer = ({ open, toggleDrawer, children }: DrawerProps) => {
     <>
       <Global
         styles={{
-          ".MuiDrawer-root > .MuiPaper-root": {
+          ".use_drawer > .MuiPaper-root": {
             height: `calc(50% - ${drawerBleeding}px)`,
             width: "100%",
             overflow: "visible",
           },
-          ".MuiDrawer-root .MuiPaper-root": {
+          ".use_drawer .MuiPaper-root": {
             maxWidth: "444px",
             margin: "0 auto",
           },
@@ -37,6 +37,7 @@ const Drawer = ({ open, toggleDrawer, children }: DrawerProps) => {
         ModalProps={{
           keepMounted: true,
         }}
+        className="use_drawer"
       >
         <DrawrHandle drawerBleeding={drawerBleeding} />
         <Box sx={{ zIndex: 10 }}>

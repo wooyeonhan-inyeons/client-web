@@ -1,5 +1,7 @@
 import React from "react";
 import { Button } from "@mui/material";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
 interface SearchItemProps {
   open: boolean;
@@ -11,7 +13,7 @@ export const SearchItem1 = ({ open, searchItems }: SearchItemProps) => {
     <Button
       variant="contained"
       onClick={searchItems}
-      startIcon={"🔍"}
+      startIcon={<FontAwesomeIcon icon={faMagnifyingGlass} />}
       style={{
         height: open ? "3.5rem" : "3rem",
         width: open ? "100%" : "15rem",

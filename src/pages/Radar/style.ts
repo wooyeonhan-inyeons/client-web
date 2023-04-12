@@ -1,4 +1,4 @@
-export const radarPage = {
+const radarPageStyle = {
   display: "flex",
   width: "100%",
   height: "100vh",
@@ -38,3 +38,5 @@ export const radarPage = {
     to: { borderColor: "#6d6d6d" },
   },
 };
+
+export default radarPageStyle;

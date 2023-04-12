@@ -1,8 +1,12 @@
 import React from "react";
 import Button from "@mui/material/Button";
 import { SnsProps } from "../../types";
+import userState from "../../../../recoil";
+import { useRecoilState } from "recoil";
 
 const SnsButton = ({ sns, text, imgSrc }: SnsProps) => {
+  const [, setUser] = useRecoilState(userState);
+
   return (
     <>
       <Button
@@ -21,6 +25,11 @@ const SnsButton = ({ sns, text, imgSrc }: SnsProps) => {
           fontWeight: 500,
           margin: "0.6rem",
         }}
+        onClick={() =>
+          setUser((prev) => {
+            return { ...prev, first: true };
+          })
+        }
       >
         <img src={imgSrc} />
         {text}

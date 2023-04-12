@@ -17,17 +17,17 @@ const Router = () => {
   const router = createBrowserRouter([
     {
       path: "auth/",
-      element: <Main />,
+      element: <Main isHeader={false} />,
       children: [
         {
           index: true,
           element: <LoginPage />,
-          loader: () => user.first && redirect("/cate"),
+          loader: () => user.first && redirect("/auth/cate"),
         },
         {
           path: "cate",
           element: <CategoryPage />,
-          loader: () => !user.first && redirect("/"),
+          // loader: () => !user.first && redirect("/"),
         },
       ],
       loader: () => user.role !== "GUEST" && redirect("/"),
@@ -35,7 +35,7 @@ const Router = () => {
     },
     {
       path: "/",
-      element: <Main />,
+      element: <Main isHeader />,
       children: [
         { index: true, element: <h1>home</h1> },
         { path: "search", element: <Radar /> },

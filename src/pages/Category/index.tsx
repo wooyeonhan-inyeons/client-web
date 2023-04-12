@@ -3,9 +3,13 @@ import CategoryBtn from "./components/CategoryBtn";
 import SaveBtn from "./components/SaveBtn";
 import Grid from "@mui/material/Grid";
 import { Typography } from "@mui/material";
+import userState from "../../recoil";
+import { useRecoilState } from "recoil";
 
 const CategoryPage = () => {
   const category = ["일상", "모임", "광고", "정보", "이벤트", "선물"];
+  const [, setUser] = useRecoilState(userState);
+
   return (
     <>
       <Grid
@@ -69,7 +73,14 @@ const CategoryPage = () => {
             width: "100%",
           }}
         >
-          <SaveBtn text="선택 완료" />
+          <SaveBtn
+            text="선택 완료"
+            onClick={() =>
+              setUser((prev) => {
+                return { ...prev, role: "USER" };
+              })
+            }
+          />
         </Grid>
       </Grid>
     </>

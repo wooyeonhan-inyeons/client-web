@@ -43,7 +43,7 @@ const SaveBtn = (props: SaveTextProps) => {
         onClick={props.onClick}
         sx={{
           width: "100%",
-          height: "3.5rem",
+          height: "3rem",
           borderRadius: 4,
           fontWeight: 600,
           boxShadow: "0 1px 3px rgba(0,0,0,0.12)",

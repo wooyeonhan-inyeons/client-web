@@ -16,9 +16,10 @@ const CategoryPage = () => {
       <Grid
         container
         direction="column"
-        justifyContent="center"
+        justifyContent="space-around"
         alignItems="center"
         maxWidth="414px"
+        minHeight="667px"
         margin="0 auto"
         padding="0rem 2rem 0rem 2rem"
         spacing={0}
@@ -26,7 +27,18 @@ const CategoryPage = () => {
       >
         <Global styles={{ ".globalContainer .MuiBox-root": { padding: 0 } }} />
         {/* 인사 문구 구역 */}
-        <Grid item sx={{ pt: "6rem", pb: "3rem", width: "100%" }}>
+        <Grid
+          item
+          sx={{
+            pt: "6rem",
+            pb: "3rem",
+            width: "100%",
+            "@media (max-width: 375px)": {
+              pt: "4.5rem",
+              pb: "2rem",
+            },
+          }}
+        >
           <Typography variant="h5" sx={{ fontWeight: 600, margin: 0 }}>
             안녕하세요 👋 <br />
             반복되는 일상속에서 <br />
@@ -59,7 +71,10 @@ const CategoryPage = () => {
                 key={index}
                 sx={{
                   width: "calc(50% - 0.5rem)",
-                  height: "6rem",
+                  height: "5rem",
+                  "@media (max-width: 375px)": {
+                    height: "4.5rem",
+                  },
                 }}
               >
                 <CategoryBtn text={text} />
@@ -73,6 +88,7 @@ const CategoryPage = () => {
           item
           sx={{
             width: "100%",
+            padding: "1.5rem 0rem 1.5rem 0rem",
           }}
         >
           <SaveBtn

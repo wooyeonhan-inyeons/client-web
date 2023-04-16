@@ -50,6 +50,7 @@ function LoginPage() {
           body: {
             backgroundColor: "#EFF0F2",
           },
+          ".globalContainer .MuiBox-root": { padding: 0 },
         }}
       />
 

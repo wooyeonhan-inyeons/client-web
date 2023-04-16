@@ -3,6 +3,7 @@ import CategoryBtn from "./components/CategoryBtn";
 import SaveBtn from "./components/SaveBtn";
 import Grid from "@mui/material/Grid";
 import { Typography } from "@mui/material";
+import { Global } from "@emotion/react";
 
 const CategoryPage = () => {
   const category = ["일상", "모임", "광고", "정보", "이벤트", "선물"];
@@ -19,6 +20,7 @@ const CategoryPage = () => {
         spacing={0}
         height="100vh"
       >
+        <Global styles={{ ".globalContainer .MuiBox-root": { padding: 0 } }} />
         {/* 인사 문구 구역 */}
         <Grid item sx={{ pt: "6rem", pb: "3rem", width: "100%" }}>
           <Typography variant="h5" sx={{ fontWeight: 600, margin: 0 }}>

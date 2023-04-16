@@ -21,8 +21,6 @@ const WooyeonItem = ({ name, pos }: WooyeonItemProps) => {
         borderRadius: "50%",
         overflow: "hidden",
         position: "absolute",
-        // bottom: "50%",
-        // left: "50%",
         left: `${50 + pos.x}%`,
         bottom: `${50 + pos.y}%`,
         // transform: `translate(${-50 + pos.x}%, ${50 + pos.y}%)`,

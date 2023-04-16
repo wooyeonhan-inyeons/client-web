@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import { useDrawer } from "../../hook/useDrawer";
 import { StyledBox } from "../../hook/components/common";
 import { Box, Typography } from "@mui/material";
-import { radarPage } from "./style";
+
 import WooyeonItem from "./components/WooyeonItem";
 import { SearchItem1 } from "./components/SearchButton";
-import Category from "./components/Category";
-import RangeBar from "./components/rangeBar";
+import Categories from "./components/Categories";
+import RangeBar from "./components/RangeBar";
 import { Global } from "@emotion/react";
+import radarPageStyle from "./style";
 
 interface WooPos {
   x: number;
@@ -78,7 +79,7 @@ const Radar = () => {
   return (
     <>
       <Global styles={{ ".globalContainer .MuiBox-root": { padding: 0 } }} />
-      <Box sx={radarPage}>
+      <Box sx={radarPageStyle}>
         <div className="radar_circle">
           <div>
             <div />
@@ -105,7 +106,7 @@ const Radar = () => {
       <Drawer open={open} toggleDrawer={toggleDrawer}>
         <StyledBox>
           <Typography variant="h6">카테고리 선택</Typography>
-          <Category />
+          <Categories />
           <Typography variant="h6">범위 설정</Typography>
           <RangeBar />
         </StyledBox>

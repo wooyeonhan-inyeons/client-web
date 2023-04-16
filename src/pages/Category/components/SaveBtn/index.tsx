@@ -24,21 +24,23 @@ type ColorType =
   | undefined;
 export interface SaveTextProps {
   text: string;
+  onClick: () => void;
 }
 
 const SaveBtn = (props: SaveTextProps) => {
   // 클릭시 버튼 색상 변경
-  const [activeColor, setActiveColor] = useState("primary");
+  const [activeColor] = useState("primary");
 
-  const handleButtonClick = () => {
-    setActiveColor(activeColor === "primary" ? "secondary" : "primary");
-  };
+  // const handleButtonClick = () => {
+  //   setActiveColor(activeColor === "primary" ? "secondary" : "primary");
+  // };
 
   return (
     <ThemeProvider theme={theme}>
       <Button
         variant="contained"
         color={activeColor as ColorType}
+        onClick={props.onClick}
         sx={{
           width: "100%",
           height: "3.5rem",
@@ -47,7 +49,7 @@ const SaveBtn = (props: SaveTextProps) => {
           boxShadow: "0 1px 3px rgba(0,0,0,0.12)",
           fontSize: 20,
         }}
-        onClick={handleButtonClick}
+        // onClick={handleButtonClick}
       >
         {props.text}
       </Button>

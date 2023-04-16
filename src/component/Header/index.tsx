@@ -1,49 +1,79 @@
-import React from "react";
-import { AppBar, Box, Button, Toolbar } from "@mui/material";
-import { Link } from "react-router-dom";
-import { useRecoilState, useResetRecoilState } from "recoil";
+import React, { useState } from "react";
+import { AppBar, Box, Button, SwipeableDrawer, Toolbar } from "@mui/material";
+
+import { useResetRecoilState } from "recoil";
 import userState from "../../recoil";
 import { Global } from "@emotion/react";
+import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import { faUser } from "@fortawesome/free-regular-svg-icons";
+import {
+  faArrowRightFromBracket,
+  faClover,
+  faHome,
+} from "@fortawesome/free-solid-svg-icons";
+import { headerStyle } from "./style";
 
 function Header() {
-  const [user, setUser] = useRecoilState(userState);
   const resetUser = useResetRecoilState(userState);
-
-  //임시 로그인 로그아웃
-  const toggleUser = () => {
-    if (user.role === "GUEST") setUser({ role: "USER", id: 1, name: "lee" });
-    else resetUser();
-  };
+  const [sidebar, SetSidebar] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   return (
     <>
       <Global
         styles={{
-          ".header_root": {
-            position: "fixed",
-            zIndex: 9999,
+          ".header_side_nav": {
+            zIndex: "1500 !important",
           },
-          ".header_root > header": {
-            backgroundColor: "#fff",
-            boxShadow: "none",
+          ".header_side_nav .MuiPaper-root": {
+            width: "33%",
+            minWidth: "200px",
+          },
+          ".header_side_nav .MuiButton-text": {
+            padding: "1rem 2rem",
+            justifyContent: "start",
             color: "#222",
           },
         }}
       />
-      <Box sx={{ flexGrow: 1 }} className="header_root">
+      <Box className="header_root" sx={headerStyle}>
         <AppBar position="static">
-          <Toolbar sx={{ gap: "1rem", fontSize: "0.5rem" }}>
-            임시네비
-            <Link to="/">HOME</Link>
-            <Link to="/search">레이더</Link>
-            <Link to="/auth/">로그인</Link>
-            <Link to="/auth/cate">카테고리</Link>
-            <Button onClick={toggleUser}>
-              {user.role === "GUEST" ? "로그인" : "로그아웃"}
+          <Toolbar>
+            <Button onClick={() => SetSidebar(true)}>
+              <FontAwesomeIcon icon={faUser} size="xl" />
             </Button>
           </Toolbar>
         </AppBar>
       </Box>
+
+      <SwipeableDrawer
+        anchor="right"
+        open={sidebar}
+        onClose={() => SetSidebar(false)}
+        onOpen={() => SetSidebar(true)}
+        className="header_side_nav"
+      >
+        <Button
+          startIcon={<FontAwesomeIcon icon={faHome} />}
+          onClick={() => navigate("/")}
+        >
+          홈
+        </Button>
+        <Button
+          startIcon={<FontAwesomeIcon icon={faClover} />}
+          onClick={() => navigate("/search")}
+        >
+          레이더
+        </Button>
+        <Button
+          startIcon={<FontAwesomeIcon icon={faArrowRightFromBracket} />}
+          onClick={resetUser}
+        >
+          로그아웃
+        </Button>
+      </SwipeableDrawer>
     </>
   );
 }

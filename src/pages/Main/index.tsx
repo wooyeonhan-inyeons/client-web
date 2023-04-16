@@ -4,8 +4,11 @@ import { Outlet } from "react-router-dom";
 import Header from "../../component/Header";
 
 import { Box, Container } from "@mui/material";
+interface HeaderProp {
+  isHeader: boolean;
+}
 
-function Main() {
+function Main({ isHeader }: HeaderProp) {
   return (
     <>
       <Container
@@ -13,7 +16,7 @@ function Main() {
         maxWidth="xs"
         sx={{ backgroundColor: "#fff" }}
       >
-        <Header />
+        {isHeader && <Header />}
         <Box
           sx={{
             paddingTop: 7,

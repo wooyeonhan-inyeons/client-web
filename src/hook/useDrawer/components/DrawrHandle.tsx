@@ -1,9 +1,7 @@
 import React from "react";
-import { Puller, StyledBox } from "./common";
+import { Puller, StyledBox } from "../../../common";
+import { DrawHeaderProps } from "../inderface";
 
-interface DrawHeaderProps {
-  drawerBleeding: number;
-}
 const DrawrHandle = ({ drawerBleeding }: DrawHeaderProps) => {
   return (
     <StyledBox

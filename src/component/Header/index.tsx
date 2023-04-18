@@ -20,7 +20,7 @@ interface menuProp {
 }
 interface HeaderProp {
   mainFn: () => void;
-  menu: { key: string; value: string }[];
+  menu: menuProp[];
   isForward?: boolean;
   icon: IconDefinition;
 }
@@ -32,7 +32,12 @@ interface HeaderProp {
  * @param icon `string` awesomefont꺼
  */
 
-function Header({ menu, mainFn, icon, isForward = true }: HeaderProp) {
+function Header({
+  menu = [{ key: "", value: "" }],
+  mainFn,
+  icon,
+  isForward = true,
+}: HeaderProp) {
   const [idx, setIdx] = useState<number>(0);
   const navigate = useNavigate();
   const location = useLocation();

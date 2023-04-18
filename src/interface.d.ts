@@ -4,3 +4,11 @@ export interface UserState {
   name: string;
   first: boolean;
 }
+
+export interface menuProps {
+  key: string;
+  value: string;
+}
+export interface ThemeProps {
+  theme?: Theme;
+}

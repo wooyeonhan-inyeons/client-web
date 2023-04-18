@@ -1,12 +1,7 @@
-import React, { ReactElement, useState } from "react";
+import React, { useState } from "react";
 import { Button, styled } from "@mui/material";
-import { colorSet } from "../common";
-
-interface CategoryItemProps {
-  children: ReactElement | string;
-  action: () => void;
-  toggle?: boolean;
-}
+import { colorSet } from "../../common";
+import { CategoryItemProps } from "./interface";
 
 const CategoryButton = styled(Button)(({ checked }: { checked: boolean }) => ({
   borderRadius: "1.25rem",

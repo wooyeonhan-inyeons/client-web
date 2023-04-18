@@ -1,7 +1,8 @@
 import React from "react";
-import { useCategory } from "../../../../hook/useCategory";
+
 import { Box } from "@mui/material";
 import { Global } from "@emotion/react";
+import { useCategory } from "../../../../hook/useCategory";
 
 const wooyeonCategory = [
   { id: "life", value: "일상" },

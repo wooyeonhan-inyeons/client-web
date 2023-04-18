@@ -1,29 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { Outlet } from "react-router-dom";
 import Header from "../Header";
 import { Box, Container } from "@mui/material";
 import { useResetRecoilState } from "recoil";
 import userState from "../../recoil";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
-interface HeaderProp {
-  isHeader: boolean;
-}
+import { menuProps } from "../../interface";
+import { HeaderProp } from "./interface";
 
-interface menuProps {
-  key: string;
-  value: string;
-}
-
-const menu: menuProps[] = [
-  { key: "우연 찾기", value: "/search" },
-  { key: "과거 우연", value: "/previous" },
-];
-
-function Main({ isHeader }: HeaderProp) {
+function MainWrapper({ isHeader }: HeaderProp) {
+  const [menus, setMenus] = useState<menuProps[]>([{ key: "", value: "" }]);
   const resetUser = useResetRecoilState(userState);
   return (
     <>
-      {isHeader && <Header menu={menu} mainFn={resetUser} icon={faUser} />}
+      {isHeader && <Header menu={menus} mainFn={resetUser} icon={faUser} />}
       <Container
         className="globalContainer"
         maxWidth="xs"
@@ -35,11 +25,11 @@ function Main({ isHeader }: HeaderProp) {
             height: "100vh",
           }}
         >
-          <Outlet />
+          <Outlet context={isHeader && setMenus} />
         </Box>
       </Container>
     </>
   );
 }
 
-export default Main;
+export default MainWrapper;

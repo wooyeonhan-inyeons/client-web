@@ -6,8 +6,8 @@ import {
 } from "react-router-dom";
 import userState from "./recoil";
 import { useRecoilState } from "recoil";
-import Radar from "./pages/Radar";
-import Main from "./component/Main";
+import Main from "./pages/Main";
+import MainWrapper from "./component/MainWrapper";
 import LoginPage from "./pages/LoginPage";
 import CategoryPage from "./pages/Category";
 
@@ -17,7 +17,7 @@ const Router = () => {
   const router = createBrowserRouter([
     {
       path: "auth/",
-      element: <Main isHeader={false} />,
+      element: <MainWrapper isHeader={false} />,
       children: [
         {
           index: true,
@@ -33,10 +33,10 @@ const Router = () => {
     },
     {
       path: "/",
-      element: <Main isHeader />,
+      element: <MainWrapper isHeader />,
       children: [
         // { index: true, element: <h1>home</h1> },
-        { index: true, element: <Radar /> },
+        { index: true, element: <Main /> },
       ],
       loader: () => user.role === "GUEST" && redirect("/auth"),
     },

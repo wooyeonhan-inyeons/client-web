@@ -1,11 +1,15 @@
 export const headerStyle = {
   "&": {
-    width: "100%",
+    width: "calc(100% - 2rem)",
     maxWidth: "444px",
-    position: "fixed",
-    zIndex: 1,
+    margin: "0 auto",
+    position: "absolute",
     left: "50%",
-    transform: "translateX(-50%)",
+    transform: "translate(-50%)",
+    zIndex: 1,
+  },
+  "@media (max-width: 475px)": {
+    width: "100%",
   },
   "& .MuiButton-text": {
     color: "#222",
@@ -15,9 +19,10 @@ export const headerStyle = {
     boxShadow: "none",
   },
   "& .MuiToolbar-root": {
-    padding: 0,
-    justifyContent: "flex-end",
+    justifyContent: "space-between",
+    itemAlign: "flex-end",
   },
+  "& .MuiToolbar-root button": { borderRadius: 0 },
 };
 
 export default headerStyle;

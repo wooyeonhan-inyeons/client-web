@@ -1,80 +1,78 @@
-import React, { useState } from "react";
-import { AppBar, Box, Button, SwipeableDrawer, Toolbar } from "@mui/material";
-
-import { useResetRecoilState } from "recoil";
-import userState from "../../recoil";
-import { Global } from "@emotion/react";
-import { useNavigate } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-import { faUser } from "@fortawesome/free-regular-svg-icons";
+import React, { useEffect, useState } from "react";
 import {
-  faArrowRightFromBracket,
-  faClover,
-  faHome,
-} from "@fortawesome/free-solid-svg-icons";
-import { headerStyle } from "./style";
+  AppBar,
+  Box,
+  Button,
+  IconButton,
+  Toolbar,
+  Typography,
+} from "@mui/material";
 
-function Header() {
-  const resetUser = useResetRecoilState(userState);
-  const [sidebar, SetSidebar] = useState<boolean>(false);
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { IconDefinition } from "@fortawesome/free-regular-svg-icons";
+import { headerStyle } from "./style";
+import { useLocation, useNavigate } from "react-router-dom";
+import { colorSet } from "../../common";
+
+interface menuProp {
+  key: string;
+  value: string;
+}
+interface HeaderProp {
+  mainFn: () => void;
+  menu: { key: string; value: string }[];
+  isForward?: boolean;
+  icon: IconDefinition;
+}
+/**
+ *
+ * @param menu `{key:string, value:string}`을 가진 배열. 4개 이하 권장
+ * @param mainFn `오른쪽에 들어갈 메인 함수
+ * @param isForward default=`true` 메뉴 이동의 이전 단계를 허용한다.
+ * @param icon `string` awesomefont꺼
+ */
+
+function Header({ menu, mainFn, icon, isForward = true }: HeaderProp) {
+  const [idx, setIdx] = useState<number>(0);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleNavigate = (prop: menuProp) => {
+    const handleIdx = menu.findIndex((item) => item.value === prop.value);
+    console.log(idx >= handleIdx);
+    if (idx >= handleIdx && isForward) navigate(prop.value);
+  };
+
+  useEffect(() => {
+    setIdx(menu.findIndex((item) => item.value === location.pathname));
+  }, [location]);
 
   return (
-    <>
-      <Global
-        styles={{
-          ".header_side_nav": {
-            zIndex: "1500 !important",
-          },
-          ".header_side_nav .MuiPaper-root": {
-            width: "33%",
-            minWidth: "200px",
-          },
-          ".header_side_nav .MuiButton-text": {
-            padding: "1rem 2rem",
-            justifyContent: "start",
-            color: "#222",
-          },
-        }}
-      />
-      <Box className="header_root" sx={headerStyle}>
-        <AppBar position="static">
-          <Toolbar>
-            <Button onClick={() => SetSidebar(true)}>
-              <FontAwesomeIcon icon={faUser} size="xl" />
-            </Button>
-          </Toolbar>
-        </AppBar>
-      </Box>
-
-      <SwipeableDrawer
-        anchor="right"
-        open={sidebar}
-        onClose={() => SetSidebar(false)}
-        onOpen={() => SetSidebar(true)}
-        className="header_side_nav"
-      >
-        <Button
-          startIcon={<FontAwesomeIcon icon={faHome} />}
-          onClick={() => navigate("/")}
-        >
-          홈
-        </Button>
-        <Button
-          startIcon={<FontAwesomeIcon icon={faClover} />}
-          onClick={() => navigate("/search")}
-        >
-          레이더
-        </Button>
-        <Button
-          startIcon={<FontAwesomeIcon icon={faArrowRightFromBracket} />}
-          onClick={resetUser}
-        >
-          로그아웃
-        </Button>
-      </SwipeableDrawer>
-    </>
+    <Box className="header_root" sx={headerStyle}>
+      <AppBar position="static">
+        <Toolbar>
+          <Box>
+            {menu.map((item) => (
+              <Button
+                key={item.key}
+                onClick={() => handleNavigate(item)}
+                sx={{
+                  borderBottom:
+                    item.value === location.pathname
+                      ? `2px solid ${colorSet.light.primary}`
+                      : "none",
+                }}
+              >
+                <Typography variant="subtitle2">{item.key}</Typography>
+              </Button>
+            ))}
+          </Box>
+          <IconButton onClick={mainFn} className="mainFn">
+            <FontAwesomeIcon icon={icon} size="xs" />
+          </IconButton>
+        </Toolbar>
+      </AppBar>
+    </Box>
   );
 }
 

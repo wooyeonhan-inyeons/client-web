@@ -65,7 +65,7 @@ function Header({
                   borderBottom:
                     item.value === location.pathname
                       ? `2px solid ${colorSet.light.primary}`
-                      : "none",
+                      : "2px solid #0000",
                 }}
               >
                 <Typography variant="subtitle2">{item.key}</Typography>

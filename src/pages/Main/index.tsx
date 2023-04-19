@@ -7,13 +7,14 @@ import Categories from "./components/Categories";
 import RangeBar from "./components/RangeBar";
 import { Global } from "@emotion/react";
 import radarPageStyle from "./style";
-import { WooPos, Wooyeons } from "./interface";
+import { ContextInterface, WooPos, Wooyeons } from "./interface";
 import { StyledBox } from "../../common";
+import { useOutletContext } from "react-router-dom";
 
 const Main = () => {
   const { open, Drawer, toggleDrawer } = useDrawer();
   const [wooyeons, setWooyeons] = useState<Wooyeons[]>([]);
-  // const { setMenus } = useOutletContext<ContextInterface>();
+  const { setMenus } = useOutletContext<ContextInterface>();
 
   const searchItems = () => {
     // if (open)
@@ -69,10 +70,10 @@ const Main = () => {
   }
 
   function init() {
-    // setMenus([
-    //   { key: "우연 찾기", value: "/search" },
-    //   { key: "과거 우연", value: "/previous" },
-    // ]);
+    setMenus([
+      { key: "우연 찾기", value: "/" },
+      { key: "과거 우연", value: "/previous" },
+    ]);
   }
 
   useEffect(() => {

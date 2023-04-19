@@ -11,6 +11,7 @@ import { HeaderProp } from "./interface";
 function MainWrapper({ isHeader }: HeaderProp) {
   const [menus, setMenus] = useState<menuProps[]>([{ key: "", value: "" }]);
   const resetUser = useResetRecoilState(userState);
+
   return (
     <>
       {isHeader && <Header menu={menus} mainFn={resetUser} icon={faUser} />}
@@ -25,7 +26,7 @@ function MainWrapper({ isHeader }: HeaderProp) {
             height: "100vh",
           }}
         >
-          <Outlet context={isHeader && setMenus} />
+          <Outlet context={{ menus, setMenus }} />
         </Box>
       </Container>
     </>

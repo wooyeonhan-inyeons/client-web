@@ -9,8 +9,9 @@ export interface Wooyeons {
   name: string;
 }
 
+type SetMenuType = React.Dispatch<React.SetStateAction<menuProps[]>>;
 export interface ContextInterface {
-  setMenus: React.Dispatch<React.SetStateAction<menuProps[]>>;
+  setMenus: SetMenuType;
 }
 
 export interface WooyeonItemProps {

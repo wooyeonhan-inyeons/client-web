@@ -10,6 +10,7 @@ import Radar from "./pages/Radar";
 import Main from "./pages/Main";
 import LoginPage from "./pages/LoginPage";
 import CategoryPage from "./pages/Category";
+import AddPost from "./pages/AddPost";
 
 const Router = () => {
   const [user] = useRecoilState(userState);
@@ -22,7 +23,7 @@ const Router = () => {
         {
           index: true,
           element: <LoginPage />,
-          loader: () => user.first && redirect("/auth/cate"),
+          loader: () => Boolean(user.first) && redirect("/auth/cate"),
         },
         {
           path: "cate",
@@ -31,7 +32,7 @@ const Router = () => {
         },
       ],
       loader: () => user.role !== "GUEST" && redirect("/"),
-      // role에 first를 설정하여 초기 유저는 category에 진입 가능하게 하는거 어떰
+      // role에 first를 설정하여 초기 유저는 category에 진입 가능하게 하는거 어떰 -> 좋음 (by 원주)
     },
     {
       path: "/",
@@ -39,6 +40,7 @@ const Router = () => {
       children: [
         { index: true, element: <h1>home</h1> },
         { path: "search", element: <Radar /> },
+        { path: "add-post", element: <AddPost /> },
       ],
       loader: () => user.role === "GUEST" && redirect("/auth"),
     },

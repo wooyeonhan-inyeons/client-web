@@ -9,21 +9,11 @@ import {
 } from "@mui/material";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { IconDefinition } from "@fortawesome/free-regular-svg-icons";
 import { headerStyle } from "./style";
 import { useLocation, useNavigate } from "react-router-dom";
 import { colorSet } from "../../common";
+import { HeaderProp, menuProp } from "./intreface";
 
-interface menuProp {
-  key: string;
-  value: string;
-}
-interface HeaderProp {
-  mainFn: () => void;
-  menu: menuProp[];
-  isForward?: boolean;
-  icon: IconDefinition;
-}
 /**
  *
  * @param menu `{key:string, value:string}`을 가진 배열. 4개 이하 권장

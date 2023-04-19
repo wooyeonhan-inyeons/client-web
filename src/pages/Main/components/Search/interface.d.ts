@@ -1,4 +1,4 @@
-import { HeaderOptinterface } from "../../interface";
+import { HeaderOptinterface } from "../../../../interface";
 
 export interface WooPos {
   x: number;

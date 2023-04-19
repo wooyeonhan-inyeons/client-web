@@ -6,12 +6,13 @@ import {
 } from "react-router-dom";
 import userState from "./recoil";
 import { useRecoilState } from "recoil";
-import Main from "./pages/Main";
+
 import MainWrapper from "./component/MainWrapper";
 import LoginPage from "./pages/LoginPage";
 import CategoryPage from "./pages/Category";
-import Past from "./pages/Past/inedx";
-import Wln from "./pages/wls";
+import Main from "./pages/Main";
+import Search from "./pages/Main/components/Search";
+import Past from "./pages/Main/components/Past/inedx";
 
 const Router = () => {
   const [user] = useRecoilState(userState);
@@ -39,9 +40,9 @@ const Router = () => {
       children: [
         {
           path: "/",
-          element: <Wln />,
+          element: <Main />,
           children: [
-            { index: true, element: <Main /> },
+            { index: true, element: <Search /> },
             { path: "previous", element: <Past /> },
           ],
         },

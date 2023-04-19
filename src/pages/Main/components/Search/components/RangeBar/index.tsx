@@ -1,6 +1,6 @@
 import React from "react";
 import { Slider } from "@mui/material";
-import { UnDragBox, colorSet } from "../../../../common";
+import { UnDragBox, colorSet } from "../../../../../../common";
 import Global from "@mui/styled-engine-sc/GlobalStyles/GlobalStyles";
 
 const range = [

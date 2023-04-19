@@ -2,19 +2,20 @@ import React, { useState } from "react";
 import { Outlet } from "react-router-dom";
 import Header from "../Header";
 import { Box, Container } from "@mui/material";
-import { useResetRecoilState } from "recoil";
-import userState from "../../recoil";
-import { faUser } from "@fortawesome/free-regular-svg-icons";
-import { menuProps } from "../../interface";
+import { HeaderOptinterface } from "../../interface";
 import { HeaderProp } from "./interface";
 
+const initOption: HeaderOptinterface = {
+  menus: [{ key: "", value: "" }],
+  isForward: true,
+};
+
 function MainWrapper({ isHeader }: HeaderProp) {
-  const [menus, setMenus] = useState<menuProps[]>([{ key: "", value: "" }]);
-  const resetUser = useResetRecoilState(userState);
+  const [headOpt, setHeadOpt] = useState<HeaderOptinterface>(initOption);
 
   return (
     <>
-      {isHeader && <Header menu={menus} mainFn={resetUser} icon={faUser} />}
+      {isHeader && <Header headProp={headOpt} />}
       <Container
         className="globalContainer"
         maxWidth="xs"
@@ -26,7 +27,7 @@ function MainWrapper({ isHeader }: HeaderProp) {
             height: "100vh",
           }}
         >
-          <Outlet context={{ menus, setMenus }} />
+          <Outlet context={{ headOpt, setHeadOpt }} />
         </Box>
       </Container>
     </>

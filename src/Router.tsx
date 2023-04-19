@@ -10,6 +10,8 @@ import Main from "./pages/Main";
 import MainWrapper from "./component/MainWrapper";
 import LoginPage from "./pages/LoginPage";
 import CategoryPage from "./pages/Category";
+import Past from "./pages/Past/inedx";
+import Wln from "./pages/wls";
 
 const Router = () => {
   const [user] = useRecoilState(userState);
@@ -35,8 +37,14 @@ const Router = () => {
       path: "/",
       element: <MainWrapper isHeader />,
       children: [
-        // { index: true, element: <h1>home</h1> },
-        { index: true, element: <Main /> },
+        {
+          path: "/",
+          element: <Wln />,
+          children: [
+            { index: true, element: <Main /> },
+            { path: "previous", element: <Past /> },
+          ],
+        },
       ],
       loader: () => user.role === "GUEST" && redirect("/auth"),
     },

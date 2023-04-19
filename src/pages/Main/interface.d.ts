@@ -1,4 +1,4 @@
-import { menuProps } from "../../interface";
+import { HeaderOptinterface } from "../../interface";
 
 export interface WooPos {
   x: number;
@@ -9,9 +9,9 @@ export interface Wooyeons {
   name: string;
 }
 
-type SetMenuType = React.Dispatch<React.SetStateAction<menuProps[]>>;
+type SetHeadType = React.Dispatch<React.SetStateAction<HeaderOptinterface>>;
 export interface ContextInterface {
-  setMenus: SetMenuType;
+  setHeadOpt: SetHeadType;
 }
 
 export interface WooyeonItemProps {

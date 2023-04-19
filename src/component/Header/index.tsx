@@ -22,24 +22,28 @@ import { HeaderProp, menuProp } from "./intreface";
  * @param icon `string` awesomefont꺼
  */
 
-function Header({
-  menu = [{ key: "", value: "" }],
-  mainFn,
-  icon,
-  isForward = true,
-}: HeaderProp) {
+function Header({ headProp }: HeaderProp) {
   const [idx, setIdx] = useState<number>(0);
   const navigate = useNavigate();
   const location = useLocation();
 
   const handleNavigate = (prop: menuProp) => {
-    const handleIdx = menu.findIndex((item) => item.value === prop.value);
-    console.log(idx >= handleIdx);
-    if (idx >= handleIdx && isForward) navigate(prop.value);
+    const handleIdx = headProp.menus.findIndex(
+      (item) => item.value === prop.value
+    );
+
+    if (!headProp.isForward) {
+      if (idx < handleIdx) return;
+    }
+    //동일한 주소로의 이동 방지
+    if (location.pathname != prop.value) navigate(prop.value);
   };
 
   useEffect(() => {
-    setIdx(menu.findIndex((item) => item.value === location.pathname));
+    //menus에 현재의 위치가 포함되어 있을테니 index 찾아 설정
+    setIdx(
+      headProp.menus.findIndex((item) => item.value === location.pathname)
+    );
   }, [location]);
 
   return (
@@ -47,7 +51,7 @@ function Header({
       <AppBar position="static">
         <Toolbar>
           <Box>
-            {menu.map((item) => (
+            {headProp.menus.map((item) => (
               <Button
                 key={item.key}
                 onClick={() => handleNavigate(item)}
@@ -62,8 +66,10 @@ function Header({
               </Button>
             ))}
           </Box>
-          <IconButton onClick={mainFn} className="mainFn">
-            <FontAwesomeIcon icon={icon} size="xs" />
+          <IconButton onClick={headProp.mainFn} className="mainFn">
+            {headProp.icon && (
+              <FontAwesomeIcon icon={headProp.icon} size="xs" />
+            )}
           </IconButton>
         </Toolbar>
       </AppBar>

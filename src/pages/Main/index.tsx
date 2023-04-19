@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDrawer } from "../../hook/useDrawer";
 import { Box, Typography } from "@mui/material";
 import WooyeonItem from "./components/WooyeonItem";
@@ -7,14 +7,12 @@ import Categories from "./components/Categories";
 import RangeBar from "./components/RangeBar";
 import { Global } from "@emotion/react";
 import radarPageStyle from "./style";
-import { ContextInterface, WooPos, Wooyeons } from "./interface";
+import { WooPos, Wooyeons } from "./interface";
 import { StyledBox } from "../../common";
-import { useOutletContext } from "react-router-dom";
 
 const Main = () => {
   const { open, Drawer, toggleDrawer } = useDrawer();
   const [wooyeons, setWooyeons] = useState<Wooyeons[]>([]);
-  const { setMenus } = useOutletContext<ContextInterface>();
 
   const searchItems = () => {
     // if (open)
@@ -68,15 +66,6 @@ const Main = () => {
       }
     }
   }
-
-  useEffect(() => {
-    //네비게이션 리스트 업데이트
-    setMenus([
-      { key: "우연 찾기", value: "/" },
-      { key: "과거 우연", value: "/previous" },
-    ]);
-  }, []);
-
   return (
     <>
       <Global styles={{ ".globalContainer .MuiBox-root": { padding: 0 } }} />

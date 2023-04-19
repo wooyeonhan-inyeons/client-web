@@ -5,27 +5,31 @@ import Typography from "@mui/material/Typography";
 import SwipeableViews from "react-swipeable-views";
 import React from "react";
 import SaveBtn from "../../component/SaveBtn";
+import MapAddPost from "./components/MapAddPost";
+import CategoryAddPost from "./components/CategoryAddPost";
+import PhotoAddPost from "./components/PhotoAddPost";
+import ContentAddPost from "./components/ContentAddPost";
 
 const addPostPage = [
   {
     id: 1,
     title: "map",
-    content: <div> This is map page</div>,
+    content: <MapAddPost />,
   },
   {
     id: 2,
     title: "category",
-    content: <div> This is category page</div>,
+    content: <CategoryAddPost />,
   },
   {
     id: 3,
     title: "photo",
-    content: <div> This is photo page</div>,
+    content: <PhotoAddPost />,
   },
   {
     id: 4,
     title: "content",
-    content: <div> This is content page</div>,
+    content: <ContentAddPost />,
   },
 ];
 

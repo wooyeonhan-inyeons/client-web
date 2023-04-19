@@ -3,7 +3,9 @@ import {
   AppBar,
   Box,
   Button,
+  createTheme,
   IconButton,
+  ThemeProvider,
   Toolbar,
   Typography,
 } from "@mui/material";
@@ -21,6 +23,17 @@ import { HeaderProp, menuProp } from "./intreface";
  * @param isForward default=`true` 메뉴 이동의 이전 단계를 허용한다.
  * @param icon `string` awesomefont꺼
  */
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#D9D9D9",
+    },
+    secondary: {
+      main: "#00A651",
+    },
+  },
+});
 
 function Header({ headProp }: HeaderProp) {
   const [idx, setIdx] = useState<number>(0);
@@ -47,33 +60,42 @@ function Header({ headProp }: HeaderProp) {
   }, [location]);
 
   return (
-    <Box className="header_root" sx={headerStyle}>
-      <AppBar position="static">
-        <Toolbar>
-          <Box>
-            {headProp.menus.map((item) => (
-              <Button
-                key={item.key}
-                onClick={() => handleNavigate(item)}
-                sx={{
-                  borderBottom:
-                    item.value === location.pathname
-                      ? `2px solid ${colorSet.light.primary}`
-                      : "2px solid #0000",
-                }}
-              >
-                <Typography variant="subtitle2">{item.key}</Typography>
-              </Button>
-            ))}
-          </Box>
-          <IconButton onClick={headProp.mainFn} className="mainFn">
-            {headProp.icon && (
-              <FontAwesomeIcon icon={headProp.icon} size="xs" />
-            )}
-          </IconButton>
-        </Toolbar>
-      </AppBar>
-    </Box>
+    <ThemeProvider theme={theme}>
+      <Box className="header_root" sx={headerStyle}>
+        <AppBar position="static">
+          <Toolbar>
+            <Box>
+              {headProp.menus.map((item) => (
+                <Button
+                  key={item.key}
+                  onClick={() => handleNavigate(item)}
+                  sx={{
+                    borderBottom:
+                      item.value === location.pathname
+                        ? `2px solid ${colorSet.light.primary}`
+                        : "2px solid #0000",
+                  }}
+                >
+                  <Typography
+                    variant="subtitle2"
+                    color={
+                      item.value === location.pathname ? "secondary" : "primary"
+                    }
+                  >
+                    {item.key}
+                  </Typography>
+                </Button>
+              ))}
+            </Box>
+            <IconButton onClick={headProp.mainFn} className="mainFn">
+              {headProp.icon && (
+                <FontAwesomeIcon icon={headProp.icon} size="xs" />
+              )}
+            </IconButton>
+          </Toolbar>
+        </AppBar>
+      </Box>
+    </ThemeProvider>
   );
 }
 

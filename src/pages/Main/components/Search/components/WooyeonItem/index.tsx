@@ -1,11 +1,7 @@
 import React from "react";
 import Avatar from "boring-avatars";
 import { Box } from "@mui/material";
-
-interface WooyeonItemProps {
-  name: string;
-  pos: { x: number; y: number };
-}
+import { WooyeonItemProps } from "../../interface";
 
 const WooyeonItem = ({ name, pos }: WooyeonItemProps) => {
   const rand = Math.random();

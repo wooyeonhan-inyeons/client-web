@@ -2,11 +2,7 @@ import React from "react";
 import { Button } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-
-interface SearchItemProps {
-  open: boolean;
-  searchItems: () => void;
-}
+import { SearchItemProps } from "../../interface";
 
 export const SearchItem1 = ({ open, searchItems }: SearchItemProps) => {
   return (

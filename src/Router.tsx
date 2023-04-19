@@ -6,11 +6,14 @@ import {
 } from "react-router-dom";
 import userState from "./recoil";
 import { useRecoilState } from "recoil";
-import Radar from "./pages/Radar";
-import Main from "./pages/Main";
+
+import MainWrapper from "./component/MainWrapper";
 import LoginPage from "./pages/LoginPage";
 import CategoryPage from "./pages/Category";
-import AddPost from "./pages/AddPost";
+import Main from "./pages/Main";
+import Search from "./pages/Main/components/Search";
+import Past from "./pages/Main/components/Past/inedx";
+// import AddPost from "./pages/AddPost";
 
 const Router = () => {
   const [user] = useRecoilState(userState);
@@ -18,7 +21,7 @@ const Router = () => {
   const router = createBrowserRouter([
     {
       path: "auth/",
-      element: <Main isHeader={false} />,
+      element: <MainWrapper isHeader={false} />,
       children: [
         {
           index: true,
@@ -28,19 +31,22 @@ const Router = () => {
         {
           path: "cate",
           element: <CategoryPage />,
-          // loader: () => !user.first && redirect("/"),
         },
       ],
       loader: () => user.role !== "GUEST" && redirect("/"),
-      // role에 first를 설정하여 초기 유저는 category에 진입 가능하게 하는거 어떰 -> 좋음 (by 원주)
     },
     {
       path: "/",
-      element: <Main isHeader />,
+      element: <MainWrapper isHeader />,
       children: [
-        { index: true, element: <h1>home</h1> },
-        { path: "search", element: <Radar /> },
-        { path: "add-post", element: <AddPost /> },
+        {
+          path: "/",
+          element: <Main />,
+          children: [
+            { index: true, element: <Search /> },
+            { path: "previous", element: <Past /> },
+          ],
+        },
       ],
       loader: () => user.role === "GUEST" && redirect("/auth"),
     },

@@ -1,34 +1,30 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { ContextInterface } from "./components/Search/interface";
+import { Outlet, useOutletContext } from "react-router-dom";
+import { HeaderOptinterface } from "../../interface";
+import { useResetRecoilState } from "recoil";
+import userState from "../../recoil";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
 
-import { Outlet } from "react-router-dom";
-import Header from "../../component/Header";
+function Main() {
+  const { setHeadOpt } = useOutletContext<ContextInterface>();
+  const resetUser = useResetRecoilState(userState);
 
-import { Box, Container } from "@mui/material";
-interface HeaderProp {
-  isHeader: boolean;
-}
+  const headerOption: HeaderOptinterface = {
+    menus: [
+      { key: "우연 찾기", value: "/" },
+      { key: "과거 우연", value: "/previous" },
+    ],
+    isForward: true,
+    icon: faUser,
+    mainFn: resetUser,
+  };
+  useEffect(() => {
+    //네비게이션 리스트 업데이트
+    setHeadOpt(headerOption);
+  }, []);
 
-function Main({ isHeader }: HeaderProp) {
-  return (
-    <>
-      <Container
-        className="globalContainer"
-        maxWidth="xs"
-        sx={{ backgroundColor: "#fff" }}
-      >
-        {isHeader && <Header />}
-        <Box
-          sx={{
-            paddingTop: 7,
-            // height: "calc(100vh - 56px)",
-            height: "100vh",
-          }}
-        >
-          <Outlet />
-        </Box>
-      </Container>
-    </>
-  );
+  return <Outlet context={{ setHeadOpt }} />;
 }
 
 export default Main;

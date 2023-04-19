@@ -1,25 +1,16 @@
 import React, { useState } from "react";
-import { useDrawer } from "../../hook/useDrawer";
-import { StyledBox } from "../../hook/components/common";
+import { useDrawer } from "../../../../hook/useDrawer";
 import { Box, Typography } from "@mui/material";
-
 import WooyeonItem from "./components/WooyeonItem";
 import { SearchItem1 } from "./components/SearchButton";
 import Categories from "./components/Categories";
 import RangeBar from "./components/RangeBar";
 import { Global } from "@emotion/react";
 import radarPageStyle from "./style";
+import { WooPos, Wooyeons } from "./interface";
+import { StyledBox } from "../../../../common";
 
-interface WooPos {
-  x: number;
-  y: number;
-}
-interface Wooyeons {
-  pos: WooPos;
-  name: string;
-}
-
-const Radar = () => {
+const Search = () => {
   const { open, Drawer, toggleDrawer } = useDrawer();
   const [wooyeons, setWooyeons] = useState<Wooyeons[]>([]);
 
@@ -75,7 +66,6 @@ const Radar = () => {
       }
     }
   }
-
   return (
     <>
       <Global styles={{ ".globalContainer .MuiBox-root": { padding: 0 } }} />
@@ -115,4 +105,4 @@ const Radar = () => {
   );
 };
 
-export default Radar;
+export default Search;

@@ -21,7 +21,7 @@ import { HeaderProp, menuProp } from "./intreface";
  * @param menu `{key:string, value:string}`을 가진 배열. 4개 이하 권장
  * @param mainFn `오른쪽에 들어갈 메인 함수
  * @param isForward default=`true` 메뉴 이동의 이전 단계를 허용한다.
- * @param icon `string` awesomefont꺼
+ * @param icon `FontAwesomeIconProps` awesomefont꺼
  */
 
 const theme = createTheme({
@@ -53,7 +53,7 @@ function Header({ headProp }: HeaderProp) {
   };
 
   useEffect(() => {
-    //menus에 현재의 위치가 포함되어 있을테니 index 찾아 설정
+    //menus[]에 현재의 위치가 포함되어 있을테니 index 찾아 설정
     setIdx(
       headProp.menus.findIndex((item) => item.value === location.pathname)
     );

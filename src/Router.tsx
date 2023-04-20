@@ -52,15 +52,8 @@ const Router = () => {
             { path: "previous", element: <Past /> },
           ],
         },
-      ],
-      loader: () => user.role === "GUEST" && redirect("/auth"),
-    },
-    {
-      path: "add-post/",
-      element: <MainWrapper isHeader />,
-      children: [
         {
-          path: "",
+          path: "add-post/",
           element: <HeaderAddPost />,
           children: [
             { index: true, element: <MapAddPost /> },

@@ -6,7 +6,7 @@ import { HeaderOptinterface } from "../../interface";
 import { HeaderProp } from "./interface";
 
 const initOption: HeaderOptinterface = {
-  menus: [{ key: "", value: "", selected: false }],
+  menus: [{ key: "", value: "" }],
   isForward: true,
 };
 

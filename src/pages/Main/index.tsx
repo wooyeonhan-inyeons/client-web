@@ -4,7 +4,7 @@ import { Outlet, useOutletContext } from "react-router-dom";
 import { HeaderOptinterface } from "../../interface";
 import { useResetRecoilState } from "recoil";
 import userState from "../../recoil";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { faUser } from "@fortawesome/free-regular-svg-icons";
 
 function Main() {
   const { setHeadOpt } = useOutletContext<ContextInterface>();

@@ -11,6 +11,11 @@ export interface menuProps {
   key: string;
   value: string;
 }
+
+export interface arrMenuProps {
+  menus: menuProps[];
+}
+
 export interface ThemeProps {
   theme?: Theme;
 }

@@ -37,13 +37,6 @@ const radarPageStyle = {
     from: { borderColor: "#dadada" },
     to: { borderColor: "#6d6d6d" },
   },
-  "& .MuiFab-root": {
-    position: "fixed",
-    bottom: "50px",
-    right: "1.5rem",
-    backgroundColor: "#ED6729",
-    color: "#fff",
-  },
 };
 
 export default radarPageStyle;

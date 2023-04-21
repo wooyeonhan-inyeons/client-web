@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDrawer } from "../../../../hook/useDrawer";
-import { Box, Fab, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import WooyeonItem from "./components/WooyeonItem";
 import { SearchItem1 } from "./components/SearchButton";
 import Categories from "./components/Categories";
@@ -9,14 +9,10 @@ import { Global } from "@emotion/react";
 import radarPageStyle from "./style";
 import { WooPos, Wooyeons } from "./interface";
 import { StyledBox } from "../../../../common";
-import { useNavigate } from "react-router-dom";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Search = () => {
   const { open, Drawer, toggleDrawer } = useDrawer();
   const [wooyeons, setWooyeons] = useState<Wooyeons[]>([]);
-  const navegate = useNavigate();
 
   const searchItems = () => {
     // if (open)
@@ -94,9 +90,6 @@ const Search = () => {
             <WooyeonItem key={item.name} name={item.name} pos={item.pos} />
           ))}
         </Box>
-        <Fab size="medium" onClick={() => navegate("/add-post")}>
-          <FontAwesomeIcon icon={faPlus} />
-        </Fab>
       </Box>
       <SearchItem1 open={open} searchItems={searchItems} />
       {/* <SearchItem2 open={open} searchItems={searchItems} /> */}

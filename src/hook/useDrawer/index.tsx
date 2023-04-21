@@ -2,8 +2,9 @@ import React, { ReactElement, useState } from "react";
 import { Box, SwipeableDrawer } from "@mui/material";
 import { Global } from "@emotion/react";
 import DrawrHandle from "./components/DrawrHandle";
+import { useDrawerContentStyle } from "./style";
 
-const drawerBleeding = 32;
+const drawerBleeding = 52;
 
 interface DrawerProps {
   children: ReactElement;
@@ -40,7 +41,7 @@ const Drawer = ({ open, toggleDrawer, children }: DrawerProps) => {
         className="use_drawer"
       >
         <DrawrHandle drawerBleeding={drawerBleeding} />
-        <Box sx={{ zIndex: 10 }}>
+        <Box sx={useDrawerContentStyle}>
           <Box sx={{ px: 2 }}>{children}</Box>
         </Box>
       </SwipeableDrawer>
@@ -60,4 +61,5 @@ function useDrawer() {
     Drawer,
   };
 }
+
 export { useDrawer };

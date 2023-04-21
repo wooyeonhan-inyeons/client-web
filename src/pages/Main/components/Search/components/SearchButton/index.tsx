@@ -12,7 +12,7 @@ export const SearchItem1 = ({ open, searchItems }: SearchItemProps) => {
       sx={{
         transform: "translate(-50%, 0)",
         left: "50%",
-        bottom: open ? 0 : 50,
+        bottom: open ? 0 : 76,
         zIndex: open ? 2000 : "initial",
         transition: "all 0.5s cubic-bezier(0, 0.85, 0.58, 1) 0s",
         position: "fixed",

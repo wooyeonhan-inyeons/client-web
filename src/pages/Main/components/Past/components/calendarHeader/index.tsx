@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import React from "react";
-import { handleHeaderStyle } from "../../style";
+import { handleHeaderStyle } from "./style";
 
 const week = ["S", "M", "T", "W", "T", "F", "S"];
 

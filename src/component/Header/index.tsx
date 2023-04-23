@@ -69,6 +69,7 @@ function Header({ headProp }: HeaderProp) {
                 <Button
                   key={item.key}
                   onClick={() => handleNavigate(item)}
+                  className="header_nav_btn"
                   sx={{
                     borderBottom:
                       item.value === location.pathname

@@ -18,7 +18,6 @@ import MapAddPost from "./pages/AddPost/components/MapAddPost";
 import CategoryAddPost from "./pages/AddPost/components/CategoryAddPost";
 import PhotoAddPost from "./pages/AddPost/components/PhotoAddPost";
 import ContentAddPost from "./pages/AddPost/components/ContentAddPost";
-// import AddPost from "./pages/AddPost";
 
 const Router = () => {
   const [user] = useRecoilState(userState);

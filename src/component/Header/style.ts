@@ -22,7 +22,10 @@ export const headerStyle = {
     justifyContent: "space-between",
     itemAlign: "flex-end",
   },
-  "& .MuiToolbar-root button": { borderRadius: 0 },
+  "& .MuiToolbar-root .header_nav_btn": { borderRadius: 0 },
+  "& .MuiToolbar-root .mainFn svg": {
+    aspectRatio: 1,
+  },
 };
 
 export default headerStyle;

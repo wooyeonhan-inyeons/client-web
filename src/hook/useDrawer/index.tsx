@@ -1,18 +1,16 @@
-import React, { ReactElement, useState } from "react";
+import React, { useState } from "react";
 import { Box, SwipeableDrawer } from "@mui/material";
 import { Global } from "@emotion/react";
 import DrawrHandle from "./components/DrawrHandle";
-import { useDrawerContentStyle } from "./style";
+import { DrawerProps } from "./inderface";
 
-const drawerBleeding = 52;
-
-interface DrawerProps {
-  children: ReactElement;
-  open: boolean;
-  toggleDrawer: () => void;
-}
-
-const Drawer = ({ open, toggleDrawer, children }: DrawerProps) => {
+const Drawer = ({
+  open,
+  toggleDrawer,
+  children,
+  headerChildren, // 짧은 헤더만
+  drawerBleeding = 52,
+}: DrawerProps) => {
   return (
     <>
       <Global
@@ -25,6 +23,9 @@ const Drawer = ({ open, toggleDrawer, children }: DrawerProps) => {
           ".use_drawer .MuiPaper-root": {
             maxWidth: "444px",
             margin: "0 auto",
+          },
+          ".use_drawer .MuiBackdrop-root": {
+            backgroundColor: "rgb(0 0 0 / 30%)",
           },
         }}
       />
@@ -40,8 +41,17 @@ const Drawer = ({ open, toggleDrawer, children }: DrawerProps) => {
         }}
         className="use_drawer"
       >
-        <DrawrHandle drawerBleeding={drawerBleeding} />
-        <Box sx={useDrawerContentStyle}>
+        <DrawrHandle drawerBleeding={drawerBleeding}>
+          {headerChildren}
+        </DrawrHandle>
+        <Box
+          sx={{
+            position: "relative",
+            // top: -drawerBleeding,
+            backgroundColor: "#fff",
+            zIndex: 10,
+          }}
+        >
           <Box sx={{ px: 2 }}>{children}</Box>
         </Box>
       </SwipeableDrawer>

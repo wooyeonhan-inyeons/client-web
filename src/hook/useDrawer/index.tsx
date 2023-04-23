@@ -44,15 +44,17 @@ const Drawer = ({
         <DrawrHandle drawerBleeding={drawerBleeding}>
           {headerChildren}
         </DrawrHandle>
+
         <Box
           sx={{
             position: "relative",
-            // top: -drawerBleeding,
+            overflow: "scroll",
             backgroundColor: "#fff",
             zIndex: 10,
+            px: 2,
           }}
         >
-          <Box sx={{ px: 2 }}>{children}</Box>
+          {children}
         </Box>
       </SwipeableDrawer>
     </>

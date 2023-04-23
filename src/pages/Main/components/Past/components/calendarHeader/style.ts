@@ -21,10 +21,10 @@ export const handleHeaderStyle = {
     color: "#444",
     textAlign: "center",
   },
-  "& .calendarHeader .MuiTypography-root:nth-child(1)": {
+  "& .calendarHeader span:nth-of-type(1)": {
     color: "#FF4141",
   },
-  "& .calendarHeader .MuiTypography-root:nth-last-child(1)": {
+  "& .calendarHeader .MuiTypography-root:nth-last-of-type(1)": {
     color: "#679BFF",
   },
 };

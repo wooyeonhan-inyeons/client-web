@@ -16,7 +16,7 @@ const Past = () => {
         open={open}
         toggleDrawer={toggleDrawer}
         headerChildren={CalendarHeader(month)}
-        drawerBleeding={128}
+        drawerBleeding={100}
       >
         <Calendar />
       </Drawer>

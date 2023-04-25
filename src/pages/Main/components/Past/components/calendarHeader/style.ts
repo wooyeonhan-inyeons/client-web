@@ -8,6 +8,7 @@ export const handleHeaderStyle = {
     justifyContent: "space-between",
     width: "100%",
     paddingBottom: 1,
+    px: 1,
   },
   "& .calendarHeader": {
     display: "flex",

@@ -23,8 +23,10 @@ export const calendarStyle = {
     backgroundColor: "#ED6729",
     color: "#fff",
   },
+  "& .disableItem": { opacity: 0.3 },
 
   "& .calendarItem:hover": {
     opacity: 0.8,
   },
+  "& .disableItem:hover": { opacity: 0.3 },
 };

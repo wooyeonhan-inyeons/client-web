@@ -11,7 +11,7 @@ const Past = () => {
 
   return (
     <>
-      <Box>나의 우연 확인하기</Box>
+      <Box>내가 발견한 우연 확인하기</Box>
       <Drawer
         open={open}
         toggleDrawer={toggleDrawer}

@@ -19,7 +19,7 @@ function MainWrapper({ isHeader }: HeaderProp) {
       <Container
         className="globalContainer"
         maxWidth="xs"
-        sx={{ backgroundColor: "#fff", touchAction: "pan-up" }}
+        sx={{ backgroundColor: "#fff", touchAction: "pan-x" }}
       >
         <Box
           sx={{

@@ -12,10 +12,6 @@ export interface menuProps {
   value: string;
 }
 
-export interface arrMenuProps {
-  menus: menuProps[];
-}
-
 export interface ThemeProps {
   theme?: Theme;
 }
@@ -25,4 +21,10 @@ export interface HeaderOptinterface {
   mainFn?: () => void;
   icon?: IconDefinition;
   isForward: boolean;
+}
+
+export interface ViewportProps {
+  latitude: number | undefined;
+  longitude: number | undefined;
+  zoom: number;
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box } from "@mui/material";
 import { useDrawer } from "../../../../hook/useDrawer";
 import { CalendarHeader } from "./components/calendarHeader";
@@ -7,7 +7,12 @@ import Calendar from "./components/calendar";
 const Past = () => {
   const { open, Drawer, toggleDrawer } = useDrawer();
 
-  const month = "2023.04";
+  const today = new Date();
+  const [displayDate, setDisplayDate] = useState<string>(
+    `${today.getFullYear()}.${
+      today.getMonth() < 10 ? "0" + today.getMonth() : today.getMonth()
+    }`
+  );
 
   return (
     <>
@@ -15,10 +20,10 @@ const Past = () => {
       <Drawer
         open={open}
         toggleDrawer={toggleDrawer}
-        headerChildren={CalendarHeader(month)}
+        headerChildren={CalendarHeader(displayDate)}
         drawerBleeding={100}
       >
-        <Calendar />
+        <Calendar setDisplayDate={setDisplayDate} />
       </Drawer>
     </>
   );

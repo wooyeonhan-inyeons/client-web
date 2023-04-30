@@ -4,12 +4,12 @@ import { handleHeaderStyle } from "./style";
 
 const week = ["S", "M", "T", "W", "T", "F", "S"];
 
-export const CalendarHeader = (month: string) => {
+export const CalendarHeader = (displayDate: string) => {
   return (
     <Box sx={handleHeaderStyle}>
       <Box className="drawerHeader">
         <Typography variant="h6">Calendar</Typography>
-        <Typography variant="body2">{month}</Typography>
+        <Typography variant="body2">{displayDate}</Typography>
       </Box>
       <Box className="calendarHeader">
         {week.map((item, index) => (

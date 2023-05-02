@@ -19,6 +19,7 @@ const Drawer = ({
             height: `calc(50% - ${drawerBleeding}px)`,
             width: "100%",
             overflow: "visible",
+            boxShadow: "none",
           },
           ".use_drawer .MuiPaper-root": {
             maxWidth: "444px",
@@ -26,6 +27,8 @@ const Drawer = ({
           },
           ".use_drawer .MuiBackdrop-root": {
             backgroundColor: "rgb(0 0 0 / 30%)",
+            maxWidth: "444px",
+            margin: "0 auto",
           },
         }}
       />

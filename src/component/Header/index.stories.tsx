@@ -7,7 +7,7 @@ import { faUser } from "@fortawesome/free-regular-svg-icons";
 import { faX } from "@fortawesome/free-solid-svg-icons";
 
 export default {
-  title: "헤더",
+  title: "Header",
   component: Header,
   decorators: [withRouter],
 } as Meta;

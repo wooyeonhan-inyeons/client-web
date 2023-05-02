@@ -38,6 +38,7 @@
     "react-swipeable-views-utils": "^0.14.0",
     "recoil": "^0.7.7",
     "recoil-persist": "^4.2.0",
+    "storybook-addon-state": "^1.0.3",
     "styled-components": "^5.3.9"
   },
   "devDependencies": {

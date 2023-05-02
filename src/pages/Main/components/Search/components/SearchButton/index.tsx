@@ -28,7 +28,7 @@ export const SearchItem1 = ({ open, searchItems }: SearchItemProps) => {
           minWidth: "10rem",
           maxWidth: "444px",
           borderRadius: open ? "0" : "1.5rem",
-          padding: open ? "2rem 0 4rem" : "0 2rem",
+          padding: open ? "2rem 0 3.3rem" : "0 2rem",
         },
         "& .MuiButton-startIcon svg": {
           fontSize: "15px",

@@ -5,7 +5,7 @@ import { CategoryItemProps } from "./interface";
 
 const CategoryButton = styled(Button)(({ checked }: { checked: boolean }) => ({
   borderRadius: "1.25rem",
-  height: "2.5rem",
+  height: "2rem",
   color: checked ? "#fff" : "#222",
   padding: "0 1.6rem",
   border: `1px solid ${checked ? "#0000" : colorSet.light.primary}`,

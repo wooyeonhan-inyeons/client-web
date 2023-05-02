@@ -68,6 +68,7 @@ const Search = () => {
   }
   return (
     <>
+      {/* 꽉찬 화면을 위한 padding */}
       <Global styles={{ ".globalContainer .MuiBox-root": { padding: 0 } }} />
       <Box sx={radarPageStyle}>
         <div className="radar_circle">

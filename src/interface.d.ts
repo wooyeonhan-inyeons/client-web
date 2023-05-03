@@ -23,7 +23,7 @@ export interface HeaderOptinterface {
   isForward: boolean;
 }
 
-export interface ViewportProps {
+export interface LocationProps {
   latitude: number | undefined;
   longitude: number | undefined;
   zoom: number;

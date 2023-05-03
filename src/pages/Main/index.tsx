@@ -1,14 +1,14 @@
 import React, { useEffect } from "react";
-import { ContextInterface } from "./components/Search/interface";
-import { Outlet, useOutletContext } from "react-router-dom";
-import { HeaderOptinterface } from "../../interface";
+import { Outlet, useNavigate, useOutletContext } from "react-router-dom";
+import { ContextInterface, HeaderOptinterface } from "../../interface";
 import { useResetRecoilState } from "recoil";
 import userState from "../../recoil";
-import { faUser } from "@fortawesome/free-regular-svg-icons";
+import { faBell, faUser } from "@fortawesome/free-regular-svg-icons";
 
 function Main() {
   const { setHeadOpt } = useOutletContext<ContextInterface>();
   const resetUser = useResetRecoilState(userState);
+  const navigate = useNavigate();
 
   const headerOption: HeaderOptinterface = {
     menus: [
@@ -16,9 +16,12 @@ function Main() {
       { key: "과거 우연", value: "/previous" },
     ],
     isForward: true,
-    icon: faUser,
-    mainFn: resetUser,
+    icon_L: faBell,
+    fn_L: () => navigate("/notification"),
+    icon_R: faUser,
+    fn_R: resetUser,
   };
+
   useEffect(() => {
     //네비게이션 리스트 업데이트
     setHeadOpt(headerOption);

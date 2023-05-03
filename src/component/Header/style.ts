@@ -23,8 +23,12 @@ export const headerStyle = {
     itemAlign: "flex-end",
   },
   "& .MuiToolbar-root .header_nav_btn": { borderRadius: 0 },
-  "& .MuiToolbar-root .mainFn svg": {
-    aspectRatio: 1,
+  "& .MuiToolbar-root .right_section": {
+    display: "flex",
+    gap: 1,
+  },
+  "& .MuiToolbar-root .right_section .mainFn svg": {
+    aspectRatio: "1",
   },
 };
 

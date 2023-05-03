@@ -6153,7 +6153,7 @@
   "resolved" "https://registry.npmjs.org/eslint-visitor-keys/-/eslint-visitor-keys-3.4.0.tgz"
   "version" "3.4.0"
 
-"eslint@^8.36.0":
+"eslint@^8.39.0":
   "integrity" "sha512-mwiok6cy7KTW7rBpo05k6+p4YVZByLNjAZ/ACB9DRCu4YDRwjXI01tWHp6KAUWelsBetTxKK/2sHB0vdS8Z2Og=="
   "resolved" "https://registry.npmjs.org/eslint/-/eslint-8.39.0.tgz"
   "version" "8.39.0"

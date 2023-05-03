@@ -22,7 +22,21 @@ export interface ThemeProps {
 
 export interface HeaderOptinterface {
   menus: menuProps[];
-  mainFn?: () => void;
-  icon?: IconDefinition;
-  isForward: boolean;
+  fn_L?: () => void;
+  fn_R?: () => void;
+  icon_L?: IconDefinition;
+  icon_R?: IconDefinition;
+  isForward?: boolean;
+  headerType?: HEAD_TYPE;
+}
+
+export enum HEAD_TYPE {
+  "v1",
+  "v2",
+  "v3",
+}
+
+type SetHeadType = React.Dispatch<React.SetStateAction<HeaderOptinterface>>;
+export interface ContextInterface {
+  setHeadOpt: SetHeadType;
 }

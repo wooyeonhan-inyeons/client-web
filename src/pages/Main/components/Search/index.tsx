@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import { useDrawer } from "../../../../hook/useDrawer";
 import { Box, Typography } from "@mui/material";
 import WooyeonItem from "./components/WooyeonItem";
-import { SearchItem1 } from "./components/SearchButton";
 import Categories from "./components/Categories";
 import RangeBar from "./components/RangeBar";
 import { Global } from "@emotion/react";
 import radarPageStyle from "./style";
 import { WooPos, Wooyeons } from "./interface";
 import { StyledBox } from "../../../../common";
+import SearchItem from "./components/SearchButton";
 
 const Search = () => {
   const { open, Drawer, toggleDrawer } = useDrawer();
@@ -69,7 +69,7 @@ const Search = () => {
   return (
     <>
       {/* 꽉찬 화면을 위한 padding */}
-      <Global styles={{ ".globalContainer .MuiBox-root": { padding: 0 } }} />
+      <Global styles={{ ".globalContainer>.MuiBox-root": { padding: 0 } }} />
       <Box sx={radarPageStyle}>
         <div className="radar_circle">
           <div>
@@ -92,8 +92,7 @@ const Search = () => {
           ))}
         </Box>
       </Box>
-      <SearchItem1 open={open} searchItems={searchItems} />
-      {/* <SearchItem2 open={open} searchItems={searchItems} /> */}
+      <SearchItem open={open} searchItems={searchItems} />
       <Drawer open={open} toggleDrawer={toggleDrawer}>
         <StyledBox>
           <Typography variant="h6">카테고리 선택</Typography>

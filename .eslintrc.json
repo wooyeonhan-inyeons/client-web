@@ -28,14 +28,5 @@
       "flowVersion": "0.53" // Flow version
     }
   },
-  "rules": {
-    "@typescript-eslint/strict-boolean-expressions": [
-      2,
-      {
-        "allowString": false,
-        "allowNumber": false
-      }
-    ],
-    "no-unused-vars": "error"
-  }
+  "rules": {}
 }

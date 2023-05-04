@@ -24,7 +24,7 @@ function MainWrapper({ isHeader }: HeaderProp) {
         <Box
           sx={{
             paddingTop: 7,
-            height: "100vh",
+            minHeight: "100vh",
           }}
         >
           <Outlet context={{ headOpt, setHeadOpt }} />

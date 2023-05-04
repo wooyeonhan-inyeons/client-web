@@ -45,6 +45,7 @@ function Header({ headProp }: HeaderProp) {
   const navigate = useNavigate();
   const location = useLocation();
   if (headProp.headerType === undefined) headProp.headerType = HEAD_TYPE.v1;
+  headProp.bgColor = "#fff";
 
   const handleNavigate = (prop: menuProp) => {
     const handleIdx = headProp.menus.findIndex(
@@ -65,7 +66,7 @@ function Header({ headProp }: HeaderProp) {
 
   const Default = (
     <Box className="header_root" sx={headerStyle}>
-      <AppBar position="static">
+      <AppBar sx={{ background: "none" }}>
         <Toolbar>
           <Box>
             {headProp.menus.map((item) => (

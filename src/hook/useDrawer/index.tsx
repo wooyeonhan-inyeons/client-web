@@ -16,7 +16,7 @@ const Drawer = ({
       <Global
         styles={{
           ".use_drawer > .MuiPaper-root": {
-            maxHeight: `calc(50% - ${drawerBleeding}px)`,
+            maxHeight: `calc(50% - ${drawerBleeding - 10}px)`,
             width: "100%",
             overflow: "visible",
             boxShadow: "none",

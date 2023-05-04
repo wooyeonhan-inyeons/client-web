@@ -16,8 +16,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 export default function HeaderV3({ headProp }: HeaderProp) {
   return (
     <Box className="header_root" sx={headerStyle}>
-      <AppBar position="static">
-        <Toolbar>
+      <AppBar position="fixed" sx={{ backgroundColor: headProp.bgColor }}>
+        <Toolbar className="centerToolbar">
           <IconButton onClick={headProp.fn_R} className="mainFn">
             {headProp.icon_R && (
               <FontAwesomeIcon icon={headProp.icon_R} size="xs" />

@@ -28,6 +28,7 @@ export interface HeaderOptinterface {
   icon_R?: IconDefinition;
   isForward?: boolean;
   headerType?: HEAD_TYPE;
+  bgColor?: string;
 }
 
 export enum HEAD_TYPE {

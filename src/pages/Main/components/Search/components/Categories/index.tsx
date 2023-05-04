@@ -17,9 +17,10 @@ function Categories() {
   return (
     <Box
       sx={{
+        width: "100%",
         display: "flex",
         flexWrap: "nowrap",
-        overflowX: "auto",
+        overflow: "auto",
         gap: "0.5rem",
         padding: "1rem 0",
 

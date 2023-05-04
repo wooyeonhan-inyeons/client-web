@@ -19,7 +19,7 @@ export default function NotiItem({ prop }: NotiItemType) {
         </Typography>
       </Box>
       <Typography variant="body2" className="description">
-        {prop.data}
+        {prop.data + prop.alertAt}
       </Typography>
     </Box>
   );

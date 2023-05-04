@@ -13,6 +13,7 @@ export const NotiItemStyle = {
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
+    paddingRight: 1,
   },
 
   "& .notiHead .date": { fontSize: "0.8rem" },

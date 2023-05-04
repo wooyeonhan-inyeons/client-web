@@ -6,7 +6,7 @@ import {
   HeaderOptinterface,
 } from "../../interface.d";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
-import { Box, Container, Stack } from "@mui/material";
+import { Box, Container } from "@mui/material";
 import NotiItem from "./components/NotiItem";
 
 export default function Notification() {
@@ -34,20 +34,37 @@ export default function Notification() {
   const testData2 = {
     title: "근처의 우연 발견!!",
     data: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nisi a egestas ultrices , nisl urna viverra diam, a ultricies ante nunc sit amet nisl. Sed euismod, nisi a egestas ultrices , nisl urna viverra diam, a ultricies ante nunc sit amet nisl. (장문 테스트)",
-    alertAt: new Date(),
+    alertAt: new Date(2023, 4, 3, 23, 55),
   };
 
   return (
     <Container
-      className="globalContainer"
       maxWidth="xs"
       sx={{
         backgroundColor: "#fff",
         padding: 0,
+        maxHeight: "calc(100vh - 56px)",
+        overflow: "hidden",
       }}
     >
-      <Box sx={{ overflow: "scroll" }}>
+      <Box
+        sx={{
+          maxHeight: "calc(100vh - 56px)",
+          overflow: "scroll",
+          paddingBottom: 10,
+          "&::-webkit-scrollbar": {
+            width: "5px",
+          },
+          "&::-webkit-scrollbar-thumb": {
+            background: "#ddd",
+          },
+        }}
+      >
         <NotiItem prop={testData} />
+        <NotiItem prop={testData} />
+        <NotiItem prop={testData} />
+        <NotiItem prop={testData} />
+        <NotiItem prop={testData2} />
         <NotiItem prop={testData} />
         <NotiItem prop={testData} />
         <NotiItem prop={testData} />

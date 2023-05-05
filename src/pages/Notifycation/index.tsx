@@ -38,13 +38,15 @@ export default function Notification() {
   };
 
   return (
-    <Container
-      maxWidth="xs"
+    <Box
       sx={{
         backgroundColor: "#fff",
         padding: 0,
         maxHeight: "calc(100vh - 56px)",
         overflow: "hidden",
+        "@media (min-width: 600px)": {
+          maxHeight: "calc(100vh - 64px)",
+        },
       }}
     >
       <Box
@@ -62,6 +64,9 @@ export default function Notification() {
           "&::-webkit-scrollbar-button:vertical:end:decrement": {
             display: "block",
             height: "20px",
+          },
+          "@media (min-width: 600px)": {
+            maxHeight: "calc(100vh - 64px)",
           },
         }}
       >
@@ -81,6 +86,6 @@ export default function Notification() {
         <NotiItem prop={testData} />
         <NotiItem prop={testData} />
       </Box>
-    </Container>
+    </Box>
   );
 }

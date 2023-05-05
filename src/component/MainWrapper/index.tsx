@@ -19,12 +19,23 @@ function MainWrapper({ isHeader }: HeaderProp) {
       <Container
         className="globalContainer"
         maxWidth="xs"
-        sx={{ backgroundColor: "#fff", touchAction: "pan-x" }}
+        sx={{
+          backgroundColor: "#fff",
+          touchAction: "pan-x",
+          "@media (min-width: 600px)": {
+            paddingLeft: 2,
+            paddingRight: 2,
+          },
+        }}
       >
         <Box
           sx={{
             paddingTop: 7,
             minHeight: "100vh",
+
+            "@media (min-width: 600px)": {
+              paddingTop: 8,
+            },
           }}
         >
           <Outlet context={{ headOpt, setHeadOpt }} />

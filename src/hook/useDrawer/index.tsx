@@ -15,6 +15,9 @@ const Drawer = ({
     <>
       <Global
         styles={{
+          html: {
+            "--brand-color": "#000",
+          },
           ".use_drawer > .MuiPaper-root": {
             maxHeight: `calc(50% - ${drawerBleeding - 10}px)`,
             width: "100%",
@@ -27,7 +30,8 @@ const Drawer = ({
             margin: "0 auto",
           },
           ".use_drawer .MuiBackdrop-root": {
-            backgroundColor: "rgb(0 0 0 / 30%)",
+            backgroundColor: "rgb(255 255 255 / 30%)",
+            backdropFilter: "blur(2px)",
             maxWidth: "444px",
             margin: "0 auto",
           },

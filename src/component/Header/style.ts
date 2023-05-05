@@ -30,9 +30,10 @@ export const headerStyle = {
     display: "flex",
     gap: 1,
   },
-  "& .MuiToolbar-root .right_section .mainFn svg": {
-    aspectRatio: "1",
-  },
+  "& .MuiToolbar-root .right_section .mainFn svg, & .MuiToolbar-root .mainFn svg":
+    {
+      aspectRatio: "1",
+    },
 };
 
 export default headerStyle;

@@ -1,7 +1,7 @@
 export const NotiItemStyle = {
   display: "flex",
   flexDirection: "column",
-  padding: "0.5rem 1rem",
+  padding: "0.5rem",
   gap: 1,
   color: "#222",
   backgroundColor: "#fff",
@@ -13,7 +13,7 @@ export const NotiItemStyle = {
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
-    paddingRight: 1,
+    paddingRight: 0.5,
   },
 
   "& .notiHead .date": { fontSize: "0.8rem" },

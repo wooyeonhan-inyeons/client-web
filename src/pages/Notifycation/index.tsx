@@ -53,10 +53,15 @@ export default function Notification() {
           overflow: "scroll",
           paddingBottom: 10,
           "&::-webkit-scrollbar": {
-            width: "5px",
+            width: "4px",
           },
           "&::-webkit-scrollbar-thumb": {
             background: "#ddd",
+            borderRadius: "5px",
+          },
+          "&::-webkit-scrollbar-button:vertical:end:decrement": {
+            display: "block",
+            height: "20px",
           },
         }}
       >

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useLayoutEffect } from "react";
 import { Outlet, useNavigate, useOutletContext } from "react-router-dom";
 import { ContextInterface, HeaderOptinterface } from "../../interface";
 import { useResetRecoilState } from "recoil";
@@ -22,7 +22,7 @@ function Main() {
     fn_R: resetUser,
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     //네비게이션 리스트 업데이트
     setHeadOpt(headerOption);
   }, []);

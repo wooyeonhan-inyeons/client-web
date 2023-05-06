@@ -39,5 +39,6 @@ export enum HEAD_TYPE {
 
 type SetHeadType = React.Dispatch<React.SetStateAction<HeaderOptinterface>>;
 export interface ContextInterface {
+  headOpt?: HeaderOptinterface;
   setHeadOpt: SetHeadType;
 }

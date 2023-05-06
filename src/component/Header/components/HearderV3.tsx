@@ -13,7 +13,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
  * @param icon_L `FontAwesomeIconProps` awesomefont꺼
  */
 
-export default function HeaderV3({ headProp }: HeaderProp) {
+function HeaderV3({ headProp }: HeaderProp) {
   return (
     <Box className="header_root" sx={headerStyle}>
       <AppBar position="fixed" sx={{ backgroundColor: headProp.bgColor }}>
@@ -32,3 +32,5 @@ export default function HeaderV3({ headProp }: HeaderProp) {
     </Box>
   );
 }
+
+export default React.memo(HeaderV3);

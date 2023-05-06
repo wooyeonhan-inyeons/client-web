@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { Outlet } from "react-router-dom";
-import Header from "../Header";
 import { Box, Container } from "@mui/material";
 import { HeaderOptinterface } from "../../interface";
 import { HeaderProp } from "./interface";
-
+import Header from "../Header";
 const initOption: HeaderOptinterface = {
   menus: [{ key: "", value: "" }],
   isForward: true,
@@ -32,7 +31,6 @@ function MainWrapper({ isHeader }: HeaderProp) {
           sx={{
             paddingTop: 7,
             minHeight: "100vh",
-
             "@media (min-width: 600px)": {
               paddingTop: 8,
             },

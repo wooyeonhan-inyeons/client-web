@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useLayoutEffect } from "react";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import {
   ContextInterface,
@@ -6,11 +6,11 @@ import {
   HeaderOptinterface,
 } from "../../interface.d";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
-import { Box, Container } from "@mui/material";
+import { Box } from "@mui/material";
 import NotiItem from "./components/NotiItem";
 
 export default function Notification() {
-  const { setHeadOpt } = useOutletContext<ContextInterface>();
+  const { headOpt, setHeadOpt } = useOutletContext<ContextInterface>();
   const navigate = useNavigate();
 
   const headerOption: HeaderOptinterface = {
@@ -20,7 +20,7 @@ export default function Notification() {
     headerType: HEAD_TYPE.v3,
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     //네비게이션 리스트 업데이트
     setHeadOpt(headerOption);
   }, []);
@@ -37,6 +37,9 @@ export default function Notification() {
     alertAt: new Date(2023, 4, 3, 23, 55),
   };
 
+  if (!headOpt) {
+    return <Box />;
+  }
   return (
     <Box
       sx={{

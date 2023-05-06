@@ -19,6 +19,8 @@ import CategoryAddPost from "./pages/AddPost/components/CategoryAddPost";
 import PhotoAddPost from "./pages/AddPost/components/PhotoAddPost";
 import ContentAddPost from "./pages/AddPost/components/ContentAddPost";
 import Notification from "./pages/Notifycation";
+import Mypage from "./pages/Mypage";
+import EditProfile from "./pages/Mypage/components/Edit";
 
 const Router = () => {
   const [user] = useRecoilState(userState);
@@ -65,6 +67,13 @@ const Router = () => {
         {
           path: "notification",
           element: <Notification />,
+        },
+        {
+          path: "mypage/",
+          children: [
+            { index: true, element: <Mypage /> },
+            { path: "edit", element: <EditProfile /> },
+          ],
         },
       ],
       loader: () => user.role === "GUEST" && redirect("/auth"),

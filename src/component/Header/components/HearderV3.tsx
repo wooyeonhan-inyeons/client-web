@@ -26,7 +26,7 @@ function HeaderV3({ headProp }: HeaderProp) {
           <Typography color="#000" variant="subtitle2">
             {headProp.menus[0].key}
           </Typography>
-          <Box />
+          <Box width={34} />
         </Toolbar>
       </AppBar>
     </Box>

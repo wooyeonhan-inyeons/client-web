@@ -41,4 +41,9 @@ type SetHeadType = React.Dispatch<React.SetStateAction<HeaderOptinterface>>;
 export interface ContextInterface {
   headOpt?: HeaderOptinterface;
   setHeadOpt: SetHeadType;
+  navigate?: NavigateFunction;
+}
+
+export interface onlyNavigateInterface {
+  navigate?: NavigateFunction;
 }

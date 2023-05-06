@@ -9,10 +9,13 @@ import radarPageStyle from "./style";
 import { WooPos, Wooyeons } from "./interface";
 import { StyledBox } from "../../../../common";
 import SearchItem from "./components/SearchButton";
+import { useOutletContext } from "react-router-dom";
+import { onlyNavigateInterface } from "../../../../interface";
 
 const Search = () => {
   const { open, Drawer, toggleDrawer } = useDrawer();
   const [wooyeons, setWooyeons] = useState<Wooyeons[]>([]);
+  const { navigate } = useOutletContext<onlyNavigateInterface>();
 
   const searchItems = () => {
     // if (open)
@@ -99,7 +102,7 @@ const Search = () => {
           ))}
         </Box>
       </Box>
-      <SearchItem open={open} searchItems={searchItems} />
+      <SearchItem open={open} searchItems={searchItems} navigate={navigate} />
       <Drawer open={open} toggleDrawer={toggleDrawer}>
         <StyledBox>
           <Typography variant="h6">카테고리 선택</Typography>

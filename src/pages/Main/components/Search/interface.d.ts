@@ -23,3 +23,20 @@ export interface SearchItemProps {
 export interface SearchContextInterface {
   navigate: NavigateFunction;
 }
+
+export interface wooyeonPositionInterface {
+  addWooyeon: ({ pos, name, img }: addWooyeonInterface) => void;
+  wooyeonsRef: React.MutableRefObject<Wooyeons[]>;
+  distance: number;
+  img: string;
+}
+export interface tempWooyeonsInterface {
+  id: number;
+  img: string;
+}
+
+export interface addWooyeonInterface {
+  pos: WooPos;
+  name?: string;
+  img: string;
+}

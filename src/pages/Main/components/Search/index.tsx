@@ -1,73 +1,61 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDrawer } from "../../../../hook/useDrawer";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, Zoom, useTheme } from "@mui/material";
 import WooyeonItem from "./components/WooyeonItem";
 import Categories from "./components/Categories";
 import RangeBar from "./components/RangeBar";
 import { Global } from "@emotion/react";
 import radarPageStyle from "./style";
-import { SearchContextInterface, WooPos, Wooyeons } from "./interface";
+import {
+  SearchContextInterface,
+  Wooyeons,
+  addWooyeonInterface,
+} from "./interface";
 import { StyledBox } from "../../../../common";
 import SearchItem from "./components/SearchButton";
 import { useOutletContext } from "react-router-dom";
+import { tempWooyeons, wooyeonPositioning } from "./utils";
 
 const Search = () => {
   const { open, Drawer, toggleDrawer } = useDrawer();
   const [wooyeons, setWooyeons] = useState<Wooyeons[]>([]);
+  const wooyeonsRef = useRef<Wooyeons[]>([]); //매 업데이트를 추적하기 위해 ref 사용
+  const theme = useTheme();
   const { navigate } = useOutletContext<SearchContextInterface>();
 
   const searchItems = () => {
-    // if (open)
-    toggleDrawer();
-    console.log("[임시] 우연찾아보기");
-    wooyeonPositioning();
+    if (wooyeonsRef.current.length > 5) setWooyeons([]);
+    if (open) toggleDrawer();
+
+    tempWooyeons.map((item, index) => {
+      setTimeout(() => {
+        wooyeonPositioning({
+          addWooyeon,
+          wooyeonsRef,
+          distance: item.id,
+          img: item.img,
+        });
+      }, 100 * index + 50 * Math.random());
+    });
   };
 
-  function addWooyeon(pos: WooPos) {
-    const random = Date.now();
+  function addWooyeon({ pos, img }: addWooyeonInterface) {
     const newWooyeon = {
       pos: pos,
-      name: random.toString(),
+      name: img,
     };
     setWooyeons((prevWooyeons) => [...prevWooyeons, newWooyeon]);
   }
 
-  //14.5, 31, 45
-  function getRandomCircleEdgeCoordinates(distance: number): WooPos {
-    let radius = 14.5;
-    if (distance <= 30) radius = 31;
-    else if (distance <= 10) radius = 14.5;
+  useEffect(() => {
+    wooyeonsRef.current = wooyeons;
+  }, [wooyeons]);
 
-    const angle = Math.random() * 2 * Math.PI;
-    const x = radius * Math.cos(angle);
-    const y = radius * Math.sin(angle);
-    return { x, y };
-  }
+  const transitionDuration = {
+    enter: theme.transitions.duration.enteringScreen,
+    exit: theme.transitions.duration.leavingScreen,
+  };
 
-  function wooyeonPositioning() {
-    const pos = getRandomCircleEdgeCoordinates(500);
-
-    if (wooyeons.length === 0) {
-      addWooyeon(pos);
-    } else {
-      const isInRange = wooyeons.some(function (item) {
-        const distance = Math.sqrt(
-          (pos.x - item.pos.x) * (pos.x - item.pos.x) +
-            (pos.y - item.pos.y) * (pos.y - item.pos.y)
-        );
-
-        console.log("다른거 찾는 중");
-        return distance < 10;
-      });
-
-      if (!isInRange) {
-        addWooyeon(pos);
-      } else {
-        // 겹치면 다른 값으로 재귀 호출
-        wooyeonPositioning();
-      }
-    }
-  }
   return (
     <>
       {/* 꽉찬 화면을 위한 padding */}
@@ -85,7 +73,7 @@ const Search = () => {
             <div />
           </div>
         </div>
-        <Typography variant="h5">🍅</Typography>
+        <Typography variant="h5">🍀</Typography>
         <Box
           sx={{
             position: "absolute",
@@ -97,7 +85,14 @@ const Search = () => {
           }}
         >
           {wooyeons.map((item) => (
-            <WooyeonItem key={item.name} name={item.name} pos={item.pos} />
+            <Zoom
+              key={item.name}
+              in={true}
+              timeout={transitionDuration}
+              unmountOnExit
+            >
+              <WooyeonItem name={item.name} pos={item.pos} />
+            </Zoom>
           ))}
         </Box>
       </Box>

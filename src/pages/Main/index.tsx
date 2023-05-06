@@ -1,14 +1,10 @@
 import React, { useLayoutEffect } from "react";
-import { Outlet, useNavigate, useOutletContext } from "react-router-dom";
+import { Outlet, useOutletContext } from "react-router-dom";
 import { ContextInterface, HeaderOptinterface } from "../../interface";
-import { useResetRecoilState } from "recoil";
-import userState from "../../recoil";
 import { faBell, faUser } from "@fortawesome/free-regular-svg-icons";
 
 function Main() {
-  const { setHeadOpt } = useOutletContext<ContextInterface>();
-  const resetUser = useResetRecoilState(userState);
-  const navigate = useNavigate();
+  const { setHeadOpt, navigate } = useOutletContext<ContextInterface>();
 
   const headerOption: HeaderOptinterface = {
     menus: [
@@ -19,7 +15,7 @@ function Main() {
     icon_L: faBell,
     fn_L: () => navigate("/notification"),
     icon_R: faUser,
-    fn_R: resetUser,
+    fn_R: () => navigate("/mypage"),
   };
 
   useLayoutEffect(() => {
@@ -27,7 +23,7 @@ function Main() {
     setHeadOpt(headerOption);
   }, []);
 
-  return <Outlet context={{ setHeadOpt }} />;
+  return <Outlet context={{ navigate }} />;
 }
 
 export default Main;

@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { headerStyle } from "./style";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { colorSet } from "../../common";
 import { HeaderProp, menuProp } from "./intreface";
 import { HEAD_TYPE } from "../../interface.d";
@@ -40,9 +40,8 @@ const theme = createTheme({
   },
 });
 
-function Header({ headProp }: HeaderProp) {
+function Header({ headProp, navigate }: HeaderProp) {
   const [idx, setIdx] = useState<number>(0);
-  const navigate = useNavigate();
   const location = useLocation();
 
   headProp.bgColor = "#fff";
@@ -66,10 +65,10 @@ function Header({ headProp }: HeaderProp) {
   }, [location, headProp]);
 
   if (headProp.headerType === HEAD_TYPE.v2) {
-    return <HeaderV2 headProp={headProp} />;
+    return <HeaderV2 headProp={headProp} navigate={navigate} />;
   }
   if (headProp.headerType === HEAD_TYPE.v3) {
-    return <HeaderV3 headProp={headProp} />;
+    return <HeaderV3 headProp={headProp} navigate={navigate} />;
   }
   return (
     <ThemeProvider theme={theme}>

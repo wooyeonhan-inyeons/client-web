@@ -2,12 +2,12 @@ import React from "react";
 import { Box, Button, Fab } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass, faPlus } from "@fortawesome/free-solid-svg-icons";
-import { SearchItemProps } from "../../interface";
-import { useNavigate } from "react-router-dom";
+import { SearchContextInterface, SearchItemProps } from "../../interface";
+import { useOutletContext } from "react-router-dom";
 import { searchBtnStyle } from "./style";
 
 const SearchItem = ({ open, searchItems }: SearchItemProps) => {
-  const navegate = useNavigate();
+  const { navigate } = useOutletContext<SearchContextInterface>();
   return (
     <Box sx={searchBtnStyle(open)}>
       <Box className="hide_btn" sx={{ width: "48px" }}></Box>
@@ -22,7 +22,7 @@ const SearchItem = ({ open, searchItems }: SearchItemProps) => {
       <Fab
         className="hide_btn"
         size="medium"
-        onClick={() => navegate("/add-post")}
+        onClick={() => navigate("/add-post")}
       >
         <FontAwesomeIcon icon={faPlus} />
       </Fab>

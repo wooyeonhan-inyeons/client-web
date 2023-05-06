@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { Box, Container } from "@mui/material";
 import { HeaderOptinterface } from "../../interface";
 import { HeaderProp } from "./interface";
@@ -11,10 +11,11 @@ const initOption: HeaderOptinterface = {
 
 function MainWrapper({ isHeader }: HeaderProp) {
   const [headOpt, setHeadOpt] = useState<HeaderOptinterface>(initOption);
+  const navigate = useNavigate();
 
   return (
     <>
-      {isHeader && <Header headProp={headOpt} />}
+      {isHeader && <Header headProp={headOpt} navigate={navigate} />}
       <Container
         className="globalContainer"
         maxWidth="xs"
@@ -36,7 +37,7 @@ function MainWrapper({ isHeader }: HeaderProp) {
             },
           }}
         >
-          <Outlet context={{ headOpt, setHeadOpt }} />
+          <Outlet context={{ headOpt, setHeadOpt, navigate }} />
         </Box>
       </Container>
     </>

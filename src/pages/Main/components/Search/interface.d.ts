@@ -1,3 +1,5 @@
+import { NavigateFunction } from "react-router-dom";
+
 export interface WooPos {
   x: number;
   y: number;
@@ -15,4 +17,9 @@ export interface WooyeonItemProps {
 export interface SearchItemProps {
   open: boolean;
   searchItems: () => void;
+  navigate: NavigateFunction;
+}
+
+export interface SearchContextInterface {
+  navigate: NavigateFunction;
 }

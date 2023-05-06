@@ -6,22 +6,19 @@ import Categories from "./components/Categories";
 import RangeBar from "./components/RangeBar";
 import { Global } from "@emotion/react";
 import radarPageStyle from "./style";
-import {
-  SearchContextInterface,
-  Wooyeons,
-  addWooyeonInterface,
-} from "./interface";
+import { Wooyeons, addWooyeonInterface } from "./interface";
 import { StyledBox } from "../../../../common";
 import SearchItem from "./components/SearchButton";
 import { useOutletContext } from "react-router-dom";
 import { tempWooyeons, wooyeonPositioning } from "./utils";
+import { onlyNavigateInterface } from "../../../../interface";
 
 const Search = () => {
   const { open, Drawer, toggleDrawer } = useDrawer();
   const [wooyeons, setWooyeons] = useState<Wooyeons[]>([]);
   const wooyeonsRef = useRef<Wooyeons[]>([]); //매 업데이트를 추적하기 위해 ref 사용
   const theme = useTheme();
-  const { navigate } = useOutletContext<SearchContextInterface>();
+  const { navigate } = useOutletContext<onlyNavigateInterface>();
 
   const searchItems = () => {
     if (wooyeonsRef.current.length > 5) setWooyeons([]);

@@ -43,3 +43,7 @@ export interface ContextInterface {
   setHeadOpt: SetHeadType;
   navigate?: NavigateFunction;
 }
+
+export interface onlyNavigateInterface {
+  navigate?: NavigateFunction;
+}

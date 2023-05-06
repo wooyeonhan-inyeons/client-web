@@ -1,5 +1,5 @@
 import React, { useLayoutEffect } from "react";
-import { useNavigate, useOutletContext } from "react-router-dom";
+import { useOutletContext } from "react-router-dom";
 import {
   ContextInterface,
   HEAD_TYPE,
@@ -10,8 +10,8 @@ import { Box } from "@mui/material";
 import NotiItem from "./components/NotiItem";
 
 export default function Notification() {
-  const { headOpt, setHeadOpt } = useOutletContext<ContextInterface>();
-  const navigate = useNavigate();
+  const { headOpt, setHeadOpt, navigate } =
+    useOutletContext<ContextInterface>();
 
   const headerOption: HeaderOptinterface = {
     menus: [{ key: "알림", value: "/notification" }],

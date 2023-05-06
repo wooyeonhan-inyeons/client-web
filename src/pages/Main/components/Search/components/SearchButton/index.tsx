@@ -2,12 +2,13 @@ import React from "react";
 import { Box, Button, Fab } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass, faPlus } from "@fortawesome/free-solid-svg-icons";
-import { SearchContextInterface, SearchItemProps } from "../../interface";
+import { SearchItemProps } from "../../interface";
 import { useOutletContext } from "react-router-dom";
 import { searchBtnStyle } from "./style";
+import { onlyNavigateInterface } from "../../../../../../interface";
 
 const SearchItem = ({ open, searchItems }: SearchItemProps) => {
-  const { navigate } = useOutletContext<SearchContextInterface>();
+  const { navigate } = useOutletContext<onlyNavigateInterface>();
   return (
     <Box sx={searchBtnStyle(open)}>
       <Box className="hide_btn" sx={{ width: "48px" }}></Box>

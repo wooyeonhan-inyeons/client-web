@@ -1,4 +1,4 @@
-import { Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2"; // Grid version 2
 import React from "react";
 import { useNavigate } from "react-router";
@@ -13,17 +13,16 @@ const CategoryAddPost = () => {
   };
   const category = ["일상", "모임", "광고", "정보", "이벤트", "선물"];
   return (
-    <Grid
-      container
-      spacing={6}
+    <Box
       sx={{
+        height: "100%",
         padding: "1rem",
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
       }}
     >
-      <Grid xs={12} paddingTop="3rem">
+      <Box>
         <Typography variant="h5" fontWeight={600}>
           추가할 우연의 카테고리를
         </Typography>
@@ -37,8 +36,8 @@ const CategoryAddPost = () => {
         >
           1개의 카테고리를 선택해 주세요.
         </Typography>
-      </Grid>
-      {/* <Grid height="100vh"></Grid> */}
+      </Box>
+      <Box height="100%" />
       <Grid
         container
         rowSpacing={3}
@@ -78,7 +77,7 @@ const CategoryAddPost = () => {
           <SaveBtn text="다음" onClick={handleNext} />
         </Grid>
       </Grid>
-    </Grid>
+    </Box>
   );
 };
 

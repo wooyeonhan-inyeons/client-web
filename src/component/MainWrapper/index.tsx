@@ -32,6 +32,7 @@ function MainWrapper({ isHeader }: HeaderProp) {
           sx={{
             paddingTop: 7,
             minHeight: "100vh",
+            height: "100vh",
             "@media (min-width: 600px)": {
               paddingTop: 8,
             },

@@ -11,6 +11,7 @@ export interface menuProps {
   key: string;
   value: string;
 }
+
 export interface ThemeProps {
   theme?: Theme;
 }
@@ -20,4 +21,10 @@ export interface HeaderOptinterface {
   mainFn?: () => void;
   icon?: IconDefinition;
   isForward: boolean;
+}
+
+export interface LocationProps {
+  latitude: number | undefined;
+  longitude: number | undefined;
+  zoom: number;
 }

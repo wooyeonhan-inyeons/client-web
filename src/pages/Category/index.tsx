@@ -1,6 +1,6 @@
 import React from "react";
 import CategoryBtn from "./components/CategoryBtn";
-import SaveBtn from "./components/SaveBtn";
+import SaveBtn from "../../component/SaveBtn";
 import Grid from "@mui/material/Grid";
 import { Typography } from "@mui/material";
 import userState from "../../recoil";

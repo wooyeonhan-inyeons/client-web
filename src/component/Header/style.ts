@@ -15,7 +15,7 @@ export const headerStyle = {
     color: "#222",
   },
   "& > header": {
-    backgroundColor: "#fff",
+    background: "none",
     boxShadow: "none",
   },
   "& .MuiToolbar-root": {

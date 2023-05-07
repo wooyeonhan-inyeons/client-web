@@ -13,6 +13,12 @@ import CategoryPage from "./pages/Category";
 import Main from "./pages/Main";
 import Search from "./pages/Main/components/Search";
 import Past from "./pages/Main/components/Past/inedx";
+import HeaderAddPost from "./pages/AddPost/components/HeaderAddPost";
+import MapAddPost from "./pages/AddPost/components/MapAddPost";
+import CategoryAddPost from "./pages/AddPost/components/CategoryAddPost";
+import PhotoAddPost from "./pages/AddPost/components/PhotoAddPost";
+import ContentAddPost from "./pages/AddPost/components/ContentAddPost";
+// import AddPost from "./pages/AddPost";
 
 const Router = () => {
   const [user] = useRecoilState(userState);
@@ -25,7 +31,7 @@ const Router = () => {
         {
           index: true,
           element: <LoginPage />,
-          loader: () => user.first && redirect("/auth/cate"),
+          loader: () => Boolean(user.first) && redirect("/auth/cate"),
         },
         {
           path: "cate",
@@ -44,6 +50,16 @@ const Router = () => {
           children: [
             { index: true, element: <Search /> },
             { path: "previous", element: <Past /> },
+          ],
+        },
+        {
+          path: "add-post/",
+          element: <HeaderAddPost />,
+          children: [
+            { index: true, element: <MapAddPost /> },
+            { path: "category", element: <CategoryAddPost /> },
+            { path: "photo", element: <PhotoAddPost /> },
+            { path: "content", element: <ContentAddPost /> },
           ],
         },
       ],

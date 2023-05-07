@@ -39,45 +39,43 @@ const CategoryAddPost = () => {
         </Typography>
       </Grid>
       {/* <Grid height="100vh"></Grid> */}
-      <Grid>
-        <Grid
-          container
-          rowSpacing={3}
-          columnSpacing={2}
-          margin="0 auto"
-          // flexGrow={5}
-          // position="fixed"
-          // bottom="0"
-          // left="0"
-          // width="100%"
-        >
-          {category.map((text: string, index: number) => (
-            <Grid
-              xs={6}
-              key={index}
-              sx={{
-                height: "7rem",
-                "@media (max-width: 375px)": {
-                  height: "6rem",
-                },
-              }}
-            >
-              <CategoryBtn text={text} />
-            </Grid>
-          ))}
+      <Grid
+        container
+        rowSpacing={3}
+        columnSpacing={2}
+        margin="0 auto"
+        // flexGrow={5}
+        // position="fixed"
+        // bottom="0"
+        // left="0"
+        // width="100%"
+      >
+        {category.map((text: string, index: number) => (
           <Grid
-            xs={12}
+            xs={6}
+            key={index}
             sx={{
-              pt: "3rem",
-              // pb: "3rem",
+              height: "7rem",
               "@media (max-width: 375px)": {
-                pt: "2rem",
-                pb: "1rem",
+                height: "6rem",
               },
             }}
           >
-            <SaveBtn text="다음" onClick={handleNext} />
+            <CategoryBtn text={text} />
           </Grid>
+        ))}
+        <Grid
+          xs={12}
+          sx={{
+            pt: "3rem",
+            // pb: "3rem",
+            "@media (max-width: 375px)": {
+              pt: "2rem",
+              pb: "1rem",
+            },
+          }}
+        >
+          <SaveBtn text="다음" onClick={handleNext} />
         </Grid>
       </Grid>
     </Grid>

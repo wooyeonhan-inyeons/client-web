@@ -12,10 +12,6 @@ export interface menuProps {
   value: string;
 }
 
-export interface arrMenuProps {
-  menus: menuProps[];
-}
-
 export interface ThemeProps {
   theme?: Theme;
 }
@@ -46,4 +42,10 @@ export interface ContextInterface {
 
 export interface onlyNavigateInterface {
   navigate?: NavigateFunction;
+}
+
+export interface LocationProps {
+  latitude: number | undefined;
+  longitude: number | undefined;
+  zoom: number;
 }

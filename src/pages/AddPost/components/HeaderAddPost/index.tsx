@@ -1,14 +1,10 @@
 import React, { useEffect } from "react";
 import { Outlet, useOutletContext } from "react-router-dom";
-import { useResetRecoilState } from "recoil";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import userState from "../../../../recoil";
-import { ContextInterface } from "../../../Main/components/Search/interface";
-import { HeaderOptinterface } from "../../../../interface";
+import { ContextInterface, HeaderOptinterface } from "../../../../interface";
 
 function HeaderAddPost() {
-  const { setHeadOpt } = useOutletContext<ContextInterface>();
-  const resetUser = useResetRecoilState(userState);
+  const { setHeadOpt, navigate } = useOutletContext<ContextInterface>();
 
   const headerOption: HeaderOptinterface = {
     menus: [
@@ -18,8 +14,8 @@ function HeaderAddPost() {
       { key: "내용", value: "/add-post/content" },
     ],
     isForward: true,
-    icon: faTimes,
-    mainFn: resetUser,
+    icon_R: faTimes,
+    fn_R: () => navigate("/"),
   };
   useEffect(() => {
     setHeadOpt(headerOption);

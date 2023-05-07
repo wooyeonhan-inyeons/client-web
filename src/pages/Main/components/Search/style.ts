@@ -6,7 +6,7 @@ const radarPageStyle = {
   justifyContent: "center",
   position: "relative",
   touchAction: "auto",
-  overflow: "hidden",
+  // overflow: "hidden",
 
   "& .lf-player-container": {
     position: "absolute",

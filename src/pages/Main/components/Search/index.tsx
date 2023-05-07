@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useDrawer } from "../../../../hook/useDrawer";
-import { Box, Typography, Zoom, useTheme } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import WooyeonItem from "./components/WooyeonItem";
 import Categories from "./components/Categories";
 import RangeBar from "./components/RangeBar";
@@ -14,11 +14,10 @@ import { tempWooyeons, wooyeonPositioning } from "./utils";
 import { onlyNavigateInterface } from "../../../../interface";
 
 const Search = () => {
+  const { navigate } = useOutletContext<onlyNavigateInterface>();
   const { open, Drawer, toggleDrawer } = useDrawer();
   const [wooyeons, setWooyeons] = useState<Wooyeons[]>([]);
   const wooyeonsRef = useRef<Wooyeons[]>([]); //매 업데이트를 추적하기 위해 ref 사용
-  const theme = useTheme();
-  const { navigate } = useOutletContext<onlyNavigateInterface>();
 
   const searchItems = () => {
     if (wooyeonsRef.current.length > 5) setWooyeons([]);
@@ -44,14 +43,9 @@ const Search = () => {
     setWooyeons((prevWooyeons) => [...prevWooyeons, newWooyeon]);
   }
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     wooyeonsRef.current = wooyeons;
   }, [wooyeons]);
-
-  const transitionDuration = {
-    enter: theme.transitions.duration.enteringScreen,
-    exit: theme.transitions.duration.leavingScreen,
-  };
 
   return (
     <>
@@ -82,14 +76,7 @@ const Search = () => {
           }}
         >
           {wooyeons.map((item) => (
-            <Zoom
-              key={item.name}
-              in={true}
-              timeout={transitionDuration}
-              unmountOnExit
-            >
-              <WooyeonItem name={item.name} pos={item.pos} />
-            </Zoom>
+            <WooyeonItem key={item.name} name={item.name} pos={item.pos} />
           ))}
         </Box>
       </Box>

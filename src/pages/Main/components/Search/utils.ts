@@ -18,9 +18,10 @@ import IMG_6073 from "../../../../asset/IMG_6073.jpeg";
  * @returns `pos` {x: number, y: number}
  */
 export function getRandomCircleEdgeCoordinates(distance: number): WooPos {
-  let radius = 45;
-  if (distance >= 30) radius = 31;
-  else if (distance < 10) radius = 14.5;
+  let radius;
+  if (distance > 50) radius = 45;
+  else if (distance > 30) radius = 31;
+  else radius = 14.5;
 
   const angle = Math.random() * 2 * Math.PI;
   const x = radius * Math.cos(angle);
@@ -59,9 +60,9 @@ export function wooyeonPositioning({
 
 export const tempWooyeons: tempWooyeonsInterface[] = [
   { id: 100, img: IMG_5884 },
-  { id: 70, img: IMG_5995 },
-  { id: 50, img: IMG_6047 },
   { id: 40, img: IMG_6063 },
-  { id: 1, img: IMG_6066 },
+  { id: 80, img: IMG_6066 },
+  { id: 50, img: IMG_6047 },
   { id: 7, img: IMG_6073 },
+  { id: 70, img: IMG_5995 },
 ];

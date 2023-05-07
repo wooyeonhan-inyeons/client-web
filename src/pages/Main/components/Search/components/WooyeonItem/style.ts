@@ -6,28 +6,31 @@ interface wooyeonItemStyleType {
   pos: WooPos;
 }
 
-export function wooyeonItem({ iconSize, rand, pos }: wooyeonItemStyleType) {
+export function wooyeonItemStyle({
+  iconSize,
+  rand,
+  pos,
+}: wooyeonItemStyleType) {
   return {
     width: "10vw",
     height: "10vw",
     maxHeight: iconSize,
     maxWidth: iconSize,
     borderRadius: "50%",
-    overflow: "hidden",
     position: "absolute",
     left: `${50 + pos.x}%`,
     bottom: `${50 + pos.y}%`,
     // transform: `translate(${-50 + pos.x}%, ${50 + pos.y}%)`,
     transform: "translate(-50%, 50%)",
+    // animation: `0.5s ease-in-out mount 0s, 1.5s ${rand}s ease-in-out infinite alternate wooFlow`,
     animation: `1.5s ${rand}s ease-in-out infinite alternate wooFlow`,
-    boxShadow: "inset -5px -4px 7px 3px #000",
+    // boxShadow: "inset -5px -4px 7px 3px #000",
+    boxShadow: "0px 4px 4px #0000003b",
+    backgroundColor: "#ffffff",
 
-    "&>svg": {
-      opacity: 0.85,
-      width: "10vw",
-      height: "10vw",
-      maxHeight: iconSize,
-      maxWidth: iconSize,
+    "& .MuiAvatar-img": {
+      filter: "blur(1.5px)",
+      border: "none",
     },
 
     "@keyframes wooFlow": {
@@ -36,6 +39,15 @@ export function wooyeonItem({ iconSize, rand, pos }: wooyeonItemStyleType) {
       },
       to: {
         transform: "translate(-50%, 60%)",
+      },
+    },
+
+    "@keyframes mount": {
+      from: {
+        transform: "translate(-50%, 50%)scale(0)",
+      },
+      to: {
+        transform: "translate(-50%, 50%)scale(1)",
       },
     },
   };

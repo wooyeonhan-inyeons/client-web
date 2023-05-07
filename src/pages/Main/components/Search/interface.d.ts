@@ -1,4 +1,4 @@
-import { HeaderOptinterface } from "../../../../interface";
+import { NavigateFunction } from "react-router-dom";
 
 export interface WooPos {
   x: number;
@@ -9,11 +9,6 @@ export interface Wooyeons {
   name: string;
 }
 
-type SetHeadType = React.Dispatch<React.SetStateAction<HeaderOptinterface>>;
-export interface ContextInterface {
-  setHeadOpt: SetHeadType;
-}
-
 export interface WooyeonItemProps {
   name: string;
   pos: { x: number; y: number };
@@ -22,4 +17,26 @@ export interface WooyeonItemProps {
 export interface SearchItemProps {
   open: boolean;
   searchItems: () => void;
+  navigate: NavigateFunction;
+}
+
+export interface SearchContextInterface {
+  navigate: NavigateFunction;
+}
+
+export interface wooyeonPositionInterface {
+  addWooyeon: ({ pos, name, img }: addWooyeonInterface) => void;
+  wooyeonsRef: React.MutableRefObject<Wooyeons[]>;
+  distance: number;
+  img: string;
+}
+export interface tempWooyeonsInterface {
+  id: number;
+  img: string;
+}
+
+export interface addWooyeonInterface {
+  pos: WooPos;
+  name?: string;
+  img: string;
 }

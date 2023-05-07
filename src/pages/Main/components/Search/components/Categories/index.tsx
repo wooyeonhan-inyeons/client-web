@@ -1,7 +1,5 @@
 import React from "react";
-
 import { Box } from "@mui/material";
-import { Global } from "@emotion/react";
 import { useCategory } from "../../../../../../hook/useCategory";
 
 const wooyeonCategory = [
@@ -15,34 +13,31 @@ const wooyeonCategory = [
 
 function Categories() {
   const { CategoryItem } = useCategory();
+
   return (
-    <>
-      <Global
-        styles={{
-          ".MuiBox-root::-webkit-scrollbar": {
-            display: "none",
-          },
-        }}
-      />
-      <Box
-        sx={{
-          display: "flex",
-          flexWrap: "nowrap",
-          overflowX: "auto",
-          gap: "0.5rem",
-          padding: "1rem 0",
-        }}
-      >
-        {wooyeonCategory.map((item) => (
-          <CategoryItem
-            key={item.id}
-            action={() => console.log(`Category, ${item.value}`)}
-          >
-            {item.value}
-          </CategoryItem>
-        ))}
-      </Box>
-    </>
+    <Box
+      sx={{
+        width: "100%",
+        display: "flex",
+        flexWrap: "nowrap",
+        overflow: "auto",
+        gap: "0.5rem",
+        padding: "1rem 0",
+
+        "&::-webkit-scrollbar": {
+          display: "none",
+        },
+      }}
+    >
+      {wooyeonCategory.map((item) => (
+        <CategoryItem
+          key={item.id}
+          action={() => console.log(`Category, ${item.value}`)}
+        >
+          {item.value}
+        </CategoryItem>
+      ))}
+    </Box>
   );
 }
 

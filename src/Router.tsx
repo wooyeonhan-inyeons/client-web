@@ -18,7 +18,9 @@ import MapAddPost from "./pages/AddPost/components/MapAddPost";
 import CategoryAddPost from "./pages/AddPost/components/CategoryAddPost";
 import PhotoAddPost from "./pages/AddPost/components/PhotoAddPost";
 import ContentAddPost from "./pages/AddPost/components/ContentAddPost";
-// import AddPost from "./pages/AddPost";
+import Notification from "./pages/Notifycation";
+import Mypage from "./pages/Mypage";
+import EditProfile from "./pages/Mypage/components/Edit";
 
 const Router = () => {
   const [user] = useRecoilState(userState);
@@ -60,6 +62,17 @@ const Router = () => {
             { path: "category", element: <CategoryAddPost /> },
             { path: "photo", element: <PhotoAddPost /> },
             { path: "content", element: <ContentAddPost /> },
+          ],
+        },
+        {
+          path: "notification",
+          element: <Notification />,
+        },
+        {
+          path: "mypage/",
+          children: [
+            { index: true, element: <Mypage /> },
+            { path: "edit", element: <EditProfile /> },
           ],
         },
       ],

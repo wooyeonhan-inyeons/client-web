@@ -6,7 +6,7 @@ const radarPageStyle = {
   justifyContent: "center",
   position: "relative",
   touchAction: "auto",
-  overflow: "hidden",
+  // overflow: "hidden",
 
   "& .lf-player-container": {
     position: "absolute",
@@ -36,13 +36,6 @@ const radarPageStyle = {
   "@keyframes a1": {
     from: { borderColor: "#dadada" },
     to: { borderColor: "#6d6d6d" },
-  },
-  "& .MuiFab-root": {
-    position: "fixed",
-    bottom: "50px",
-    right: "1.5rem",
-    backgroundColor: "#ED6729",
-    color: "#fff",
   },
 };
 

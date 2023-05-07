@@ -22,7 +22,7 @@ function App() {
           body: {
             userSelect: "none",
             backgroundColor: "#f9f9f9",
-            touchAction: "pan-up",
+            touchAction: "pan-x",
           },
           touchAction: "none",
         }}

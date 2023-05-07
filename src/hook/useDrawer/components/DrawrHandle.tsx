@@ -1,13 +1,14 @@
 import React from "react";
 import { Puller, StyledBox } from "../../../common";
 import { DrawHeaderProps } from "../inderface";
+import { Box } from "@mui/material";
 
-const DrawrHandle = ({ drawerBleeding }: DrawHeaderProps) => {
+const DrawrHandle = ({ drawerBleeding, children }: DrawHeaderProps) => {
   return (
     <StyledBox
       sx={{
         position: "absolute",
-        top: -drawerBleeding + 0.5,
+        top: -drawerBleeding,
         height: drawerBleeding,
         borderTopLeftRadius: "1rem",
         borderTopRightRadius: "1rem",
@@ -18,6 +19,9 @@ const DrawrHandle = ({ drawerBleeding }: DrawHeaderProps) => {
       }}
     >
       <Puller />
+      <Box sx={{ position: "absolute", bottom: 0, px: "1rem", width: "100%" }}>
+        {children}
+      </Box>
     </StyledBox>
   );
 };

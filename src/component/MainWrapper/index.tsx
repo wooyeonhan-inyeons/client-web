@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import { Outlet } from "react-router-dom";
-import Header from "../Header";
+import { Outlet, useNavigate } from "react-router-dom";
 import { Box, Container } from "@mui/material";
 import { HeaderOptinterface } from "../../interface";
 import { HeaderProp } from "./interface";
-
+import Header from "../Header";
 const initOption: HeaderOptinterface = {
   menus: [{ key: "", value: "" }],
   isForward: true,
@@ -12,22 +11,33 @@ const initOption: HeaderOptinterface = {
 
 function MainWrapper({ isHeader }: HeaderProp) {
   const [headOpt, setHeadOpt] = useState<HeaderOptinterface>(initOption);
+  const navigate = useNavigate();
 
   return (
     <>
-      {isHeader && <Header headProp={headOpt} />}
+      {isHeader && <Header headProp={headOpt} navigate={navigate} />}
       <Container
         className="globalContainer"
         maxWidth="xs"
-        sx={{ backgroundColor: "#fff", touchAction: "pan-up" }}
+        sx={{
+          backgroundColor: "#fff",
+          touchAction: "pan-x",
+          "@media (min-width: 600px)": {
+            paddingLeft: 2,
+            paddingRight: 2,
+          },
+        }}
       >
         <Box
           sx={{
             paddingTop: 7,
-            height: "100vh",
+            minHeight: "100vh",
+            "@media (min-width: 600px)": {
+              paddingTop: 8,
+            },
           }}
         >
-          <Outlet context={{ headOpt, setHeadOpt }} />
+          <Outlet context={{ headOpt, setHeadOpt, navigate }} />
         </Box>
       </Container>
     </>

@@ -1,3 +1,4 @@
+import { NavigateFunction } from "react-router-dom";
 import { HeaderOptinterface } from "../../interface";
 
 export interface menuProp {
@@ -7,4 +8,5 @@ export interface menuProp {
 
 export interface HeaderProp {
   headProp: HeaderOptinterface;
+  navigate: NavigateFunction;
 }

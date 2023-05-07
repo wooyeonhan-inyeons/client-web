@@ -1,7 +1,7 @@
 import React from "react";
 import { Slider } from "@mui/material";
-import { UnDragBox, colorSet } from "../../../../../../common";
-import Global from "@mui/styled-engine-sc/GlobalStyles/GlobalStyles";
+import { UnDragBox } from "../../../../../../common";
+import { RangeBarStyle } from "./style";
 
 const range = [
   { value: 10, label: "10m" },
@@ -15,25 +15,7 @@ function RangeBar() {
   }
 
   return (
-    <UnDragBox sx={{ px: 2, touchAction: "auto" }}>
-      <Global
-        styles={{
-          ".MuiSlider-root": {
-            height: "1px",
-          },
-          ".MuiSlider-root > .MuiSlider-mark": {
-            width: "10px",
-            height: "10px",
-            color: "#fff",
-            border: `1px solid ${colorSet.light.primary}`,
-            borderRadius: "50%",
-            opacity: 1,
-          },
-          ".MuiSlider-root .MuiSlider-markLabel": {
-            fontSize: "10px !important",
-          },
-        }}
-      />
+    <UnDragBox sx={RangeBarStyle}>
       <Slider
         aria-label="RangeBar values"
         defaultValue={10}

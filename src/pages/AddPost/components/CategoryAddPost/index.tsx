@@ -37,7 +37,6 @@ const CategoryAddPost = () => {
           1개의 카테고리를 선택해 주세요.
         </Typography>
       </Box>
-      <Box height="100%" />
       <Grid
         container
         rowSpacing={3}

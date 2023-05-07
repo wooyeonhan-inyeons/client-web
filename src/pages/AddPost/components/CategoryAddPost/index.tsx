@@ -22,7 +22,6 @@ const CategoryAddPost = () => {
         flexDirection: "column",
         justifyContent: "space-between",
       }}
-      height="calc(100vh - 1rem)"
     >
       <Grid xs={12} paddingTop="3rem">
         <Typography variant="h5" fontWeight={600}>
@@ -39,34 +38,46 @@ const CategoryAddPost = () => {
           1개의 카테고리를 선택해 주세요.
         </Typography>
       </Grid>
-
-      <Grid container rowSpacing={3} columnSpacing={2} margin="0 auto">
-        {category.map((text: string, index: number) => (
+      {/* <Grid height="100vh"></Grid> */}
+      <Grid>
+        <Grid
+          container
+          rowSpacing={3}
+          columnSpacing={2}
+          margin="0 auto"
+          // flexGrow={5}
+          // position="fixed"
+          // bottom="0"
+          // left="0"
+          // width="100%"
+        >
+          {category.map((text: string, index: number) => (
+            <Grid
+              xs={6}
+              key={index}
+              sx={{
+                height: "7rem",
+                "@media (max-width: 375px)": {
+                  height: "6rem",
+                },
+              }}
+            >
+              <CategoryBtn text={text} />
+            </Grid>
+          ))}
           <Grid
-            xs={6}
-            key={index}
+            xs={12}
             sx={{
-              height: "7rem",
+              pt: "3rem",
+              // pb: "3rem",
               "@media (max-width: 375px)": {
-                height: "6rem",
+                pt: "2rem",
+                pb: "1rem",
               },
             }}
           >
-            <CategoryBtn text={text} />
+            <SaveBtn text="다음" onClick={handleNext} />
           </Grid>
-        ))}
-        <Grid
-          xs={12}
-          sx={{
-            pt: "3rem",
-            // pb: "3rem",
-            "@media (max-width: 375px)": {
-              pt: "2rem",
-              pb: "1rem",
-            },
-          }}
-        >
-          <SaveBtn text="다음" onClick={handleNext} />
         </Grid>
       </Grid>
     </Grid>

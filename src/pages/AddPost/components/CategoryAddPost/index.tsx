@@ -1,12 +1,23 @@
 import { Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2"; // Grid version 2
+import { useEffect } from "@storybook/addons";
 import React from "react";
-import { useNavigate } from "react-router";
+import { useNavigate, useOutletContext } from "react-router";
 import SaveBtn from "../../../../component/SaveBtn";
 import CategoryBtn from "../../../Category/components/CategoryBtn";
-
+import { AddPost, PostInterface } from "../HeaderAddPost/interface";
 const CategoryAddPost = () => {
   const navigate = useNavigate();
+
+  const { setPost } = useOutletContext<PostInterface>();
+
+  const setCategory: AddPost = {
+    category: "안녕",
+  };
+
+  useEffect(() => {
+    setPost(setCategory);
+  }, []);
 
   const handleNext = () => {
     navigate("/add-post/photo");
@@ -39,17 +50,7 @@ const CategoryAddPost = () => {
         </Typography>
       </Grid>
       {/* <Grid height="100vh"></Grid> */}
-      <Grid
-        container
-        rowSpacing={3}
-        columnSpacing={2}
-        margin="0 auto"
-        // flexGrow={5}
-        // position="fixed"
-        // bottom="0"
-        // left="0"
-        // width="100%"
-      >
+      <Grid container rowSpacing={3} columnSpacing={2} margin="0 auto">
         {category.map((text: string, index: number) => (
           <Grid
             xs={6}
@@ -68,7 +69,6 @@ const CategoryAddPost = () => {
           xs={12}
           sx={{
             pt: "3rem",
-            // pb: "3rem",
             "@media (max-width: 375px)": {
               pt: "2rem",
               pb: "1rem",

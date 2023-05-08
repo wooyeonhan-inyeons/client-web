@@ -1,111 +1,121 @@
-import { Typography } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { Box, Skeleton, Typography } from "@mui/material";
 import { useNavigate } from "react-router";
-import Grid from "@mui/material/Unstable_Grid2"; // Grid version 2
 import SaveBtn from "../../../../component/SaveBtn";
 import { Map, MapProvider } from "react-map-gl";
 import { LocationProps } from "../../../../interface";
 // import MarkerImage from "./marker.png";
-import Geocode from "react-geocode";
+import { getCurrentGeocode, getCurrentLocation } from "./utils";
 
 // 주소변환 -> 지오코딩
 // 마커 표시
 // X 아이콘 바꾸기
 
-const MapAddPost = () => {
-  const navigate = useNavigate();
+const initPosition = {
+  longitude: 127.9068,
+  latitude: 35.6699,
+  zoom: 6,
+};
 
+const MapAddPost = () => {
+  const [viewport, setViewport] = useState<LocationProps | undefined>(
+    undefined
+  );
+  const [geocode, setGeocede] = useState<string | undefined>(undefined);
+  const positionRef = useRef<LocationProps | undefined>(initPosition);
+  const navigate = useNavigate();
   const handleNext = () => {
     navigate("/add-post/category");
   };
 
-  const [viewport, setViewport] = useState<LocationProps>({
-    latitude: 37.5326,
-    longitude: 127.024612,
-    zoom: 12,
-  });
+  useEffect(() => {
+    if (positionRef.current == initPosition) {
+      getCurrentLocation({ setViewport });
+    }
+  }, [navigator]);
 
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition((position) => {
-      setViewport({
-        latitude: position.coords.latitude,
-        longitude: position.coords.longitude,
-        zoom: 15,
+    positionRef.current = viewport;
+    if (positionRef.current !== undefined) {
+      getCurrentGeocode(positionRef.current).then((e) => {
+        setGeocede(e.reverse().join(" "));
       });
-    });
-  }, []);
-
-  Geocode.setApiKey(import.meta.env.GOOGLE_MAP_API);
-  Geocode.setLanguage("en");
-  Geocode.setRegion("es");
-  Geocode.fromLatLng("48.8583701", "2.2922926").then(
-    (response) => {
-      const address = response.results[0].formatted_address;
-      console.log(address);
-    },
-    (error) => {
-      console.error(error);
     }
-  );
-
-  console.log("위치: ", viewport.longitude, viewport.latitude);
+  }, [viewport, positionRef]);
 
   return (
-    <Grid
-      container
-      spacing={6}
+    <Box
       sx={{
-        padding: "1rem",
+        padding: "2rem 0",
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
+        height: "100%",
+        //우선 스타일로 지도 아래에 있던 객체들 '가림'
+        "& .mapboxgl-ctrl ": {
+          display: "none",
+        },
       }}
-      height="100vh"
-      padding={0}
     >
-      <Grid xs={12} paddingTop="3rem">
+      <Box>
         <Typography variant="h5" fontWeight={600}>
-          지도를 움직여 추가할
-        </Typography>
-        <Typography variant="h5" fontWeight={600} paddingBottom="1rem">
+          지도를 움직여 추가할 <br />
           우연의 장소를 지정해 주세요
         </Typography>
         <Typography variant="subtitle1" sx={{ color: "#A2A2A2" }}>
-          대구광역시 달서구 신당동
+          {geocode ? (
+            geocode
+          ) : (
+            <Skeleton variant="text" animation="wave" width={250} />
+          )}
         </Typography>
-      </Grid>
+      </Box>
 
-      <Grid padding={0}>
-        <MapProvider>
-          <Map
-            initialViewState={{
-              longitude: 127.9068,
-              latitude: 35.6699,
-              zoom: 6,
-            }}
-            {...viewport}
-            mapboxAccessToken={import.meta.env.VITE_MAP_API}
-            mapStyle="mapbox://styles/mapbox/light-v9"
-            style={{ width: "100%", height: 400 }}
-          >
-            {/* <Marker
-              longitude={viewport.longitude}
-              latitude={viewport.latitude}
-              draggable={true}
-              // onDragEnd={handleMarkerDragEnd}
+      <Box padding={0}>
+        {positionRef.current !== initPosition ? (
+          <MapProvider>
+            <Map
+              initialViewState={{
+                longitude: 128.4936,
+                latitude: 35.8555,
+                zoom: 6,
+              }}
+              {...viewport}
+              mapboxAccessToken={import.meta.env.VITE_MAP_API}
+              mapStyle="mapbox://styles/mapbox/light-v9"
+              style={{
+                width: "100%",
+                height: "400px",
+                maxHeight: "50vh",
+                overflow: "hidden",
+                backgroundColor: "#f6f6f4",
+              }}
             >
-              <span role="img" aria-label="marker">
-                📍
-              </span>
-            </Marker> */}
-          </Map>
-        </MapProvider>
-      </Grid>
+              {/* <Marker
+                longitude={viewport.longitude}
+                latitude={viewport.latitude}
+                draggable={true}
+                // onDragEnd={handleMarkerDragEnd}
+              >
+                <span role="img" aria-label="marker">
+                  📍
+                </span>
+              </Marker> */}
+            </Map>
+          </MapProvider>
+        ) : (
+          <Skeleton
+            variant="rectangular"
+            height={400}
+            sx={{ maxHeight: "50vh" }}
+          />
+        )}
+      </Box>
 
-      <Grid xs={12}>
+      <Box>
         <SaveBtn text="다음" onClick={handleNext} />
-      </Grid>
-    </Grid>
+      </Box>
+    </Box>
   );
 };
 

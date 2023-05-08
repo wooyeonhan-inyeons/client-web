@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Outlet, useOutletContext } from "react-router-dom";
-import { useResetRecoilState } from "recoil";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import userState from "../../../../recoil";
 import { ContextInterface, HeaderOptinterface } from "../../../../interface";
 import { AddPost } from "./interface";
 
 function HeaderAddPost() {
-  const { setHeadOpt } = useOutletContext<ContextInterface>();
+  const { setHeadOpt, navigate } = useOutletContext<ContextInterface>();
   const [post, setPost] = useState<AddPost | null>(null);
-
-  const resetUser = useResetRecoilState(userState);
 
   const headerOption: HeaderOptinterface = {
     menus: [
@@ -21,7 +18,7 @@ function HeaderAddPost() {
     ],
     isForward: true,
     icon_R: faTimes,
-    fn_R: resetUser,
+    fn_R: () => navigate("/"),
   };
   useEffect(() => {
     setHeadOpt(headerOption);

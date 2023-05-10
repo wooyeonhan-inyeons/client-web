@@ -1,6 +1,6 @@
 import React, { useLayoutEffect } from "react";
 import { Box, Stack, Typography } from "@mui/material";
-import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useOutletContext } from "react-router-dom";
 import {
   ContextInterface,
@@ -13,8 +13,8 @@ export default function EditProfile() {
 
   const headerOption: HeaderOptinterface = {
     menus: [{ key: "프로필 수정", value: "/mypage/edit" }],
-    icon_R: faAngleLeft,
-    fn_R: () => navigate(-1),
+    icon_L: faXmark,
+    fn_L: () => navigate(-1),
     headerType: HEAD_TYPE.v3,
   };
 

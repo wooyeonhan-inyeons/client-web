@@ -1,13 +1,13 @@
 import React, { useLayoutEffect } from "react";
 import { useResetRecoilState } from "recoil";
-import userState from "../../recoil";
+import { userState } from "../../recoil";
 import { Box, Button, Stack, Typography } from "@mui/material";
 import {
   ContextInterface,
   HEAD_TYPE,
   HeaderOptinterface,
 } from "../../interface.d";
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faAngleLeft, faGear } from "@fortawesome/free-solid-svg-icons";
 import { useOutletContext } from "react-router-dom";
 
 export default function Mypage() {
@@ -16,8 +16,10 @@ export default function Mypage() {
 
   const headerOption: HeaderOptinterface = {
     menus: [{ key: "마이페이지", value: "/mypage" }],
-    icon_R: faXmark,
-    fn_R: () => navigate(-1),
+    icon_L: faAngleLeft,
+    fn_L: () => navigate(-1),
+    icon_R: faGear,
+    fn_R: () => navigate("/mypage/setting"),
     headerType: HEAD_TYPE.v3,
   };
 

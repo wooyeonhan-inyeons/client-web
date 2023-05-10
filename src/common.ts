@@ -1,10 +1,12 @@
-import styled from "@emotion/styled";
-import { Box } from "@mui/material";
+import { Box, createTheme } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import { ThemeProps } from "./interface.d";
+import styled from "@emotion/styled";
 
+const mainPrimary = "#00A651";
 export const colorSet = {
-  light: { primary: "#00A651" },
+  light: { primary: mainPrimary, background: "#fff" },
+  dark: { primary: mainPrimary, background: "#424242" },
 };
 
 export const Root = styled("div")(({ theme }: ThemeProps) => ({
@@ -20,14 +22,14 @@ export const StyledBox = styled(Box)(({ theme }: ThemeProps) => ({
 }));
 
 export const Puller = styled(Box)(() => ({
+  backgroundColor: colorSet.light.primary,
   width: 50,
   height: 5,
-  backgroundColor: colorSet.light.primary,
   opacity: 0.3,
   borderRadius: 3,
   position: "absolute",
-  top: 10,
   left: "calc(50% - 25px)",
+  top: 10,
 }));
 
 export const UnDragBox = styled(Box)`
@@ -36,3 +38,21 @@ export const UnDragBox = styled(Box)`
   -ms-user-select: none;
   user-select: none;
 `;
+
+export const lightTheme = createTheme({
+  palette: {
+    mode: "light",
+    primary: {
+      main: "#00A651",
+    },
+  },
+});
+
+export const darkTheme = createTheme({
+  palette: {
+    mode: "dark",
+    primary: {
+      main: "#00A651",
+    },
+  },
+});

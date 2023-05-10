@@ -2,19 +2,14 @@ import React from "react";
 import Router from "./Router";
 import { CssBaseline, createTheme } from "@mui/material";
 import { Global, ThemeProvider } from "@emotion/react";
-
-const defaultTheme = createTheme({
-  palette: {
-    mode: "light",
-    primary: {
-      main: "#00A651",
-    },
-  },
-});
+import { useRecoilState } from "recoil";
+import { envState } from "./recoil";
+import { darkTheme, lightTheme } from "./common";
 
 function App() {
+  const [env] = useRecoilState(envState);
   return (
-    <ThemeProvider theme={defaultTheme}>
+    <ThemeProvider theme={env.theme ? lightTheme : darkTheme}>
       {/* css 초기화 */}
       <CssBaseline />
       <Global

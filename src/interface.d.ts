@@ -6,6 +6,9 @@ export interface UserState {
   name: string;
   first: boolean;
 }
+export interface EnvState {
+  theme: boolean;
+}
 
 export interface menuProps {
   key: string;

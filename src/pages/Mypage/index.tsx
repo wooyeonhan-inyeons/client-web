@@ -2,11 +2,7 @@ import React, { useLayoutEffect } from "react";
 import { useResetRecoilState } from "recoil";
 import { userState } from "../../recoil";
 import { Box, Button, Stack, Typography } from "@mui/material";
-import {
-  ContextInterface,
-  HEAD_TYPE,
-  HeaderOptinterface,
-} from "../../interface.d";
+import { ContextInterface, HeaderOptinterface } from "../../interface.d";
 import { faAngleLeft, faGear } from "@fortawesome/free-solid-svg-icons";
 import { useOutletContext } from "react-router-dom";
 
@@ -20,7 +16,7 @@ export default function Mypage() {
     fn_L: () => navigate(-1),
     icon_R: faGear,
     fn_R: () => navigate("/mypage/setting"),
-    headerType: HEAD_TYPE.v3,
+    headerType: "V3",
   };
 
   useLayoutEffect(() => {

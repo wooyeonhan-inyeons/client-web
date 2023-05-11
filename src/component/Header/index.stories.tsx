@@ -5,7 +5,6 @@ import { HeaderProp } from "./intreface";
 import { withRouter } from "storybook-addon-react-router-v6";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
-import { HEAD_TYPE } from "../../interface.d";
 
 export default {
   title: "Header",
@@ -41,7 +40,7 @@ Notification.args = {
   headProp: {
     menus: [{ key: "Title", value: "" }],
     icon_R: faXmark,
-    headerType: HEAD_TYPE.v2,
+    headerType: "V2",
   },
 };
 
@@ -50,6 +49,6 @@ LeftClose.args = {
   headProp: {
     menus: [{ key: "Title", value: "" }],
     icon_R: faXmark,
-    headerType: HEAD_TYPE.v3,
+    headerType: "V3",
   },
 };

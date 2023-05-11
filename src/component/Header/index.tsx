@@ -14,9 +14,10 @@ import { headerStyle } from "./style";
 import { useLocation } from "react-router-dom";
 import { colorSet } from "../../common";
 import { HeaderProp, menuProp } from "./intreface";
-import { HEAD_TYPE } from "../../interface.d";
 import HeaderV3 from "./components/HearderV3";
 import HeaderV2 from "./components/HearderV2";
+import { useRecoilState } from "recoil";
+import { envState } from "../../recoil";
 
 /**
  *
@@ -42,10 +43,11 @@ const theme = createTheme({
 
 function Header({ headProp, navigate }: HeaderProp) {
   const [idx, setIdx] = useState<number>(0);
+  const [env] = useRecoilState(envState);
   const location = useLocation();
 
-  headProp.bgColor = "#fff";
-  if (headProp.headerType === undefined) headProp.headerType = HEAD_TYPE.v1;
+  headProp.bgColor = env ? colorSet.light.background : colorSet.dark.background;
+  if (headProp.headerType === undefined) headProp.headerType = "V1";
 
   const handleNavigate = (prop: menuProp) => {
     const handleIdx = headProp.menus.findIndex(
@@ -64,10 +66,10 @@ function Header({ headProp, navigate }: HeaderProp) {
     );
   }, [location, headProp]);
 
-  if (headProp.headerType === HEAD_TYPE.v2) {
+  if (headProp.headerType === "V2") {
     return <HeaderV2 headProp={headProp} navigate={navigate} />;
   }
-  if (headProp.headerType === HEAD_TYPE.v3) {
+  if (headProp.headerType === "V3") {
     return <HeaderV3 headProp={headProp} navigate={navigate} />;
   }
   return (

@@ -7,7 +7,7 @@ export interface UserState {
   first: boolean;
 }
 export interface EnvState {
-  theme: boolean;
+  theme: boolean | "system";
 }
 
 export interface menuProps {
@@ -26,14 +26,8 @@ export interface HeaderOptinterface {
   icon_L?: IconDefinition;
   icon_R?: IconDefinition;
   isForward?: boolean;
-  headerType?: HEAD_TYPE;
+  headerType?: "V1" | "V2" | "V3";
   bgColor?: string;
-}
-
-export enum HEAD_TYPE {
-  "v1",
-  "v2",
-  "v3",
 }
 
 type SetHeadType = React.Dispatch<React.SetStateAction<HeaderOptinterface>>;

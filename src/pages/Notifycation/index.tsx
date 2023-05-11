@@ -1,23 +1,23 @@
 import React, { useLayoutEffect } from "react";
 import { useOutletContext } from "react-router-dom";
-import {
-  ContextInterface,
-  HEAD_TYPE,
-  HeaderOptinterface,
-} from "../../interface.d";
+import { ContextInterface, HeaderOptinterface } from "../../interface.d";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { Box } from "@mui/material";
 import NotiItem from "./components/NotiItem";
+import { useRecoilState } from "recoil";
+import { envState } from "../../recoil";
+import { colorSet } from "../../common";
 
 export default function Notification() {
   const { headOpt, setHeadOpt, navigate } =
     useOutletContext<ContextInterface>();
+  const [env] = useRecoilState(envState);
 
   const headerOption: HeaderOptinterface = {
     menus: [{ key: "알림", value: "/notification" }],
     icon_R: faXmark,
     fn_R: () => navigate(-1),
-    headerType: HEAD_TYPE.v3,
+    headerType: "V3",
   };
 
   useLayoutEffect(() => {
@@ -43,7 +43,9 @@ export default function Notification() {
   return (
     <Box
       sx={{
-        backgroundColor: "#fff",
+        backgroundColor: env
+          ? colorSet.light.background
+          : colorSet.dark.background,
         padding: 0,
         maxHeight: "calc(100vh - 56px)",
         overflow: "hidden",

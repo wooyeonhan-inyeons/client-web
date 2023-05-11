@@ -1,14 +1,17 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import React, { useLayoutEffect } from "react";
 import { useOutletContext } from "react-router-dom";
-import { ContextInterface, HeaderOptinterface } from "../../../../interface.d";
+import {
+  ContextInterface,
+  EnvState,
+  HeaderOptinterface,
+  themeType,
+} from "../../../../interface.d";
 import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 import {
-  Box,
   FormControlLabel,
   Radio,
   RadioGroup,
   Stack,
-  Switch,
   Typography,
 } from "@mui/material";
 import { useRecoilState } from "recoil";
@@ -16,8 +19,7 @@ import { envState } from "../../../../recoil";
 
 export default function SettingPage() {
   const { setHeadOpt, navigate } = useOutletContext<ContextInterface>();
-  const themeRef = useRef<HTMLButtonElement>(null);
-  const [isLight, setIsLight] = useState(true);
+
   const [env, setEnv] = useRecoilState(envState);
 
   const headerOption: HeaderOptinterface = {
@@ -32,35 +34,21 @@ export default function SettingPage() {
     setHeadOpt(headerOption);
   }, []);
 
-  useEffect(() => {
-    console.log("switch!");
-
-    // setEnv((prev) => {
-    //   return { ...prev, theme: !env.theme };
-    // });
-  }, [isLight]);
-
   return (
-    <RadioGroup defaultValue="system">
-      <Stack>
-        <Typography variant="h4">
-          {env.theme ? "dark" : "light"} mode
-        </Typography>
-        <Box>
-          다크모드 설정쓰 현재:
-          <Switch
-            ref={themeRef}
-            value={env.theme}
-            onChange={() => {
-              setIsLight((prev) => {
-                return !prev;
-              });
-              setEnv((prev) => {
-                return { ...prev, theme: !env.theme };
-              });
-            }}
-          />
-        </Box>
+    <RadioGroup
+      defaultValue="system"
+      value={env.theme}
+      onChange={(e) => {
+        setEnv((prev: EnvState) => {
+          return {
+            ...prev,
+            theme: e.target.value as themeType,
+          };
+        });
+      }}
+    >
+      <Stack spacing={1}>
+        <Typography variant="h5">테마 변경</Typography>
         <FormControlLabel
           value="system"
           control={<Radio />}

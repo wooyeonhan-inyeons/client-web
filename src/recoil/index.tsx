@@ -12,6 +12,6 @@ export const userState = atom<UserState>({
 
 export const envState = atom<EnvState>({
   key: "envState",
-  default: { theme: true },
+  default: { theme: "system" },
   effects_UNSTABLE: [persistAtom],
 });

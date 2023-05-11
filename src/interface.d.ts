@@ -6,8 +6,11 @@ export interface UserState {
   name: string;
   first: boolean;
 }
+
+export type themeType = "system" | "light" | "dark";
 export interface EnvState {
-  theme: boolean | "system";
+  theme: themeType;
+  distance?: number;
 }
 
 export interface menuProps {

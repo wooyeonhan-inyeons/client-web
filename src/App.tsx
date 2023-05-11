@@ -1,15 +1,31 @@
-import React from "react";
+import React, { useMemo } from "react";
 import Router from "./Router";
-import { CssBaseline, createTheme } from "@mui/material";
+import { CssBaseline } from "@mui/material";
 import { Global, ThemeProvider } from "@emotion/react";
 import { useRecoilState } from "recoil";
 import { envState } from "./recoil";
 import { darkTheme, lightTheme } from "./common";
+import { EnvState } from "./interface";
 
 function App() {
   const [env] = useRecoilState(envState);
+
+  const themeMemo = useMemo(() => themeSelector(env), [env]);
+
+  function themeSelector(env: EnvState) {
+    if (env.theme == "system") {
+      //브라우저의 컬러 테마
+      const mediaTheme = window.matchMedia("(prefers-color-scheme: dark)");
+      return mediaTheme.matches ? darkTheme : lightTheme;
+    } else if (env.theme == "light") {
+      return lightTheme;
+    } else {
+      return darkTheme;
+    }
+  }
+
   return (
-    <ThemeProvider theme={env.theme ? lightTheme : darkTheme}>
+    <ThemeProvider theme={themeMemo}>
       {/* css 초기화 */}
       <CssBaseline />
       <Global

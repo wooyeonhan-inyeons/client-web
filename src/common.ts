@@ -3,7 +3,8 @@ import { grey } from "@mui/material/colors";
 import { ThemeProps } from "./interface.d";
 import styled from "@emotion/styled";
 
-const mainPrimary = "#00A651";
+export const mainPrimary = "#00A651";
+
 export const colorSet = {
   light: { primary: mainPrimary, background: "#fff" },
   dark: { primary: mainPrimary, background: "#424242" },
@@ -43,7 +44,7 @@ export const lightTheme = createTheme({
   palette: {
     mode: "light",
     primary: {
-      main: "#00A651",
+      main: mainPrimary,
     },
   },
 });
@@ -52,7 +53,7 @@ export const darkTheme = createTheme({
   palette: {
     mode: "dark",
     primary: {
-      main: "#00A651",
+      main: mainPrimary,
     },
   },
 });

@@ -23,6 +23,8 @@ function App() {
     }
   }
 
+  console.log(window.matchMedia("(prefers-color-scheme: dark)"));
+
   return (
     <ThemeProvider theme={themeSelector(env)}>
       {/* css 초기화 */}
@@ -32,7 +34,14 @@ function App() {
           body: {
             userSelect: "none",
             touchAction: "pan-x",
-            backgroundColor: env.theme === "dark" ? "#262626" : grey[100],
+            backgroundColor:
+              env.theme === "system"
+                ? window.matchMedia("(prefers-color-scheme: dark)").matches
+                  ? "#262626"
+                  : grey[100]
+                : env.theme === "dark"
+                ? "#262626"
+                : grey[100],
           },
           touchAction: "none",
         }}

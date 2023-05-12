@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
-import { Box, Container } from "@mui/material";
+import { Box } from "@mui/material";
 import { HeaderOptinterface } from "../../interface";
 import { HeaderProp } from "./interface";
 import Header from "../Header";
 import { useRecoilState } from "recoil";
 import { envState } from "../../recoil";
 import { colorSet } from "../../common";
+import { StyledContainer } from "./style";
 const initOption: HeaderOptinterface = {
   menus: [{ key: "", value: "" }],
   isForward: true,
@@ -19,7 +20,7 @@ function MainWrapper({ isHeader }: HeaderProp) {
   return (
     <>
       {isHeader && <Header headProp={headOpt} navigate={navigate} />}
-      <Container
+      <StyledContainer
         className="globalContainer"
         maxWidth="xs"
         sx={{
@@ -46,7 +47,7 @@ function MainWrapper({ isHeader }: HeaderProp) {
         >
           <Outlet context={{ headOpt, setHeadOpt, navigate }} />
         </Box>
-      </Container>
+      </StyledContainer>
     </>
   );
 }

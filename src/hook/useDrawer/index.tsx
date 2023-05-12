@@ -3,9 +3,9 @@ import { SwipeableDrawer } from "@mui/material";
 import { Global } from "@emotion/react";
 import DrawrHandle from "./components/DrawrHandle";
 import { DrawerProps } from "./inderface";
-import { StyledBox, StyledDrawBox } from "./style";
 import { envState } from "../../recoil";
 import { useRecoilState } from "recoil";
+import { StyledBox } from "../../common";
 
 const Drawer = ({
   open,
@@ -35,9 +35,9 @@ const Drawer = ({
           },
           ".use_drawer .MuiBackdrop-root": {
             backgroundColor:
-              env.theme === "light"
-                ? "rgb(255 255 255 / 30%)"
-                : "rgb(0 0 0 / 30%)",
+              env.theme === "dark"
+                ? "rgb(0 0 0 / 30%)"
+                : "rgb(255 255 255 / 30%)",
             backdropFilter: "blur(2px)",
             maxWidth: "444px",
             margin: "0 auto",
@@ -59,7 +59,7 @@ const Drawer = ({
         <DrawrHandle drawerBleeding={drawerBleeding}>
           {headerChildren}
         </DrawrHandle>
-        <StyledDrawBox
+        <StyledBox
           sx={{
             position: "relative",
             overflow: "scroll",
@@ -68,7 +68,7 @@ const Drawer = ({
           }}
         >
           {children}
-        </StyledDrawBox>
+        </StyledBox>
       </SwipeableDrawer>
     </>
   );

@@ -32,7 +32,7 @@ function App() {
           body: {
             userSelect: "none",
             touchAction: "pan-x",
-            backgroundColor: env.theme == "light" ? grey[100] : "#262626",
+            backgroundColor: env.theme === "dark" ? "#262626" : grey[100],
           },
           touchAction: "none",
         }}

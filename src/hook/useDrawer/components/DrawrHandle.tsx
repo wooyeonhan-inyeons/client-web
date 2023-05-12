@@ -1,8 +1,7 @@
 import React from "react";
-import { Puller } from "../../../common";
+import { Puller, StyledBox } from "../../../common";
 import { DrawHeaderProps } from "../inderface";
 import { Box } from "@mui/material";
-import { StyledBox } from "../style";
 
 const DrawrHandle = ({ drawerBleeding, children }: DrawHeaderProps) => {
   return (

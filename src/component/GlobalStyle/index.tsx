@@ -5,7 +5,7 @@ import { grey } from "@mui/material/colors";
 
 const GlobalStyle = styled("div")(({ theme }: ThemeProps) => ({
   height: "100%",
-  backgroundColor: theme?.palette.mode === "light" ? grey[100] : "#262626",
+  backgroundColor: theme?.palette.mode === "dark" ? "#262626" : grey[100],
   // : theme?.palette.background.default,
 }));
 

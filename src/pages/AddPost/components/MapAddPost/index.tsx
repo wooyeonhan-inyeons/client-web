@@ -1,15 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Box, Skeleton, Typography } from "@mui/material";
-import { useNavigate } from "react-router";
+import { useNavigate, useOutletContext } from "react-router";
 import SaveBtn from "../../../../component/SaveBtn";
 import { Map, MapProvider } from "react-map-gl";
 import { LocationProps } from "../../../../interface";
 // import MarkerImage from "./marker.png";
 import { getCurrentGeocode, getCurrentLocation } from "./utils";
+import { PostStateInterface } from "../HeaderAddPost/interface";
 
-// 주소변환 -> 지오코딩
 // 마커 표시
-// X 아이콘 바꾸기
 
 const initPosition = {
   longitude: 127.9068,
@@ -18,11 +17,13 @@ const initPosition = {
 };
 
 const MapAddPost = () => {
+  const { post, setPost } = useOutletContext<PostStateInterface>();
   const [viewport, setViewport] = useState<LocationProps | undefined>(
     undefined
   );
   const [geocode, setGeocede] = useState<string | undefined>(undefined);
   const positionRef = useRef<LocationProps | undefined>(initPosition);
+
   const navigate = useNavigate();
   const handleNext = () => {
     navigate("/add-post/category");
@@ -41,6 +42,16 @@ const MapAddPost = () => {
         setGeocede(e.reverse().join(" "));
       });
     }
+
+    // post state 저장
+    setPost((prevState) => ({
+      ...prevState,
+      latitude: viewport?.latitude,
+      longitude: viewport?.longitude,
+      address: geocode,
+    }));
+
+    console.log("지도 정보입력 후: ", post);
   }, [viewport, positionRef]);
 
   return (

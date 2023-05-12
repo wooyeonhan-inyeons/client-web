@@ -15,7 +15,7 @@ const CategoryButton = styled(Button)(({ checked }: { checked: boolean }) => ({
 function CategoryItem({ children, action }: CategoryItemProps) {
   const [checked, setChecked] = useState<boolean>(false);
   const handleChecked = () => {
-    setChecked(!checked);
+    setChecked((checked) => !checked);
     action();
   };
 

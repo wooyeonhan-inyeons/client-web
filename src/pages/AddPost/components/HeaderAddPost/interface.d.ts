@@ -3,7 +3,7 @@ export interface Photo {
   photo: string;
 }
 
-export interface AddPost {
+export interface UploadPostType {
   latitude?: number | undefined;
   longitude?: number | undefined;
   address?: string | null;
@@ -13,7 +13,7 @@ export interface AddPost {
   content?: string;
 }
 
-type SetPostType = React.Dispatch<React.SetStateAction<AddPost>>;
-export interface PostInterface {
-  setPost: SetPostType;
+export interface PostStateInterface {
+  post: UploadPostType | null;
+  setPost: React.Dispatch<React.SetStateAction<UploadPostType | null>>;
 }

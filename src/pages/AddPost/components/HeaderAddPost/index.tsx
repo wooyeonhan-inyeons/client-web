@@ -1,13 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { Outlet, useOutletContext } from "react-router-dom";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import userState from "../../../../recoil";
 import { ContextInterface, HeaderOptinterface } from "../../../../interface";
-import { AddPost } from "./interface";
+import { UploadPostType } from "./interface";
 
 function HeaderAddPost() {
   const { setHeadOpt, navigate } = useOutletContext<ContextInterface>();
-  const [post, setPost] = useState<AddPost | null>(null);
+
+  // 컴포넌트에서 사용할 기본 상태
+  const initialPostState: UploadPostType = {
+    latitude: undefined,
+    longitude: undefined,
+    address: null,
+    category: null,
+    photo: [],
+    title: "",
+    content: "",
+  };
+  const [post, setPost] = useState<UploadPostType | null>(initialPostState);
 
   const headerOption: HeaderOptinterface = {
     menus: [
@@ -20,14 +30,15 @@ function HeaderAddPost() {
     icon_R: faTimes,
     fn_R: () => navigate("/"),
   };
+
   useEffect(() => {
     setHeadOpt(headerOption);
   }, []);
 
   useEffect(() => {
-    console.log(post);
+    console.log("[header]업로드할 우연 정보: ", post);
   }, [post]);
-  return <Outlet context={{ setHeadOpt, setPost }} />;
+  return <Outlet context={{ setHeadOpt, post, setPost }} />;
 }
 
 export default HeaderAddPost;

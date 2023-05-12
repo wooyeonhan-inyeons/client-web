@@ -23,9 +23,10 @@ function MainWrapper({ isHeader }: HeaderProp) {
         className="globalContainer"
         maxWidth="xs"
         sx={{
-          backgroundColor: env
-            ? colorSet.light.background
-            : colorSet.dark.background,
+          backgroundColor:
+            env.theme == "light"
+              ? colorSet.light.background
+              : colorSet.dark.background,
           touchAction: "pan-x",
           "@media (min-width: 600px)": {
             paddingLeft: 2,

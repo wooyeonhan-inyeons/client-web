@@ -1,16 +1,15 @@
-import React, { useMemo } from "react";
+import React from "react";
 import Router from "./Router";
-import { CssBaseline } from "@mui/material";
-import { Global, ThemeProvider } from "@emotion/react";
+import { CssBaseline, GlobalStyles, ThemeProvider } from "@mui/material";
 import { useRecoilState } from "recoil";
 import { envState } from "./recoil";
 import { darkTheme, lightTheme } from "./common";
 import { EnvState } from "./interface";
+import GlobalStyle from "./component/GlobalStyle";
+import { grey } from "@mui/material/colors";
 
 function App() {
   const [env] = useRecoilState(envState);
-
-  const themeMemo = useMemo(() => themeSelector(env), [env]);
 
   function themeSelector(env: EnvState) {
     if (env.theme == "system") {
@@ -25,20 +24,22 @@ function App() {
   }
 
   return (
-    <ThemeProvider theme={themeMemo}>
+    <ThemeProvider theme={themeSelector(env)}>
       {/* css 초기화 */}
       <CssBaseline />
-      <Global
+      <GlobalStyles
         styles={{
           body: {
             userSelect: "none",
-            backgroundColor: "#f9f9f9",
             touchAction: "pan-x",
+            backgroundColor: env.theme == "light" ? grey[100] : "#262626",
           },
           touchAction: "none",
         }}
       />
-      <Router />
+      <GlobalStyle>
+        <Router />
+      </GlobalStyle>
     </ThemeProvider>
   );
 }

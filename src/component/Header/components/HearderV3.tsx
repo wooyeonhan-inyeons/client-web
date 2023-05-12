@@ -2,7 +2,7 @@ import React from "react";
 import { AppBar, Box, IconButton, Toolbar, Typography } from "@mui/material";
 import { HeaderProp } from "../intreface";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import headerStyle from "../style";
+import { HeaderWrapper } from "../style";
 
 /**
  *
@@ -15,7 +15,7 @@ import headerStyle from "../style";
 
 function HeaderV3({ headProp }: HeaderProp) {
   return (
-    <Box className="header_root" sx={headerStyle}>
+    <HeaderWrapper>
       <AppBar position="fixed" sx={{ backgroundColor: headProp.bgColor }}>
         <Toolbar className="centerToolbar">
           {headProp.icon_L ? (
@@ -25,9 +25,7 @@ function HeaderV3({ headProp }: HeaderProp) {
           ) : (
             <Box width={34} />
           )}
-          <Typography color="#000" variant="subtitle2">
-            {headProp.menus[0].key}
-          </Typography>
+          <Typography variant="subtitle2">{headProp.menus[0].key}</Typography>
           {headProp.fn_R ? (
             <IconButton onClick={headProp.fn_R} className="mainFn">
               {headProp.icon_R && (
@@ -39,7 +37,7 @@ function HeaderV3({ headProp }: HeaderProp) {
           )}
         </Toolbar>
       </AppBar>
-    </Box>
+    </HeaderWrapper>
   );
 }
 

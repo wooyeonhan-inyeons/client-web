@@ -3,21 +3,17 @@ import {
   AppBar,
   Box,
   Button,
-  createTheme,
   IconButton,
-  ThemeProvider,
   Toolbar,
   Typography,
 } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { headerStyle } from "./style";
+import { HeaderWrapper } from "./style";
 import { useLocation } from "react-router-dom";
 import { colorSet } from "../../common";
 import { HeaderProp, menuProp } from "./intreface";
 import HeaderV3 from "./components/HearderV3";
 import HeaderV2 from "./components/HearderV2";
-import { useRecoilState } from "recoil";
-import { envState } from "../../recoil";
 
 /**
  *
@@ -30,23 +26,11 @@ import { envState } from "../../recoil";
  * @param headerType default=`v1` (storybook 참고)
  */
 
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: "#D9D9D9",
-    },
-    secondary: {
-      main: "#00A651",
-    },
-  },
-});
-
 function Header({ headProp, navigate }: HeaderProp) {
   const [idx, setIdx] = useState<number>(0);
-  const [env] = useRecoilState(envState);
   const location = useLocation();
 
-  headProp.bgColor = env ? colorSet.light.background : colorSet.dark.background;
+  // headProp.bgColor = env ? colorSet.light.background : colorSet.dark.background;
   if (headProp.headerType === undefined) headProp.headerType = "V1";
 
   const handleNavigate = (prop: menuProp) => {
@@ -73,50 +57,50 @@ function Header({ headProp, navigate }: HeaderProp) {
     return <HeaderV3 headProp={headProp} navigate={navigate} />;
   }
   return (
-    <ThemeProvider theme={theme}>
-      <Box className="header_root" sx={headerStyle}>
-        <AppBar sx={{ background: "none" }}>
-          <Toolbar>
-            <Box>
-              {headProp.menus.map((item) => (
-                <Button
-                  key={item.key}
-                  onClick={() => handleNavigate(item)}
-                  className="header_nav_btn"
-                  sx={{
-                    borderBottom:
-                      item.value === location.pathname
-                        ? `2px solid ${colorSet.light.primary}`
-                        : "2px solid #0000",
-                  }}
+    <HeaderWrapper>
+      <AppBar sx={{ background: "none" }}>
+        <Toolbar>
+          <Box>
+            {headProp.menus.map((item) => (
+              <Button
+                key={item.key}
+                onClick={() => handleNavigate(item)}
+                className={`header_nav_btn ${
+                  item.value === location.pathname ? "active" : ""
+                }`}
+                sx={{
+                  borderBottom:
+                    item.value === location.pathname
+                      ? `2px solid ${colorSet.light.primary}`
+                      : "2px solid #0000",
+                }}
+              >
+                <Typography
+                  variant="subtitle2"
+                  color={
+                    item.value === location.pathname ? "secondary" : "primary"
+                  }
                 >
-                  <Typography
-                    variant="subtitle2"
-                    color={
-                      item.value === location.pathname ? "secondary" : "primary"
-                    }
-                  >
-                    {item.key}
-                  </Typography>
-                </Button>
-              ))}
-            </Box>
-            <Box className="right_section">
-              {headProp.icon_L && (
-                <IconButton onClick={headProp.fn_L} className="mainFn">
-                  <FontAwesomeIcon icon={headProp.icon_L} size="xs" />
-                </IconButton>
-              )}
-              <IconButton onClick={headProp.fn_R} className="mainFn">
-                {headProp.icon_R && (
-                  <FontAwesomeIcon icon={headProp.icon_R} size="xs" />
-                )}
+                  {item.key}
+                </Typography>
+              </Button>
+            ))}
+          </Box>
+          <Box className="right_section">
+            {headProp.icon_L && (
+              <IconButton onClick={headProp.fn_L} className="mainFn">
+                <FontAwesomeIcon icon={headProp.icon_L} size="xs" />
               </IconButton>
-            </Box>
-          </Toolbar>
-        </AppBar>
-      </Box>
-    </ThemeProvider>
+            )}
+            <IconButton onClick={headProp.fn_R} className="mainFn">
+              {headProp.icon_R && (
+                <FontAwesomeIcon icon={headProp.icon_R} size="xs" />
+              )}
+            </IconButton>
+          </Box>
+        </Toolbar>
+      </AppBar>
+    </HeaderWrapper>
   );
 }
 

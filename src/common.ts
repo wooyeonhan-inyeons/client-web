@@ -4,10 +4,11 @@ import { ThemeProps } from "./interface.d";
 import styled from "@emotion/styled";
 
 export const mainPrimary = "#00A651";
+export const secondary = "#ED6729";
 
 export const colorSet = {
-  light: { primary: mainPrimary, background: "#fff" },
-  dark: { primary: mainPrimary, background: "#424242" },
+  light: { primary: mainPrimary, background: "#fff", rootBg: "#f9f9f9" },
+  dark: { primary: mainPrimary, background: "#222", rootBg: "#424242" },
 };
 
 export const Root = styled("div")(({ theme }: ThemeProps) => ({
@@ -16,10 +17,6 @@ export const Root = styled("div")(({ theme }: ThemeProps) => ({
     theme?.palette.mode === "light"
       ? grey[100]
       : theme?.palette.background.default,
-}));
-
-export const StyledBox = styled(Box)(({ theme }: ThemeProps) => ({
-  backgroundColor: theme?.palette?.mode === "light" ? "#fff" : grey[800],
 }));
 
 export const Puller = styled(Box)(() => ({
@@ -46,6 +43,12 @@ export const lightTheme = createTheme({
     primary: {
       main: mainPrimary,
     },
+    secondary: {
+      main: secondary,
+    },
+    background: {
+      default: "#fff",
+    },
   },
 });
 
@@ -54,6 +57,12 @@ export const darkTheme = createTheme({
     mode: "dark",
     primary: {
       main: mainPrimary,
+    },
+    secondary: {
+      main: secondary,
+    },
+    background: {
+      default: grey[900],
     },
   },
 });

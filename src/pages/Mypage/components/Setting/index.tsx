@@ -6,7 +6,7 @@ import {
   HeaderOptinterface,
   themeType,
 } from "../../../../interface.d";
-import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import {
   FormControlLabel,
   Radio,
@@ -24,9 +24,9 @@ export default function SettingPage() {
 
   const headerOption: HeaderOptinterface = {
     menus: [{ key: "설정", value: "/mypage/setting" }],
-    icon_L: faAngleLeft,
-    fn_L: () => navigate(-1),
-    headerType: "V3",
+    icon_R: faXmark,
+    fn_R: () => navigate(-1),
+    headerType: "V2",
   };
 
   useLayoutEffect(() => {

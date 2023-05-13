@@ -10,7 +10,7 @@ export const HeaderWrapper = styled("div")(({ theme }: ThemeProps) => ({
   top: 0,
   left: "50%",
   transform: "translate(-50%)",
-  zIndex: 1,
+  zIndex: 10,
   color: theme.palette.text.primary,
 
   "@media (max-width: 475px)": {

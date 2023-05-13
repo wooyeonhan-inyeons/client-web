@@ -32,6 +32,7 @@ export interface HeaderOptinterface {
   isForward?: boolean;
   headerType?: "V1" | "V2" | "V3";
   bgColor?: string;
+  contentColor?: string;
 }
 
 type SetHeadType = React.Dispatch<React.SetStateAction<HeaderOptinterface>>;

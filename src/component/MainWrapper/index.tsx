@@ -18,6 +18,7 @@ function MainWrapper({ isHeader }: HeaderProp) {
   const [wrapperOpt, setWrapperOpt] = useState<WrapperOptInterface>({
     isFullWidth: false,
     isNoneHeadPadding: false,
+    noneFullHeight: false,
   });
   const navigate = useNavigate();
   const [env] = useRecoilState(envState);
@@ -45,7 +46,7 @@ function MainWrapper({ isHeader }: HeaderProp) {
           sx={{
             paddingTop: wrapperOpt.isFullWidth ? 0 : 7,
             minHeight: "100vh",
-            height: "100vh",
+            height: wrapperOpt.noneFullHeight ? "auto" : "100vh",
             "@media (min-width: 600px)": {
               paddingTop: wrapperOpt.isFullWidth ? 0 : 8,
             },

@@ -13,14 +13,25 @@ import { HeaderWrapper } from "../style";
  * @param icon_L `FontAwesomeIconProps` awesomefont꺼
  */
 
-function HeaderV3({ headProp }: HeaderProp) {
-  console.log(headProp);
+export default function HeaderV3({ headProp }: HeaderProp) {
   return (
     <HeaderWrapper style={{ backgroundColor: headProp.bgColor }}>
-      <AppBar position="fixed" sx={{ backgroundColor: "inherit !important" }}>
+      <AppBar
+        position="fixed"
+        sx={{
+          backgroundColor: "inherit !important",
+        }}
+      >
         <Toolbar
           className="centerToolbar"
-          sx={{ backgroundColor: "inherit !important" }}
+          sx={{
+            backgroundColor: "inherit !important",
+            "& *": {
+              color: headProp.contentColor
+                ? headProp.contentColor + " !important"
+                : "inherit",
+            },
+          }}
         >
           {headProp.icon_L ? (
             <IconButton onClick={headProp.fn_L} className="mainFn">
@@ -44,5 +55,3 @@ function HeaderV3({ headProp }: HeaderProp) {
     </HeaderWrapper>
   );
 }
-
-export default React.memo(HeaderV3);

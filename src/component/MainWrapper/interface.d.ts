@@ -12,4 +12,5 @@ export interface MenuContext {
 export interface WrapperOptInterface {
   isFullWidth?: boolean;
   isNoneHeadPadding?: boolean;
+  noneFullHeight?: boolean;
 }

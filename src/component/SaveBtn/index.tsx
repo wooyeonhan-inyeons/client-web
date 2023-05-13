@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 
-const theme = createTheme({
+export const theme = createTheme({
   palette: {
     primary: {
       main: "#00A651",

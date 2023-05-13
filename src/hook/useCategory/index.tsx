@@ -5,7 +5,7 @@ import { CategoryButton } from "./style";
 function CategoryItem({ children, action }: CategoryItemProps) {
   const [checked, setChecked] = useState<boolean>(false);
   const handleChecked = () => {
-    setChecked(!checked);
+    setChecked((checked) => !checked);
     action();
   };
 

@@ -2,14 +2,14 @@ import React from "react";
 import { Meta, Story } from "@storybook/react";
 import Header from ".";
 import { HeaderProp } from "./intreface";
-import { withRouter } from "storybook-addon-react-router-v6";
+// import { withRouter } from "storybook-addon-react-router-v6";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
 export default {
   title: "Header",
   component: Header,
-  decorators: [withRouter],
+  // decorators: [withRouter],
 } as Meta;
 
 const Template: Story<HeaderProp> = (args) => <Header {...args} />;

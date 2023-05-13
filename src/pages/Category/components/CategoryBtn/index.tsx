@@ -1,18 +1,12 @@
-// 카테고리 버튼 컴포넌트
-
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Button from "@mui/material/Button";
-
-type ColorType =
-  | "primary"
-  | "inherit"
-  | "secondary"
-  | "success"
-  | "error"
-  | "info"
-  | "warning"
-  | undefined;
+import { OneCategoryType } from "../../../AddPost/components/CategoryAddPost/type";
+import {
+  PostStateInterface,
+  UploadPostType,
+} from "../../../AddPost/components/HeaderAddPost/interface";
+import { useOutletContext } from "react-router";
 
 const theme = createTheme({
   palette: {
@@ -25,24 +19,41 @@ const theme = createTheme({
   },
 });
 
-export interface CategoryTextProps {
-  text: string;
-}
+// 카테고리 버튼 컴포넌트
+const CategoryBtn = ({ category }: { category: OneCategoryType }) => {
+  // prop object type 삽질
 
-const CategoryBtn = (props: CategoryTextProps) => {
-  // 클릭시 버튼 색상 변경
   const [activeColor, setActiveColor] = useState("primary");
+  // const [selected, setSelected] = useState(true);
+  const { post, setPost } = useOutletContext<PostStateInterface>();
 
+  // post 불러와서 post.category가 null일 경우에만 카테고리 클릭할 수 있도록ㅇㅇ!
   const handleButtonClick = () => {
-    setActiveColor(activeColor === "primary" ? "secondary" : "primary");
+    if (post?.category) {
+      if (post.category === category.id) {
+        setPost((prevState) => ({ ...prevState, category: null }));
+        setActiveColor(activeColor === "primary" ? "secondary" : "primary");
+      } else {
+        console.log("님 이미 선택함");
+      }
+    } else {
+      setPost((prevState) => ({ ...prevState, category: category.id }));
+      setActiveColor(activeColor === "primary" ? "secondary" : "primary");
+    }
+    console.log(post);
   };
+
+  useEffect(() => {
+    if (post?.category === category.id) {
+      setActiveColor("secondary");
+    }
+  }, []);
 
   return (
     <ThemeProvider theme={theme}>
       <Button
         variant="contained"
         color={activeColor as ColorType}
-        // color="primary"
         href="#contained-buttons"
         sx={{
           width: "100%",
@@ -56,7 +67,7 @@ const CategoryBtn = (props: CategoryTextProps) => {
           fontSize: 20,
         }}
       >
-        {props.text}
+        {category.id}
       </Button>
     </ThemeProvider>
   );

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { Box } from "@mui/material";
 import { HeaderOptinterface } from "../../interface";
-import { HeaderProp } from "./interface";
+import { HeaderProp, WrapperOptInterface } from "./interface";
 import Header from "../Header";
 import { useRecoilState } from "recoil";
 import { envState } from "../../recoil";
@@ -15,6 +15,10 @@ const initOption: HeaderOptinterface = {
 
 function MainWrapper({ isHeader }: HeaderProp) {
   const [headOpt, setHeadOpt] = useState<HeaderOptinterface>(initOption);
+  const [wrapperOpt, setWrapperOpt] = useState<WrapperOptInterface>({
+    isFullWidth: false,
+    isNoneHeadPadding: false,
+  });
   const navigate = useNavigate();
   const [env] = useRecoilState(envState);
   return (
@@ -29,23 +33,25 @@ function MainWrapper({ isHeader }: HeaderProp) {
               ? colorSet.light.background
               : colorSet.dark.background,
           touchAction: "pan-x",
+          paddingLeft: wrapperOpt.isNoneHeadPadding ? 0 : 2,
+          paddingRight: wrapperOpt.isNoneHeadPadding ? 0 : 2,
           "@media (min-width: 600px)": {
-            paddingLeft: 2,
-            paddingRight: 2,
+            paddingLeft: wrapperOpt.isNoneHeadPadding ? 0 : 2,
+            paddingRight: wrapperOpt.isNoneHeadPadding ? 0 : 2,
           },
         }}
       >
         <Box
           sx={{
-            paddingTop: 7,
+            paddingTop: wrapperOpt.isFullWidth ? 0 : 7,
             minHeight: "100vh",
             height: "100vh",
             "@media (min-width: 600px)": {
-              paddingTop: 8,
+              paddingTop: wrapperOpt.isFullWidth ? 0 : 8,
             },
           }}
         >
-          <Outlet context={{ headOpt, setHeadOpt, navigate }} />
+          <Outlet context={{ headOpt, setHeadOpt, navigate, setWrapperOpt }} />
         </Box>
       </StyledContainer>
     </>

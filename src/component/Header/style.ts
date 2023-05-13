@@ -24,6 +24,7 @@ export const HeaderWrapper = styled("div")(({ theme }: ThemeProps) => ({
   },
   "& > header": {
     boxShadow: "none",
+    backgroundImage: "none",
   },
   "& .MuiToolbar-root": {
     justifyContent: "space-between",

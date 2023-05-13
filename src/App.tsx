@@ -23,8 +23,6 @@ function App() {
     }
   }
 
-  console.log(window.matchMedia("(prefers-color-scheme: dark)"));
-
   return (
     <ThemeProvider theme={themeSelector(env)}>
       {/* css 초기화 */}

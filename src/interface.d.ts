@@ -1,4 +1,5 @@
 import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
+import { WrapperOptInterface } from "./component/MainWrapper/interface";
 
 export interface UserState {
   role: string;
@@ -34,10 +35,14 @@ export interface HeaderOptinterface {
 }
 
 type SetHeadType = React.Dispatch<React.SetStateAction<HeaderOptinterface>>;
+
+type SetWrapperType = React.Dispatch<React.SetStateAction<WrapperOptInterface>>;
+
 export interface ContextInterface {
   headOpt?: HeaderOptinterface;
   setHeadOpt: SetHeadType;
   navigate?: NavigateFunction;
+  setWrapperOpt: SetWrapperType;
 }
 
 export interface onlyNavigateInterface {

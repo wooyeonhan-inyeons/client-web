@@ -12,10 +12,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
  */
 
 export default function HeaderV2({ headProp }: HeaderProp) {
+  console.log(headProp);
   return (
     <HeaderWrapper>
       <AppBar position="fixed" sx={{ backgroundColor: headProp.bgColor }}>
-        <Toolbar className="centerToolbar">
+        <Toolbar
+          className="centerToolbar"
+          sx={{ backgroundColor: headProp.bgColor }}
+        >
           <Typography variant="subtitle2">{headProp.menus[0].key}</Typography>
           <Box className="right_section">
             <IconButton onClick={headProp.fn_R} className="mainFn">

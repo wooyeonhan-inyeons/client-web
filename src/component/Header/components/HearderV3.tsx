@@ -14,10 +14,14 @@ import { HeaderWrapper } from "../style";
  */
 
 function HeaderV3({ headProp }: HeaderProp) {
+  console.log(headProp);
   return (
-    <HeaderWrapper>
-      <AppBar position="fixed" sx={{ backgroundColor: headProp.bgColor }}>
-        <Toolbar className="centerToolbar">
+    <HeaderWrapper style={{ backgroundColor: headProp.bgColor }}>
+      <AppBar position="fixed" sx={{ backgroundColor: "inherit !important" }}>
+        <Toolbar
+          className="centerToolbar"
+          sx={{ backgroundColor: "inherit !important" }}
+        >
           {headProp.icon_L ? (
             <IconButton onClick={headProp.fn_L} className="mainFn">
               <FontAwesomeIcon icon={headProp.icon_L} size="xs" />

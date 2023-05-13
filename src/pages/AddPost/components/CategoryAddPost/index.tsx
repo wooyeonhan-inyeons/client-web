@@ -93,24 +93,37 @@ const CategoryAddPost = () => {
           1개의 카테고리를 선택해 주세요.
         </Typography>
       </Box>
-      <Grid container rowSpacing={3} columnSpacing={2} margin="0 auto">
-        {categoryArr.map((category) => (
-          <Grid
-            xs={6}
-            key={categoryArr.indexOf(category)}
-            sx={{
-              height: "7rem",
-              "@media (max-width: 375px)": {
-                height: "6rem",
-              },
-            }}
-          >
-            <CategoryBtn category={category} />
-          </Grid>
-        ))}
 
-        <Grid
+      <Box>
+        <Grid container rowSpacing={3} columnSpacing={2} margin="0 auto">
+          {categoryArr.map((category) => (
+            <Grid
+              xs={6}
+              key={categoryArr.indexOf(category)}
+              sx={{
+                height: "7rem",
+                "@media (max-width: 375px)": {
+                  height: "6rem",
+                },
+              }}
+            >
+              <CategoryBtn category={category} />
+            </Grid>
+          ))}
+
+          {/* <Grid
           xs={12}
+          sx={{
+            pt: "3rem",
+            "@media (max-width: 375px)": {
+              pt: "2rem",
+              pb: "1rem",
+            },
+          }}
+        > */}
+          {/* </Grid> */}
+        </Grid>
+        <Box
           sx={{
             pt: "3rem",
             "@media (max-width: 375px)": {
@@ -120,8 +133,8 @@ const CategoryAddPost = () => {
           }}
         >
           <SaveBtn text="다음" onClick={handleNext} />
-        </Grid>
-      </Grid>
+        </Box>
+      </Box>
     </Box>
   );
 };

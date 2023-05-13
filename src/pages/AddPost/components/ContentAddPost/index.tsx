@@ -106,28 +106,26 @@ const ContentAddPost = () => {
             />
           </Box>
           <TextField
-            id="standard-basic"
             label="주소를 확인해 주세요"
             variant="standard"
             InputProps={{
               readOnly: true,
             }}
             defaultValue={post?.address}
-            sx={{ pb: "0.5rem" }}
+            margin="dense"
           />
           <TextField
-            id="standard-basic"
             label="우연의 제목을 입력해 주세요"
             variant="standard"
-            sx={{ pb: "0.5rem" }}
+            margin="dense"
+            color="primary"
           />
           <TextField
-            id="standard-multiline-static"
             multiline
             rows={4}
             label="어떤 일이 있었나요?"
             variant="standard"
-            sx={{ pb: "0.5rem" }}
+            margin="dense"
           />
         </Box>
         <Box>사진 영역</Box>

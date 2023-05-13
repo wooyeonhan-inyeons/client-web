@@ -75,7 +75,12 @@ const Search = () => {
           }}
         >
           {wooyeons.map((item) => (
-            <WooyeonItem key={item.name} name={item.name} pos={item.pos} />
+            <WooyeonItem
+              key={item.name}
+              name={item.name}
+              pos={item.pos}
+              onClick={() => navigate(`detail/0`)}
+            />
           ))}
         </Box>
       </Box>

@@ -12,6 +12,7 @@ export interface Wooyeons {
 export interface WooyeonItemProps {
   name: string;
   pos: { x: number; y: number };
+  onClick: () => void;
 }
 
 export interface SearchItemProps {

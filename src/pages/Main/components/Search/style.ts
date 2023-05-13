@@ -6,14 +6,14 @@ const radarPageStyle = {
   justifyContent: "center",
   position: "relative",
   touchAction: "auto",
-  overflow: "hidden",
+  // overflow: "hidden",
 
   "& .lf-player-container": {
     position: "absolute",
     width: "100vh",
   },
   "& .radar_circle, & .radar_circle *": {
-    border: "1px solid #dadada",
+    border: "1px solid #b5b5b533",
     borderRadius: "50%",
     display: "flex",
     position: "absolute",
@@ -34,15 +34,8 @@ const radarPageStyle = {
     animation: "1s linear 3s infinite alternate a1",
   },
   "@keyframes a1": {
-    from: { borderColor: "#dadada" },
-    to: { borderColor: "#6d6d6d" },
-  },
-  "& .MuiFab-root": {
-    position: "fixed",
-    bottom: "50px",
-    right: "1.5rem",
-    backgroundColor: "#ED6729",
-    color: "#fff",
+    from: { borderColor: "#b5b5b533" },
+    to: { borderColor: "#4a4a4a33" },
   },
 };
 

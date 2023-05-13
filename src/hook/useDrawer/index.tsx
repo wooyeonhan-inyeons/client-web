@@ -1,27 +1,44 @@
-import React, { ReactElement, useState } from "react";
-import { Box, SwipeableDrawer } from "@mui/material";
+import React, { useState } from "react";
+import { SwipeableDrawer } from "@mui/material";
 import { Global } from "@emotion/react";
 import DrawrHandle from "./components/DrawrHandle";
+import { DrawerProps } from "./inderface";
+import { envState } from "../../recoil";
+import { useRecoilState } from "recoil";
+import { StyledBox } from "../../common";
 
-const drawerBleeding = 32;
-
-interface DrawerProps {
-  children: ReactElement;
-  open: boolean;
-  toggleDrawer: () => void;
-}
-
-const Drawer = ({ open, toggleDrawer, children }: DrawerProps) => {
+const Drawer = ({
+  open,
+  toggleDrawer,
+  children,
+  headerChildren, // 짧은 헤더만
+  drawerBleeding = 52,
+}: DrawerProps) => {
+  const [env] = useRecoilState(envState);
   return (
     <>
       <Global
         styles={{
+          html: {
+            "--brand-color": "#000",
+          },
           ".use_drawer > .MuiPaper-root": {
-            height: `calc(50% - ${drawerBleeding}px)`,
+            maxHeight: `calc(50% - ${drawerBleeding - 10}px)`,
             width: "100%",
             overflow: "visible",
+            boxShadow: "none",
+            // paddingBottom: "6rem",
           },
           ".use_drawer .MuiPaper-root": {
+            maxWidth: "444px",
+            margin: "0 auto",
+          },
+          ".use_drawer .MuiBackdrop-root": {
+            backgroundColor:
+              env.theme === "dark"
+                ? "rgb(0 0 0 / 30%)"
+                : "rgb(255 255 255 / 30%)",
+            backdropFilter: "blur(2px)",
             maxWidth: "444px",
             margin: "0 auto",
           },
@@ -39,10 +56,19 @@ const Drawer = ({ open, toggleDrawer, children }: DrawerProps) => {
         }}
         className="use_drawer"
       >
-        <DrawrHandle drawerBleeding={drawerBleeding} />
-        <Box sx={{ zIndex: 10 }}>
-          <Box sx={{ px: 2 }}>{children}</Box>
-        </Box>
+        <DrawrHandle drawerBleeding={drawerBleeding}>
+          {headerChildren}
+        </DrawrHandle>
+        <StyledBox
+          sx={{
+            position: "relative",
+            overflow: "scroll",
+            zIndex: 10,
+            px: 2,
+          }}
+        >
+          {children}
+        </StyledBox>
       </SwipeableDrawer>
     </>
   );
@@ -60,4 +86,5 @@ function useDrawer() {
     Drawer,
   };
 }
+
 export { useDrawer };

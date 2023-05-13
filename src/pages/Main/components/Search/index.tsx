@@ -1,85 +1,69 @@
-import React, { useState } from "react";
+import React, { useLayoutEffect, useRef, useState } from "react";
 import { useDrawer } from "../../../../hook/useDrawer";
-import { Box, Fab, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import WooyeonItem from "./components/WooyeonItem";
-import { SearchItem1 } from "./components/SearchButton";
 import Categories from "./components/Categories";
 import RangeBar from "./components/RangeBar";
 import { Global } from "@emotion/react";
 import radarPageStyle from "./style";
-import { WooPos, Wooyeons } from "./interface";
-import { StyledBox } from "../../../../common";
-import { useNavigate } from "react-router-dom";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Wooyeons, addWooyeonInterface } from "./interface";
+import SearchItem from "./components/SearchButton";
+import { useOutletContext } from "react-router-dom";
+import { tempWooyeons, wooyeonPositioning } from "./utils";
+import { onlyNavigateInterface } from "../../../../interface";
 
 const Search = () => {
+  const { navigate } = useOutletContext<onlyNavigateInterface>();
   const { open, Drawer, toggleDrawer } = useDrawer();
   const [wooyeons, setWooyeons] = useState<Wooyeons[]>([]);
-  const navegate = useNavigate();
+  const wooyeonsRef = useRef<Wooyeons[]>([]); //매 업데이트를 추적하기 위해 ref 사용
 
   const searchItems = () => {
-    // if (open)
-    toggleDrawer();
-    console.log("[임시] 우연찾아보기");
-    wooyeonPositioning();
+    if (wooyeonsRef.current.length > 5) setWooyeons([]);
+    if (open) toggleDrawer();
+
+    tempWooyeons.map((item, index) => {
+      setTimeout(() => {
+        wooyeonPositioning({
+          addWooyeon,
+          wooyeonsRef,
+          distance: item.id,
+          img: item.img,
+        });
+      }, 100 * index + 50 * Math.random());
+    });
   };
 
-  function addWooyeon(pos: WooPos) {
-    const random = Date.now();
+  function addWooyeon({ pos, img }: addWooyeonInterface) {
     const newWooyeon = {
       pos: pos,
-      name: random.toString(),
+      name: img,
     };
     setWooyeons((prevWooyeons) => [...prevWooyeons, newWooyeon]);
   }
 
-  //14.5, 31, 45
-  function getRandomCircleEdgeCoordinates(distance: number): WooPos {
-    let radius = 14.5;
-    if (distance <= 30) radius = 31;
-    else if (distance <= 10) radius = 14.5;
+  useLayoutEffect(() => {
+    wooyeonsRef.current = wooyeons;
+  }, [wooyeons]);
 
-    const angle = Math.random() * 2 * Math.PI;
-    const x = radius * Math.cos(angle);
-    const y = radius * Math.sin(angle);
-    return { x, y };
-  }
-
-  function wooyeonPositioning() {
-    const pos = getRandomCircleEdgeCoordinates(500);
-
-    if (wooyeons.length === 0) {
-      addWooyeon(pos);
-    } else {
-      const isInRange = wooyeons.some(function (item) {
-        const distance = Math.sqrt(
-          (pos.x - item.pos.x) * (pos.x - item.pos.x) +
-            (pos.y - item.pos.y) * (pos.y - item.pos.y)
-        );
-
-        console.log("다른거 찾는 중");
-        return distance < 10;
-      });
-
-      if (!isInRange) {
-        addWooyeon(pos);
-      } else {
-        // 겹치면 다른 값으로 재귀 호출
-        wooyeonPositioning();
-      }
-    }
-  }
   return (
     <>
-      <Global styles={{ ".globalContainer .MuiBox-root": { padding: 0 } }} />
+      {/* 꽉찬 화면을 위한 padding */}
+      <Global
+        styles={{
+          ".globalContainer>.MuiBox-root": { padding: 0 },
+          ".use_drawer > .MuiPaper-root": {
+            paddingBottom: "6rem",
+          },
+        }}
+      />
       <Box sx={radarPageStyle}>
         <div className="radar_circle">
           <div>
             <div />
           </div>
         </div>
-        <Typography variant="h5">🍅</Typography>
+        <Typography variant="h5">🍀</Typography>
         <Box
           sx={{
             position: "absolute",
@@ -91,22 +75,23 @@ const Search = () => {
           }}
         >
           {wooyeons.map((item) => (
-            <WooyeonItem key={item.name} name={item.name} pos={item.pos} />
+            <WooyeonItem
+              key={item.name}
+              name={item.name}
+              pos={item.pos}
+              onClick={() => navigate(`detail/0`)}
+            />
           ))}
         </Box>
-        <Fab size="medium" onClick={() => navegate("/add-post")}>
-          <FontAwesomeIcon icon={faPlus} />
-        </Fab>
       </Box>
-      <SearchItem1 open={open} searchItems={searchItems} />
-      {/* <SearchItem2 open={open} searchItems={searchItems} /> */}
+      <SearchItem open={open} searchItems={searchItems} navigate={navigate} />
       <Drawer open={open} toggleDrawer={toggleDrawer}>
-        <StyledBox>
+        <Box>
           <Typography variant="h6">카테고리 선택</Typography>
           <Categories />
           <Typography variant="h6">범위 설정</Typography>
           <RangeBar />
-        </StyledBox>
+        </Box>
       </Drawer>
     </>
   );

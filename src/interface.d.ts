@@ -1,10 +1,17 @@
 import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
+import { WrapperOptInterface } from "./component/MainWrapper/interface";
 
 export interface UserState {
   role: string;
   id: number;
   name: string;
   first: boolean;
+}
+
+export type themeType = "system" | "light" | "dark";
+export interface EnvState {
+  theme: themeType;
+  distance?: number;
 }
 
 export interface menuProps {
@@ -18,9 +25,29 @@ export interface ThemeProps {
 
 export interface HeaderOptinterface {
   menus: menuProps[];
-  mainFn?: () => void;
-  icon?: IconDefinition;
-  isForward: boolean;
+  fn_L?: () => void;
+  fn_R?: () => void;
+  icon_L?: IconDefinition;
+  icon_R?: IconDefinition;
+  isForward?: boolean;
+  headerType?: "V1" | "V2" | "V3";
+  bgColor?: string;
+  contentColor?: string;
+}
+
+type SetHeadType = React.Dispatch<React.SetStateAction<HeaderOptinterface>>;
+
+type SetWrapperType = React.Dispatch<React.SetStateAction<WrapperOptInterface>>;
+
+export interface ContextInterface {
+  headOpt?: HeaderOptinterface;
+  setHeadOpt: SetHeadType;
+  navigate?: NavigateFunction;
+  setWrapperOpt: SetWrapperType;
+}
+
+export interface onlyNavigateInterface {
+  navigate?: NavigateFunction;
 }
 
 export interface LocationProps {

@@ -1,14 +1,24 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Outlet, useOutletContext } from "react-router-dom";
-import { useResetRecoilState } from "recoil";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import userState from "../../../../recoil";
-import { ContextInterface } from "../../../Main/components/Search/interface";
-import { HeaderOptinterface } from "../../../../interface";
+import { userState } from "../../../../recoil";
+import { ContextInterface, HeaderOptinterface } from "../../../../interface";
+import { UploadPostType } from "./interface";
 
 function HeaderAddPost() {
-  const { setHeadOpt } = useOutletContext<ContextInterface>();
-  const resetUser = useResetRecoilState(userState);
+  const { setHeadOpt, navigate } = useOutletContext<ContextInterface>();
+
+  // 컴포넌트에서 사용할 기본 상태
+  const initialPostState: UploadPostType = {
+    latitude: undefined,
+    longitude: undefined,
+    address: null,
+    category: null,
+    photo: [],
+    title: "",
+    content: "",
+  };
+  const [post, setPost] = useState<UploadPostType | null>(initialPostState);
 
   const headerOption: HeaderOptinterface = {
     menus: [
@@ -18,14 +28,18 @@ function HeaderAddPost() {
       { key: "내용", value: "/add-post/content" },
     ],
     isForward: true,
-    icon: faTimes,
-    mainFn: resetUser,
+    icon_R: faTimes,
+    fn_R: () => navigate("/"),
   };
+
   useEffect(() => {
     setHeadOpt(headerOption);
   }, []);
 
-  return <Outlet context={{ setHeadOpt }} />;
+  useEffect(() => {
+    console.log("[header]업로드할 우연 정보: ", post);
+  }, [post]);
+  return <Outlet context={{ setHeadOpt, post, setPost }} />;
 }
 
 export default HeaderAddPost;

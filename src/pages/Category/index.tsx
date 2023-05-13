@@ -3,7 +3,7 @@ import CategoryBtn from "./components/CategoryBtn";
 import SaveBtn from "../../component/SaveBtn";
 import Grid from "@mui/material/Grid";
 import { Typography } from "@mui/material";
-import userState from "../../recoil";
+import { userState } from "../../recoil";
 import { useRecoilState } from "recoil";
 import { Global } from "@emotion/react";
 

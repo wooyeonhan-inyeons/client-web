@@ -4,7 +4,6 @@ import React, { useEffect, useContext } from "react";
 import { useNavigate, useOutletContext } from "react-router";
 import SaveBtn from "../../../../component/SaveBtn";
 import CategoryBtn from "../../../Category/components/CategoryBtn";
-import { MyContext } from "../HeaderAddPost";
 import { PostStateInterface } from "../HeaderAddPost/interface";
 import { Category, CategoryArr } from "./type";
 

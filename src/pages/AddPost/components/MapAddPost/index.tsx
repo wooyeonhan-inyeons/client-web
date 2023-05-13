@@ -9,6 +9,7 @@ import { getCurrentGeocode, getCurrentLocation } from "./utils";
 import { PostStateInterface } from "../HeaderAddPost/interface";
 
 // 마커 표시
+// 레이아웃 수정 (다음 버튼 너비)
 
 const initPosition = {
   longitude: 127.9068,
@@ -52,7 +53,7 @@ const MapAddPost = () => {
     }));
 
     console.log("지도 정보입력 후: ", post);
-  }, [viewport, positionRef]);
+  }, [viewport, positionRef, geocode]);
 
   return (
     <Box

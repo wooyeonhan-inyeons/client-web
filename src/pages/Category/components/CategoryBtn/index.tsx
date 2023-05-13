@@ -2,10 +2,7 @@ import React, { useEffect, useState } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import { OneCategoryType } from "../../../AddPost/components/CategoryAddPost/type";
-import {
-  PostStateInterface,
-  UploadPostType,
-} from "../../../AddPost/components/HeaderAddPost/interface";
+import { PostStateInterface } from "../../../AddPost/components/HeaderAddPost/interface";
 import { useOutletContext } from "react-router";
 
 const theme = createTheme({

@@ -1,6 +1,6 @@
 import { AppBar, Box, IconButton, Toolbar, Typography } from "@mui/material";
 import React from "react";
-import headerStyle from "../style";
+import { HeaderWrapper } from "../style";
 import { HeaderProp } from "../intreface";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -13,12 +13,25 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function HeaderV2({ headProp }: HeaderProp) {
   return (
-    <Box className="header_root" sx={headerStyle}>
-      <AppBar position="fixed" sx={{ backgroundColor: headProp.bgColor }}>
-        <Toolbar className="centerToolbar">
-          <Typography color="#000" variant="subtitle2">
-            {headProp.menus[0].key}
-          </Typography>
+    <HeaderWrapper>
+      <AppBar
+        position="fixed"
+        sx={{
+          backgroundColor: headProp.bgColor,
+        }}
+      >
+        <Toolbar
+          className="centerToolbar"
+          sx={{
+            backgroundColor: headProp.bgColor,
+            "& *": {
+              color: headProp.contentColor
+                ? headProp.contentColor + " !important"
+                : "inherit",
+            },
+          }}
+        >
+          <Typography variant="subtitle2">{headProp.menus[0].key}</Typography>
           <Box className="right_section">
             <IconButton onClick={headProp.fn_R} className="mainFn">
               {headProp.icon_R && (
@@ -28,6 +41,6 @@ export default function HeaderV2({ headProp }: HeaderProp) {
           </Box>
         </Toolbar>
       </AppBar>
-    </Box>
+    </HeaderWrapper>
   );
 }

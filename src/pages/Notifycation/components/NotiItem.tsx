@@ -3,7 +3,7 @@ import { Box, Typography } from "@mui/material";
 import { NotiItemType } from "./interface";
 import TimeAgo from "javascript-time-ago";
 import ko from "javascript-time-ago/locale/ko";
-import { NotiItemStyle } from "./style";
+import { StyledNoti } from "./style";
 
 export default function NotiItem({ prop }: NotiItemType) {
   TimeAgo.addLocale(ko);
@@ -11,7 +11,7 @@ export default function NotiItem({ prop }: NotiItemType) {
   timeAgo.format(new Date());
 
   return (
-    <Box sx={NotiItemStyle} onClick={() => console.log("hello")}>
+    <StyledNoti onClick={() => console.log("hello")}>
       <Box className="notiHead">
         <Typography variant="subtitle2">🍀 {prop.title}</Typography>
         <Typography variant="body2" className="date">
@@ -21,6 +21,6 @@ export default function NotiItem({ prop }: NotiItemType) {
       <Typography variant="body2" className="description">
         {prop.data}
       </Typography>
-    </Box>
+    </StyledNoti>
   );
 }

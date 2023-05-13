@@ -1,8 +1,8 @@
-import { AppBar, Box, IconButton, Toolbar, Typography } from "@mui/material";
 import React from "react";
-import headerStyle from "../style";
+import { AppBar, Box, IconButton, Toolbar, Typography } from "@mui/material";
 import { HeaderProp } from "../intreface";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { HeaderWrapper } from "../style";
 
 /**
  *
@@ -13,24 +13,45 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
  * @param icon_L `FontAwesomeIconProps` awesomefont꺼
  */
 
-function HeaderV3({ headProp }: HeaderProp) {
+export default function HeaderV3({ headProp }: HeaderProp) {
   return (
-    <Box className="header_root" sx={headerStyle}>
-      <AppBar position="fixed" sx={{ backgroundColor: headProp.bgColor }}>
-        <Toolbar className="centerToolbar">
-          <IconButton onClick={headProp.fn_R} className="mainFn">
-            {headProp.icon_R && (
-              <FontAwesomeIcon icon={headProp.icon_R} size="xs" />
-            )}
-          </IconButton>
-          <Typography color="#000" variant="subtitle2">
-            {headProp.menus[0].key}
-          </Typography>
-          <Box width={34} />
+    <HeaderWrapper style={{ backgroundColor: headProp.bgColor }}>
+      <AppBar
+        position="fixed"
+        sx={{
+          backgroundColor: "inherit !important",
+        }}
+      >
+        <Toolbar
+          className="centerToolbar"
+          sx={{
+            backgroundColor: "inherit !important",
+            "& *": {
+              color: headProp.contentColor
+                ? headProp.contentColor + " !important"
+                : "inherit",
+            },
+          }}
+        >
+          {headProp.icon_L ? (
+            <IconButton onClick={headProp.fn_L} className="mainFn">
+              <FontAwesomeIcon icon={headProp.icon_L} size="xs" />
+            </IconButton>
+          ) : (
+            <Box width={34} />
+          )}
+          <Typography variant="subtitle2">{headProp.menus[0].key}</Typography>
+          {headProp.fn_R ? (
+            <IconButton onClick={headProp.fn_R} className="mainFn">
+              {headProp.icon_R && (
+                <FontAwesomeIcon icon={headProp.icon_R} size="xs" />
+              )}
+            </IconButton>
+          ) : (
+            <Box width={34} />
+          )}
         </Toolbar>
       </AppBar>
-    </Box>
+    </HeaderWrapper>
   );
 }
-
-export default React.memo(HeaderV3);

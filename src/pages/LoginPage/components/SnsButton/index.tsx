@@ -1,7 +1,7 @@
 import React from "react";
 import Button from "@mui/material/Button";
 import { SnsProps } from "../../types";
-import userState from "../../../../recoil";
+import { userState } from "../../../../recoil";
 import { useRecoilState } from "recoil";
 
 const SnsButton = ({ sns, text, imgSrc }: SnsProps) => {

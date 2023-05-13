@@ -1,33 +1,52 @@
 import React from "react";
 import Router from "./Router";
-import { CssBaseline, createTheme } from "@mui/material";
-import { Global, ThemeProvider } from "@emotion/react";
-
-const defaultTheme = createTheme({
-  palette: {
-    mode: "light",
-    primary: {
-      main: "#00A651",
-    },
-  },
-});
+import { CssBaseline, GlobalStyles, ThemeProvider } from "@mui/material";
+import { useRecoilState } from "recoil";
+import { envState } from "./recoil";
+import { darkTheme, lightTheme } from "./common";
+import { EnvState } from "./interface";
+import GlobalStyle from "./component/GlobalStyle";
+import { grey } from "@mui/material/colors";
 
 function App() {
+  const [env] = useRecoilState(envState);
+
+  function themeSelector(env: EnvState) {
+    if (env.theme == "system") {
+      //브라우저의 컬러 테마
+      const mediaTheme = window.matchMedia("(prefers-color-scheme: dark)");
+      return mediaTheme.matches ? darkTheme : lightTheme;
+    } else if (env.theme == "light") {
+      return lightTheme;
+    } else {
+      return darkTheme;
+    }
+  }
+
   return (
-    <ThemeProvider theme={defaultTheme}>
+    <ThemeProvider theme={themeSelector(env)}>
       {/* css 초기화 */}
       <CssBaseline />
-      <Global
+      <GlobalStyles
         styles={{
           body: {
             userSelect: "none",
-            backgroundColor: "#f9f9f9",
             touchAction: "pan-x",
+            backgroundColor:
+              env.theme === "system"
+                ? window.matchMedia("(prefers-color-scheme: dark)").matches
+                  ? "#262626"
+                  : grey[100]
+                : env.theme === "dark"
+                ? "#262626"
+                : grey[100],
           },
           touchAction: "none",
         }}
       />
-      <Router />
+      <GlobalStyle>
+        <Router />
+      </GlobalStyle>
     </ThemeProvider>
   );
 }

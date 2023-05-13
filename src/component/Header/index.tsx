@@ -3,18 +3,15 @@ import {
   AppBar,
   Box,
   Button,
-  createTheme,
   IconButton,
-  ThemeProvider,
   Toolbar,
   Typography,
 } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { headerStyle } from "./style";
+import { HeaderWrapper } from "./style";
 import { useLocation } from "react-router-dom";
 import { colorSet } from "../../common";
 import { HeaderProp, menuProp } from "./intreface";
-import { HEAD_TYPE } from "../../interface.d";
 import HeaderV3 from "./components/HearderV3";
 import HeaderV2 from "./components/HearderV2";
 
@@ -29,23 +26,12 @@ import HeaderV2 from "./components/HearderV2";
  * @param headerType default=`v1` (storybook 참고)
  */
 
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: "#D9D9D9",
-    },
-    secondary: {
-      main: "#00A651",
-    },
-  },
-});
-
 function Header({ headProp, navigate }: HeaderProp) {
   const [idx, setIdx] = useState<number>(0);
   const location = useLocation();
 
-  headProp.bgColor = "#fff";
-  if (headProp.headerType === undefined) headProp.headerType = HEAD_TYPE.v1;
+  // headProp.bgColor = env ? colorSet.light.background : colorSet.dark.background;
+  if (headProp.headerType === undefined) headProp.headerType = "V1";
 
   const handleNavigate = (prop: menuProp) => {
     const handleIdx = headProp.menus.findIndex(
@@ -64,57 +50,57 @@ function Header({ headProp, navigate }: HeaderProp) {
     );
   }, [location, headProp]);
 
-  if (headProp.headerType === HEAD_TYPE.v2) {
+  if (headProp.headerType === "V2") {
     return <HeaderV2 headProp={headProp} navigate={navigate} />;
   }
-  if (headProp.headerType === HEAD_TYPE.v3) {
+  if (headProp.headerType === "V3") {
     return <HeaderV3 headProp={headProp} navigate={navigate} />;
   }
   return (
-    <ThemeProvider theme={theme}>
-      <Box className="header_root" sx={headerStyle}>
-        <AppBar sx={{ background: "none" }}>
-          <Toolbar>
-            <Box>
-              {headProp.menus.map((item) => (
-                <Button
-                  key={item.key}
-                  onClick={() => handleNavigate(item)}
-                  className="header_nav_btn"
-                  sx={{
-                    borderBottom:
-                      item.value === location.pathname
-                        ? `2px solid ${colorSet.light.primary}`
-                        : "2px solid #0000",
-                  }}
+    <HeaderWrapper>
+      <AppBar sx={{ background: "none" }}>
+        <Toolbar>
+          <Box>
+            {headProp.menus.map((item) => (
+              <Button
+                key={item.key}
+                onClick={() => handleNavigate(item)}
+                className={`header_nav_btn ${
+                  item.value === location.pathname ? "active" : ""
+                }`}
+                sx={{
+                  borderBottom:
+                    item.value === location.pathname
+                      ? `2px solid ${colorSet.light.primary}`
+                      : "2px solid #0000",
+                }}
+              >
+                <Typography
+                  variant="subtitle2"
+                  color={
+                    item.value === location.pathname ? "secondary" : "primary"
+                  }
                 >
-                  <Typography
-                    variant="subtitle2"
-                    color={
-                      item.value === location.pathname ? "secondary" : "primary"
-                    }
-                  >
-                    {item.key}
-                  </Typography>
-                </Button>
-              ))}
-            </Box>
-            <Box className="right_section">
-              {headProp.icon_L && (
-                <IconButton onClick={headProp.fn_L} className="mainFn">
-                  <FontAwesomeIcon icon={headProp.icon_L} size="xs" />
-                </IconButton>
-              )}
-              <IconButton onClick={headProp.fn_R} className="mainFn">
-                {headProp.icon_R && (
-                  <FontAwesomeIcon icon={headProp.icon_R} size="xs" />
-                )}
+                  {item.key}
+                </Typography>
+              </Button>
+            ))}
+          </Box>
+          <Box className="right_section">
+            {headProp.icon_L && (
+              <IconButton onClick={headProp.fn_L} className="mainFn">
+                <FontAwesomeIcon icon={headProp.icon_L} size="xs" />
               </IconButton>
-            </Box>
-          </Toolbar>
-        </AppBar>
-      </Box>
-    </ThemeProvider>
+            )}
+            <IconButton onClick={headProp.fn_R} className="mainFn">
+              {headProp.icon_R && (
+                <FontAwesomeIcon icon={headProp.icon_R} size="xs" />
+              )}
+            </IconButton>
+          </Box>
+        </Toolbar>
+      </AppBar>
+    </HeaderWrapper>
   );
 }
 

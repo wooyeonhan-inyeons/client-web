@@ -8,3 +8,9 @@ export interface MenuContext {
   menus: MenuProps[];
   setMenus: React.Dispatch<React.SetStateAction<menuProps[]>>;
 }
+
+export interface WrapperOptInterface {
+  isFullWidth?: boolean;
+  isNoneHeadPadding?: boolean;
+  noneFullHeight?: boolean;
+}

@@ -4,7 +4,7 @@ import {
   createBrowserRouter,
   redirect,
 } from "react-router-dom";
-import userState from "./recoil";
+import { userState } from "./recoil";
 import { useRecoilState } from "recoil";
 
 import MainWrapper from "./component/MainWrapper";
@@ -21,6 +21,8 @@ import ContentAddPost from "./pages/AddPost/components/ContentAddPost";
 import Notification from "./pages/Notifycation";
 import Mypage from "./pages/Mypage";
 import EditProfile from "./pages/Mypage/components/Edit";
+import SettingPage from "./pages/Mypage/components/Setting";
+import Detail from "./pages/Detail";
 
 const Router = () => {
   const [user] = useRecoilState(userState);
@@ -73,7 +75,12 @@ const Router = () => {
           children: [
             { index: true, element: <Mypage /> },
             { path: "edit", element: <EditProfile /> },
+            { path: "setting", element: <SettingPage /> },
           ],
+        },
+        {
+          path: "detail/:postId",
+          element: <Detail />,
         },
       ],
       loader: () => user.role === "GUEST" && redirect("/auth"),

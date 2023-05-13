@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import React, { useLayoutEffect, useRef, useState } from "react";
 import { useDrawer } from "../../../../hook/useDrawer";
 import { Box, Typography } from "@mui/material";
 import WooyeonItem from "./components/WooyeonItem";
@@ -7,7 +7,6 @@ import RangeBar from "./components/RangeBar";
 import { Global } from "@emotion/react";
 import radarPageStyle from "./style";
 import { Wooyeons, addWooyeonInterface } from "./interface";
-import { StyledBox } from "../../../../common";
 import SearchItem from "./components/SearchButton";
 import { useOutletContext } from "react-router-dom";
 import { tempWooyeons, wooyeonPositioning } from "./utils";
@@ -82,12 +81,12 @@ const Search = () => {
       </Box>
       <SearchItem open={open} searchItems={searchItems} navigate={navigate} />
       <Drawer open={open} toggleDrawer={toggleDrawer}>
-        <StyledBox>
+        <Box>
           <Typography variant="h6">카테고리 선택</Typography>
           <Categories />
           <Typography variant="h6">범위 설정</Typography>
           <RangeBar />
-        </StyledBox>
+        </Box>
       </Drawer>
     </>
   );

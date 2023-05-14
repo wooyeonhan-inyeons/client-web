@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 import { useNavigate, useOutletContext } from "react-router";
 import SaveBtn from "../../../../component/SaveBtn";
 import { categoryArr } from "../../../Category/components/CategoryArray";
-import CategoryBtn from "../../../Category/components/CategoryBtn";
+import CategoryBtn from "../../../Category/components/CategoryBtnFn";
 import { PostStateInterface } from "../HeaderAddPost/interface";
 
 // skeleton -> suspense
@@ -65,18 +65,6 @@ const CategoryAddPost = () => {
               <CategoryBtn category={category} />
             </Grid>
           ))}
-
-          {/* <Grid
-          xs={12}
-          sx={{
-            pt: "3rem",
-            "@media (max-width: 375px)": {
-              pt: "2rem",
-              pb: "1rem",
-            },
-          }}
-        > */}
-          {/* </Grid> */}
         </Grid>
         <Box
           sx={{

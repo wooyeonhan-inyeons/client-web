@@ -1,14 +1,14 @@
 import React from "react";
-import CategoryBtn from "./components/CategoryBtn";
+import CategoryBtn from "./components/CategoryBtnFn";
 import SaveBtn from "../../component/SaveBtn";
-import Grid from "@mui/material/Grid";
-import { Typography } from "@mui/material";
+import Grid from "@mui/material/Unstable_Grid2"; // Grid version 2
+import { Box, Typography } from "@mui/material";
 import { userState } from "../../recoil";
 import { useRecoilState } from "recoil";
 import { Global } from "@emotion/react";
+import { categoryArr } from "./components/CategoryArray";
 
 const CategoryPage = () => {
-  const category = ["일상", "모임", "광고", "정보", "이벤트", "선물"];
   const [, setUser] = useRecoilState(userState);
 
   return (
@@ -28,7 +28,6 @@ const CategoryPage = () => {
         <Global styles={{ ".globalContainer .MuiBox-root": { padding: 0 } }} />
         {/* 인사 문구 구역 */}
         <Grid
-          item
           sx={{
             pt: "6rem",
             pb: "3rem",
@@ -53,39 +52,29 @@ const CategoryPage = () => {
         </Grid>
 
         {/* 카테고리 버튼 구역 */}
-        <Grid item margin="0 auto">
-          <Grid
-            container
-            spacing={0}
-            justifyContent="center"
-            sx={{
-              pt: "calc(100% - 17rem)",
-              pb: "calc(100% - 19rem)",
-              width: "100%",
-              gap: "1rem",
-            }}
-          >
-            {category.map((text: string, index: number) => (
-              <Grid
-                item
-                key={index}
-                sx={{
-                  width: "calc(50% - 0.5rem)",
-                  height: "5rem",
-                  "@media (max-width: 375px)": {
-                    height: "4.5rem",
-                  },
-                }}
-              >
-                <CategoryBtn text={text} />
-              </Grid>
-            ))}
+        <Box>
+          <Grid margin="0 auto">
+            <Grid container rowSpacing={3} columnSpacing={2} margin="0 auto">
+              {categoryArr.map((category) => (
+                <Grid
+                  xs={6}
+                  key={categoryArr.indexOf(category)}
+                  sx={{
+                    height: "7rem",
+                    "@media (max-width: 375px)": {
+                      height: "5rem",
+                    },
+                  }}
+                >
+                  <CategoryBtn category={category} />
+                </Grid>
+              ))}
+            </Grid>
           </Grid>
-        </Grid>
+        </Box>
 
         {/* 선택 완료 버튼 구역 */}
         <Grid
-          item
           sx={{
             width: "100%",
             padding: "1.5rem 0rem 1.5rem 0rem",

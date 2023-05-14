@@ -68,5 +68,5 @@ export const darkTheme = createTheme({
 });
 
 export const StyledBox = styled(Box)(({ theme }: ThemeProps) => ({
-  backgroundColor: theme?.palette.mode === "light" ? "#fff" : "#262626",
+  backgroundColor: theme.palette.background.default,
 }));

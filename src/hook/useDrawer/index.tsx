@@ -23,7 +23,7 @@ const Drawer = ({
             "--brand-color": "#000",
           },
           ".use_drawer > .MuiPaper-root": {
-            maxHeight: `calc(50% - ${drawerBleeding - 10}px)`,
+            maxHeight: `340px`,
             width: "100%",
             overflow: "visible",
             boxShadow: "none",

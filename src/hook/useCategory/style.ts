@@ -13,6 +13,7 @@ export const CategoryButton = styled(StyledButton)(
     height: "2rem",
     padding: "0 1.6rem",
     border: `1px solid ${checked ? "#0000" : colorSet.light.primary}`,
+    color: checked ? "#fff" : "",
     flex: "0 0 auto",
   })
 );

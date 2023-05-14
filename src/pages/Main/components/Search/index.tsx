@@ -10,10 +10,10 @@ import { Wooyeons, addWooyeonInterface } from "./interface";
 import SearchItem from "./components/SearchButton";
 import { useOutletContext } from "react-router-dom";
 import { tempWooyeons, wooyeonPositioning } from "./utils";
-import { onlyNavigateInterface } from "../../../../interface";
+import { ContextInterface } from "../../../../interface";
 
 const Search = () => {
-  const { navigate } = useOutletContext<onlyNavigateInterface>();
+  const { navigate } = useOutletContext<ContextInterface>();
   const { open, Drawer, toggleDrawer } = useDrawer();
   const [wooyeons, setWooyeons] = useState<Wooyeons[]>([]);
   const wooyeonsRef = useRef<Wooyeons[]>([]); //매 업데이트를 추적하기 위해 ref 사용
@@ -48,10 +48,8 @@ const Search = () => {
 
   return (
     <>
-      {/* 꽉찬 화면을 위한 padding */}
       <Global
         styles={{
-          ".globalContainer>.MuiBox-root": { padding: 0 },
           ".use_drawer > .MuiPaper-root": {
             paddingBottom: "6rem",
           },

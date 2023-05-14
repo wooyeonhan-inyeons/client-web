@@ -5,9 +5,11 @@ import { Box, Button, Stack, Typography } from "@mui/material";
 import { ContextInterface, HeaderOptinterface } from "../../interface.d";
 import { faAngleLeft, faGear } from "@fortawesome/free-solid-svg-icons";
 import { useOutletContext } from "react-router-dom";
+import { WrapperOptInterface } from "../../component/MainWrapper/interface";
 
 export default function Mypage() {
-  const { setHeadOpt, navigate } = useOutletContext<ContextInterface>();
+  const { setHeadOpt, navigate, setWrapperOpt } =
+    useOutletContext<ContextInterface>();
   const resetUser = useResetRecoilState(userState);
 
   const headerOption: HeaderOptinterface = {
@@ -18,10 +20,14 @@ export default function Mypage() {
     fn_R: () => navigate("/mypage/setting"),
     headerType: "V3",
   };
+  const wrapperOpt: WrapperOptInterface = {
+    isNoneHeadPadding: false,
+  };
 
   useLayoutEffect(() => {
     //네비게이션 리스트 업데이트
     setHeadOpt(headerOption);
+    setWrapperOpt(wrapperOpt);
   }, []);
 
   return (

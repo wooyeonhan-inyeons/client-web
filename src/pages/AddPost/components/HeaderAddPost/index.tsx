@@ -36,6 +36,7 @@ function HeaderAddPost() {
   const wrapperOption: WrapperOptInterface = {
     // noneFullHeight: true,
     isFullWidth: true,
+    isNoneHeadPadding: false,
   };
 
   useEffect(() => {

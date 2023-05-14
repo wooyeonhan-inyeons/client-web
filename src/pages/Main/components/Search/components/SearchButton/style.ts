@@ -12,7 +12,7 @@ export function searchBtnStyle(open: boolean) {
     justifyContent: "center",
     gap: 3,
     overflow: "hidden",
-    paddingBottom: open ? 0 : 3,
+    padding: open ? 0 : "1.5rem 0",
 
     "& .search-btn": {
       transition: "all 0.5s cubic-bezier(0, 0.85, 0.58, 1) 0s",

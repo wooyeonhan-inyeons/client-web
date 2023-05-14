@@ -6,17 +6,16 @@ import { HeaderProp, WrapperOptInterface } from "./interface";
 import Header from "../Header";
 import { StyledContainer } from "./style";
 
-const initOption: HeaderOptinterface = {
-  menus: [{ key: "", value: "" }],
-  isForward: true,
-};
-
 function MainWrapper({ isHeader }: HeaderProp) {
-  const [headOpt, setHeadOpt] = useState<HeaderOptinterface>(initOption);
+  const [headOpt, setHeadOpt] = useState<HeaderOptinterface>({
+    menus: [{ key: "", value: "" }],
+    isForward: true,
+  });
   const [wrapperOpt, setWrapperOpt] = useState<WrapperOptInterface>({
     isFullWidth: false,
     isNoneHeadPadding: false,
     noneFullHeight: false,
+    scrollable: false,
   });
   const navigate = useNavigate();
   return (
@@ -36,10 +35,10 @@ function MainWrapper({ isHeader }: HeaderProp) {
       >
         <Box
           sx={{
-            paddingTop: wrapperOpt.isFullWidth ? 0 : 7,
             minHeight: "100vh",
-            overflowX: "scroll",
+            overflowX: wrapperOpt.scrollable ? "scroll" : "hidden",
             height: wrapperOpt.noneFullHeight ? "auto" : "100vh",
+            paddingTop: wrapperOpt.isNoneHeadPadding ? 0 : 7,
             "@media (min-width: 600px)": {
               paddingTop: wrapperOpt.isNoneHeadPadding ? 0 : 8,
             },

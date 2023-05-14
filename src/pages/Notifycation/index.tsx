@@ -4,9 +4,10 @@ import { ContextInterface, HeaderOptinterface } from "../../interface.d";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { Box, Stack } from "@mui/material";
 import NotiItem from "./components/NotiItem";
+import { WrapperOptInterface } from "../../component/MainWrapper/interface";
 
 export default function Notification() {
-  const { headOpt, setHeadOpt, navigate } =
+  const { headOpt, setHeadOpt, navigate, setWrapperOpt } =
     useOutletContext<ContextInterface>();
 
   const headerOption: HeaderOptinterface = {
@@ -16,9 +17,14 @@ export default function Notification() {
     headerType: "V3",
   };
 
+  const wrapperOpt: WrapperOptInterface = {
+    isNoneHeadPadding: false,
+  };
+
   useLayoutEffect(() => {
     //네비게이션 리스트 업데이트
     setHeadOpt(headerOption);
+    setWrapperOpt(wrapperOpt);
   }, []);
 
   const testData = {

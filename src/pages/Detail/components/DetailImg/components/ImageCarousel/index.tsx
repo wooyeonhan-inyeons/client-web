@@ -1,7 +1,7 @@
 import React from "react";
 import SwipeableViews from "react-swipeable-views";
 import { Box } from "@mui/material";
-import { DetailCarousel } from "../../interface";
+import { DetailCarousel } from "../../../../interface";
 
 export default function ImageCarousel({
   activeStep,

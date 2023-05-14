@@ -1,60 +1,14 @@
 import { Box, Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2"; // Grid version 2
-import React, { useEffect, useContext } from "react";
+import React, { useEffect } from "react";
 import { useNavigate, useOutletContext } from "react-router";
 import SaveBtn from "../../../../component/SaveBtn";
-import CategoryBtn from "../../../Category/components/CategoryBtn";
+import { categoryArr } from "../../../CategoryPage/components/CategoryArray";
 import { PostStateInterface } from "../HeaderAddPost/interface";
-import { Category, CategoryArr } from "./type";
+import CategoryBtn from "./component/CategoryBtnFn";
 
 // skeleton -> suspense
 // build
-// 고민: 클릭한 카테고리 상태를 다른 페이지 다녀와도 저장하기
-
-const categoryArr: CategoryArr = [
-  {
-    id: Category.Daily,
-    selected: false,
-    fn_print: function print() {
-      console.log(this.id);
-    },
-  },
-  {
-    id: Category.Metting,
-    selected: false,
-    fn_print: function print() {
-      console.log(this.id);
-    },
-  },
-  {
-    id: Category.Commercial,
-    selected: false,
-    fn_print: function print() {
-      console.log(this.id);
-    },
-  },
-  {
-    id: Category.Information,
-    selected: false,
-    fn_print: function print() {
-      console.log(this.id);
-    },
-  },
-  {
-    id: Category.Event,
-    selected: false,
-    fn_print: function print() {
-      console.log(this.id);
-    },
-  },
-  {
-    id: Category.Gift,
-    selected: false,
-    fn_print: function print() {
-      console.log(this.id);
-    },
-  },
-];
 
 const CategoryAddPost = () => {
   const navigate = useNavigate();
@@ -110,18 +64,6 @@ const CategoryAddPost = () => {
               <CategoryBtn category={category} />
             </Grid>
           ))}
-
-          {/* <Grid
-          xs={12}
-          sx={{
-            pt: "3rem",
-            "@media (max-width: 375px)": {
-              pt: "2rem",
-              pb: "1rem",
-            },
-          }}
-        > */}
-          {/* </Grid> */}
         </Grid>
         <Box
           sx={{

@@ -1,4 +1,4 @@
-import CategoryBtn, { CategoryTextProps } from ".";
+import CategoryBtn from ".";
 import React from "react";
 import { Meta, Story } from "@storybook/react";
 
@@ -7,7 +7,7 @@ export default {
   component: CategoryBtn,
 } as Meta;
 
-const Template: Story<CategoryTextProps> = (args) => <CategoryBtn {...args} />;
+const Template: Story<any> = (args) => <CategoryBtn {...args} />;
 
 export const Basic = Template.bind({});
 Basic.args = { text: "일상" };

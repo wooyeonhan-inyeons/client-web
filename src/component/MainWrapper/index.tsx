@@ -4,10 +4,8 @@ import { Box } from "@mui/material";
 import { HeaderOptinterface } from "../../interface";
 import { HeaderProp, WrapperOptInterface } from "./interface";
 import Header from "../Header";
-import { useRecoilState } from "recoil";
-import { envState } from "../../recoil";
-import { colorSet } from "../../common";
 import { StyledContainer } from "./style";
+
 const initOption: HeaderOptinterface = {
   menus: [{ key: "", value: "" }],
   isForward: true,
@@ -21,7 +19,6 @@ function MainWrapper({ isHeader }: HeaderProp) {
     noneFullHeight: false,
   });
   const navigate = useNavigate();
-  const [env] = useRecoilState(envState);
   return (
     <>
       {isHeader && <Header headProp={headOpt} navigate={navigate} />}
@@ -29,16 +26,11 @@ function MainWrapper({ isHeader }: HeaderProp) {
         className="globalContainer"
         maxWidth="xs"
         sx={{
-          backgroundColor:
-            env.theme == "light"
-              ? colorSet.light.background
-              : colorSet.dark.background,
-          touchAction: "pan-x",
-          paddingLeft: wrapperOpt.isNoneHeadPadding ? 0 : 2,
-          paddingRight: wrapperOpt.isNoneHeadPadding ? 0 : 2,
+          paddingLeft: wrapperOpt.isFullWidth ? 0 : 2,
+          paddingRight: wrapperOpt.isFullWidth ? 0 : 2,
           "@media (min-width: 600px)": {
-            paddingLeft: wrapperOpt.isNoneHeadPadding ? 0 : 2,
-            paddingRight: wrapperOpt.isNoneHeadPadding ? 0 : 2,
+            paddingLeft: wrapperOpt.isFullWidth ? 0 : 2,
+            paddingRight: wrapperOpt.isFullWidth ? 0 : 2,
           },
         }}
       >
@@ -46,9 +38,10 @@ function MainWrapper({ isHeader }: HeaderProp) {
           sx={{
             paddingTop: wrapperOpt.isFullWidth ? 0 : 7,
             minHeight: "100vh",
+            overflowX: "scroll",
             height: wrapperOpt.noneFullHeight ? "auto" : "100vh",
             "@media (min-width: 600px)": {
-              paddingTop: wrapperOpt.isFullWidth ? 0 : 8,
+              paddingTop: wrapperOpt.isNoneHeadPadding ? 0 : 8,
             },
           }}
         >

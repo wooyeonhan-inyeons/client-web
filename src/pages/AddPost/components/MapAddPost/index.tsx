@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Box, Skeleton, Typography } from "@mui/material";
+import { Box, Skeleton, Typography, useTheme } from "@mui/material";
 import { useNavigate, useOutletContext } from "react-router";
 import SaveBtn from "../../../../component/SaveBtn";
 import { Map, MapProvider } from "react-map-gl";
@@ -24,7 +24,7 @@ const MapAddPost = () => {
   );
   const [geocode, setGeocede] = useState<string | undefined>(undefined);
   const positionRef = useRef<LocationProps | undefined>(initPosition);
-
+  const theme = useTheme();
   const navigate = useNavigate();
   const handleNext = () => {
     navigate("/add-post/category");
@@ -69,7 +69,7 @@ const MapAddPost = () => {
         },
       }}
     >
-      <Box>
+      <Box sx={{ padding: "0 1rem" }}>
         <Typography variant="h5" fontWeight={600}>
           지도를 움직여 추가할 <br />
           우연의 장소를 지정해 주세요
@@ -94,13 +94,14 @@ const MapAddPost = () => {
               }}
               {...viewport}
               mapboxAccessToken={import.meta.env.VITE_MAP_API}
-              mapStyle="mapbox://styles/mapbox/light-v9"
+              mapStyle={`mapbox://styles/mapbox/${theme.palette.mode}-v9`}
               style={{
                 width: "100%",
                 height: "400px",
                 maxHeight: "50vh",
                 overflow: "hidden",
-                backgroundColor: "#f6f6f4",
+                backgroundColor:
+                  theme.palette.mode === "light" ? "#f6f6f4" : "#343332",
               }}
             >
               {/* <Marker
@@ -124,7 +125,7 @@ const MapAddPost = () => {
         )}
       </Box>
 
-      <Box>
+      <Box sx={{ padding: "0 1rem" }}>
         <SaveBtn text="다음" onClick={handleNext} />
       </Box>
     </Box>

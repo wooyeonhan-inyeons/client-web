@@ -6,6 +6,8 @@ import { PostStateInterface } from "../../../AddPost/components/HeaderAddPost/in
 import { useOutletContext } from "react-router";
 import CategoryBtnUI from "./CategoryBtnUI";
 
+// 유저가 선택한 카테고리 정보 저장하기
+
 const theme = createTheme({
   palette: {
     primary: {
@@ -22,29 +24,10 @@ const CategoryBtn = ({ category }: { category: OneCategoryType }) => {
   // prop object type 삽질
 
   const [activeColor, setActiveColor] = useState("primary");
-  // const [selected, setSelected] = useState(true);
-  const { post, setPost } = useOutletContext<PostStateInterface>();
 
   const handleButtonClick = () => {
-    if (post?.category) {
-      if (post.category === category.id) {
-        setPost((prevState) => ({ ...prevState, category: null }));
-        setActiveColor(activeColor === "primary" ? "secondary" : "primary");
-      } else {
-        console.log("님 이미 선택함");
-      }
-    } else {
-      setPost((prevState) => ({ ...prevState, category: category.id }));
-      setActiveColor(activeColor === "primary" ? "secondary" : "primary");
-    }
-    console.log(post);
+    setActiveColor(activeColor === "primary" ? "secondary" : "primary");
   };
-
-  useEffect(() => {
-    if (post?.category === category.id) {
-      setActiveColor("secondary");
-    }
-  }, []);
 
   return (
     <ThemeProvider theme={theme}>

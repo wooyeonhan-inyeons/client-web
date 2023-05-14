@@ -9,7 +9,7 @@ import { useRecoilState } from "recoil";
 
 import MainWrapper from "./component/MainWrapper";
 import LoginPage from "./pages/LoginPage";
-import CategoryPage from "./pages/Category";
+import CategoryPage from "./pages/CategoryPage";
 import Main from "./pages/Main";
 import Search from "./pages/Main/components/Search";
 import Past from "./pages/Main/components/Past/inedx";

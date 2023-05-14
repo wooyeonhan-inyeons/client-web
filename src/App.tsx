@@ -7,9 +7,11 @@ import { darkTheme, lightTheme } from "./common";
 import { EnvState } from "./interface";
 import GlobalStyle from "./component/GlobalStyle";
 import { grey } from "@mui/material/colors";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 function App() {
   const [env] = useRecoilState(envState);
+  const queryClient = new QueryClient();
 
   function themeSelector(env: EnvState) {
     if (env.theme == "system") {
@@ -45,7 +47,9 @@ function App() {
         }}
       />
       <GlobalStyle>
-        <Router />
+        <QueryClientProvider client={queryClient}>
+          <Router />
+        </QueryClientProvider>
       </GlobalStyle>
     </ThemeProvider>
   );

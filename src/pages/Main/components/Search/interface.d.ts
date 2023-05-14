@@ -41,3 +41,12 @@ export interface addWooyeonInterface {
   name?: string;
   img: string;
 }
+
+export interface positionType {
+  latitude: number;
+  longitude: number;
+}
+
+export interface setPositionType {
+  setPosition: (value: React.SetStateAction<positionType | undefined>) => void;
+}

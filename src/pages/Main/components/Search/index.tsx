@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef, useState } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useDrawer } from "../../../../hook/useDrawer";
 import { Box, Typography } from "@mui/material";
 import WooyeonItem from "./components/WooyeonItem";
@@ -6,17 +6,24 @@ import Categories from "./components/Categories";
 import RangeBar from "./components/RangeBar";
 import { Global } from "@emotion/react";
 import radarPageStyle from "./style";
-import { Wooyeons, addWooyeonInterface } from "./interface";
+import { Wooyeons, addWooyeonInterface, positionType } from "./interface";
 import SearchItem from "./components/SearchButton";
 import { useOutletContext } from "react-router-dom";
-import { tempWooyeons, wooyeonPositioning } from "./utils";
+import { getCurrentLocation, tempWooyeons, wooyeonPositioning } from "./utils";
 import { ContextInterface } from "../../../../interface";
+
+const initPosition = {
+  latitude: 35.8527,
+  longitude: 128.4971,
+};
 
 const Search = () => {
   const { navigate } = useOutletContext<ContextInterface>();
   const { open, Drawer, toggleDrawer } = useDrawer();
   const [wooyeons, setWooyeons] = useState<Wooyeons[]>([]);
   const wooyeonsRef = useRef<Wooyeons[]>([]); //매 업데이트를 추적하기 위해 ref 사용
+  const [position, setPosition] = useState<positionType | undefined>(undefined);
+  const positionRef = useRef<positionType | undefined>(initPosition);
 
   const searchItems = () => {
     if (wooyeonsRef.current.length > 5) setWooyeons([]);
@@ -35,16 +42,24 @@ const Search = () => {
   };
 
   function addWooyeon({ pos, img }: addWooyeonInterface) {
-    const newWooyeon = {
-      pos: pos,
-      name: img,
-    };
-    setWooyeons((prevWooyeons) => [...prevWooyeons, newWooyeon]);
+    setWooyeons((prevWooyeons) => [
+      ...prevWooyeons,
+      {
+        pos: pos,
+        name: img,
+      },
+    ]);
   }
+
+  useEffect(() => {
+    if (positionRef.current === initPosition) {
+      getCurrentLocation({ setPosition });
+    }
+  }, [navigator]);
 
   useLayoutEffect(() => {
     wooyeonsRef.current = wooyeons;
-  }, [wooyeons]);
+  }, []);
 
   return (
     <>

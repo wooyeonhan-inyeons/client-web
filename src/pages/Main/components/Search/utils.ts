@@ -1,5 +1,7 @@
 import {
   WooPos,
+  positionType,
+  setPositionType,
   tempWooyeonsInterface,
   wooyeonPositionInterface,
 } from "./interface";
@@ -66,3 +68,16 @@ export const tempWooyeons: tempWooyeonsInterface[] = [
   { id: 7, img: IMG_6073 },
   { id: 70, img: IMG_5995 },
 ];
+
+/**
+ *
+ * @param setViewport setState를 인자로 받아 함수 내에서 업데이트
+ */
+export function getCurrentLocation({ setPosition }: setPositionType) {
+  navigator.geolocation.getCurrentPosition((position) => {
+    setPosition({
+      latitude: position.coords.latitude,
+      longitude: position.coords.longitude,
+    });
+  });
+}

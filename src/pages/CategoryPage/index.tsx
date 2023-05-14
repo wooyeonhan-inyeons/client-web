@@ -1,5 +1,4 @@
 import React from "react";
-import CategoryBtn from "./components/CategoryBtnFn";
 import SaveBtn from "../../component/SaveBtn";
 import Grid from "@mui/material/Unstable_Grid2"; // Grid version 2
 import { Box, Typography } from "@mui/material";
@@ -7,6 +6,7 @@ import { userState } from "../../recoil";
 import { useRecoilState } from "recoil";
 import { Global } from "@emotion/react";
 import { categoryArr } from "./components/CategoryArray";
+import CategoryBtnFn from "./components/CategoryBtnFn";
 
 const CategoryPage = () => {
   const [, setUser] = useRecoilState(userState);
@@ -66,7 +66,7 @@ const CategoryPage = () => {
                     },
                   }}
                 >
-                  <CategoryBtn category={category} />
+                  <CategoryBtnFn category={category} />
                 </Grid>
               ))}
             </Grid>

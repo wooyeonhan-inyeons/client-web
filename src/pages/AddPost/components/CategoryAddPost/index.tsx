@@ -3,13 +3,12 @@ import Grid from "@mui/material/Unstable_Grid2"; // Grid version 2
 import React, { useEffect } from "react";
 import { useNavigate, useOutletContext } from "react-router";
 import SaveBtn from "../../../../component/SaveBtn";
-import { categoryArr } from "../../../Category/components/CategoryArray";
-import CategoryBtn from "../../../Category/components/CategoryBtnFn";
+import { categoryArr } from "../../../CategoryPage/components/CategoryArray";
 import { PostStateInterface } from "../HeaderAddPost/interface";
+import CategoryBtn from "./component/CategoryBtnFn";
 
 // skeleton -> suspense
 // build
-// 고민: 클릭한 카테고리 상태를 다른 페이지 다녀와도 저장하기
 
 const CategoryAddPost = () => {
   const navigate = useNavigate();

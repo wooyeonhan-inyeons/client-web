@@ -70,3 +70,5 @@ export const darkTheme = createTheme({
 export const StyledBox = styled(Box)(({ theme }: ThemeProps) => ({
   backgroundColor: theme.palette.background.default,
 }));
+
+export const BACK_URL = "https://api.wooyeons.site";

@@ -1,6 +1,8 @@
 import {
   WooPos,
-  positionType,
+  Wooyeons,
+  addWooyeonInterface,
+  beforeWooyeonType,
   setPositionType,
   tempWooyeonsInterface,
   wooyeonPositionInterface,
@@ -32,16 +34,16 @@ export function getRandomCircleEdgeCoordinates(distance: number): WooPos {
 }
 
 export function wooyeonPositioning({
-  addWooyeon,
+  setWooyeons,
   wooyeonsRef,
   distance,
-  img,
+  image,
 }: wooyeonPositionInterface) {
   if (wooyeonsRef.current.length > 5) return;
   const pos = getRandomCircleEdgeCoordinates(distance);
 
   if (wooyeonsRef.current.length === 0) {
-    return addWooyeon({ pos, img });
+    return addWooyeon({ pos, image, setWooyeons });
   } else {
     const isInRange = wooyeonsRef.current.some((item) => {
       const interDistance = Math.sqrt(
@@ -52,12 +54,46 @@ export function wooyeonPositioning({
       return interDistance < 13;
     });
     if (!isInRange) {
-      return addWooyeon({ pos, img });
+      return addWooyeon({ pos, image, setWooyeons });
     } else {
       // 겹치면 다른 값으로 재귀 호출
-      wooyeonPositioning({ addWooyeon, wooyeonsRef, distance, img });
+      wooyeonPositioning({
+        setWooyeons,
+        wooyeonsRef,
+        distance,
+        image,
+      });
     }
   }
+}
+
+export function addWooyeon({ pos, image, setWooyeons }: addWooyeonInterface) {
+  setWooyeons((prevWooyeons: Wooyeons[]) => [
+    ...prevWooyeons,
+    {
+      pos: pos,
+      image: image,
+    },
+  ]);
+}
+
+export function afterFetchWoo({
+  data,
+  setWooyeons,
+  wooyeonsRef,
+}: beforeWooyeonType) {
+  setWooyeons([]);
+
+  data.map((item, index) => {
+    setTimeout(() => {
+      wooyeonPositioning({
+        setWooyeons,
+        wooyeonsRef,
+        distance: 50,
+        image: item.image[0].img_url,
+      });
+    }, 100 * index + 50 * Math.random());
+  });
 }
 
 export const tempWooyeons: tempWooyeonsInterface[] = [

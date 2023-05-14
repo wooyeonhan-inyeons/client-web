@@ -6,11 +6,13 @@ import Categories from "./components/Categories";
 import RangeBar from "./components/RangeBar";
 import { Global } from "@emotion/react";
 import radarPageStyle from "./style";
-import { Wooyeons, addWooyeonInterface, positionType } from "./interface";
+import { Wooyeons, positionType } from "./interface";
 import SearchItem from "./components/SearchButton";
 import { useOutletContext } from "react-router-dom";
-import { getCurrentLocation, tempWooyeons, wooyeonPositioning } from "./utils";
+import { afterFetchWoo, getCurrentLocation } from "./utils";
 import { ContextInterface } from "../../../../interface";
+import { getPost } from "./api";
+import { useMutation } from "react-query";
 
 const initPosition = {
   latitude: 35.8527,
@@ -29,37 +31,27 @@ const Search = () => {
     if (wooyeonsRef.current.length > 5) setWooyeons([]);
     if (open) toggleDrawer();
 
-    tempWooyeons.map((item, index) => {
-      setTimeout(() => {
-        wooyeonPositioning({
-          addWooyeon,
-          wooyeonsRef,
-          distance: item.id,
-          img: item.img,
-        });
-      }, 100 * index + 50 * Math.random());
-    });
+    getWoo();
   };
-
-  function addWooyeon({ pos, img }: addWooyeonInterface) {
-    setWooyeons((prevWooyeons) => [
-      ...prevWooyeons,
-      {
-        pos: pos,
-        name: img,
-      },
-    ]);
-  }
 
   useEffect(() => {
     if (positionRef.current === initPosition) {
       getCurrentLocation({ setPosition });
     }
+    getWoo();
   }, [navigator]);
 
   useLayoutEffect(() => {
     wooyeonsRef.current = wooyeons;
   }, []);
+
+  const { mutate: getWoo } = useMutation("get", () => getPost({ position }), {
+    // suspense: true,
+    // refetchOnWindowFocus: false,
+    onSuccess: (data) => {
+      afterFetchWoo({ data, setWooyeons, wooyeonsRef });
+    },
+  });
 
   return (
     <>
@@ -89,8 +81,8 @@ const Search = () => {
         >
           {wooyeons.map((item) => (
             <WooyeonItem
-              key={item.name}
-              name={item.name}
+              key={item.image}
+              image={item.image}
               pos={item.pos}
               onClick={() => navigate(`detail/0`)}
             />

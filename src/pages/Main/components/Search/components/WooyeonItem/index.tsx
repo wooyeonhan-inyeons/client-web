@@ -4,7 +4,7 @@ import { Avatar, Box, Zoom } from "@mui/material";
 import { WooyeonItemProps } from "../../interface";
 import { wooyeonItemStyle } from "./style";
 
-const WooyeonItem = ({ name, pos, onClick }: WooyeonItemProps) => {
+const WooyeonItem = ({ image, pos, onClick }: WooyeonItemProps) => {
   const rand = Math.random();
   const iconSize = 40;
   const open = true;
@@ -19,7 +19,7 @@ const WooyeonItem = ({ name, pos, onClick }: WooyeonItemProps) => {
         onClick={onClick}
       >
         <Box sx={wooyeonItemStyle({ iconSize, rand, pos })}>
-          <Avatar alt={name} src={name} sx={{ border: "none" }} />
+          <Avatar alt={image} src={image} sx={{ border: "none" }} />
         </Box>
       </Box>
     </Zoom>

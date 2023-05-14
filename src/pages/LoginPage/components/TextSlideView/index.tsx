@@ -1,4 +1,4 @@
-import { Grid, Typography, useTheme } from "@mui/material";
+import { createTheme, Grid, Typography, useTheme } from "@mui/material";
 import SwipeableViews from "react-swipeable-views";
 import React from "react";
 // import SaveBtn from "../../../Category/components/SaveBtn";
@@ -62,7 +62,7 @@ const TextSlideView = ({
         <Grid item>
           {/* <SaveBtn text="시작하기" /> */}
           <SnsButton
-            sns={false}
+            sns={false} // boolean -> enum으로 수정
             text="Google 계정으로 로그인"
             imgSrc={googleIcon}
           ></SnsButton>
@@ -76,5 +76,4 @@ const TextSlideView = ({
     </>
   );
 };
-
 export default TextSlideView;

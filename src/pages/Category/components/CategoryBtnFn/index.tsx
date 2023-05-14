@@ -4,6 +4,7 @@ import Button from "@mui/material/Button";
 import { OneCategoryType } from "../../../AddPost/components/CategoryAddPost/type";
 import { PostStateInterface } from "../../../AddPost/components/HeaderAddPost/interface";
 import { useOutletContext } from "react-router";
+import CategoryBtnUI from "./CategoryBtnUI";
 
 const theme = createTheme({
   palette: {
@@ -24,7 +25,6 @@ const CategoryBtn = ({ category }: { category: OneCategoryType }) => {
   // const [selected, setSelected] = useState(true);
   const { post, setPost } = useOutletContext<PostStateInterface>();
 
-  // post 불러와서 post.category가 null일 경우에만 카테고리 클릭할 수 있도록ㅇㅇ!
   const handleButtonClick = () => {
     if (post?.category) {
       if (post.category === category.id) {
@@ -48,24 +48,11 @@ const CategoryBtn = ({ category }: { category: OneCategoryType }) => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Button
-        variant="contained"
-        color={activeColor as ColorType}
-        href="#contained-buttons"
-        sx={{
-          width: "100%",
-          height: "100%",
-          borderRadius: 4,
-          fontWeight: 600,
-        }}
-        onClick={handleButtonClick}
-        style={{
-          boxShadow: "0 1px 3px rgba(0,0,0,0.12)",
-          fontSize: 20,
-        }}
-      >
-        {category.id}
-      </Button>
+      <CategoryBtnUI
+        activeColor={activeColor as ColorType} // 전달
+        handleButtonClick={handleButtonClick} // 전달
+        category={category}
+      ></CategoryBtnUI>
     </ThemeProvider>
   );
 };

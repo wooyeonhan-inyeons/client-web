@@ -12,7 +12,7 @@ import CategoryBtn from "./component/CategoryBtnFn";
 
 const CategoryAddPost = () => {
   const navigate = useNavigate();
-  const { post, setPost } = useOutletContext<PostStateInterface>();
+  const { post } = useOutletContext<PostStateInterface>();
 
   const handleNext = () => {
     navigate("/add-post/photo");
@@ -32,7 +32,7 @@ const CategoryAddPost = () => {
         justifyContent: "space-between",
       }}
     >
-      <Box>
+      <Box sx={{ padding: "1rem 0.5rem" }}>
         <Typography variant="h5" fontWeight={600}>
           추가할 우연의 카테고리를
         </Typography>

@@ -18,7 +18,6 @@ import { PostStateInterface } from "../HeaderAddPost/interface";
 
 // 마커 표시
 // 레이아웃 수정 (다음 버튼 너비)
-// 다크모드 지도 스타일 변경
 
 const initPosition = {
   longitude: 127.9068,
@@ -97,7 +96,6 @@ const MapAddPost = () => {
 
       <Box padding={0}>
         {positionRef.current !== initPosition ? (
-          // <MapComponent></MapComponent>
           <Map
             initialViewState={{
               latitude: 35.8555,
@@ -129,7 +127,7 @@ const MapAddPost = () => {
           <Skeleton
             variant="rectangular"
             // height={400}
-            // sx={{ maxHeight: "50vh" }}
+            sx={{ maxHeight: "65vh" }}
           />
         )}
       </Box>

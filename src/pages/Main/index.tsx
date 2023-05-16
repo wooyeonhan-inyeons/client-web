@@ -1,8 +1,8 @@
 import React, { useLayoutEffect } from "react";
 import { Outlet, useOutletContext } from "react-router-dom";
 import { ContextInterface, HeaderOptinterface } from "../../interface";
-import { faBell, faUser } from "@fortawesome/free-regular-svg-icons";
 import { WrapperOptInterface } from "../../component/MainWrapper/interface";
+import { BellSimple, User } from "@phosphor-icons/react";
 
 function Main() {
   const { setHeadOpt, navigate, setWrapperOpt } =
@@ -14,9 +14,9 @@ function Main() {
       { key: "과거 우연", value: "/previous" },
     ],
     isForward: true,
-    icon_L: faBell,
+    icon_L: BellSimple,
     fn_L: () => navigate("/notification"),
-    icon_R: faUser,
+    icon_R: User,
     fn_R: () => navigate("/mypage"),
   };
   const wrapperOption: WrapperOptInterface = {

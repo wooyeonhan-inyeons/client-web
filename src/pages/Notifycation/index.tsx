@@ -1,10 +1,10 @@
 import React, { useLayoutEffect } from "react";
 import { useOutletContext } from "react-router-dom";
 import { ContextInterface, HeaderOptinterface } from "../../interface.d";
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { Box, Stack } from "@mui/material";
 import NotiItem from "./components/NotiItem";
 import { WrapperOptInterface } from "../../component/MainWrapper/interface";
+import { X } from "@phosphor-icons/react";
 
 export default function Notification() {
   const { headOpt, setHeadOpt, navigate, setWrapperOpt } =
@@ -12,7 +12,7 @@ export default function Notification() {
 
   const headerOption: HeaderOptinterface = {
     menus: [{ key: "알림", value: "/notification" }],
-    icon_R: faXmark,
+    icon_R: X,
     fn_R: () => navigate(-1),
     headerType: "V3",
   };

@@ -1,15 +1,15 @@
 import React, { useLayoutEffect } from "react";
 import { Box, Stack, Typography } from "@mui/material";
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useOutletContext } from "react-router-dom";
 import { ContextInterface, HeaderOptinterface } from "../../../../interface.d";
+import { X } from "@phosphor-icons/react";
 
 export default function EditProfile() {
   const { setHeadOpt, navigate } = useOutletContext<ContextInterface>();
 
   const headerOption: HeaderOptinterface = {
     menus: [{ key: "프로필 수정", value: "/mypage/edit" }],
-    icon_L: faXmark,
+    icon_L: X,
     fn_L: () => navigate(-1),
     headerType: "V3",
   };

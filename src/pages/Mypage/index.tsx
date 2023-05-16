@@ -3,9 +3,9 @@ import { useResetRecoilState } from "recoil";
 import { userState } from "../../recoil";
 import { Box, Button, Stack, Typography } from "@mui/material";
 import { ContextInterface, HeaderOptinterface } from "../../interface.d";
-import { faAngleLeft, faGear } from "@fortawesome/free-solid-svg-icons";
 import { useOutletContext } from "react-router-dom";
 import { WrapperOptInterface } from "../../component/MainWrapper/interface";
+import { CaretLeft, GearSix } from "@phosphor-icons/react";
 
 export default function Mypage() {
   const { setHeadOpt, navigate, setWrapperOpt } =
@@ -14,9 +14,9 @@ export default function Mypage() {
 
   const headerOption: HeaderOptinterface = {
     menus: [{ key: "마이페이지", value: "/mypage" }],
-    icon_L: faAngleLeft,
+    icon_L: CaretLeft,
     fn_L: () => navigate(-1),
-    icon_R: faGear,
+    icon_R: GearSix,
     fn_R: () => navigate("/mypage/setting"),
     headerType: "V3",
   };

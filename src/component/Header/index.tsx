@@ -7,7 +7,6 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { HeaderWrapper } from "./style";
 import { useLocation } from "react-router-dom";
 import { mainPrimary } from "../../common";
@@ -21,8 +20,8 @@ import HeaderV2 from "./components/HearderV2";
  * @param fn_R `오른쪽에 들어갈 메인 함수
  * @param fn_L `왼쪽에 들어갈 메인 함수
  * @param isForward default=`true` 메뉴 이동의 이전 단계를 허용한다.
- * @param icon_L `FontAwesomeIconProps` awesomefont꺼
- * @param icon_R `FontAwesomeIconProps` awesomefont꺼
+ * @param icon_L `Icon` phosphor꺼
+ * @param icon_R `Icon` phosphor꺼
  * @param headerType default=`v1` (storybook 참고)
  */
 
@@ -88,13 +87,11 @@ function Header({ headProp, navigate }: HeaderProp) {
           <Box className="right_section">
             {headProp.icon_L && (
               <IconButton onClick={headProp.fn_L} className="mainFn">
-                <FontAwesomeIcon icon={headProp.icon_L} size="xs" />
+                <headProp.icon_L />
               </IconButton>
             )}
             <IconButton onClick={headProp.fn_R} className="mainFn">
-              {headProp.icon_R && (
-                <FontAwesomeIcon icon={headProp.icon_R} size="xs" />
-              )}
+              {headProp.icon_L && <headProp.icon_R />}
             </IconButton>
           </Box>
         </Toolbar>

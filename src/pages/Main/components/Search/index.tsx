@@ -68,7 +68,9 @@ const Search = () => {
             <div />
           </div>
         </div>
-        <Typography variant="h5">🍀</Typography>
+        <Typography variant="h5" sx={{ marginBottom: "40px" }}>
+          🍀
+        </Typography>
         <Box className="wooyeonArea">
           {wooyeons.map((item) => (
             <WooyeonItem

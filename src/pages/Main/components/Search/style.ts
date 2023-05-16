@@ -14,10 +14,10 @@ const searchPageStyle = {
   },
   "& .wooyeonArea": {
     position: "absolute",
-    top: "50%",
+    top: "calc(50% - 20px)",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: "100%",
+    width: "110%",
     aspectRatio: "1 / 1",
   },
   "& .radar_circle, & .radar_circle *": {
@@ -30,7 +30,8 @@ const searchPageStyle = {
     aspectRatio: "1 / 1",
   },
   "& > .radar_circle": {
-    width: "90%",
+    width: "110%",
+    marginBottom: "40px",
     animation: "1.5s linear 1s infinite alternate a1",
   },
   "& .radar_circle > div": {

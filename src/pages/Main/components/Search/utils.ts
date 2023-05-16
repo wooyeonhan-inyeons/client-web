@@ -15,7 +15,7 @@ import IMG_6063 from "../../../../asset/IMG_6063.jpeg";
 import IMG_6066 from "../../../../asset/IMG_6066.jpeg";
 import IMG_6073 from "../../../../asset/IMG_6073.jpeg";
 
-//14.5, 31, 45
+//14.5, 34.5, 45
 /**
  *
  * @param distance `Number` unit: m
@@ -23,14 +23,19 @@ import IMG_6073 from "../../../../asset/IMG_6073.jpeg";
  */
 export function getRandomCircleEdgeCoordinates(distance: number): WooPos {
   let radius;
-  if (distance > 50) radius = 45;
-  else if (distance > 30) radius = 31;
-  else radius = 14.5;
+  if (distance > 50) radius = 50;
+  else if (distance > 30) radius = 34.5;
+  else radius = 16.5;
 
   const angle = Math.random() * 2 * Math.PI;
   const x = radius * Math.cos(angle);
   const y = radius * Math.sin(angle);
-  return { x, y };
+
+  if (Math.abs(x) <= 40 && Math.abs(y) <= 40) return { x, y };
+
+  // distance 값을 조정하여 재귀 호출
+  const adjustedDistance = distance - 1; // 임의의 값으로 조정 (조건에 맞게 조정해야 함)
+  return getRandomCircleEdgeCoordinates(adjustedDistance);
 }
 
 export function wooyeonPositioning({
@@ -50,11 +55,13 @@ export function wooyeonPositioning({
         (pos.x - item.pos.x) * (pos.x - item.pos.x) +
           (pos.y - item.pos.y) * (pos.y - item.pos.y)
       );
-      console.log(interDistance);
+      // console.log(interDistance);
+      if (interDistance < 13) return true;
       // 거리가 10 미만이면
-      return interDistance < 13;
+      return false;
     });
     if (!isInRange) {
+      // console.log(pos, image);
       return addWooyeon({ pos, image, setWooyeons });
     } else {
       // 겹치면 다른 값으로 재귀 호출
@@ -90,7 +97,7 @@ export function afterFetchWoo({
       wooyeonPositioning({
         setWooyeons,
         wooyeonsRef,
-        distance: 50,
+        distance: 70,
         image: item.image[0].img_url,
       });
     }, 100 * index + 50 * Math.random());

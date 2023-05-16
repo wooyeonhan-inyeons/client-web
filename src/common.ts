@@ -6,11 +6,6 @@ import styled from "@emotion/styled";
 export const mainPrimary = "#00A651";
 export const secondary = "#ED6729";
 
-export const colorSet = {
-  light: { primary: mainPrimary, background: "#fff", rootBg: "#f9f9f9" },
-  dark: { primary: mainPrimary, background: "#222", rootBg: "#424242" },
-};
-
 export const Root = styled("div")(({ theme }: ThemeProps) => ({
   height: "100%",
   backgroundColor:
@@ -20,7 +15,7 @@ export const Root = styled("div")(({ theme }: ThemeProps) => ({
 }));
 
 export const Puller = styled(Box)(() => ({
-  backgroundColor: colorSet.light.primary,
+  backgroundColor: mainPrimary,
   width: 50,
   height: 5,
   opacity: 0.3,

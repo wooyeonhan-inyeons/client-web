@@ -5,7 +5,7 @@ import WooyeonItem from "./components/WooyeonItem";
 import Categories from "./components/Categories";
 import RangeBar from "./components/RangeBar";
 import { Global } from "@emotion/react";
-import radarPageStyle from "./style";
+import searchPageStyle from "./style";
 import { Wooyeons, positionType } from "./interface";
 import SearchItem from "./components/SearchButton";
 import { useOutletContext } from "react-router-dom";
@@ -62,23 +62,14 @@ const Search = () => {
           },
         }}
       />
-      <Box sx={radarPageStyle}>
+      <Box sx={searchPageStyle}>
         <div className="radar_circle">
           <div>
             <div />
           </div>
         </div>
         <Typography variant="h5">🍀</Typography>
-        <Box
-          sx={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            width: "100%",
-            aspectRatio: "1 / 1",
-          }}
-        >
+        <Box className="wooyeonArea">
           {wooyeons.map((item) => (
             <WooyeonItem
               key={item.image}

@@ -19,7 +19,6 @@ export const getPost = async ({
       },
     }
   ).then((response) => {
-    console.log(response);
     return response.json();
   });
   return response;

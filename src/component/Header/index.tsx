@@ -10,7 +10,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { HeaderWrapper } from "./style";
 import { useLocation } from "react-router-dom";
-import { colorSet } from "../../common";
+import { mainPrimary } from "../../common";
 import { HeaderProp, menuProp } from "./intreface";
 import HeaderV3 from "./components/HearderV3";
 import HeaderV2 from "./components/HearderV2";
@@ -30,7 +30,6 @@ function Header({ headProp, navigate }: HeaderProp) {
   const [idx, setIdx] = useState<number>(0);
   const location = useLocation();
 
-  // headProp.bgColor = env ? colorSet.light.background : colorSet.dark.background;
   if (headProp.headerType === undefined) headProp.headerType = "V1";
 
   const handleNavigate = (prop: menuProp) => {
@@ -71,7 +70,7 @@ function Header({ headProp, navigate }: HeaderProp) {
                 sx={{
                   borderBottom:
                     item.value === location.pathname
-                      ? `2px solid ${colorSet.light.primary}`
+                      ? `2px solid ${mainPrimary}`
                       : "2px solid #0000",
                 }}
               >

@@ -50,6 +50,7 @@ export function wooyeonPositioning({
         (pos.x - item.pos.x) * (pos.x - item.pos.x) +
           (pos.y - item.pos.y) * (pos.y - item.pos.y)
       );
+      console.log(interDistance);
       // 거리가 10 미만이면
       return interDistance < 13;
     });

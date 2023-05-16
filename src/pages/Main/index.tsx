@@ -22,6 +22,7 @@ function Main() {
   const wrapperOption: WrapperOptInterface = {
     isNoneHeadPadding: true,
     scrollable: false,
+    isFullWidth: true,
   };
 
   useLayoutEffect(() => {

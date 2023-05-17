@@ -26,7 +26,10 @@ export function wooyeonItemStyle({
     animation: `1.5s ${rand}s ease-in-out infinite alternate wooFlow`,
     // boxShadow: "inset -5px -4px 7px 3px #000",
     boxShadow: "0px 4px 4px #0000003b",
-    backgroundColor: "#ffffff",
+    backgroundColor: "#222",
+    color: "#fff",
+    textAlign: "center",
+    lineHeight: "2rem",
 
     "& .MuiAvatar-img": {
       filter: "blur(1.5px)",

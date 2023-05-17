@@ -6,6 +6,14 @@ import styled from "@emotion/styled";
 export const mainPrimary = "#00A651";
 export const secondary = "#ED6729";
 
+export const avatarColors = [
+  "#E58859",
+  "#5DA457",
+  "#9EBE62",
+  "#80BE91",
+  "#EAFDE6",
+];
+
 export const Root = styled("div")(({ theme }: ThemeProps) => ({
   height: "100%",
   backgroundColor:

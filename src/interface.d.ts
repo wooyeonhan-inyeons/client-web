@@ -27,7 +27,7 @@ export interface HeaderOptinterface {
   fn_L?: () => void;
   fn_R?: () => void;
   icon_L?: Icon;
-  icon_R?: Icon;
+  icon_R?: Icon | AvatarComponent;
   isForward?: boolean;
   headerType?: "V1" | "V2" | "V3";
   bgColor?: string;

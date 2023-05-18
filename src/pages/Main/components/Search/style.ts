@@ -4,9 +4,10 @@ const searchPageStyle = {
   height: "100vh",
   alignItems: "center",
   justifyContent: "center",
-  position: "relative",
+  position: "fixed",
   touchAction: "auto",
-  // overflow: "hidden",
+  maxWidth: "444px",
+  overflow: "hidden",
 
   "& .lf-player-container": {
     position: "absolute",

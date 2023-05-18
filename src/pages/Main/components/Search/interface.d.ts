@@ -12,6 +12,7 @@ export interface Wooyeons {
 export interface WooyeonItemProps {
   image: string;
   pos: { x: number; y: number };
+  index?: number;
   onClick: () => void;
 }
 
@@ -27,9 +28,10 @@ export interface SearchContextInterface {
 
 export interface wooyeonPositionInterface {
   setWooyeons: (value: React.SetStateAction<Wooyeons[]>) => void;
-  wooyeonsRef: React.MutableRefObject<Wooyeons[]>;
+
   distance: number;
   image: string;
+  id?: number;
 }
 export interface tempWooyeonsInterface {
   id: number;

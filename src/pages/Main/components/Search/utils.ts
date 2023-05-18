@@ -2,7 +2,6 @@ import {
   WooPos,
   Wooyeons,
   addWooyeonInterface,
-  beforeWooyeonType,
   setPositionType,
   tempWooyeonsInterface,
   wooyeonPositionInterface,
@@ -31,7 +30,7 @@ export function getRandomCircleEdgeCoordinates(distance: number): WooPos {
   const x = radius * Math.cos(angle);
   const y = radius * Math.sin(angle);
 
-  if (Math.abs(x) <= 40 && Math.abs(y) <= 40) return { x, y };
+  if (Math.abs(x) <= 40) return { x, y };
 
   // distance 값을 조정하여 재귀 호출
   const adjustedDistance = distance - 1; // 임의의 값으로 조정 (조건에 맞게 조정해야 함)
@@ -40,34 +39,38 @@ export function getRandomCircleEdgeCoordinates(distance: number): WooPos {
 
 export function wooyeonPositioning({
   setWooyeons,
-  wooyeonsRef,
+  // wooyeons,
   distance,
   image,
 }: wooyeonPositionInterface) {
-  if (wooyeonsRef.current.length > 5) return;
-  const pos = getRandomCircleEdgeCoordinates(distance);
+  // 최신 상태배열 받아오기
+  let prevWoo: Wooyeons[] = [];
+  setWooyeons((prev) => {
+    prevWoo = prev;
+    return prev;
+  });
 
-  if (wooyeonsRef.current.length === 0) {
+  if (prevWoo.length > 5) return;
+  const pos = getRandomCircleEdgeCoordinates(distance);
+  if (prevWoo.length === 0) {
     return addWooyeon({ pos, image, setWooyeons });
   } else {
-    const isInRange = wooyeonsRef.current.some((item) => {
+    const isInRange = prevWoo.some((item) => {
       const interDistance = Math.sqrt(
         (pos.x - item.pos.x) * (pos.x - item.pos.x) +
           (pos.y - item.pos.y) * (pos.y - item.pos.y)
       );
-      // console.log(interDistance);
-      if (interDistance < 13) return true;
-      // 거리가 10 미만이면
-      return false;
+
+      // 거리가 13 미만이면
+      return interDistance < 13;
     });
     if (!isInRange) {
-      // console.log(pos, image);
       return addWooyeon({ pos, image, setWooyeons });
     } else {
+      // console.log("recursive");
       // 겹치면 다른 값으로 재귀 호출
       wooyeonPositioning({
         setWooyeons,
-        wooyeonsRef,
         distance,
         image,
       });
@@ -76,31 +79,16 @@ export function wooyeonPositioning({
 }
 
 export function addWooyeon({ pos, image, setWooyeons }: addWooyeonInterface) {
-  setWooyeons((prevWooyeons: Wooyeons[]) => [
-    ...prevWooyeons,
-    {
-      pos: pos,
-      image: image,
-    },
-  ]);
-}
-
-export function afterFetchWoo({
-  data,
-  setWooyeons,
-  wooyeonsRef,
-}: beforeWooyeonType) {
-  setWooyeons([]);
-
-  data.map((item, index) => {
-    setTimeout(() => {
-      wooyeonPositioning({
-        setWooyeons,
-        wooyeonsRef,
-        distance: 70,
-        image: item.image[0].img_url,
-      });
-    }, 100 * index + 50 * Math.random());
+  setWooyeons((prevWooyeons: Wooyeons[]) => {
+    // 초과 방지
+    if (prevWooyeons.length > 6) return prevWooyeons;
+    return [
+      ...prevWooyeons,
+      {
+        pos: pos,
+        image: image,
+      },
+    ];
   });
 }
 

@@ -1,6 +1,6 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDrawer } from "../../../../hook/useDrawer";
-import { Box, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import WooyeonItem from "./components/WooyeonItem";
 import Categories from "./components/Categories";
 import RangeBar from "./components/RangeBar";
@@ -9,7 +9,7 @@ import searchPageStyle from "./style";
 import { Wooyeons, positionType } from "./interface";
 import SearchItem from "./components/SearchButton";
 import { useOutletContext } from "react-router-dom";
-import { afterFetchWoo, getCurrentLocation } from "./utils";
+import { getCurrentLocation, wooyeonPositioning } from "./utils";
 import { ContextInterface } from "../../../../interface";
 import { getPost } from "./api";
 import { useMutation } from "react-query";
@@ -23,12 +23,11 @@ const Search = () => {
   const { navigate } = useOutletContext<ContextInterface>();
   const { open, Drawer, toggleDrawer } = useDrawer();
   const [wooyeons, setWooyeons] = useState<Wooyeons[]>([]);
-  const wooyeonsRef = useRef<Wooyeons[]>([]); //매 업데이트를 추적하기 위해 ref 사용
   const [position, setPosition] = useState<positionType | undefined>(undefined);
   const positionRef = useRef<positionType | undefined>(initPosition);
 
   const searchItems = () => {
-    if (wooyeonsRef.current.length > 5) setWooyeons([]);
+    if (wooyeons.length > 5) setWooyeons([]);
     if (open) toggleDrawer();
 
     getWoo();
@@ -41,15 +40,32 @@ const Search = () => {
     getWoo();
   }, [navigator]);
 
-  useLayoutEffect(() => {
-    wooyeonsRef.current = wooyeons;
-  }, []);
-
   const { mutate: getWoo } = useMutation("get", () => getPost({ position }), {
     // suspense: true,
     // refetchOnWindowFocus: false,
+    onMutate() {
+      //기존 우연들 초기화와 함께 시작
+      setWooyeons([]);
+    },
     onSuccess: (data) => {
-      afterFetchWoo({ data, setWooyeons, wooyeonsRef });
+      //afterFetchWoo({ data, setWooyeons, wooyeonsRef });
+
+      //기존 우연들 초기화와 함께 시작
+      // setWooyeons([]);
+
+      // console.log(`${data.length} 개의 우연 추가하기`);
+      data.forEach((item, index) => {
+        setTimeout(() => {
+          // console.log(
+          //   `${index + 1} 번째 우연 추가 중 ${wooyeonsRef.current.length}`
+          // );
+          wooyeonPositioning({
+            setWooyeons,
+            distance: 80 * Math.random(),
+            image: item.image[0].img_url,
+          });
+        }, 100 * index + 50 * Math.random());
+      });
     },
   });
 
@@ -72,9 +88,10 @@ const Search = () => {
           🍀
         </Typography>
         <Box className="wooyeonArea">
-          {wooyeons.map((item) => (
+          {wooyeons.map((item, index) => (
             <WooyeonItem
-              key={item.image}
+              index={index}
+              key={item.image + index.toString()}
               image={item.image}
               pos={item.pos}
               onClick={() => navigate(`detail/0`)}
@@ -83,6 +100,7 @@ const Search = () => {
         </Box>
       </Box>
       <SearchItem open={open} searchItems={searchItems} navigate={navigate} />
+
       <Drawer open={open} toggleDrawer={toggleDrawer}>
         <Box>
           <Typography variant="h6">카테고리 선택</Typography>

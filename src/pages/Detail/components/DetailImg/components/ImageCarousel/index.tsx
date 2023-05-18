@@ -21,8 +21,9 @@ export default function ImageCarousel({
           key={item.id}
           sx={{
             width: "100%",
-            minHeight: "100%",
-            maxHeight: "70vh",
+            // minHeight: "100%",
+            // maxHeight: "70vh",
+            aspectRatio: "3/4",
             display: "flex",
           }}
         >

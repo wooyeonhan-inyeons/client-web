@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDrawer } from "../../../../hook/useDrawer";
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import WooyeonItem from "./components/WooyeonItem";
 import Categories from "./components/Categories";
 import RangeBar from "./components/RangeBar";
@@ -48,11 +48,6 @@ const Search = () => {
       setWooyeons([]);
     },
     onSuccess: (data) => {
-      //afterFetchWoo({ data, setWooyeons, wooyeonsRef });
-
-      //기존 우연들 초기화와 함께 시작
-      // setWooyeons([]);
-
       // console.log(`${data.length} 개의 우연 추가하기`);
       data.forEach((item, index) => {
         setTimeout(() => {
@@ -61,7 +56,7 @@ const Search = () => {
           // );
           wooyeonPositioning({
             setWooyeons,
-            distance: 80 * Math.random(),
+            distance: 70 * Math.random(),
             image: item.image[0].img_url,
           });
         }, 100 * index + 50 * Math.random());

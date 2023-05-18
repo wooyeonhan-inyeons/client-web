@@ -4,7 +4,7 @@ import { Avatar, Box, Zoom } from "@mui/material";
 import { WooyeonItemProps } from "../../interface";
 import { wooyeonItemStyle } from "./style";
 
-const WooyeonItem = ({ image, pos, onClick, index }: WooyeonItemProps) => {
+const WooyeonItem = ({ image, pos, onClick }: WooyeonItemProps) => {
   const rand = Math.random();
   const iconSize = 40;
   const open = true;

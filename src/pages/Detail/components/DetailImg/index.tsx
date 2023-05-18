@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { HeadBlinder } from "./components/headBlinder";
 import ImageCarousel from "./components/ImageCarousel";
-import { MobileStepper } from "@mui/material";
+import { Box, MobileStepper } from "@mui/material";
 import { tempWooyeons } from "../../../Main/components/Search/utils";
 
 export default function DetailImg() {
@@ -11,7 +11,7 @@ export default function DetailImg() {
   };
 
   return (
-    <>
+    <Box sx={{ width: "100%" }}>
       <HeadBlinder />
       <ImageCarousel
         activeStep={activeStep}
@@ -33,6 +33,6 @@ export default function DetailImg() {
           background: "none",
         }}
       />
-    </>
+    </Box>
   );
 }

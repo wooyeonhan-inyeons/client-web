@@ -30,39 +30,43 @@ const Search = () => {
     if (wooyeons.length > 5) setWooyeons([]);
     if (open) toggleDrawer();
 
-    getWoo();
+    getWooyeons();
   };
 
   useEffect(() => {
     if (positionRef.current === initPosition) {
       getCurrentLocation({ setPosition });
     }
-    getWoo();
+    getWooyeons();
   }, [navigator]);
 
-  const { mutate: getWoo } = useMutation("get", () => getPost({ position }), {
-    // suspense: true,
-    // refetchOnWindowFocus: false,
-    onMutate() {
-      //기존 우연들 초기화와 함께 시작
-      setWooyeons([]);
-    },
-    onSuccess: (data) => {
-      // console.log(`${data.length} 개의 우연 추가하기`);
-      data.forEach((item, index) => {
-        setTimeout(() => {
-          // console.log(
-          //   `${index + 1} 번째 우연 추가 중 ${wooyeonsRef.current.length}`
-          // );
-          wooyeonPositioning({
-            setWooyeons,
-            distance: 70 * Math.random(),
-            image: item.image[0].img_url,
-          });
-        }, 100 * index + 50 * Math.random());
-      });
-    },
-  });
+  const { mutate: getWooyeons } = useMutation(
+    "get",
+    () => getPost({ position }),
+    {
+      // suspense: true,
+      // refetchOnWindowFocus: false,
+      onMutate() {
+        //기존 우연들 초기화와 함께 시작
+        setWooyeons([]);
+      },
+      onSuccess: (data) => {
+        // console.log(`${data.length} 개의 우연 추가하기`);
+        data.forEach((item, index) => {
+          setTimeout(() => {
+            // console.log(
+            //   `${index + 1} 번째 우연 추가 중 ${wooyeonsRef.current.length}`
+            // );
+            wooyeonPositioning({
+              setWooyeons,
+              distance: 70 * Math.random(),
+              image: item.image[0].img_url,
+            });
+          }, 100 * index + 50 * Math.random());
+        });
+      },
+    }
+  );
 
   return (
     <>

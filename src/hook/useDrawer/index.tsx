@@ -54,7 +54,7 @@ const Drawer = ({
         }}
         className="use_drawer"
       >
-        <DrawrHandle drawerBleeding={drawerBleeding}>
+        <DrawrHandle drawerBleeding={drawerBleeding} open={open}>
           {headerChildren}
         </DrawrHandle>
         <StyledBox

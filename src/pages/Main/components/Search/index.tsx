@@ -100,7 +100,7 @@ const Search = () => {
       </Box>
       <SearchItem open={open} searchItems={searchItems} navigate={navigate} />
 
-      <Drawer open={open} toggleDrawer={toggleDrawer}>
+      <Drawer open={open} toggleDrawer={toggleDrawer} drawerBleeding={65}>
         <Box>
           <Typography variant="h6">카테고리 선택</Typography>
           <Categories />

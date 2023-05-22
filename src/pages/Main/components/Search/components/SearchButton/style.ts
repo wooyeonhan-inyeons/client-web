@@ -3,7 +3,7 @@ export function searchBtnStyle(open: boolean) {
     maxWidth: "444px",
     transform: "translate(-50%, 0)",
     left: "50%",
-    bottom: open ? 0 : 48,
+    bottom: open ? 0 : 58,
     zIndex: open ? 2000 : "initial",
     transition: "all 0.5s cubic-bezier(0, 0.85, 0.58, 1) 0s",
     position: "fixed",

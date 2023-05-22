@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Outlet, useOutletContext } from "react-router-dom";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import { userState } from "../../../../recoil";
 import { ContextInterface, HeaderOptinterface } from "../../../../interface";
 import { UploadPostType } from "./interface";
 

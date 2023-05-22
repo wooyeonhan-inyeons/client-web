@@ -5,11 +5,13 @@ import { useRecoilState } from "recoil";
 import { envState } from "./recoil";
 import { darkTheme, lightTheme } from "./common";
 import { EnvState } from "./interface";
-import GlobalStyle from "./component/GlobalStyle";
 import { grey } from "@mui/material/colors";
+import { QueryClient, QueryClientProvider } from "react-query";
+import GlobalStyleWrapper from "./component/GlobalStyle";
 
 function App() {
   const [env] = useRecoilState(envState);
+  const queryClient = new QueryClient();
 
   function themeSelector(env: EnvState) {
     if (env.theme == "system") {
@@ -44,9 +46,11 @@ function App() {
           touchAction: "none",
         }}
       />
-      <GlobalStyle>
-        <Router />
-      </GlobalStyle>
+      <GlobalStyleWrapper>
+        <QueryClientProvider client={queryClient}>
+          <Router />
+        </QueryClientProvider>
+      </GlobalStyleWrapper>
     </ThemeProvider>
   );
 }

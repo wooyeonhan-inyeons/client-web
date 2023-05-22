@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Outlet, useOutletContext } from "react-router-dom";
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import { userState } from "../../../../recoil";
 import { ContextInterface, HeaderOptinterface } from "../../../../interface";
 import { UploadPostType } from "./interface";
+import { WrapperOptInterface } from "../../../../component/MainWrapper/interface";
+import { X } from "@phosphor-icons/react";
 
 function HeaderAddPost() {
-  const { setHeadOpt, navigate } = useOutletContext<ContextInterface>();
+  const { setHeadOpt, navigate, setWrapperOpt } =
+    useOutletContext<ContextInterface>();
 
   // 컴포넌트에서 사용할 기본 상태
   const initialPostState: UploadPostType = {
@@ -27,13 +28,20 @@ function HeaderAddPost() {
       { key: "사진", value: "/add-post/photo" },
       { key: "내용", value: "/add-post/content" },
     ],
-    isForward: true,
-    icon_R: faTimes,
+    isForward: false,
+    icon_R: X,
     fn_R: () => navigate("/"),
+  };
+
+  const wrapperOption: WrapperOptInterface = {
+    // noneFullHeight: true,
+    isFullWidth: true,
+    isNoneHeadPadding: false,
   };
 
   useEffect(() => {
     setHeadOpt(headerOption);
+    setWrapperOpt(wrapperOption);
   }, []);
 
   useEffect(() => {

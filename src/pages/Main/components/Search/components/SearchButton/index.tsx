@@ -1,11 +1,10 @@
 import React from "react";
 import { Box, Button, Fab } from "@mui/material";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMagnifyingGlass, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { SearchItemProps } from "../../interface";
 import { useOutletContext } from "react-router-dom";
 import { searchBtnStyle } from "./style";
 import { onlyNavigateInterface } from "../../../../../../interface";
+import { MagnifyingGlass, Plus } from "@phosphor-icons/react";
 
 const SearchItem = ({ open, searchItems }: SearchItemProps) => {
   const { navigate } = useOutletContext<onlyNavigateInterface>();
@@ -16,7 +15,7 @@ const SearchItem = ({ open, searchItems }: SearchItemProps) => {
         variant="contained"
         onClick={searchItems}
         className="search-btn"
-        startIcon={<FontAwesomeIcon icon={faMagnifyingGlass} size="sm" />}
+        startIcon={<MagnifyingGlass />}
       >
         우연 찾아보기
       </Button>
@@ -25,7 +24,7 @@ const SearchItem = ({ open, searchItems }: SearchItemProps) => {
         size="medium"
         onClick={() => navigate("/add-post")}
       >
-        <FontAwesomeIcon icon={faPlus} />
+        <Plus />
       </Fab>
     </Box>
   );

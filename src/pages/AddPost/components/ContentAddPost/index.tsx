@@ -77,7 +77,7 @@ const customTheme = (outerTheme: Theme) =>
   });
 
 const ContentAddPost = () => {
-  const { post, setPost } = useOutletContext<PostStateInterface>();
+  const { post } = useOutletContext<PostStateInterface>();
   const navigate = useNavigate();
   const outerTheme = useTheme();
 
@@ -90,7 +90,7 @@ const ContentAddPost = () => {
       <Box
         sx={{
           height: "100%",
-          padding: "1rem",
+          padding: "1rem 1.5rem",
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",

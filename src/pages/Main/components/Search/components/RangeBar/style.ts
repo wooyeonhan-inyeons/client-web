@@ -1,4 +1,4 @@
-import { colorSet } from "../../../../../../common";
+import { mainPrimary } from "../../../../../../common";
 
 export const RangeBarStyle = {
   px: 2,
@@ -12,7 +12,8 @@ export const RangeBarStyle = {
     width: "10px",
     height: "10px",
     color: "#fff",
-    border: `1px solid ${colorSet.light.primary}`,
+    backgroundColor: "#fff",
+    border: `1px solid ${mainPrimary}`,
     borderRadius: "50%",
     opacity: 1,
   },

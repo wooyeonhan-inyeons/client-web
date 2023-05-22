@@ -1,5 +1,8 @@
 import {
   WooPos,
+  Wooyeons,
+  addWooyeonInterface,
+  setPositionType,
   tempWooyeonsInterface,
   wooyeonPositionInterface,
 } from "./interface";
@@ -11,7 +14,7 @@ import IMG_6063 from "../../../../asset/IMG_6063.jpeg";
 import IMG_6066 from "../../../../asset/IMG_6066.jpeg";
 import IMG_6073 from "../../../../asset/IMG_6073.jpeg";
 
-//14.5, 31, 45
+//14.5, 34.5, 45
 /**
  *
  * @param distance `Number` unit: m
@@ -19,43 +22,74 @@ import IMG_6073 from "../../../../asset/IMG_6073.jpeg";
  */
 export function getRandomCircleEdgeCoordinates(distance: number): WooPos {
   let radius;
-  if (distance > 50) radius = 45;
-  else if (distance > 30) radius = 31;
-  else radius = 14.5;
+  if (distance > 50) radius = 50;
+  else if (distance > 30) radius = 34.5;
+  else radius = 16.5;
 
   const angle = Math.random() * 2 * Math.PI;
   const x = radius * Math.cos(angle);
   const y = radius * Math.sin(angle);
-  return { x, y };
+
+  //보이는 레이더 위치에 들어오게 조정
+  if (Math.abs(x) <= 40 && y >= -40) return { x, y };
+
+  // distance 값을 조정하여 재귀 호출
+  const adjustedDistance = distance - 1; // 임의의 값으로 조정 (조건에 맞게 조정해야 함)
+  return getRandomCircleEdgeCoordinates(adjustedDistance);
 }
 
 export function wooyeonPositioning({
-  addWooyeon,
-  wooyeonsRef,
+  setWooyeons,
   distance,
-  img,
+  image,
 }: wooyeonPositionInterface) {
-  if (wooyeonsRef.current.length > 5) return;
-  const pos = getRandomCircleEdgeCoordinates(distance);
+  // 최신 상태배열 받아오기
+  let prevWoo: Wooyeons[] = [];
+  setWooyeons((prev) => {
+    prevWoo = prev;
+    return prev;
+  });
 
-  if (wooyeonsRef.current.length === 0) {
-    return addWooyeon({ pos, img });
+  if (prevWoo.length > 5) return;
+  const pos = getRandomCircleEdgeCoordinates(distance);
+  if (prevWoo.length === 0) {
+    return addWooyeon({ pos, image, setWooyeons });
   } else {
-    const isInRange = wooyeonsRef.current.some((item) => {
+    const isInRange = prevWoo.some((item) => {
       const interDistance = Math.sqrt(
         (pos.x - item.pos.x) * (pos.x - item.pos.x) +
           (pos.y - item.pos.y) * (pos.y - item.pos.y)
       );
-      // 거리가 10 미만이면
+
+      // 거리가 13 미만이면
       return interDistance < 13;
     });
     if (!isInRange) {
-      return addWooyeon({ pos, img });
+      return addWooyeon({ pos, image, setWooyeons });
     } else {
+      // console.log("recursive");
       // 겹치면 다른 값으로 재귀 호출
-      wooyeonPositioning({ addWooyeon, wooyeonsRef, distance, img });
+      wooyeonPositioning({
+        setWooyeons,
+        distance,
+        image,
+      });
     }
   }
+}
+
+export function addWooyeon({ pos, image, setWooyeons }: addWooyeonInterface) {
+  setWooyeons((prevWooyeons: Wooyeons[]) => {
+    // 초과 방지
+    if (prevWooyeons.length > 6) return prevWooyeons;
+    return [
+      ...prevWooyeons,
+      {
+        pos: pos,
+        image: image,
+      },
+    ];
+  });
 }
 
 export const tempWooyeons: tempWooyeonsInterface[] = [
@@ -66,3 +100,16 @@ export const tempWooyeons: tempWooyeonsInterface[] = [
   { id: 7, img: IMG_6073 },
   { id: 70, img: IMG_5995 },
 ];
+
+/**
+ *
+ * @param setViewport setState를 인자로 받아 함수 내에서 업데이트
+ */
+export function getCurrentLocation({ setPosition }: setPositionType) {
+  navigator.geolocation.getCurrentPosition((position) => {
+    setPosition({
+      latitude: position.coords.latitude,
+      longitude: position.coords.longitude,
+    });
+  });
+}

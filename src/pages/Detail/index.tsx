@@ -1,5 +1,4 @@
 import React, { useLayoutEffect } from "react";
-import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 import { ContextInterface, HeaderOptinterface } from "../../interface";
 import { useOutletContext, useParams } from "react-router-dom";
 import { Box, Stack, alpha } from "@mui/material";
@@ -8,15 +7,16 @@ import DetailImg from "./components/DetailImg";
 import DetailContent from "./components/DetailContent";
 import { mainPrimary } from "../../common";
 import DetailComment from "./components/DetailComment";
+import { CaretLeft } from "@phosphor-icons/react";
 
 export default function Detail() {
-  const postId = useParams();
+  //const postId = useParams();
   const { setHeadOpt, navigate, setWrapperOpt } =
     useOutletContext<ContextInterface>();
 
   const headerOption: HeaderOptinterface = {
     menus: [{ key: "", value: "/detail" }],
-    icon_L: faAngleLeft,
+    icon_L: CaretLeft,
     fn_L: () => navigate(-1),
     headerType: "V3",
     bgColor: "#ffffff00 !important",

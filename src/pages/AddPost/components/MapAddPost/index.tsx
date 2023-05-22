@@ -1,8 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Box, Skeleton, Typography } from "@mui/material";
+import { Box, Skeleton, Typography, useTheme } from "@mui/material";
 import { useNavigate, useOutletContext } from "react-router";
 import SaveBtn from "../../../../component/SaveBtn";
-import { Map, MapProvider } from "react-map-gl";
+// import { Map, MapProvider } from "react-map-gl";
+import Map, {
+  NavigationControl,
+  FullscreenControl,
+  ScaleControl,
+  GeolocateControl,
+} from "react-map-gl";
+import mapboxgl from "mapbox-gl";
+
 import { LocationProps } from "../../../../interface";
 // import MarkerImage from "./marker.png";
 import { getCurrentGeocode, getCurrentLocation } from "./utils";
@@ -22,9 +30,10 @@ const MapAddPost = () => {
   const [viewport, setViewport] = useState<LocationProps | undefined>(
     undefined
   );
+
   const [geocode, setGeocede] = useState<string | undefined>(undefined);
   const positionRef = useRef<LocationProps | undefined>(initPosition);
-
+  const theme = useTheme();
   const navigate = useNavigate();
   const handleNext = () => {
     navigate("/add-post/category");
@@ -58,18 +67,20 @@ const MapAddPost = () => {
   return (
     <Box
       sx={{
-        padding: "2rem 0",
+        padding: "1rem 0",
+        height: "100%",
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
-        height: "100%",
+        // height: "100%",
         //우선 스타일로 지도 아래에 있던 객체들 '가림'
-        "& .mapboxgl-ctrl ": {
-          display: "none",
-        },
+        "& .mapboxgl-ctrl-fullscreen, & .mapboxgl-ctrl-compass, & .mapboxgl-ctrl.mapboxgl-ctrl-scale, & .mapboxgl-ctrl-attrib-button, & .mapboxgl-ctrl-attrib-inner, & .mapboxgl-ctrl-logo ":
+          {
+            display: "none",
+          },
       }}
     >
-      <Box>
+      <Box sx={{ padding: "1rem 1.5rem" }}>
         <Typography variant="h5" fontWeight={600}>
           지도를 움직여 추가할 <br />
           우연의 장소를 지정해 주세요
@@ -85,46 +96,51 @@ const MapAddPost = () => {
 
       <Box padding={0}>
         {positionRef.current !== initPosition ? (
-          <MapProvider>
-            <Map
-              initialViewState={{
-                longitude: 128.4936,
-                latitude: 35.8555,
-                zoom: 6,
-              }}
-              {...viewport}
-              mapboxAccessToken={import.meta.env.VITE_MAP_API}
-              mapStyle="mapbox://styles/mapbox/light-v9"
-              style={{
-                width: "100%",
-                height: "400px",
-                maxHeight: "50vh",
-                overflow: "hidden",
-                backgroundColor: "#f6f6f4",
-              }}
-            >
-              {/* <Marker
-                longitude={viewport.longitude}
-                latitude={viewport.latitude}
-                draggable={true}
-                // onDragEnd={handleMarkerDragEnd}
-              >
-                <span role="img" aria-label="marker">
-                  📍
-                </span>
-              </Marker> */}
-            </Map>
-          </MapProvider>
+          <Map
+            initialViewState={{
+              latitude: 35.8555,
+              longitude: 128.4936,
+              zoom: 6,
+              bearing: 0,
+              pitch: 0,
+            }}
+            // {...viewport}
+            mapboxAccessToken={import.meta.env.VITE_MAP_API}
+            mapStyle={`mapbox://styles/mapbox/${theme.palette.mode}-v9`}
+            style={{
+              width: "100%",
+              height: "500px",
+              maxHeight: "65vh",
+              // overflow: "hidden",
+              backgroundColor:
+                theme.palette.mode === "light" ? "#f6f6f4" : "#343332",
+            }}
+            mapLib={mapboxgl}
+          >
+            <GeolocateControl position="top-left" />
+            <FullscreenControl position="top-left" />
+            <NavigationControl position="top-left" />
+            <ScaleControl />
+            {/* {pins} */}
+          </Map>
         ) : (
           <Skeleton
             variant="rectangular"
-            height={400}
-            sx={{ maxHeight: "50vh" }}
+            // height={400}
+            sx={{ maxHeight: "65vh" }}
           />
         )}
       </Box>
 
-      <Box>
+      <Box
+        sx={{
+          p: "3rem 1rem 0rem 1rem",
+          "@media (max-width: 375px)": {
+            pt: "2rem",
+            pb: "1rem",
+          },
+        }}
+      >
         <SaveBtn text="다음" onClick={handleNext} />
       </Box>
     </Box>

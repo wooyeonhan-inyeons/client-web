@@ -5,6 +5,7 @@ import { ReactNode } from "react";
 export interface DrawHeaderProps {
   drawerBleeding: number;
   children: ReactNode;
+  open: boolean;
 }
 
 interface DrawerProps {

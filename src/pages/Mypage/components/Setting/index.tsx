@@ -6,7 +6,6 @@ import {
   HeaderOptinterface,
   themeType,
 } from "../../../../interface.d";
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import {
   FormControlLabel,
   Radio,
@@ -16,6 +15,7 @@ import {
 } from "@mui/material";
 import { useRecoilState } from "recoil";
 import { envState } from "../../../../recoil";
+import { X } from "@phosphor-icons/react";
 
 export default function SettingPage() {
   const { setHeadOpt, navigate } = useOutletContext<ContextInterface>();
@@ -24,7 +24,7 @@ export default function SettingPage() {
 
   const headerOption: HeaderOptinterface = {
     menus: [{ key: "설정", value: "/mypage/setting" }],
-    icon_R: faXmark,
+    icon_R: X,
     fn_R: () => navigate(-1),
     headerType: "V2",
   };

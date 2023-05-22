@@ -16,7 +16,6 @@ import Past from "./pages/Main/components/Past/inedx";
 import HeaderAddPost from "./pages/AddPost/components/HeaderAddPost";
 import MapAddPost from "./pages/AddPost/components/MapAddPost";
 import CategoryAddPost from "./pages/AddPost/components/CategoryAddPost";
-import PhotoAddPost from "./pages/AddPost/components/PhotoAddPost";
 import ContentAddPost from "./pages/AddPost/components/ContentAddPost";
 import Notification from "./pages/Notifycation";
 import Mypage from "./pages/Mypage";
@@ -62,7 +61,6 @@ const Router = () => {
           children: [
             { index: true, element: <MapAddPost /> },
             { path: "category", element: <CategoryAddPost /> },
-            { path: "photo", element: <PhotoAddPost /> },
             { path: "content", element: <ContentAddPost /> },
           ],
         },

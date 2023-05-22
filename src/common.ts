@@ -6,10 +6,13 @@ import styled from "@emotion/styled";
 export const mainPrimary = "#00A651";
 export const secondary = "#ED6729";
 
-export const colorSet = {
-  light: { primary: mainPrimary, background: "#fff", rootBg: "#f9f9f9" },
-  dark: { primary: mainPrimary, background: "#222", rootBg: "#424242" },
-};
+export const avatarColors = [
+  "#E58859",
+  "#5DA457",
+  "#9EBE62",
+  "#80BE91",
+  "#EAFDE6",
+];
 
 export const Root = styled("div")(({ theme }: ThemeProps) => ({
   height: "100%",
@@ -20,7 +23,7 @@ export const Root = styled("div")(({ theme }: ThemeProps) => ({
 }));
 
 export const Puller = styled(Box)(() => ({
-  backgroundColor: colorSet.light.primary,
+  backgroundColor: mainPrimary,
   width: 50,
   height: 5,
   opacity: 0.3,
@@ -70,3 +73,5 @@ export const darkTheme = createTheme({
 export const StyledBox = styled(Box)(({ theme }: ThemeProps) => ({
   backgroundColor: theme.palette.background.default,
 }));
+
+export const BACK_URL = "https://api.wooyeons.site";

@@ -1,4 +1,3 @@
-import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 import { WrapperOptInterface } from "./component/MainWrapper/interface";
 
 export interface UserState {
@@ -27,8 +26,8 @@ export interface HeaderOptinterface {
   menus: menuProps[];
   fn_L?: () => void;
   fn_R?: () => void;
-  icon_L?: IconDefinition;
-  icon_R?: IconDefinition;
+  icon_L?: Icon;
+  icon_R?: Icon | AvatarComponent;
   isForward?: boolean;
   headerType?: "V1" | "V2" | "V3";
   bgColor?: string;

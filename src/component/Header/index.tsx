@@ -7,10 +7,9 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { HeaderWrapper } from "./style";
 import { useLocation } from "react-router-dom";
-import { colorSet } from "../../common";
+import { mainPrimary } from "../../common";
 import { HeaderProp, menuProp } from "./intreface";
 import HeaderV3 from "./components/HearderV3";
 import HeaderV2 from "./components/HearderV2";
@@ -21,8 +20,8 @@ import HeaderV2 from "./components/HearderV2";
  * @param fn_R `오른쪽에 들어갈 메인 함수
  * @param fn_L `왼쪽에 들어갈 메인 함수
  * @param isForward default=`true` 메뉴 이동의 이전 단계를 허용한다.
- * @param icon_L `FontAwesomeIconProps` awesomefont꺼
- * @param icon_R `FontAwesomeIconProps` awesomefont꺼
+ * @param icon_L `Icon` phosphor꺼
+ * @param icon_R `Icon` phosphor꺼
  * @param headerType default=`v1` (storybook 참고)
  */
 
@@ -30,7 +29,6 @@ function Header({ headProp, navigate }: HeaderProp) {
   const [idx, setIdx] = useState<number>(0);
   const location = useLocation();
 
-  // headProp.bgColor = env ? colorSet.light.background : colorSet.dark.background;
   if (headProp.headerType === undefined) headProp.headerType = "V1";
 
   const handleNavigate = (prop: menuProp) => {
@@ -71,7 +69,7 @@ function Header({ headProp, navigate }: HeaderProp) {
                 sx={{
                   borderBottom:
                     item.value === location.pathname
-                      ? `2px solid ${colorSet.light.primary}`
+                      ? `2px solid ${mainPrimary}`
                       : "2px solid #0000",
                 }}
               >
@@ -89,13 +87,11 @@ function Header({ headProp, navigate }: HeaderProp) {
           <Box className="right_section">
             {headProp.icon_L && (
               <IconButton onClick={headProp.fn_L} className="mainFn">
-                <FontAwesomeIcon icon={headProp.icon_L} size="xs" />
+                <headProp.icon_L />
               </IconButton>
             )}
             <IconButton onClick={headProp.fn_R} className="mainFn">
-              {headProp.icon_R && (
-                <FontAwesomeIcon icon={headProp.icon_R} size="xs" />
-              )}
+              {headProp.icon_R && <headProp.icon_R />}
             </IconButton>
           </Box>
         </Toolbar>

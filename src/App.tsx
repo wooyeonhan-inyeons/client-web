@@ -5,9 +5,9 @@ import { useRecoilState } from "recoil";
 import { envState } from "./recoil";
 import { darkTheme, lightTheme } from "./common";
 import { EnvState } from "./interface";
-import GlobalStyle from "./component/GlobalStyle";
 import { grey } from "@mui/material/colors";
 import { QueryClient, QueryClientProvider } from "react-query";
+import GlobalStyleWrapper from "./component/GlobalStyle";
 
 function App() {
   const [env] = useRecoilState(envState);
@@ -46,11 +46,11 @@ function App() {
           touchAction: "none",
         }}
       />
-      <GlobalStyle>
+      <GlobalStyleWrapper>
         <QueryClientProvider client={queryClient}>
           <Router />
         </QueryClientProvider>
-      </GlobalStyle>
+      </GlobalStyleWrapper>
     </ThemeProvider>
   );
 }

@@ -1,9 +1,9 @@
 import React from "react";
-import { Puller } from "../../../common";
+import { Puller, mainPrimary } from "../../../common";
 import { DrawHeaderProps } from "../inderface";
-import { Box, useTheme } from "@mui/material";
+import { Box, alpha, useTheme } from "@mui/material";
 
-const DrawrHandle = ({ drawerBleeding, children }: DrawHeaderProps) => {
+const DrawrHandle = ({ drawerBleeding, children, open }: DrawHeaderProps) => {
   const theme = useTheme();
   return (
     <Box
@@ -16,7 +16,7 @@ const DrawrHandle = ({ drawerBleeding, children }: DrawHeaderProps) => {
         visibility: "visible",
         right: 0,
         left: 0,
-        boxShadow: "0px -2px 10px rgba(0, 166, 81, 0.2)",
+        boxShadow: open ? "none" : `0px -2px 10px ${alpha(mainPrimary, 0.2)}`,
         backgroundColor: theme.palette.background.default,
       }}
     >

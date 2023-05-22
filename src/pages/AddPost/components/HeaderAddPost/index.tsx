@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Outlet, useOutletContext } from "react-router-dom";
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { ContextInterface, HeaderOptinterface } from "../../../../interface";
 import { UploadPostType } from "./interface";
 import { WrapperOptInterface } from "../../../../component/MainWrapper/interface";
+import { X } from "@phosphor-icons/react";
 
 function HeaderAddPost() {
   const { setHeadOpt, navigate, setWrapperOpt } =
@@ -29,7 +29,7 @@ function HeaderAddPost() {
       { key: "내용", value: "/add-post/content" },
     ],
     isForward: false,
-    icon_R: faTimes,
+    icon_R: X,
     fn_R: () => navigate("/"),
   };
 

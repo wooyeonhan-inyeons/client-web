@@ -14,15 +14,16 @@ export default function ImageCarousel({
       index={activeStep}
       onChangeIndex={handleStepChange}
       enableMouseEvents
-      style={{ width: "100%" }}
+      style={{ width: "100%", aspectRatio: "3/4" }}
     >
       {tempWooyeons.map((item) => (
         <Box
           key={item.id}
           sx={{
             width: "100%",
+            height: "100%",
             minHeight: "100%",
-            maxHeight: "70vh",
+            // maxHeight: "70vh",
             display: "flex",
           }}
         >

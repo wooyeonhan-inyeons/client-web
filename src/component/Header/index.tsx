@@ -91,7 +91,7 @@ function Header({ headProp, navigate }: HeaderProp) {
               </IconButton>
             )}
             <IconButton onClick={headProp.fn_R} className="mainFn">
-              {headProp.icon_L && <headProp.icon_R />}
+              {headProp.icon_R && <headProp.icon_R />}
             </IconButton>
           </Box>
         </Toolbar>

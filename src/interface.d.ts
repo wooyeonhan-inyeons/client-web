@@ -1,7 +1,7 @@
 import { WrapperOptInterface } from "./component/MainWrapper/interface";
 
 export interface UserState {
-  role: string;
+  role: "GUEST" | "USER" | "ADMIN";
   id: number;
   name: string;
   first: boolean;

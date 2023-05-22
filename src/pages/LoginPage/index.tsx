@@ -26,6 +26,7 @@ const introduction = [
 ];
 
 function LoginPage() {
+  // 슬라이드 딜레이 발생 현상 => useLayouteffect 써보기
   const [activeStep, setActiveStep] = React.useState(0);
   const maxSteps = images.length;
 

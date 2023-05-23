@@ -15,7 +15,7 @@ const CategoryAddPost = () => {
   const { post } = useOutletContext<PostStateInterface>();
 
   const handleNext = () => {
-    navigate("/add-post/photo");
+    navigate("/add-post/content");
   };
 
   useEffect(() => {

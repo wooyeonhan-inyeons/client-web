@@ -100,6 +100,23 @@ const ContentAddPost = () => {
     setImages(imageList as never[]);
   };
 
+  // 이미지 삭제 버튼 이벤트 핸들러
+  const [showButton, setShowButton] = useState(false);
+  const [imageStyle, setImageStyle] = useState({});
+
+  const handleClick = () => {
+    // 이미지 스타일 변경
+    setImageStyle({ filter: "brightness(70%)" });
+
+    // 버튼 보이기
+    setShowButton((prev) => !prev);
+  };
+
+  const handleButtonClick = () => {
+    // 추가적인 버튼 클릭 이벤트 처리
+    console.log("버튼이 클릭되었습니다.");
+  };
+
   return (
     <ThemeProvider theme={customTheme(outerTheme)}>
       <Box
@@ -172,10 +189,8 @@ const ContentAddPost = () => {
                 {imageList.map((image, index) => (
                   <Box
                     key={index}
-                    sx={{ width: "100%", p: 4 }}
-                    onClick={() => {
-                      console.log("hi");
-                    }}
+                    sx={{ width: "100%", p: 4, position: "relative" }}
+                    onClick={handleClick}
                   >
                     <img
                       src={image.dataURL}
@@ -185,13 +200,31 @@ const ContentAddPost = () => {
                         height: "20rem",
                         objectFit: "cover",
                         borderRadius: "15px",
+                        ...imageStyle,
                       }}
                     />
-                    <div>
-                      {/* <button onClick={() => onImageRemove(index)}>
-                        Remove
-                      </button> */}
-                    </div>
+                    {showButton && (
+                      <button
+                        onClick={() => {
+                          onImageRemove(index);
+                        }}
+                        style={{
+                          // 이미지 중앙에 위치
+                          position: "absolute",
+                          top: "50%",
+                          left: "50%",
+                          transform: "translate(-50%, -50%)",
+
+                          background: "transparent",
+                          border: "none",
+                          padding: 0,
+                          color: "white",
+                          fontSize: "2rem",
+                        }}
+                      >
+                        지우기
+                      </button>
+                    )}
                   </Box>
                 ))}
                 <Button

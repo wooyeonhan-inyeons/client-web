@@ -1,5 +1,5 @@
-import { Box, Chip, TextField } from "@mui/material";
-import React from "react";
+import { Box, Button, Chip, TextField } from "@mui/material";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useOutletContext } from "react-router";
 import SaveBtn from "../../../../component/SaveBtn";
 import { PostStateInterface } from "../HeaderAddPost/interface";
@@ -9,6 +9,8 @@ import {
   Theme,
   useTheme,
 } from "@mui/material/styles";
+import ImageUploading, { ImageListType } from "react-images-uploading";
+import ScrollContainer from "react-indiana-drag-scroll";
 
 const customTheme = (outerTheme: Theme) =>
   createTheme({
@@ -85,6 +87,19 @@ const ContentAddPost = () => {
   const handleNext = () => {
     navigate("/add-post/photo");
   };
+
+  const [images, setImages] = useState([]);
+  const maxNum = 10;
+
+  const onChange = (
+    imageList: ImageListType,
+    addUpdateIndex: number[] | undefined
+  ) => {
+    // data for submit
+    console.log(imageList, addUpdateIndex);
+    setImages(imageList as never[]);
+  };
+
   return (
     <ThemeProvider theme={customTheme(outerTheme)}>
       <Box
@@ -128,7 +143,74 @@ const ContentAddPost = () => {
             margin="dense"
           />
         </Box>
-        <Box>사진 영역</Box>
+        <Box>
+          <ImageUploading
+            multiple
+            value={images}
+            onChange={onChange}
+            maxNumber={maxNum}
+          >
+            {({
+              imageList,
+              onImageUpload,
+              onImageUpdate,
+              onImageRemove,
+              isDragging,
+              dragProps,
+            }) => (
+              // write your building UI
+              <ScrollContainer
+                className="scroll-container"
+                horizontal
+                vertical={false}
+                style={{
+                  display: "flex",
+                  height: "100%",
+                  alignItems: "center",
+                }}
+              >
+                {imageList.map((image, index) => (
+                  <Box
+                    key={index}
+                    sx={{ width: "100%", p: 4 }}
+                    onClick={() => {
+                      console.log("hi");
+                    }}
+                  >
+                    <img
+                      src={image.dataURL}
+                      style={{
+                        // 이거 퍼센트로 어케 함
+                        width: "20rem",
+                        height: "20rem",
+                        objectFit: "cover",
+                        borderRadius: "15px",
+                      }}
+                    />
+                    <div>
+                      {/* <button onClick={() => onImageRemove(index)}>
+                        Remove
+                      </button> */}
+                    </div>
+                  </Box>
+                ))}
+                <Button
+                  onClick={onImageUpload}
+                  style={{
+                    margin: "0 auto",
+                    border: "2px dashed #B2B1B1",
+                    borderRadius: "20px",
+                    backgroundColor: "#F3F3F3",
+                    width: "20rem",
+                    height: "20rem",
+                  }}
+                >
+                  사진 <br /> 추가
+                </Button>
+              </ScrollContainer>
+            )}
+          </ImageUploading>
+        </Box>
         <SaveBtn text="우연 등록하기" onClick={handleNext} />
       </Box>
     </ThemeProvider>

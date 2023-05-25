@@ -85,6 +85,7 @@ const Search = () => {
         </div>
         <Typography variant="h5" sx={{ marginBottom: "40px" }}>
           🍀
+          {localStorage.getItem("isFlutter")}
         </Typography>
         <Box className="wooyeonArea">
           {wooyeons.map((item, index) => (

@@ -45,6 +45,15 @@ export default function SettingPage() {
             theme: e.target.value as themeType,
           };
         });
+        //flutter에서만 setItem을 사용하여 web에서 관련 코드 없음
+        if (localStorage.getItem("isFlutter") === "1") {
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          //@ts-ignore
+          Theming.postMessage(e.target.value);
+        }
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        //@ts-ignore
+        Theming.postMessage(e.target.value);
       }}
     >
       <Stack spacing={1}>

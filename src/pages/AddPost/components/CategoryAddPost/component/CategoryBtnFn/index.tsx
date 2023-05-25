@@ -25,11 +25,11 @@ const CategoryBtn = ({ category }: { category: OneCategoryType }) => {
   const { post, setPost } = useOutletContext<PostStateInterface>();
 
   const handleButtonClick = () => {
-    console.log("클릭");
     if (post?.category) {
       if (post.category === category.id) {
         setPost((prevState) => ({ ...prevState, category: null }));
         setActiveColor(activeColor === "primary" ? "secondary" : "primary");
+        console.log("넘기는건 잘 하고 있니?: ", post.category);
       } else {
         console.log("님 이미 선택함");
       }
@@ -37,7 +37,6 @@ const CategoryBtn = ({ category }: { category: OneCategoryType }) => {
       setPost((prevState) => ({ ...prevState, category: category.id }));
       setActiveColor(activeColor === "primary" ? "secondary" : "primary");
     }
-    console.log(post);
   };
 
   useEffect(() => {

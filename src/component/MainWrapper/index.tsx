@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
-import { Box, menuClasses } from "@mui/material";
+import { Box } from "@mui/material";
 import { HeaderOptinterface } from "../../interface";
 import { HeaderProp, WrapperOptInterface } from "./interface";
 import Header from "../Header";
@@ -23,8 +23,7 @@ function MainWrapper({ isHeader }: HeaderProp) {
     isBtn: false,
   });
 
-  // header에서 현재 태그를 부모에서 받아온 state에 저장
-  // state 상태에 따라 버튼 text와 클릭함수 설정
+  const [category, setCategory] = useState<string>();
 
   const [btnText, setBtnText] = useState("다음");
   const handleBtnNavigate = () => {
@@ -32,8 +31,8 @@ function MainWrapper({ isHeader }: HeaderProp) {
       setBtnText("다음");
       navigate("/add-post/category");
     } else if (location.pathname === "/add-post/category") {
-      setBtnText("우연 등록하기");
-      navigate("/add-post/content");
+      category && setBtnText("우연 등록하기");
+      category && navigate("/add-post/content");
     } else {
       setBtnText("다음");
       navigate("/add-post/category"); // 우연 등록 시 라우팅 수정하기
@@ -73,7 +72,15 @@ function MainWrapper({ isHeader }: HeaderProp) {
             pb: wrapperOpt.isBtn ? 8 : 0,
           }}
         >
-          <Outlet context={{ headOpt, setHeadOpt, navigate, setWrapperOpt }} />
+          <Outlet
+            context={{
+              headOpt,
+              setHeadOpt,
+              navigate,
+              setWrapperOpt,
+              setCategory,
+            }}
+          />
           {wrapperOpt.isBtn && (
             <Box
               sx={{

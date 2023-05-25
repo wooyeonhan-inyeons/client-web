@@ -1,8 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2"; // Grid version 2
 import React, { useEffect } from "react";
-import { useNavigate, useOutletContext } from "react-router";
-import SaveBtn from "../../../../component/SaveBtn";
+import { useOutletContext } from "react-router";
 import { categoryArr } from "../../../CategoryPage/components/CategoryArray";
 import { PostStateInterface } from "../HeaderAddPost/interface";
 import CategoryBtn from "./component/CategoryBtnFn";
@@ -11,12 +10,7 @@ import CategoryBtn from "./component/CategoryBtnFn";
 // build
 
 const CategoryAddPost = () => {
-  const navigate = useNavigate();
   const { post } = useOutletContext<PostStateInterface>();
-
-  const handleNext = () => {
-    navigate("/add-post/content");
-  };
 
   useEffect(() => {
     console.log("post 중간확인", post);
@@ -48,7 +42,14 @@ const CategoryAddPost = () => {
         </Typography>
       </Box>
 
-      <Box>
+      <Box
+        sx={{
+          pt: "10rem",
+          "@media (max-width: 375px)": {
+            pt: "3rem",
+          },
+        }}
+      >
         <Grid container rowSpacing={3} columnSpacing={2} margin="0 auto">
           {categoryArr.map((category) => (
             <Grid
@@ -65,18 +66,6 @@ const CategoryAddPost = () => {
             </Grid>
           ))}
         </Grid>
-        {/* <Box sx={{ p: "5rem" }}></Box> */}
-        {/* <Box
-          sx={{
-            p: "3rem 0rem 1.5rem 0rem",
-            "@media (max-width: 375px)": {
-              pt: "2rem",
-              pb: "1rem",
-            },
-          }}
-        >
-          <SaveBtn text="다음" onClick={handleNext} />
-        </Box> */}
       </Box>
     </Box>
   );

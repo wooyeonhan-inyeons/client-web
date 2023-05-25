@@ -12,9 +12,12 @@ export default function DetailComment() {
   return (
     <StyledComment sx={{ padding: "0 1rem" }}>
       <Stack spacing={2} className="comments">
-        <CommentItem value="gello" createAt={timeAgo.format(date)} />
-        <CommentItem value="gello" createAt={timeAgo.format(date)} />
-        <CommentItem value="gello" createAt={timeAgo.format(date)} />
+        <CommentItem value="여기 좋긴하죠?" createAt={timeAgo.format(date)} />
+        <CommentItem value="맞아용" createAt={timeAgo.format(date)} />
+        <CommentItem
+          value="저는 반대편에 고쿠라는 카페도 좋더라구요"
+          createAt={timeAgo.format(date)}
+        />
       </Stack>
     </StyledComment>
   );

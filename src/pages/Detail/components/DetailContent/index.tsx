@@ -36,7 +36,7 @@ export default function DetailContent() {
           </Box>
         </Box>
         <Box className="header_content">
-          삼덕 인더매스,, 갬성 미쳤씁니다!!!
+          삼덕 인더매스,, 좋아요! 주말에 들려보세영
           <br /> 드립커피 잘해여 👍👍
         </Box>
       </Box>

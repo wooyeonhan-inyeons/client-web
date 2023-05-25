@@ -25,7 +25,7 @@ const CategoryAddPost = () => {
   return (
     <Box
       sx={{
-        height: "100%",
+        maxHeight: "100vh",
         padding: "1rem",
         display: "flex",
         flexDirection: "column",

@@ -47,29 +47,42 @@ function MainWrapper({ isHeader }: HeaderProp) {
         className="globalContainer"
         maxWidth="xs"
         sx={{
-          paddingLeft: wrapperOpt.isFullWidth ? 0 : 2,
-          paddingRight: wrapperOpt.isFullWidth ? 0 : 2,
+          pl: wrapperOpt.isFullWidth ? 0 : 2,
+          pr: wrapperOpt.isFullWidth ? 0 : 2,
           "@media (min-width: 600px)": {
-            paddingLeft: wrapperOpt.isFullWidth ? 0 : 2,
-            paddingRight: wrapperOpt.isFullWidth ? 0 : 2,
+            pl: wrapperOpt.isFullWidth ? 0 : 2,
+            pr: wrapperOpt.isFullWidth ? 0 : 2,
           },
         }}
       >
         <Box
           sx={{
-            minHeight: "100vh",
+            maxHeight: "100vh",
             overflowX: wrapperOpt.scrollable ? "scroll" : "hidden",
             height: wrapperOpt.noneFullHeight ? "auto" : "100vh",
-            paddingTop: wrapperOpt.isNoneHeadPadding ? 0 : 7,
+            pt: wrapperOpt.isNoneHeadPadding ? 0 : 7,
             "@media (min-width: 600px)": {
-              paddingTop: wrapperOpt.isNoneHeadPadding ? 0 : 8,
+              pt: wrapperOpt.isNoneHeadPadding ? 0 : 8,
             },
+            pb: wrapperOpt.isBtn ? 8 : 0,
           }}
         >
           <Outlet context={{ headOpt, setHeadOpt, navigate, setWrapperOpt }} />
-        </Box>
-        <Box position="fixed" color="primary" sx={{ top: "auto", bottom: 0 }}>
-          <SaveBtn text={btnText} onClick={handleBtnNavigate} />
+          {wrapperOpt.isBtn && (
+            <Box
+              sx={{
+                width: "100%",
+                maxWidth: "444px",
+                margin: "auto",
+                position: "fixed",
+                bottom: 0,
+                px: 3,
+                pb: 4,
+              }}
+            >
+              <SaveBtn text={btnText} onClick={handleBtnNavigate} />
+            </Box>
+          )}
         </Box>
       </StyledContainer>
     </>

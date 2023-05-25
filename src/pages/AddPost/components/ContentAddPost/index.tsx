@@ -1,7 +1,6 @@
 import { Box, Button, Chip, TextField } from "@mui/material";
 import React, { useState } from "react";
-import { useNavigate, useOutletContext } from "react-router";
-import SaveBtn from "../../../../component/SaveBtn";
+import { useOutletContext } from "react-router";
 import { PostStateInterface } from "../HeaderAddPost/interface";
 import {
   createTheme,
@@ -80,13 +79,7 @@ const customTheme = (outerTheme: Theme) =>
 
 const ContentAddPost = () => {
   const { post } = useOutletContext<PostStateInterface>();
-  const navigate = useNavigate();
   const outerTheme = useTheme();
-
-  console.log(post);
-  const handleNext = () => {
-    navigate("/add-post/category");
-  };
 
   const [images, setImages] = useState([]);
   const maxNum = 10;
@@ -119,7 +112,7 @@ const ContentAddPost = () => {
     <ThemeProvider theme={customTheme(outerTheme)}>
       <Box
         sx={{
-          height: "100%",
+          maxHeight: "100vh",
           padding: "1rem 1.5rem",
           display: "flex",
           flexDirection: "column",
@@ -243,17 +236,6 @@ const ContentAddPost = () => {
             )}
           </ImageUploading>
         </Box>
-        {/* <Box
-          sx={{
-            p: "3rem 0rem 1.5rem 0rem",
-            "@media (max-width: 375px)": {
-              pt: "2rem",
-              pb: "1rem",
-            },
-          }}
-        >
-          <SaveBtn text="우연 등록하기" onClick={handleNext} />
-        </Box> */}
       </Box>
     </ThemeProvider>
   );

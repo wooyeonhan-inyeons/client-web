@@ -11,6 +11,16 @@ import {
 import ImageUploading, { ImageListType } from "react-images-uploading";
 import ScrollContainer from "react-indiana-drag-scroll";
 
+// ** 커스텀 input **
+// import { styled } from "@mui/system";
+// const CustomTextField = styled(TextField)(({ theme }) => ({
+//   "& .MuiOutlinedInput-root": {
+//     "& fieldset": {
+//       borderWidth: "0 0 1px 0",
+//     },
+//   },
+// }));
+
 const customTheme = (outerTheme: Theme) =>
   createTheme({
     palette: {
@@ -149,6 +159,9 @@ const ContentAddPost = () => {
             label="어떤 일이 있었나요?"
             variant="standard"
             margin="dense"
+            InputProps={{
+              disableUnderline: true, // 하단 보더 선을 제거하는 옵션입니다.
+            }}
           />
         </Box>
         <Box>

@@ -25,7 +25,7 @@ import HeaderV2 from "./components/HearderV2";
  * @param headerType default=`v1` (storybook 참고)
  */
 
-function Header({ headProp, navigate }: HeaderProp) {
+function Header({ headProp, navigate, setBtnText }: HeaderProp) {
   const [idx, setIdx] = useState<number>(0);
   const location = useLocation();
 
@@ -39,6 +39,16 @@ function Header({ headProp, navigate }: HeaderProp) {
     if (headProp.isForward === false) if (idx < handleIdx) return;
     //동일한 주소로의 이동 방지
     if (location.pathname != prop.value) navigate(prop.value);
+    handleBtnNavigate();
+  };
+  const handleBtnNavigate = () => {
+    if (location.pathname === "/add-post") {
+      setBtnText("다음");
+    } else if (location.pathname === "/add-post/category") {
+      setBtnText("다음");
+    } else {
+      setBtnText("다음");
+    }
   };
 
   useLayoutEffect(() => {

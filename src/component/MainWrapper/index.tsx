@@ -42,7 +42,13 @@ function MainWrapper({ isHeader }: HeaderProp) {
 
   return (
     <>
-      {isHeader && <Header headProp={headOpt} navigate={navigate} />}
+      {isHeader && (
+        <Header
+          headProp={headOpt}
+          navigate={navigate}
+          setBtnText={setBtnText}
+        />
+      )}
       <StyledContainer
         className="globalContainer"
         maxWidth="xs"

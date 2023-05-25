@@ -110,7 +110,7 @@ const MapAddPost = () => {
             style={{
               width: "100%",
               height: "500px",
-              maxHeight: "65vh",
+              maxHeight: "55vh",
               // overflow: "hidden",
               backgroundColor:
                 theme.palette.mode === "light" ? "#f6f6f4" : "#343332",
@@ -132,9 +132,9 @@ const MapAddPost = () => {
         )}
       </Box>
 
-      <Box
+      {/* <Box
         sx={{
-          p: "3rem 1rem 0rem 1rem",
+          p: "3rem 1rem 1.5rem 1rem",
           "@media (max-width: 375px)": {
             pt: "2rem",
             pb: "1rem",
@@ -142,7 +142,7 @@ const MapAddPost = () => {
         }}
       >
         <SaveBtn text="다음" onClick={handleNext} />
-      </Box>
+      </Box> */}
     </Box>
   );
 };

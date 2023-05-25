@@ -36,6 +36,7 @@ function HeaderAddPost() {
     // noneFullHeight: true,
     isFullWidth: true,
     isNoneHeadPadding: false,
+    isBtn: true,
   };
 
   useEffect(() => {

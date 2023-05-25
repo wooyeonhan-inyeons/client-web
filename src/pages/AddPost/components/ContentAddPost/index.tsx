@@ -1,5 +1,5 @@
 import { Box, Button, Chip, TextField } from "@mui/material";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate, useOutletContext } from "react-router";
 import SaveBtn from "../../../../component/SaveBtn";
 import { PostStateInterface } from "../HeaderAddPost/interface";
@@ -85,7 +85,7 @@ const ContentAddPost = () => {
 
   console.log(post);
   const handleNext = () => {
-    navigate("/add-post/photo");
+    navigate("/add-post/category");
   };
 
   const [images, setImages] = useState([]);
@@ -103,18 +103,16 @@ const ContentAddPost = () => {
   // 이미지 삭제 버튼 이벤트 핸들러
   const [showButton, setShowButton] = useState(false);
   const [imageStyle, setImageStyle] = useState({});
+  const [selectedImage, setSelectedImage] = useState(null);
 
-  const handleClick = () => {
-    // 이미지 스타일 변경
-    setImageStyle({ filter: "brightness(70%)" });
-
+  const handleImageClick = (idx: any) => {
+    setSelectedImage(idx);
     // 버튼 보이기
     setShowButton((prev) => !prev);
-  };
-
-  const handleButtonClick = () => {
-    // 추가적인 버튼 클릭 이벤트 처리
-    console.log("버튼이 클릭되었습니다.");
+    // 이미지 스타일 변경
+    setImageStyle({
+      filter: imageStyle === "brightness(70%)" ? "none" : "brightness(70%)",
+    });
   };
 
   return (
@@ -167,14 +165,7 @@ const ContentAddPost = () => {
             onChange={onChange}
             maxNumber={maxNum}
           >
-            {({
-              imageList,
-              onImageUpload,
-              onImageUpdate,
-              onImageRemove,
-              isDragging,
-              dragProps,
-            }) => (
+            {({ imageList, onImageUpload, onImageRemove }) => (
               // write your building UI
               <ScrollContainer
                 className="scroll-container"
@@ -190,7 +181,7 @@ const ContentAddPost = () => {
                   <Box
                     key={index}
                     sx={{ width: "100%", p: 4, position: "relative" }}
-                    onClick={handleClick}
+                    onClick={() => handleImageClick(index)}
                   >
                     <img
                       src={image.dataURL}
@@ -200,7 +191,15 @@ const ContentAddPost = () => {
                         height: "20rem",
                         objectFit: "cover",
                         borderRadius: "15px",
+
+                        // 여기 고쳐야댐 선택된 이미지 투명도를 토글형식으로
                         ...imageStyle,
+                        // filter:
+                        //   selectedImage === index
+                        //     ? showButton
+                        //       ? "none"
+                        //       : "brightness(70%)"
+                        //     : "none",
                       }}
                     />
                     {showButton && (
@@ -244,7 +243,17 @@ const ContentAddPost = () => {
             )}
           </ImageUploading>
         </Box>
-        <SaveBtn text="우연 등록하기" onClick={handleNext} />
+        {/* <Box
+          sx={{
+            p: "3rem 0rem 1.5rem 0rem",
+            "@media (max-width: 375px)": {
+              pt: "2rem",
+              pb: "1rem",
+            },
+          }}
+        >
+          <SaveBtn text="우연 등록하기" onClick={handleNext} />
+        </Box> */}
       </Box>
     </ThemeProvider>
   );

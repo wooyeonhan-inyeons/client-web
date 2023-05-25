@@ -14,4 +14,5 @@ export interface WrapperOptInterface {
   isNoneHeadPadding?: boolean;
   noneFullHeight?: boolean;
   scrollable?: boolean;
+  isBtn?: boolean;
 }

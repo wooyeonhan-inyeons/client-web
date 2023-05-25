@@ -65,9 +65,10 @@ const CategoryAddPost = () => {
             </Grid>
           ))}
         </Grid>
-        <Box
+        {/* <Box sx={{ p: "5rem" }}></Box> */}
+        {/* <Box
           sx={{
-            pt: "3rem",
+            p: "3rem 0rem 1.5rem 0rem",
             "@media (max-width: 375px)": {
               pt: "2rem",
               pb: "1rem",
@@ -75,7 +76,7 @@ const CategoryAddPost = () => {
           }}
         >
           <SaveBtn text="다음" onClick={handleNext} />
-        </Box>
+        </Box> */}
       </Box>
     </Box>
   );

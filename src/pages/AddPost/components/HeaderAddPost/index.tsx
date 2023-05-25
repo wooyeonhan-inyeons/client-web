@@ -25,7 +25,6 @@ function HeaderAddPost() {
     menus: [
       { key: "위치", value: "/add-post" },
       { key: "카테고리", value: "/add-post/category" },
-      { key: "사진", value: "/add-post/photo" },
       { key: "내용", value: "/add-post/content" },
     ],
     isForward: false,
@@ -37,6 +36,7 @@ function HeaderAddPost() {
     // noneFullHeight: true,
     isFullWidth: true,
     isNoneHeadPadding: false,
+    isBtn: true,
   };
 
   useEffect(() => {

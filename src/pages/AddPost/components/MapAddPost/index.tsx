@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Box, Skeleton, Typography, useTheme } from "@mui/material";
-import { useNavigate, useOutletContext } from "react-router";
-import SaveBtn from "../../../../component/SaveBtn";
+import { useOutletContext } from "react-router";
 // import { Map, MapProvider } from "react-map-gl";
 import Map, {
   NavigationControl,
@@ -34,10 +33,6 @@ const MapAddPost = () => {
   const [geocode, setGeocede] = useState<string | undefined>(undefined);
   const positionRef = useRef<LocationProps | undefined>(initPosition);
   const theme = useTheme();
-  const navigate = useNavigate();
-  const handleNext = () => {
-    navigate("/add-post/category");
-  };
 
   useEffect(() => {
     if (positionRef.current == initPosition) {
@@ -68,11 +63,10 @@ const MapAddPost = () => {
     <Box
       sx={{
         padding: "1rem 0",
-        height: "100%",
+        maxHeight: "100vh",
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
-        // height: "100%",
         //우선 스타일로 지도 아래에 있던 객체들 '가림'
         "& .mapboxgl-ctrl-fullscreen, & .mapboxgl-ctrl-compass, & .mapboxgl-ctrl.mapboxgl-ctrl-scale, & .mapboxgl-ctrl-attrib-button, & .mapboxgl-ctrl-attrib-inner, & .mapboxgl-ctrl-logo ":
           {
@@ -110,7 +104,7 @@ const MapAddPost = () => {
             style={{
               width: "100%",
               height: "500px",
-              maxHeight: "65vh",
+              maxHeight: "55vh",
               // overflow: "hidden",
               backgroundColor:
                 theme.palette.mode === "light" ? "#f6f6f4" : "#343332",
@@ -130,18 +124,6 @@ const MapAddPost = () => {
             sx={{ maxHeight: "65vh" }}
           />
         )}
-      </Box>
-
-      <Box
-        sx={{
-          p: "3rem 1rem 0rem 1rem",
-          "@media (max-width: 375px)": {
-            pt: "2rem",
-            pb: "1rem",
-          },
-        }}
-      >
-        <SaveBtn text="다음" onClick={handleNext} />
       </Box>
     </Box>
   );

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { createTheme } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 
 export const theme = createTheme({
@@ -28,32 +28,25 @@ export interface SaveTextProps {
 }
 
 const SaveBtn = (props: SaveTextProps) => {
-  // 클릭시 버튼 색상 변경
   const [activeColor] = useState("primary");
 
-  // const handleButtonClick = () => {
-  //   setActiveColor(activeColor === "primary" ? "secondary" : "primary");
-  // };
-
   return (
-    <ThemeProvider theme={theme}>
-      <Button
-        variant="contained"
-        color={activeColor as ColorType}
-        onClick={props.onClick}
-        sx={{
-          width: "100%",
-          height: "3rem",
-          borderRadius: 4,
-          fontWeight: 600,
-          boxShadow: "0 1px 3px rgba(0,0,0,0.12)",
-          fontSize: 20,
-        }}
-        // onClick={handleButtonClick}
-      >
-        {props.text}
-      </Button>
-    </ThemeProvider>
+    <Button
+      variant="contained"
+      color={activeColor as ColorType}
+      onClick={props.onClick}
+      sx={{
+        width: "100%",
+        height: "3rem",
+        borderRadius: 4,
+        fontWeight: 600,
+        boxShadow: "0 1px 3px rgba(0,0,0,0.12)",
+        fontSize: 20,
+        zIndex: 10,
+      }}
+    >
+      {props.text}
+    </Button>
   );
 };
 

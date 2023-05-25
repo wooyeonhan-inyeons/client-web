@@ -64,7 +64,7 @@ function LoginPage() {
         ></ImageSlideView>
       </Grid>
 
-      <Grid item sx={{ backgroundColor: "white", pt: "1rem", margin: 0 }}>
+      <Grid item sx={{ pt: "1rem", margin: 0 }}>
         {/* 스와이프 Dot (•••) */}
         <Grid item>
           <MobileStepper

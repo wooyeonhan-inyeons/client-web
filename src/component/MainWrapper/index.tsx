@@ -24,7 +24,7 @@ function MainWrapper({ isHeader }: HeaderProp) {
   });
 
   const [category, setCategory] = useState<string>();
-
+  const [shaking, setShaking] = useState<boolean>(false);
   const [btnText, setBtnText] = useState("다음");
   const handleBtnNavigate = () => {
     if (location.pathname === "/add-post") {
@@ -33,6 +33,11 @@ function MainWrapper({ isHeader }: HeaderProp) {
     } else if (location.pathname === "/add-post/category") {
       category && setBtnText("우연 등록하기");
       category && navigate("/add-post/content");
+      if (!category) {
+        setShaking(true);
+        console.log("흔들흔들 setShaking", shaking);
+        // 이후에 바로 false로 설정해야 되는데 일단 미루겠음
+      }
     } else {
       setBtnText("다음");
       navigate("/add-post/category"); // 우연 등록 시 라우팅 수정하기
@@ -79,6 +84,8 @@ function MainWrapper({ isHeader }: HeaderProp) {
               navigate,
               setWrapperOpt,
               setCategory,
+              shaking,
+              setShaking,
             }}
           />
           {wrapperOpt.isBtn && (

@@ -6,8 +6,14 @@ import { WrapperOptInterface } from "../../../../component/MainWrapper/interface
 import { X } from "@phosphor-icons/react";
 
 function HeaderAddPost() {
-  const { setHeadOpt, navigate, setWrapperOpt, setCategory } =
-    useOutletContext<ContextInterface>();
+  const {
+    setHeadOpt,
+    navigate,
+    setWrapperOpt,
+    setCategory,
+    shaking,
+    setShaking,
+  } = useOutletContext<ContextInterface>();
 
   // 컴포넌트에서 사용할 기본 상태
   const initialPostState: UploadPostType = {
@@ -46,10 +52,13 @@ function HeaderAddPost() {
 
   useEffect(() => {
     console.log("[header]업로드할 우연 정보: ", post);
+    console.log("shaking: ", shaking);
     setCategory(post?.category);
   }, [post]);
 
-  return <Outlet context={{ setHeadOpt, post, setPost }} />;
+  return (
+    <Outlet context={{ setHeadOpt, post, setPost, shaking, setShaking }} />
+  );
 }
 
 export default HeaderAddPost;

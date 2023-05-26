@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from "react";
+
 export enum Category {
   Daily = "일상",
   Metting = "모임",
@@ -14,3 +16,8 @@ export interface OneCategoryType {
 }
 
 export type CategoryArr = Array<OneCategoryType>;
+
+export interface ShakingProp {
+  shaking: boolean;
+  setShaking: Dispatch<SetStateAction<boolean>>;
+}

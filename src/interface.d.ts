@@ -44,6 +44,8 @@ export interface ContextInterface {
   navigate?: NavigateFunction;
   setWrapperOpt: SetWrapperType;
   setCategory?: Dispatch<SetStateAction<string>>;
+  shaking: boolean;
+  setShaking: Dispatch<SetStateAction<boolean>>;
 }
 
 export interface onlyNavigateInterface {

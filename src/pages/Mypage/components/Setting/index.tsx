@@ -51,9 +51,6 @@ export default function SettingPage() {
           //@ts-ignore
           Theming.postMessage(e.target.value);
         }
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        //@ts-ignore
-        Theming.postMessage(e.target.value);
       }}
     >
       <Stack spacing={1}>

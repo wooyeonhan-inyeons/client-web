@@ -1,32 +1,51 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Router from "./Router";
-import { CssBaseline, GlobalStyles, ThemeProvider } from "@mui/material";
+import { CssBaseline, GlobalStyles, Theme, ThemeProvider } from "@mui/material";
 import { useRecoilState } from "recoil";
 import { envState } from "./recoil";
 import { darkTheme, lightTheme } from "./common";
-import { EnvState } from "./interface";
+import { EnvState, themeType } from "./interface";
 import { grey } from "@mui/material/colors";
 import { QueryClient, QueryClientProvider } from "react-query";
 import GlobalStyleWrapper from "./component/GlobalStyle";
 
 function App() {
   const [env] = useRecoilState(envState);
+  const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+  const [systemTheme, setSystemTheme] = useState<Theme>(() => {
+    return window.matchMedia("(prefers-color-scheme: dark)").matches
+      ? darkTheme
+      : lightTheme;
+  });
   const queryClient = new QueryClient();
 
-  function themeSelector(env: EnvState) {
-    if (env.theme == "system") {
-      //브라우저의 컬러 테마
-      const mediaTheme = window.matchMedia("(prefers-color-scheme: dark)");
-      return mediaTheme.matches ? darkTheme : lightTheme;
-    } else if (env.theme == "light") {
-      return lightTheme;
+  const handleChange = (): void => {
+    if (mediaQuery.matches === true) setSystemTheme(darkTheme);
+    else setSystemTheme(lightTheme);
+  };
+
+  useEffect(() => {
+    if (env.theme !== "system") {
+      if (env.theme === "dark") setSystemTheme(darkTheme);
+      else setSystemTheme(lightTheme);
     } else {
-      return darkTheme;
+      handleChange();
     }
-  }
+  }, [env]);
+
+  useEffect(() => {
+    if (env.theme === "system") {
+      //브라우저, 기기의 테마 변경 감지 등록
+      mediaQuery.addEventListener("change", handleChange);
+      return () => {
+        //삭제
+        mediaQuery.removeEventListener("change", handleChange);
+      };
+    }
+  }, []);
 
   return (
-    <ThemeProvider theme={themeSelector(env)}>
+    <ThemeProvider theme={systemTheme}>
       {/* css 초기화 */}
       <CssBaseline />
       <GlobalStyles

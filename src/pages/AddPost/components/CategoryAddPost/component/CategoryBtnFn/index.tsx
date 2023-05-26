@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useOutletContext } from "react-router";
 import { OneCategoryType, ShakingProp } from "../../type";
@@ -17,17 +17,8 @@ const theme = createTheme({
 });
 
 // 카테고리 버튼 컴포넌트
-const CategoryBtn = ({
-  category,
-}: // setShaking,
-{
-  category: OneCategoryType;
-  // setShaking: Dispatch<SetStateAction<boolean>>;
-}) => {
-  // prop object type 삽질
-
+const CategoryBtn = ({ category }: { category: OneCategoryType }) => {
   const [activeColor, setActiveColor] = useState("primary");
-  // const [selected, setSelected] = useState(true);
   const { post, setPost } = useOutletContext<PostStateInterface>();
   const { shaking, setShaking } = useOutletContext<ShakingProp>();
   const handleButtonClick = () => {
@@ -37,8 +28,10 @@ const CategoryBtn = ({
         setActiveColor(activeColor === "primary" ? "secondary" : "primary");
         setShaking(false);
         console.log("setShaking: false", shaking);
+        console.log("type2: ", typeof shaking);
       } else {
         console.log("님 이미 선택함");
+        setShaking(true);
       }
     } else {
       setPost((prevState) => ({ ...prevState, category: category.id }));

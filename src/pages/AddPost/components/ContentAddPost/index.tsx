@@ -198,38 +198,38 @@ const ContentAddPost = () => {
                         objectFit: "cover",
                         borderRadius: "15px",
 
-                        // 여기 고쳐야댐 선택된 이미지 투명도를 토글형식으로
-                        ...imageStyle,
-                        // filter:
-                        //   selectedImage === index
-                        //     ? showButton
-                        //       ? "none"
-                        //       : "brightness(70%)"
-                        //     : "none",
+                        filter:
+                          selectedImage === index
+                            ? showButton
+                              ? "brightness(70%)"
+                              : "none"
+                            : "none",
                       }}
                     />
-                    {showButton && (
-                      <button
-                        onClick={() => {
-                          onImageRemove(index);
-                        }}
-                        style={{
-                          // 이미지 중앙에 위치
-                          position: "absolute",
-                          top: "50%",
-                          left: "50%",
-                          transform: "translate(-50%, -50%)",
+                    {selectedImage === index
+                      ? showButton && (
+                          <button
+                            onClick={() => {
+                              onImageRemove(index);
+                            }}
+                            style={{
+                              // 이미지 중앙에 위치
+                              position: "absolute",
+                              top: "50%",
+                              left: "50%",
+                              transform: "translate(-50%, -50%)",
 
-                          background: "transparent",
-                          border: "none",
-                          padding: 0,
-                          color: "white",
-                          fontSize: "2rem",
-                        }}
-                      >
-                        지우기
-                      </button>
-                    )}
+                              background: "transparent",
+                              border: "none",
+                              padding: 0,
+                              color: "white",
+                              fontSize: "2rem",
+                            }}
+                          >
+                            지우기
+                          </button>
+                        )
+                      : null}
                   </Box>
                 ))}
                 <Button

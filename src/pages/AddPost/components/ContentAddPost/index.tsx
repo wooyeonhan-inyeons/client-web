@@ -21,6 +21,7 @@ import ScrollContainer from "react-indiana-drag-scroll";
 //   },
 // }));
 
+// 아이폰 SE 규격 css 수정
 const customTheme = (outerTheme: Theme) =>
   createTheme({
     palette: {
@@ -106,15 +107,15 @@ const ContentAddPost = () => {
   // 이미지 삭제 버튼 이벤트 핸들러
   const [showButton, setShowButton] = useState(false);
   const [imageStyle, setImageStyle] = useState({});
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedImage, setSelectedImage] = useState<number>();
 
-  const handleImageClick = (idx: any) => {
+  const handleImageClick = (idx: number) => {
     setSelectedImage(idx);
     // 버튼 보이기
     setShowButton((prev) => !prev);
     // 이미지 스타일 변경
     setImageStyle({
-      filter: imageStyle === "brightness(70%)" ? "none" : "brightness(70%)",
+      filter: imageStyle === "brightness(50%)" ? "none" : "brightness(50%)",
     });
   };
 
@@ -186,7 +187,7 @@ const ContentAddPost = () => {
                 {imageList.map((image, index) => (
                   <Box
                     key={index}
-                    sx={{ width: "100%", p: 4, position: "relative" }}
+                    sx={{ width: "100%", p: 4 }}
                     onClick={() => handleImageClick(index)}
                   >
                     <img
@@ -197,11 +198,11 @@ const ContentAddPost = () => {
                         height: "20rem",
                         objectFit: "cover",
                         borderRadius: "15px",
-
+                        position: "relative",
                         filter:
                           selectedImage === index
                             ? showButton
-                              ? "brightness(70%)"
+                              ? "brightness(50%)"
                               : "none"
                             : "none",
                       }}
@@ -215,7 +216,7 @@ const ContentAddPost = () => {
                             style={{
                               // 이미지 중앙에 위치
                               position: "absolute",
-                              top: "50%",
+                              top: "65%",
                               left: "50%",
                               transform: "translate(-50%, -50%)",
 
@@ -223,7 +224,8 @@ const ContentAddPost = () => {
                               border: "none",
                               padding: 0,
                               color: "white",
-                              fontSize: "2rem",
+                              fontSize: "1.5rem",
+                              fontWeight: "bold",
                             }}
                           >
                             지우기

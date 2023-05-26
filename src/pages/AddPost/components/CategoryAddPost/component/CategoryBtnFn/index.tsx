@@ -29,7 +29,6 @@ const CategoryBtn = ({ category }: { category: OneCategoryType }) => {
       if (post.category === category.id) {
         setPost((prevState) => ({ ...prevState, category: null }));
         setActiveColor(activeColor === "primary" ? "secondary" : "primary");
-        console.log("넘기는건 잘 하고 있니?: ", post.category);
       } else {
         console.log("님 이미 선택함");
       }

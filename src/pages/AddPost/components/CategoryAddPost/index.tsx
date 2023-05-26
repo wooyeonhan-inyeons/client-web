@@ -1,21 +1,29 @@
 import { Box, Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2"; // Grid version 2
-import React, { useEffect } from "react";
-import { useOutletContext } from "react-router";
+import React, { useState } from "react";
 import { categoryArr } from "../../../CategoryPage/components/CategoryArray";
-import { PostStateInterface } from "../HeaderAddPost/interface";
 import CategoryBtn from "./component/CategoryBtnFn";
 
 // skeleton -> suspense
 // build
+import { styled } from "@mui/system";
 
+const ShakingTypography = styled(Typography)(({ shaking }) => ({
+  animation: shaking ? "shake 0.5s infinite" : "none",
+
+  "@keyframes shake": {
+    "0%": { transform: "translateX(0)" },
+    "25%": { transform: "translateX(-5px)" },
+    "75%": { transform: "translateX(5px)" },
+    "100%": { transform: "translateX(0)" },
+  },
+}));
 const CategoryAddPost = () => {
-  const { post } = useOutletContext<PostStateInterface>();
+  const [shaking, setShaking] = useState(false);
 
-  useEffect(() => {
-    console.log("post 중간확인", post);
-  }, []);
-
+  const handleClick = () => {
+    setShaking(!shaking);
+  };
   return (
     <Box
       sx={{
@@ -33,6 +41,10 @@ const CategoryAddPost = () => {
         <Typography variant="h5" fontWeight={600} paddingBottom="1rem">
           선택해주세요
         </Typography>
+        <button onClick={handleClick}>Toggle Shake</button>
+        <ShakingTypography variant="h3" shaking={shaking}>
+          Hello, World!
+        </ShakingTypography>
         <Typography
           variant="subtitle1"
           fontWeight={500}

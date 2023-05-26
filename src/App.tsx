@@ -4,7 +4,6 @@ import { CssBaseline, GlobalStyles, Theme, ThemeProvider } from "@mui/material";
 import { useRecoilState } from "recoil";
 import { envState } from "./recoil";
 import { darkTheme, lightTheme } from "./common";
-import { EnvState, themeType } from "./interface";
 import { grey } from "@mui/material/colors";
 import { QueryClient, QueryClientProvider } from "react-query";
 import GlobalStyleWrapper from "./component/GlobalStyle";

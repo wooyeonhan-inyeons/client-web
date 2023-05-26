@@ -5,7 +5,7 @@ import WooyeonItem from "./components/WooyeonItem";
 import Categories from "./components/Categories";
 import RangeBar from "./components/RangeBar";
 import { Global } from "@emotion/react";
-import searchPageStyle from "./style";
+import { forUntouchableStyle, searchPageStyle } from "./style";
 import { Wooyeons, positionType } from "./interface";
 import SearchItem from "./components/SearchButton";
 import { useOutletContext } from "react-router-dom";
@@ -25,6 +25,8 @@ const Search = () => {
   const [wooyeons, setWooyeons] = useState<Wooyeons[]>([]);
   const [position, setPosition] = useState<positionType | undefined>(undefined);
   const positionRef = useRef<positionType | undefined>(initPosition);
+  //drawer를 올릴 떄 터치 이벤트를 사용할 수 없는 환경을 위함
+  const isTouchDevice = "ontouchstart" in window;
 
   const searchItems = () => {
     if (wooyeons.length > 5) setWooyeons([]);
@@ -44,19 +46,13 @@ const Search = () => {
     "get",
     () => getPost({ position }),
     {
-      // suspense: true,
-      // refetchOnWindowFocus: false,
       onMutate() {
         //기존 우연들 초기화와 함께 시작
         setWooyeons([]);
       },
       onSuccess: (data) => {
-        // console.log(`${data.length} 개의 우연 추가하기`);
         data.forEach((item, index) => {
           setTimeout(() => {
-            // console.log(
-            //   `${index + 1} 번째 우연 추가 중 ${wooyeonsRef.current.length}`
-            // );
             wooyeonPositioning({
               setWooyeons,
               distance: 70 * Math.random(),
@@ -85,7 +81,6 @@ const Search = () => {
         </div>
         <Typography variant="h5" sx={{ marginBottom: "40px" }}>
           🍀
-          {localStorage.getItem("isFlutter")}
         </Typography>
         <Box className="wooyeonArea">
           {wooyeons.map((item, index) => (
@@ -100,7 +95,12 @@ const Search = () => {
         </Box>
       </Box>
       <SearchItem open={open} searchItems={searchItems} navigate={navigate} />
-
+      {
+        //터치 이벤트를 사용할 수 없는 환경을 위함
+        !isTouchDevice && (
+          <Box onClick={toggleDrawer} sx={forUntouchableStyle} />
+        )
+      }
       <Drawer open={open} toggleDrawer={toggleDrawer} drawerBleeding={65}>
         <Box>
           <Typography variant="h6">카테고리 선택</Typography>

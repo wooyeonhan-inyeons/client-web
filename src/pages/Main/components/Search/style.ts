@@ -1,4 +1,4 @@
-const searchPageStyle = {
+export const searchPageStyle = {
   display: "flex",
   width: "100%",
   height: "100vh",
@@ -49,4 +49,11 @@ const searchPageStyle = {
   },
 };
 
-export default searchPageStyle;
+export const forUntouchableStyle = {
+  height: "65px",
+  width: "100%",
+  position: "fixed",
+  bottom: 0,
+  cursor: "pointer",
+  zIndex: 99999,
+};

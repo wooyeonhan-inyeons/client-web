@@ -3,10 +3,15 @@ import { Puller, mainPrimary } from "../../../common";
 import { DrawHeaderProps } from "../inderface";
 import { Box, alpha, useTheme } from "@mui/material";
 
-const DrawrHandle = ({ drawerBleeding, children, open }: DrawHeaderProps) => {
+const DrawrHandle = ({
+  drawerBleeding,
+  children,
+  onClick,
+}: DrawHeaderProps) => {
   const theme = useTheme();
   return (
     <Box
+      onClick={onClick}
       sx={{
         position: "absolute",
         top: -drawerBleeding + 1,
@@ -16,8 +21,10 @@ const DrawrHandle = ({ drawerBleeding, children, open }: DrawHeaderProps) => {
         visibility: "visible",
         right: 0,
         left: 0,
-        boxShadow: open ? "none" : `0px -2px 10px ${alpha(mainPrimary, 0.2)}`,
+        boxShadow: `0px -4px 4px ${alpha(mainPrimary, 0.2)}`,
         backgroundColor: theme.palette.background.default,
+        cursor: "pointer",
+        zIndex: 99,
       }}
     >
       <Puller />

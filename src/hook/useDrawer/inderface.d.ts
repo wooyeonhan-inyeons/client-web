@@ -6,6 +6,7 @@ export interface DrawHeaderProps {
   drawerBleeding: number;
   children: ReactNode;
   open: boolean;
+  onClick: () => void;
 }
 
 interface DrawerProps {

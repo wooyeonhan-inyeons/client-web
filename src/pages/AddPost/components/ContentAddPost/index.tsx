@@ -1,4 +1,4 @@
-import { Badge, Box, Button, Chip, TextField } from "@mui/material";
+import { Badge, Box, Button, Chip, TextField, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useOutletContext } from "react-router";
 import { PostStateInterface } from "../HeaderAddPost/interface";
@@ -10,6 +10,7 @@ import {
 } from "@mui/material/styles";
 import ImageUploading, { ImageListType } from "react-images-uploading";
 import ScrollContainer from "react-indiana-drag-scroll";
+import Icon from "@mui/material/Icon";
 
 // ** 커스텀 input **
 // import { styled } from "@mui/system";
@@ -290,19 +291,34 @@ const ContentAddPost = () => {
                       : null}
                   </Box>
                 ))}
-                <Button
-                  onClick={onImageUpload}
-                  style={{
-                    margin: "0 auto",
-                    border: "2px dashed #B2B1B1",
-                    borderRadius: "20px",
-                    backgroundColor: "#F3F3F3",
-                    width: "20rem",
-                    height: "20rem",
-                  }}
-                >
-                  사진 <br /> 추가
-                </Button>
+                <Box sx={{ width: "100%", p: 4 }}>
+                  <Button
+                    onClick={onImageUpload}
+                    style={{
+                      margin: "0 auto",
+                      border: "2px dashed #B2B1B1",
+                      borderRadius: "20px",
+                      backgroundColor: "#F3F3F3",
+                      width: "20rem",
+                      height: "20rem",
+                      display: "flex",
+                      flexDirection: "column",
+                    }}
+                  >
+                    <Icon style={{ fontSize: "3rem", color: "#ED6728" }}>
+                      add_circle
+                    </Icon>
+                    <Typography
+                      sx={{
+                        color: "black",
+                        fontSize: "1.5rem",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      사진 추가
+                    </Typography>
+                  </Button>
+                </Box>
               </ScrollContainer>
             )}
           </ImageUploading>

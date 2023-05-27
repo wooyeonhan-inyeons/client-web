@@ -1,4 +1,4 @@
-import { Box, Button, Chip, TextField } from "@mui/material";
+import { Badge, Box, Button, Chip, TextField } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useOutletContext } from "react-router";
 import { PostStateInterface } from "../HeaderAddPost/interface";
@@ -87,6 +87,9 @@ const customTheme = (outerTheme: Theme) =>
       },
     },
   });
+
+const shapeStyles = { bgcolor: "primary.main", width: 30, height: 30 };
+const shapeCircleStyles = { borderRadius: "50%" };
 
 const ContentAddPost = () => {
   const { post, setPost } = useOutletContext<PostStateInterface>();
@@ -231,6 +234,35 @@ const ContentAddPost = () => {
                             : "none",
                       }}
                     />
+                    <Badge
+                      color="secondary"
+                      overlap="circular"
+                      badgeContent=" "
+                      invisible
+                      sx={{
+                        position: "absolute",
+                        top: "15%",
+                        left: "95%",
+                        transform: "translate(-50%, -50%)",
+                      }}
+                    >
+                      <Box
+                        component="span"
+                        sx={{
+                          ...shapeStyles,
+                          ...shapeCircleStyles,
+                          // position: "absolute",
+                          display: "flex",
+                          justifyContent: "center",
+                          textAlign: "center",
+                          pt: 0.3,
+                          color: "white",
+                          fontWeight: "bold",
+                        }}
+                      >
+                        {index + 1}
+                      </Box>
+                    </Badge>
                     {selectedImage === index
                       ? showButton && (
                           <button

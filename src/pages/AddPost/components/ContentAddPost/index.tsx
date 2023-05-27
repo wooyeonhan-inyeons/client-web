@@ -187,7 +187,7 @@ const ContentAddPost = () => {
                 {imageList.map((image, index) => (
                   <Box
                     key={index}
-                    sx={{ width: "100%", p: 4 }}
+                    sx={{ width: "100%", p: 4, position: "relative" }}
                     onClick={() => handleImageClick(index)}
                   >
                     <img
@@ -216,7 +216,7 @@ const ContentAddPost = () => {
                             style={{
                               // 이미지 중앙에 위치
                               position: "absolute",
-                              top: "65%",
+                              top: "50%",
                               left: "50%",
                               transform: "translate(-50%, -50%)",
 

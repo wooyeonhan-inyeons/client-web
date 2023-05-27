@@ -1,11 +1,10 @@
 import React, { useLayoutEffect } from "react";
 import { ContextInterface, HeaderOptinterface } from "../../interface";
 import { useOutletContext, useParams } from "react-router-dom";
-import { Box, Stack, alpha } from "@mui/material";
+import { Box, Stack, alpha, useTheme } from "@mui/material";
 import { WrapperOptInterface } from "../../component/MainWrapper/interface";
 import DetailImg from "./components/DetailImg";
 import DetailContent from "./components/DetailContent";
-import { mainPrimary } from "../../common";
 import DetailComment from "./components/DetailComment";
 import { CaretLeft } from "@phosphor-icons/react";
 
@@ -13,6 +12,7 @@ export default function Detail() {
   //const postId = useParams();
   const { setHeadOpt, navigate, setWrapperOpt } =
     useOutletContext<ContextInterface>();
+  const theme = useTheme();
 
   const headerOption: HeaderOptinterface = {
     menus: [{ key: "", value: "/detail" }],
@@ -22,6 +22,7 @@ export default function Detail() {
     bgColor: "#ffffff00 !important",
     contentColor: "#fff",
   };
+
   const wrapperOption: WrapperOptInterface = {
     isFullWidth: true,
     isNoneHeadPadding: true,
@@ -39,7 +40,7 @@ export default function Detail() {
       sx={{
         position: "relative",
         top: 0,
-        backgroundColor: alpha(mainPrimary, 0.05),
+        backgroundColor: theme.palette.background.paper,
       }}
     >
       <DetailImg />

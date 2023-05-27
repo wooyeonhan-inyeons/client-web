@@ -1,5 +1,5 @@
 import { Box, Button, Chip, TextField } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useOutletContext } from "react-router";
 import { PostStateInterface } from "../HeaderAddPost/interface";
 import {
@@ -89,13 +89,15 @@ const customTheme = (outerTheme: Theme) =>
   });
 
 const ContentAddPost = () => {
-  const { post } = useOutletContext<PostStateInterface>();
+  const { post, setPost } = useOutletContext<PostStateInterface>();
+  const [title, setTitle] = useState<string>();
+  const [content, setContent] = useState<string>();
   const outerTheme = useTheme();
 
   const [images, setImages] = useState([]);
   const maxNum = 10;
 
-  const onChange = (
+  const onPhotoUpload = (
     imageList: ImageListType,
     addUpdateIndex: number[] | undefined
   ) => {
@@ -103,6 +105,24 @@ const ContentAddPost = () => {
     console.log(imageList, addUpdateIndex);
     setImages(imageList as never[]);
   };
+
+  const onHandleTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setTitle(event.target.value);
+  };
+  const onHandleContent = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setContent(event.target.value);
+  };
+
+  // 게시글 내용 post에 입력
+  useEffect(() => {
+    setPost((prevState) => ({
+      ...prevState,
+      title: title,
+      content: content,
+      photo: images,
+    }));
+    console.log("최종: ", post);
+  }, [title, content, images]);
 
   // 이미지 삭제 버튼 이벤트 핸들러
   const [showButton, setShowButton] = useState(false);
@@ -153,6 +173,8 @@ const ContentAddPost = () => {
             variant="standard"
             margin="dense"
             color="primary"
+            value={title}
+            onChange={onHandleTitle}
           />
           <TextField
             multiline
@@ -163,13 +185,15 @@ const ContentAddPost = () => {
             InputProps={{
               disableUnderline: true, // 하단 보더 선을 제거하는 옵션입니다.
             }}
+            value={content}
+            onChange={onHandleContent}
           />
         </Box>
         <Box>
           <ImageUploading
             multiple
             value={images}
-            onChange={onChange}
+            onChange={onPhotoUpload}
             maxNumber={maxNum}
           >
             {({ imageList, onImageUpload, onImageRemove }) => (

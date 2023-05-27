@@ -1,5 +1,5 @@
 import { Box, Button, Chip, TextField } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useOutletContext } from "react-router";
 import { PostStateInterface } from "../HeaderAddPost/interface";
 import {
@@ -21,6 +21,7 @@ import ScrollContainer from "react-indiana-drag-scroll";
 //   },
 // }));
 
+// 아이폰 SE 규격 css 수정
 const customTheme = (outerTheme: Theme) =>
   createTheme({
     palette: {
@@ -88,13 +89,15 @@ const customTheme = (outerTheme: Theme) =>
   });
 
 const ContentAddPost = () => {
-  const { post } = useOutletContext<PostStateInterface>();
+  const { post, setPost } = useOutletContext<PostStateInterface>();
+  const [title, setTitle] = useState<string>();
+  const [content, setContent] = useState<string>();
   const outerTheme = useTheme();
 
   const [images, setImages] = useState([]);
   const maxNum = 10;
 
-  const onChange = (
+  const onPhotoUpload = (
     imageList: ImageListType,
     addUpdateIndex: number[] | undefined
   ) => {
@@ -103,18 +106,36 @@ const ContentAddPost = () => {
     setImages(imageList as never[]);
   };
 
+  const onHandleTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setTitle(event.target.value);
+  };
+  const onHandleContent = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setContent(event.target.value);
+  };
+
+  // 게시글 내용 post에 입력
+  useEffect(() => {
+    setPost((prevState) => ({
+      ...prevState,
+      title: title,
+      content: content,
+      photo: images,
+    }));
+    console.log("최종: ", post);
+  }, [title, content, images]);
+
   // 이미지 삭제 버튼 이벤트 핸들러
   const [showButton, setShowButton] = useState(false);
   const [imageStyle, setImageStyle] = useState({});
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedImage, setSelectedImage] = useState<number>();
 
-  const handleImageClick = (idx: any) => {
+  const handleImageClick = (idx: number) => {
     setSelectedImage(idx);
     // 버튼 보이기
     setShowButton((prev) => !prev);
     // 이미지 스타일 변경
     setImageStyle({
-      filter: imageStyle === "brightness(70%)" ? "none" : "brightness(70%)",
+      filter: imageStyle === "brightness(50%)" ? "none" : "brightness(50%)",
     });
   };
 
@@ -152,6 +173,8 @@ const ContentAddPost = () => {
             variant="standard"
             margin="dense"
             color="primary"
+            value={title}
+            onChange={onHandleTitle}
           />
           <TextField
             multiline
@@ -162,13 +185,15 @@ const ContentAddPost = () => {
             InputProps={{
               disableUnderline: true, // 하단 보더 선을 제거하는 옵션입니다.
             }}
+            value={content}
+            onChange={onHandleContent}
           />
         </Box>
         <Box>
           <ImageUploading
             multiple
             value={images}
-            onChange={onChange}
+            onChange={onPhotoUpload}
             maxNumber={maxNum}
           >
             {({ imageList, onImageUpload, onImageRemove }) => (
@@ -197,39 +222,40 @@ const ContentAddPost = () => {
                         height: "20rem",
                         objectFit: "cover",
                         borderRadius: "15px",
-
-                        // 여기 고쳐야댐 선택된 이미지 투명도를 토글형식으로
-                        ...imageStyle,
-                        // filter:
-                        //   selectedImage === index
-                        //     ? showButton
-                        //       ? "none"
-                        //       : "brightness(70%)"
-                        //     : "none",
+                        position: "relative",
+                        filter:
+                          selectedImage === index
+                            ? showButton
+                              ? "brightness(50%)"
+                              : "none"
+                            : "none",
                       }}
                     />
-                    {showButton && (
-                      <button
-                        onClick={() => {
-                          onImageRemove(index);
-                        }}
-                        style={{
-                          // 이미지 중앙에 위치
-                          position: "absolute",
-                          top: "50%",
-                          left: "50%",
-                          transform: "translate(-50%, -50%)",
+                    {selectedImage === index
+                      ? showButton && (
+                          <button
+                            onClick={() => {
+                              onImageRemove(index);
+                            }}
+                            style={{
+                              // 이미지 중앙에 위치
+                              position: "absolute",
+                              top: "50%",
+                              left: "50%",
+                              transform: "translate(-50%, -50%)",
 
-                          background: "transparent",
-                          border: "none",
-                          padding: 0,
-                          color: "white",
-                          fontSize: "2rem",
-                        }}
-                      >
-                        지우기
-                      </button>
-                    )}
+                              background: "transparent",
+                              border: "none",
+                              padding: 0,
+                              color: "white",
+                              fontSize: "1.5rem",
+                              fontWeight: "bold",
+                            }}
+                          >
+                            지우기
+                          </button>
+                        )
+                      : null}
                   </Box>
                 ))}
                 <Button

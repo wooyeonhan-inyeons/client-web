@@ -11,16 +11,21 @@ import {
 import ImageUploading, { ImageListType } from "react-images-uploading";
 import ScrollContainer from "react-indiana-drag-scroll";
 import Icon from "@mui/material/Icon";
+import { makeStyles } from "@material-ui/core/styles";
+import { ClassNames } from "@emotion/react";
 
-// ** 커스텀 input **
-// import { styled } from "@mui/system";
-// const CustomTextField = styled(TextField)(({ theme }) => ({
-//   "& .MuiOutlinedInput-root": {
-//     "& fieldset": {
-//       borderWidth: "0 0 1px 0",
-//     },
-//   },
-// }));
+const useStyles = makeStyles((theme) => ({
+  default: {
+    display: "flex",
+    height: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  image: {
+    display: "flex",
+    height: "100%",
+  },
+}));
 
 // 아이폰 SE 규격 css 수정
 const customTheme = (outerTheme: Theme) =>
@@ -97,6 +102,7 @@ const ContentAddPost = () => {
   const [title, setTitle] = useState<string>();
   const [content, setContent] = useState<string>();
   const outerTheme = useTheme();
+  const classes = useStyles();
 
   const [images, setImages] = useState([]);
   const maxNum = 10;
@@ -126,6 +132,7 @@ const ContentAddPost = () => {
       photo: images,
     }));
     console.log("최종: ", post);
+    console.log("images's lenght: ", images.length);
   }, [title, content, images]);
 
   // 이미지 삭제 버튼 이벤트 핸들러
@@ -193,40 +200,46 @@ const ContentAddPost = () => {
             onChange={onHandleContent}
           />
         </Box>
-        <Box>
-          <ImageUploading
-            multiple
-            value={images}
-            onChange={onPhotoUpload}
-            maxNumber={maxNum}
-          >
-            {({ imageList, onImageUpload, onImageRemove }) => (
-              // write your building UI
+        <ImageUploading
+          multiple
+          value={images}
+          onChange={onPhotoUpload}
+          maxNumber={maxNum}
+        >
+          {({ imageList, onImageUpload, onImageRemove }) => (
+            // write your building UI
+            <Box>
               <ScrollContainer
-                className="scroll-container"
+                className={`scroll-container ${
+                  images.length == 0 ? classes.default : classes.image
+                }`}
                 horizontal
                 vertical={false}
-                style={{
-                  display: "flex",
-                  height: "100%",
-                  alignItems: "center",
-                }}
               >
                 {imageList.map((image, index) => (
                   <Box
                     key={index}
-                    sx={{ width: "100%", p: 4, position: "relative" }}
+                    display="flex"
+                    justifyContent="center"
+                    alignItems="center"
+                    sx={{
+                      p: 20,
+                      "@media (max-width: 375px)": {
+                        p: 14,
+                      },
+                      position: "relative",
+                      mr: 3,
+                    }}
                     onClick={() => handleImageClick(index)}
                   >
                     <img
                       src={image.dataURL}
                       style={{
-                        // 이거 퍼센트로 어케 함
-                        width: "20rem",
-                        height: "20rem",
+                        position: "absolute",
+                        width: "100%",
+                        height: "100%",
                         objectFit: "cover",
                         borderRadius: "15px",
-                        position: "relative",
                         filter:
                           selectedImage === index
                             ? showButton
@@ -242,8 +255,11 @@ const ContentAddPost = () => {
                       invisible
                       sx={{
                         position: "absolute",
-                        top: "15%",
-                        left: "95%",
+                        top: "5%",
+                        left: "86%",
+                        "@media (max-width: 375px)": {
+                          left: "83%",
+                        },
                         transform: "translate(-50%, -50%)",
                       }}
                     >
@@ -252,7 +268,7 @@ const ContentAddPost = () => {
                         sx={{
                           ...shapeStyles,
                           ...shapeCircleStyles,
-                          // position: "absolute",
+                          position: "absolute",
                           display: "flex",
                           justifyContent: "center",
                           textAlign: "center",
@@ -291,16 +307,27 @@ const ContentAddPost = () => {
                       : null}
                   </Box>
                 ))}
-                <Box sx={{ width: "100%", p: 4 }}>
+                <Box
+                  display="flex"
+                  justifyContent="center"
+                  alignItems="center"
+                  sx={{
+                    p: 20,
+                    "@media (max-width: 375px)": {
+                      p: 15,
+                    },
+                    position: "relative",
+                  }}
+                >
                   <Button
                     onClick={onImageUpload}
                     style={{
-                      margin: "0 auto",
                       border: "2px dashed #B2B1B1",
                       borderRadius: "20px",
                       backgroundColor: "#F3F3F3",
-                      width: "20rem",
-                      height: "20rem",
+                      position: "absolute",
+                      width: "100%",
+                      height: "100%",
                       display: "flex",
                       flexDirection: "column",
                     }}
@@ -311,8 +338,8 @@ const ContentAddPost = () => {
                     <Typography
                       sx={{
                         color: "black",
-                        fontSize: "1.5rem",
-                        fontWeight: "bold",
+                        fontSize: "1.2rem",
+                        fontWeight: "medium",
                       }}
                     >
                       사진 추가
@@ -320,9 +347,9 @@ const ContentAddPost = () => {
                   </Button>
                 </Box>
               </ScrollContainer>
-            )}
-          </ImageUploading>
-        </Box>
+            </Box>
+          )}
+        </ImageUploading>
       </Box>
     </ThemeProvider>
   );

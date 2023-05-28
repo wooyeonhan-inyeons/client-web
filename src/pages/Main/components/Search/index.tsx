@@ -42,7 +42,7 @@ const Search = () => {
     getWooyeons();
   }, [navigator]);
 
-  const { mutate: getWooyeons } = useMutation(
+  const { mutate: getWooyeons, isLoading } = useMutation(
     "get",
     () => getPost({ position }),
     {
@@ -51,10 +51,12 @@ const Search = () => {
         setWooyeons([]);
       },
       onSuccess: (data) => {
+        console.log(data);
         data.forEach((item, index) => {
           setTimeout(() => {
             wooyeonPositioning({
               setWooyeons,
+              post_id: item.post_id,
               distance: 70 * Math.random(),
               image: item.image[0].img_url,
             });
@@ -85,16 +87,21 @@ const Search = () => {
         <Box className="wooyeonArea">
           {wooyeons.map((item, index) => (
             <WooyeonItem
-              index={index}
+              post_id={item.post_id}
               key={item.image + index.toString()}
               image={item.image}
               pos={item.pos}
-              onClick={() => navigate(`detail/0`)}
+              onClick={() => navigate(`detail/${item.post_id}`)}
             />
           ))}
         </Box>
       </Box>
-      <SearchItem open={open} searchItems={searchItems} navigate={navigate} />
+      <SearchItem
+        open={open}
+        searchItems={searchItems}
+        navigate={navigate}
+        isLoading={isLoading}
+      />
       {
         //터치 이벤트를 사용할 수 없는 환경을 위함
         !isTouchDevice && (

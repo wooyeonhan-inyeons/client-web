@@ -42,6 +42,7 @@ export function wooyeonPositioning({
   setWooyeons,
   distance,
   image,
+  post_id,
 }: wooyeonPositionInterface) {
   // 최신 상태배열 받아오기
   let prevWoo: Wooyeons[] = [];
@@ -53,7 +54,7 @@ export function wooyeonPositioning({
   if (prevWoo.length > 5) return;
   const pos = getRandomCircleEdgeCoordinates(distance);
   if (prevWoo.length === 0) {
-    return addWooyeon({ pos, image, setWooyeons });
+    return addWooyeon({ pos, image, post_id, setWooyeons });
   } else {
     const isInRange = prevWoo.some((item) => {
       const interDistance = Math.sqrt(
@@ -65,7 +66,7 @@ export function wooyeonPositioning({
       return interDistance < 13;
     });
     if (!isInRange) {
-      return addWooyeon({ pos, image, setWooyeons });
+      return addWooyeon({ pos, image, post_id, setWooyeons });
     } else {
       // console.log("recursive");
       // 겹치면 다른 값으로 재귀 호출
@@ -73,12 +74,18 @@ export function wooyeonPositioning({
         setWooyeons,
         distance,
         image,
+        post_id,
       });
     }
   }
 }
 
-export function addWooyeon({ pos, image, setWooyeons }: addWooyeonInterface) {
+export function addWooyeon({
+  pos,
+  image,
+  post_id,
+  setWooyeons,
+}: addWooyeonInterface) {
   setWooyeons((prevWooyeons: Wooyeons[]) => {
     // 초과 방지
     if (prevWooyeons.length > 6) return prevWooyeons;
@@ -87,6 +94,7 @@ export function addWooyeon({ pos, image, setWooyeons }: addWooyeonInterface) {
       {
         pos: pos,
         image: image,
+        post_id: post_id,
       },
     ];
   });

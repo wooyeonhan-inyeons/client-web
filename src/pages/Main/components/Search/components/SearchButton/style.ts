@@ -36,7 +36,7 @@ export function searchBtnStyle(open: boolean) {
       opacity: 0.8,
     },
     "& .hide_btn": {
-      display: open ? "none" : "block",
+      display: open ? "none" : "flex",
     },
   };
 }

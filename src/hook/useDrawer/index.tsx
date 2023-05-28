@@ -30,6 +30,7 @@ const Drawer = ({
           ".use_drawer .MuiPaper-root": {
             maxWidth: "444px",
             margin: "0 auto",
+            background: theme.palette.background.default,
           },
           ".use_drawer .MuiBackdrop-root": {
             background: "none",

@@ -1,5 +1,5 @@
 import { BACK_URL } from "../../../../common";
-import { PostWooyeonType } from "./interface";
+import { GetWooyeonsType } from "./interface";
 
 export const getPost = async ({
   position,
@@ -9,7 +9,9 @@ export const getPost = async ({
     longitude: number;
   };
 }) => {
-  const response: PostWooyeonType[] = await fetch(
+  //test code
+  // await new Promise((resolve) => setTimeout(resolve, 5000));
+  const response: GetWooyeonsType[] = await fetch(
     `${BACK_URL}/post/near?latitude=35.8527&longitude=128.4971`,
     {
       method: "GET",

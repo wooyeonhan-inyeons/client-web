@@ -46,6 +46,7 @@ const Router = () => {
     {
       path: "/",
       element: <MainWrapper isHeader />,
+      errorElement: <div>error</div>,
       children: [
         {
           path: "/",

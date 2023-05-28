@@ -54,3 +54,11 @@ export interface LocationProps {
   longitude: number | undefined;
   zoom: number;
 }
+
+export type WooyeonsCategory =
+  | "DAILY"
+  | "METTING"
+  | "CMMERCIAL"
+  | "INFORMATION"
+  | "EVENT"
+  | "GIFT";

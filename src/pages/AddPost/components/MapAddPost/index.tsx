@@ -16,7 +16,6 @@ import { getCurrentGeocode, getCurrentLocation } from "./utils";
 import { PostStateInterface } from "../HeaderAddPost/interface";
 
 // 마커 표시
-// 레이아웃 수정 (다음 버튼 너비)
 
 const initPosition = {
   longitude: 127.9068,
@@ -25,10 +24,31 @@ const initPosition = {
 };
 
 const MapAddPost = () => {
+  const [viewport, setViewport] = useState({
+    width: "100%",
+    height: "100%",
+    latitude: 37.7577,
+    longitude: -122.4376,
+    zoom: 10,
+  });
+
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        const { latitude, longitude } = position.coords;
+        setViewport((prevViewport) => ({
+          ...prevViewport,
+          latitude,
+          longitude,
+        }));
+      });
+    }
+  }, []);
+
   const { post, setPost } = useOutletContext<PostStateInterface>();
-  const [viewport, setViewport] = useState<LocationProps | undefined>(
-    undefined
-  );
+  // const [viewport, setViewport] = useState<LocationProps | undefined>(
+  //   undefined
+  // );
 
   const [geocode, setGeocede] = useState<string | undefined>(undefined);
   const positionRef = useRef<LocationProps | undefined>(initPosition);
@@ -98,7 +118,8 @@ const MapAddPost = () => {
               bearing: 0,
               pitch: 0,
             }}
-            // {...viewport}
+            {...viewport}
+            // onViewportChange={(newViewport) => setViewport(newViewport)}
             mapboxAccessToken={import.meta.env.VITE_MAP_API}
             mapStyle={`mapbox://styles/mapbox/${theme.palette.mode}-v9`}
             style={{
@@ -111,7 +132,11 @@ const MapAddPost = () => {
             }}
             mapLib={mapboxgl}
           >
-            <GeolocateControl position="top-left" />
+            <GeolocateControl
+              position="top-left"
+              positionOptions={{ enableHighAccuracy: true }}
+              trackUserLocation={true}
+            />
             <FullscreenControl position="top-left" />
             <NavigationControl position="top-left" />
             <ScaleControl />

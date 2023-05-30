@@ -13,6 +13,8 @@ import { getCurrentLocation, wooyeonPositioning } from "./utils";
 import { ContextInterface } from "../../../../interface";
 import { getPost } from "./api";
 import { useMutation } from "react-query";
+import { filterState } from "../../../../recoil";
+import { useRecoilState } from "recoil";
 
 const initPosition = {
   latitude: 35.8527,
@@ -25,6 +27,8 @@ const Search = () => {
   const [wooyeons, setWooyeons] = useState<Wooyeons[]>([]);
   const [position, setPosition] = useState<positionType | undefined>(undefined);
   const positionRef = useRef<positionType | undefined>(initPosition);
+  const [, setFilter] = useRecoilState(filterState);
+
   //drawer를 올릴 떄 터치 이벤트를 사용할 수 없는 환경을 위함
   const isTouchDevice = "ontouchstart" in window;
 
@@ -44,7 +48,8 @@ const Search = () => {
 
   const { mutate: getWooyeons, isLoading } = useMutation(
     "get",
-    () => getPost({ position }),
+    () =>
+      getPost({ position: position, range: 100, category: ["DAILY", "INFO"] }),
     {
       onMutate() {
         //기존 우연들 초기화와 함께 시작
@@ -111,7 +116,7 @@ const Search = () => {
       <Drawer open={open} toggleDrawer={toggleDrawer} drawerBleeding={65}>
         <Box>
           <Typography variant="h6">카테고리 선택</Typography>
-          <Categories />
+          <Categories setFilter={setFilter} />
           <Typography variant="h6">범위 설정</Typography>
           <RangeBar />
         </Box>

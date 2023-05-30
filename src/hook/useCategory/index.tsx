@@ -1,21 +1,41 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { CategoryItemProps } from "./interface";
 import { CategoryButton } from "./style";
+import { FilterState, WooyeonsCategory } from "../../interface";
 
-function CategoryItem({ children, action }: CategoryItemProps) {
+function CategoryItem({ children, setFilter }: CategoryItemProps) {
   const [checked, setChecked] = useState<boolean>(false);
-  const handleChecked = () => {
-    setChecked((checked) => !checked);
-    action();
+
+  const handleChecked = (children_: WooyeonsCategory) => {
+    console.log(checked);
+    setFilter((prev: FilterState) => {
+      const newCategory: Array<WooyeonsCategory> = prev.preferCategory;
+
+      if (!checked) {
+        newCategory.push(children_);
+      } else {
+        newCategory.splice(newCategory.indexOf(children_), 1);
+      }
+
+      return {
+        ...prev,
+        preferCategory: newCategory,
+      };
+    });
+
+    setChecked((checked) => {
+      return !checked;
+    });
   };
 
   return (
     <CategoryButton
       variant={checked ? "contained" : "outlined"}
-      onClick={handleChecked}
+      onClick={() => handleChecked(children.id as WooyeonsCategory)}
       checked={checked}
     >
-      {children}
+      {children.value}
+      {checked ? "✅" : "❌"}
     </CategoryButton>
   );
 }

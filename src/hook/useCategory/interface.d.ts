@@ -1,7 +1,8 @@
 import { ReactElement } from "react";
 
 export interface CategoryItemProps {
-  children: ReactElement | string;
-  action: () => void;
+  children: { value: ReactElement | string; id: string };
+
+  setFilter: SetterOrUpdater<FilterState>;
   toggle?: boolean;
 }

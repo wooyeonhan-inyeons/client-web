@@ -1,17 +1,23 @@
 import React from "react";
 import { Box } from "@mui/material";
 import { useCategory } from "../../../../../../hook/useCategory";
+import { SetterOrUpdater } from "recoil";
+import { FilterState } from "../../../../../../interface";
 
 const wooyeonCategory = [
-  { id: "life", value: "일상" },
-  { id: "meet", value: "모임" },
-  { id: "info", value: "정보" },
-  { id: "event", value: "이벤트" },
-  { id: "ad", value: "광고" },
-  { id: "gift", value: "선물" },
+  { id: "DAILY", value: "일상" },
+  { id: "METTING", value: "모임" },
+  { id: "INFORMATION", value: "정보" },
+  { id: "EVENT", value: "이벤트" },
+  { id: "COMMERCIAL", value: "광고" },
+  { id: "GIFT", value: "선물" },
 ];
 
-function Categories() {
+function Categories({
+  setFilter,
+}: {
+  setFilter: SetterOrUpdater<FilterState>;
+}) {
   const { CategoryItem } = useCategory();
 
   return (
@@ -30,11 +36,8 @@ function Categories() {
       }}
     >
       {wooyeonCategory.map((item) => (
-        <CategoryItem
-          key={item.id}
-          action={() => console.log(`Category, ${item.value}`)}
-        >
-          {item.value}
+        <CategoryItem key={item.id} setFilter={setFilter}>
+          {item}
         </CategoryItem>
       ))}
     </Box>

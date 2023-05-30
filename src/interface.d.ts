@@ -10,7 +10,6 @@ export interface UserState {
 export type themeType = "system" | "light" | "dark";
 export interface EnvState {
   theme: themeType;
-  distance?: number;
 }
 
 export interface menuProps {
@@ -58,7 +57,14 @@ export interface LocationProps {
 export type WooyeonsCategory =
   | "DAILY"
   | "METTING"
-  | "CMMERCIAL"
+  | "COMMERCIAL"
   | "INFORMATION"
   | "EVENT"
   | "GIFT";
+
+export type RangeType = 1 | 50 | 100;
+
+export interface FilterState {
+  searchRange: RangeType;
+  preferCategory: Array<WooyeonsCategory>;
+}

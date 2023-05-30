@@ -8,8 +8,9 @@ import { useQuery } from "react-query";
 import { getDetailWooyeon } from "./api";
 import DetailContent from "./components/DetailContent";
 import DetailComment from "./components/DetailComment";
+import DetailImg from "./components/DetailImg";
 
-const LazyDetailImg = React.lazy(() => import("./components/DetailImg"));
+// const LazyDetailImg = React.lazy(() => import("./components/DetailImg"));
 
 export default function Detail() {
   const { postId } = useParams();
@@ -37,11 +38,12 @@ export default function Detail() {
       setHeadOpt(headerOption);
       setWrapperOpt(wrapperOption);
     });
-  }, []);
+    console.log(postId);
+  }, [postId, setHeadOpt, setWrapperOpt]);
 
   const { data: wooyeon } = useQuery(
     "getWooyeon",
-    () => getDetailWooyeon(postId as string),
+    () => getDetailWooyeon(postId as unknown as string),
     { suspense: true }
   );
 
@@ -59,7 +61,7 @@ export default function Detail() {
             <Skeleton variant="rectangular" width="100%" height={400} />
           }
         >
-          <LazyDetailImg wooyeon={wooyeon} />
+          <DetailImg wooyeon={wooyeon} />
         </Suspense>
         <Stack
           sx={{ top: "-24px", position: "relative", paddingTop: "1rem" }}

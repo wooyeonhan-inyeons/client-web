@@ -1,30 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { CategoryItemProps } from "./interface";
 import { CategoryButton } from "./style";
 import { FilterState, WooyeonsCategory } from "../../interface";
 
-function CategoryItem({ children, setFilter }: CategoryItemProps) {
-  const [checked, setChecked] = useState<boolean>(false);
-
-  const handleChecked = (children_: WooyeonsCategory) => {
-    console.log(checked);
+function CategoryItem({ children, setFilter, checked }: CategoryItemProps) {
+  const handleChecked = (id: WooyeonsCategory) => {
+    //카테고리 배열 값 세팅
     setFilter((prev: FilterState) => {
-      const newCategory: Array<WooyeonsCategory> = prev.preferCategory;
+      let newCategory = prev.preferCategory;
+      const index = newCategory.indexOf(id);
 
-      if (!checked) {
-        newCategory.push(children_);
-      } else {
-        newCategory.splice(newCategory.indexOf(children_), 1);
+      if (!checked && index === -1) {
+        newCategory = [...newCategory, id];
+      } else if (index !== -1) {
+        newCategory = prev.preferCategory.filter((item) => item !== id);
       }
-
       return {
         ...prev,
         preferCategory: newCategory,
       };
-    });
-
-    setChecked((checked) => {
-      return !checked;
     });
   };
 
@@ -35,7 +29,6 @@ function CategoryItem({ children, setFilter }: CategoryItemProps) {
       checked={checked}
     >
       {children.value}
-      {checked ? "✅" : "❌"}
     </CategoryButton>
   );
 }

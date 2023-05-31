@@ -15,9 +15,15 @@ export const getPost = async ({
 }) => {
   //test code
   // await new Promise((resolve) => setTimeout(resolve, 5000));
-
+  console.log(position, range, category);
+  let categories = "";
+  category.map((p, i) => {
+    categories += `category[${i}]=${p}`;
+    if (category.length - 1 !== i) categories += "&";
+  });
+  console.log(categories);
   const response: GetWooyeonsType[] = await fetch(
-    `${BACK_URL}/post/near?latitude=35.8527&longitude=128.4971&range=0.1&category=${category}`,
+    `${BACK_URL}/post/near?latitude=35.8527&longitude=128.4971&range=0.1&${categories}`,
     {
       method: "GET",
       headers: {

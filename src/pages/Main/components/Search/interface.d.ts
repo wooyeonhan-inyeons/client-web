@@ -88,3 +88,8 @@ export interface beforeWooyeonType {
   setWooyeons: (value: React.SetStateAction<Wooyeons[]>) => void;
   wooyeonsRef: MutableRefObject<Wooyeons[]>;
 }
+
+export interface CategoryFilterInterface {
+  filter: FilterState;
+  setFilter: SetterOrUpdater<FilterState>;
+}

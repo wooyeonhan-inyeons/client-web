@@ -54,13 +54,14 @@ export interface LocationProps {
   zoom: number;
 }
 
+// INFO, PRESENT, GROUP, EVENT, DAILY, ADS
 export type WooyeonsCategory =
   | "DAILY"
-  | "METTING"
-  | "COMMERCIAL"
-  | "INFORMATION"
+  | "GROUP"
+  | "ADS"
+  | "INFO"
   | "EVENT"
-  | "GIFT";
+  | "PRESENT";
 
 export type RangeType = 1 | 50 | 100;
 

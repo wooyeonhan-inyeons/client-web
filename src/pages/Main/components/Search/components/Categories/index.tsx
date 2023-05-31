@@ -1,23 +1,19 @@
 import React from "react";
 import { Box } from "@mui/material";
 import { useCategory } from "../../../../../../hook/useCategory";
-import { SetterOrUpdater } from "recoil";
-import { FilterState } from "../../../../../../interface";
+import { WooyeonsCategory } from "../../../../../../interface";
+import { CategoryFilterInterface } from "../../interface";
 
-const wooyeonCategory = [
+const wooyeonCategory: Array<{ id: WooyeonsCategory; value: string }> = [
   { id: "DAILY", value: "일상" },
-  { id: "METTING", value: "모임" },
-  { id: "INFORMATION", value: "정보" },
+  { id: "GROUP", value: "모임" },
+  { id: "INFO", value: "정보" },
   { id: "EVENT", value: "이벤트" },
-  { id: "COMMERCIAL", value: "광고" },
-  { id: "GIFT", value: "선물" },
+  { id: "ADS", value: "광고" },
+  { id: "PRESENT", value: "선물" },
 ];
 
-function Categories({
-  setFilter,
-}: {
-  setFilter: SetterOrUpdater<FilterState>;
-}) {
+function Categories({ filter, setFilter }: CategoryFilterInterface) {
   const { CategoryItem } = useCategory();
 
   return (
@@ -35,11 +31,17 @@ function Categories({
         },
       }}
     >
-      {wooyeonCategory.map((item) => (
-        <CategoryItem key={item.id} setFilter={setFilter}>
-          {item}
-        </CategoryItem>
-      ))}
+      {wooyeonCategory.map((item) => {
+        return (
+          <CategoryItem
+            key={item.id}
+            checked={filter.preferCategory.includes(item.id)}
+            setFilter={setFilter}
+          >
+            {item}
+          </CategoryItem>
+        );
+      })}
     </Box>
   );
 }

@@ -1,6 +1,6 @@
-import { atom, selector } from "recoil";
+import { atom } from "recoil";
 import { recoilPersist } from "recoil-persist";
-import { EnvState, FilterState, RangeType, UserState } from "../interface";
+import { EnvState, FilterState, UserState } from "../interface";
 
 const { persistAtom } = recoilPersist();
 
@@ -25,14 +25,8 @@ export const filterState = atom<FilterState>({
     //우연 찾기 거리
     searchRange: 100,
     //우연 찾기 관심 카테고리
-    preferCategory: [
-      "DAILY",
-      "METTING",
-      "COMMERCIAL",
-      "INFORMATION",
-      "EVENT",
-      "GIFT",
-    ],
+    // INFO, PRESENT, GROUP, EVENT, DAILY, ADS
+    preferCategory: ["DAILY", "GROUP", "ADS", "INFO", "EVENT", "PRESENT"],
   },
   effects_UNSTABLE: [persistAtom],
 });

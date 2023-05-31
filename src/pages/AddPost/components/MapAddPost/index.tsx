@@ -16,6 +16,8 @@ import { getCurrentGeocode, getCurrentLocation } from "./utils";
 import { PostStateInterface } from "../HeaderAddPost/interface";
 
 // 마커 표시
+// initstate를 현재위치로 주고
+// 손으로 이동할때 지도의 중앙 좌표를 set
 
 const initPosition = {
   longitude: 127.9068,
@@ -27,9 +29,9 @@ const MapAddPost = () => {
   const [viewport, setViewport] = useState({
     width: "100%",
     height: "100%",
-    latitude: 37.7577,
-    longitude: -122.4376,
-    zoom: 10,
+    longitude: 127.9068,
+    latitude: 35.6699,
+    zoom: 6,
   });
 
   useEffect(() => {
@@ -43,28 +45,29 @@ const MapAddPost = () => {
         }));
       });
     }
-  }, []);
+    console.log("viewport: ", viewport);
+  }, [navigator]);
 
   const { post, setPost } = useOutletContext<PostStateInterface>();
   // const [viewport, setViewport] = useState<LocationProps | undefined>(
   //   undefined
   // );
 
-  const [geocode, setGeocede] = useState<string | undefined>(undefined);
+  const [geocode, setGeocode] = useState<string | undefined>(undefined);
   const positionRef = useRef<LocationProps | undefined>(initPosition);
   const theme = useTheme();
 
-  useEffect(() => {
-    if (positionRef.current == initPosition) {
-      getCurrentLocation({ setViewport });
-    }
-  }, [navigator]);
+  // useEffect(() => {
+  //   if (positionRef.current == initPosition) {
+  //     getCurrentLocation({ setViewport });
+  //   }
+  // }, [navigator]);
 
   useEffect(() => {
     positionRef.current = viewport;
     if (positionRef.current !== undefined) {
       getCurrentGeocode(positionRef.current).then((e) => {
-        setGeocede(e.reverse().join(" "));
+        setGeocode(e.reverse().join(" "));
       });
     }
 
@@ -112,13 +115,11 @@ const MapAddPost = () => {
         {positionRef.current !== initPosition ? (
           <Map
             initialViewState={{
-              latitude: 35.8555,
-              longitude: 128.4936,
-              zoom: 6,
+              ...viewport,
               bearing: 0,
               pitch: 0,
             }}
-            {...viewport}
+            // {...viewport}
             // onViewportChange={(newViewport) => setViewport(newViewport)}
             mapboxAccessToken={import.meta.env.VITE_MAP_API}
             mapStyle={`mapbox://styles/mapbox/${theme.palette.mode}-v9`}
@@ -136,6 +137,7 @@ const MapAddPost = () => {
               position="top-left"
               positionOptions={{ enableHighAccuracy: true }}
               trackUserLocation={true}
+              showUserLocation={true}
             />
             <FullscreenControl position="top-left" />
             <NavigationControl position="top-left" />

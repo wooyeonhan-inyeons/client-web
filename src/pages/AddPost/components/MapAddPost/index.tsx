@@ -8,7 +8,6 @@ import Map, {
   ScaleControl,
   GeolocateControl,
   MapRef,
-  GeolocateControlRef,
 } from "react-map-gl";
 import mapboxgl from "mapbox-gl";
 import { LocationProps } from "../../../../interface";
@@ -28,49 +27,21 @@ const initPosition = {
 
 const MapAddPost = () => {
   const { post, setPost } = useOutletContext<PostStateInterface>();
-  // const [viewport, setViewport] = useState({
-  //   longitude: 127.9068,
-  //   latitude: 35.6699,
-  //   zoom: 6,
-  // });
-
-  // const mapRef = useRef<MapRef>(null);
   const mapRef = useRef<MapRef | null>(null);
+  const [viewState, setViewState] = React.useState(initPosition);
+
   // 사용자의 위치정보 가져와서 viewport에 저장
   useEffect(() => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        const { latitude, longitude } = position.coords;
-        setViewState((prevViewport) => ({
-          ...prevViewport,
-          latitude,
-          longitude,
-        }));
-      });
+    if (positionRef.current == initPosition) {
+      getCurrentLocation({ setViewState });
     }
     console.log("viewstate: ", viewState);
     console.log("navigator: ", navigator);
   }, [navigator]);
 
-  const [viewState, setViewState] = React.useState({
-    longitude: 0,
-    latitude: 0,
-    zoom: 6,
-  });
-
-  // const [viewport, setViewport] = useState<LocationProps | undefined>(
-  //   undefined
-  // );
-
   const [geocode, setGeocode] = useState<string | undefined>(undefined);
   const positionRef = useRef<LocationProps | undefined>(initPosition);
   const theme = useTheme();
-
-  // useEffect(() => {
-  //   if (positionRef.current == initPosition) {
-  //     getCurrentLocation({ setViewport });
-  //   }
-  // }, [navigator]);
 
   // 받아온 위치 정보를 한글주소체계로 변환 후 post에 저장
   useEffect(() => {
@@ -90,12 +61,6 @@ const MapAddPost = () => {
     }));
 
     console.log("지도 정보입력 후: ", post); // 이게 엄청 많이 리렌더링 됨
-  }, [viewState, positionRef, geocode]);
-  const geolocateControlRef = useRef<mapboxgl.GeolocateControl | null>(null);
-  useEffect(() => {
-    if (geolocateControlRef.current) {
-      geolocateControlRef.current.trigger();
-    }
   }, [viewState]);
 
   return (
@@ -147,7 +112,6 @@ const MapAddPost = () => {
             mapLib={mapboxgl}
           >
             <GeolocateControl
-              ref={geolocateControlRef}
               trackUserLocation={true}
               showUserLocation={true} // default
               positionOptions={{ enableHighAccuracy: true }}

@@ -68,6 +68,7 @@ function MainWrapper({ isHeader }: HeaderProp) {
         <Box
           sx={{
             maxHeight: "100vh",
+            touchAction: "none",
             overflowX: wrapperOpt.scrollable ? "scroll" : "hidden",
             height: wrapperOpt.noneFullHeight ? "auto" : "100vh",
             pt: wrapperOpt.isNoneHeadPadding ? 0 : 7,

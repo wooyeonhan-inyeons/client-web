@@ -6,7 +6,7 @@ import { DetailCarousel } from "../../../../interface";
 export default function ImageCarousel({
   activeStep,
   handleStepChange,
-  tempWooyeons,
+  images,
 }: DetailCarousel) {
   return (
     <SwipeableViews
@@ -16,9 +16,9 @@ export default function ImageCarousel({
       enableMouseEvents
       style={{ width: "100%", aspectRatio: "3/4" }}
     >
-      {tempWooyeons.map((item) => (
+      {images?.map((item) => (
         <Box
-          key={item.id}
+          key={item.img_id}
           sx={{
             width: "100%",
             height: "100%",
@@ -28,7 +28,7 @@ export default function ImageCarousel({
           }}
         >
           <img
-            src={item.img}
+            src={item.img_url}
             style={{
               width: "100%",
               minHeight: "50vh",

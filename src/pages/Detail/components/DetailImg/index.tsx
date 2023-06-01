@@ -1,10 +1,16 @@
 import React, { useState } from "react";
 import { HeadBlinder } from "./components/headBlinder";
-import ImageCarousel from "./components/ImageCarousel";
 import { Box, MobileStepper } from "@mui/material";
-import { tempWooyeons } from "../../../Main/components/Search/utils";
+import { GetDetailWooyeonType } from "../../../Main/components/Search/interface";
+import ImageCarousel from "./components/ImageCarousel";
 
-export default function DetailImg() {
+// const ImageCarousel = React.lazy(() => import("./components/ImageCarousel"));
+
+export default function DetailImg({
+  wooyeon,
+}: {
+  wooyeon: GetDetailWooyeonType | undefined;
+}) {
   const [activeStep, setActiveStep] = useState(0);
   const handleStepChange = (step: number) => {
     setActiveStep(step);
@@ -16,10 +22,10 @@ export default function DetailImg() {
       <ImageCarousel
         activeStep={activeStep}
         handleStepChange={handleStepChange}
-        tempWooyeons={tempWooyeons}
+        images={wooyeon?.image}
       />
       <MobileStepper
-        steps={tempWooyeons.length}
+        steps={1}
         position="static"
         activeStep={activeStep}
         backButton={null}

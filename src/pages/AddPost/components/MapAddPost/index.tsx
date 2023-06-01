@@ -65,10 +65,9 @@ const MapAddPost = () => {
         flexDirection: "column",
         justifyContent: "space-between",
         //우선 스타일로 지도 아래에 있던 객체들 '가림'
-        "& .mapboxgl-ctrl, .mapboxgl-ctrl-fullscreen, & .mapboxgl-ctrl-compass, & .mapboxgl-ctrl.mapboxgl-ctrl-scale, & .mapboxgl-ctrl-attrib-button, & .mapboxgl-ctrl-attrib-inner, & .mapboxgl-ctrl-logo ":
-          {
-            display: "none",
-          },
+        "& .mapboxgl-ctrl, & .mapboxgl-ctrl-logo ": {
+          display: "none",
+        },
       }}
     >
       <Box sx={{ padding: "1rem 1.5rem" }}>

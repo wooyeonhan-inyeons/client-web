@@ -11,6 +11,7 @@ import markerImg from "/src/asset/marker.png";
 
 // 마커 표시
 // 일단 지도 컨트롤러 UI 수정은 우선순위 미뤄둠..
+// 역지오코더 가끔 오작동 => 위도경도 toFixed()로 소수점 일정부분까지만 받아와보자
 
 const initPosition = {
   longitude: 127.9068,

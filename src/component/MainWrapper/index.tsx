@@ -35,7 +35,7 @@ function MainWrapper({ isHeader }: HeaderProp) {
       category && navigate("/add-post/content");
       if (!category) {
         setShaking(true);
-        console.log("흔들흔들 setShaking", shaking);
+        // console.log("흔들흔들 setShaking", shaking);
         // 이후에 바로 false로 설정해야 되는데 일단 미루겠음
       }
     } else {

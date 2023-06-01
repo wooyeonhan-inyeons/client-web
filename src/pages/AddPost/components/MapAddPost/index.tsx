@@ -7,17 +7,18 @@ import Map, {
   FullscreenControl,
   ScaleControl,
   GeolocateControl,
+  MapRef,
+  GeolocateControlRef,
 } from "react-map-gl";
 import mapboxgl from "mapbox-gl";
-
 import { LocationProps } from "../../../../interface";
 // import MarkerImage from "./marker.png";
 import { getCurrentGeocode, getCurrentLocation } from "./utils";
 import { PostStateInterface } from "../HeaderAddPost/interface";
 
 // 마커 표시
-// initstate를 현재위치로 주고
-// 손으로 이동할때 지도의 중앙 좌표를 set
+// 위치정보 받아오기 -> geolocation
+// 받아온 위치정보를 1.지도 2.setPost 에 적용
 
 const initPosition = {
   longitude: 127.9068,
@@ -26,29 +27,37 @@ const initPosition = {
 };
 
 const MapAddPost = () => {
-  const [viewport, setViewport] = useState({
-    width: "100%",
-    height: "100%",
-    longitude: 127.9068,
-    latitude: 35.6699,
-    zoom: 6,
-  });
+  const { post, setPost } = useOutletContext<PostStateInterface>();
+  // const [viewport, setViewport] = useState({
+  //   longitude: 127.9068,
+  //   latitude: 35.6699,
+  //   zoom: 6,
+  // });
 
+  // const mapRef = useRef<MapRef>(null);
+  const mapRef = useRef<MapRef | null>(null);
+  // 사용자의 위치정보 가져와서 viewport에 저장
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
         const { latitude, longitude } = position.coords;
-        setViewport((prevViewport) => ({
+        setViewState((prevViewport) => ({
           ...prevViewport,
           latitude,
           longitude,
         }));
       });
     }
-    console.log("viewport: ", viewport);
+    console.log("viewstate: ", viewState);
+    console.log("navigator: ", navigator);
   }, [navigator]);
 
-  const { post, setPost } = useOutletContext<PostStateInterface>();
+  const [viewState, setViewState] = React.useState({
+    longitude: 0,
+    latitude: 0,
+    zoom: 6,
+  });
+
   // const [viewport, setViewport] = useState<LocationProps | undefined>(
   //   undefined
   // );
@@ -63,8 +72,9 @@ const MapAddPost = () => {
   //   }
   // }, [navigator]);
 
+  // 받아온 위치 정보를 한글주소체계로 변환 후 post에 저장
   useEffect(() => {
-    positionRef.current = viewport;
+    positionRef.current = viewState;
     if (positionRef.current !== undefined) {
       getCurrentGeocode(positionRef.current).then((e) => {
         setGeocode(e.reverse().join(" "));
@@ -74,13 +84,19 @@ const MapAddPost = () => {
     // post state 저장
     setPost((prevState) => ({
       ...prevState,
-      latitude: viewport?.latitude,
-      longitude: viewport?.longitude,
+      latitude: viewState?.latitude,
+      longitude: viewState?.longitude,
       address: geocode,
     }));
 
-    console.log("지도 정보입력 후: ", post);
-  }, [viewport, positionRef, geocode]);
+    console.log("지도 정보입력 후: ", post); // 이게 엄청 많이 리렌더링 됨
+  }, [viewState, positionRef, geocode]);
+  const geolocateControlRef = useRef<mapboxgl.GeolocateControl | null>(null);
+  useEffect(() => {
+    if (geolocateControlRef.current) {
+      geolocateControlRef.current.trigger();
+    }
+  }, [viewState]);
 
   return (
     <Box
@@ -114,35 +130,32 @@ const MapAddPost = () => {
       <Box padding={0}>
         {positionRef.current !== initPosition ? (
           <Map
-            initialViewState={{
-              ...viewport,
-              bearing: 0,
-              pitch: 0,
-            }}
-            // {...viewport}
-            // onViewportChange={(newViewport) => setViewport(newViewport)}
+            ref={mapRef}
             mapboxAccessToken={import.meta.env.VITE_MAP_API}
+            {...viewState}
+            onMove={(evt) => setViewState(evt.viewState)}
             mapStyle={`mapbox://styles/mapbox/${theme.palette.mode}-v9`}
             style={{
               width: "100%",
-              height: "500px",
+              maxWidth: 400,
+              height: 400,
               maxHeight: "55vh",
-              // overflow: "hidden",
+              overflow: "hidden",
               backgroundColor:
                 theme.palette.mode === "light" ? "#f6f6f4" : "#343332",
             }}
             mapLib={mapboxgl}
           >
             <GeolocateControl
-              position="top-left"
-              positionOptions={{ enableHighAccuracy: true }}
+              ref={geolocateControlRef}
               trackUserLocation={true}
-              showUserLocation={true}
+              showUserLocation={true} // default
+              positionOptions={{ enableHighAccuracy: true }}
+              fitBoundsOptions={{ maxZoom: 15 }} // maxZoom이 어느정도인지 확인하고 다시 설정
             />
-            <FullscreenControl position="top-left" />
-            <NavigationControl position="top-left" />
+            <FullscreenControl />
+            <NavigationControl />
             <ScaleControl />
-            {/* {pins} */}
           </Map>
         ) : (
           <Skeleton

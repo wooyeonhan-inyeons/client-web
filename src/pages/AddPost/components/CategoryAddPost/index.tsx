@@ -13,9 +13,9 @@ import { ShakingProp } from "./type";
 const CategoryAddPost = () => {
   const { shaking } = useOutletContext<ShakingProp>();
 
-  useEffect(() => {
-    console.log("흔들어?", shaking);
-  }, []);
+  // useEffect(() => {
+  //   console.log("흔들어?", shaking);
+  // }, []);
 
   const ShakingTypography = styled(Typography)<{ shaking: boolean }>(
     ({ shaking }) => ({

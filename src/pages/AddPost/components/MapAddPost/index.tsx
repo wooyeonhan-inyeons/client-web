@@ -8,16 +8,17 @@ import Map, {
   ScaleControl,
   GeolocateControl,
   MapRef,
+  Marker,
 } from "react-map-gl";
 import mapboxgl from "mapbox-gl";
 import { LocationProps } from "../../../../interface";
 // import MarkerImage from "./marker.png";
 import { getCurrentGeocode, getCurrentLocation } from "./utils";
 import { PostStateInterface } from "../HeaderAddPost/interface";
+import markerImg from "/src/asset/marker.png";
 
 // 마커 표시
-// 위치정보 받아오기 -> geolocation
-// 받아온 위치정보를 1.지도 2.setPost 에 적용
+// 일단 지도 컨트롤러 UI 수정은 우선순위 미뤄둠..
 
 const initPosition = {
   longitude: 127.9068,
@@ -92,7 +93,18 @@ const MapAddPost = () => {
         </Typography>
       </Box>
 
-      <Box padding={0}>
+      <Box
+        padding={0}
+        sx={{
+          width: "100%",
+          maxWidth: 500,
+          "@media (max-width: 375px)": {
+            height: 350,
+          },
+          height: 530,
+          overflow: "hidden",
+        }}
+      >
         {positionRef.current !== initPosition ? (
           <Map
             ref={mapRef}
@@ -101,11 +113,6 @@ const MapAddPost = () => {
             onMove={(evt) => setViewState(evt.viewState)}
             mapStyle={`mapbox://styles/mapbox/${theme.palette.mode}-v9`}
             style={{
-              width: "100%",
-              maxWidth: 400,
-              height: 400,
-              maxHeight: "55vh",
-              overflow: "hidden",
               backgroundColor:
                 theme.palette.mode === "light" ? "#f6f6f4" : "#343332",
             }}
@@ -117,14 +124,19 @@ const MapAddPost = () => {
               positionOptions={{ enableHighAccuracy: true }}
               fitBoundsOptions={{ maxZoom: 15 }} // maxZoom이 어느정도인지 확인하고 다시 설정
             />
-            <FullscreenControl />
             <NavigationControl />
-            <ScaleControl />
+            <Marker
+              longitude={viewState.longitude}
+              latitude={viewState.latitude}
+              anchor="center"
+            >
+              <img src={markerImg} alt="marker" />
+            </Marker>
           </Map>
         ) : (
           <Skeleton
             variant="rectangular"
-            // height={400}
+            height={400}
             sx={{ maxHeight: "65vh" }}
           />
         )}

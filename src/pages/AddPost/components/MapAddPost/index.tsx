@@ -2,17 +2,9 @@ import React, { useEffect, useRef, useState } from "react";
 import { Box, Skeleton, Typography, useTheme } from "@mui/material";
 import { useOutletContext } from "react-router";
 // import { Map, MapProvider } from "react-map-gl";
-import Map, {
-  NavigationControl,
-  FullscreenControl,
-  ScaleControl,
-  GeolocateControl,
-  MapRef,
-  Marker,
-} from "react-map-gl";
+import Map, { MapRef, Marker } from "react-map-gl";
 import mapboxgl from "mapbox-gl";
 import { LocationProps } from "../../../../interface";
-// import MarkerImage from "./marker.png";
 import { getCurrentGeocode, getCurrentLocation } from "./utils";
 import { PostStateInterface } from "../HeaderAddPost/interface";
 import markerImg from "/src/asset/marker.png";
@@ -118,19 +110,22 @@ const MapAddPost = () => {
             }}
             mapLib={mapboxgl}
           >
-            <GeolocateControl
+            {/* <GeolocateControl
               trackUserLocation={true}
               showUserLocation={true} // default
               positionOptions={{ enableHighAccuracy: true }}
               fitBoundsOptions={{ maxZoom: 15 }} // maxZoom이 어느정도인지 확인하고 다시 설정
             />
-            <NavigationControl />
+            <NavigationControl /> */}
             <Marker
               longitude={viewState.longitude}
               latitude={viewState.latitude}
               anchor="center"
             >
-              <img src={markerImg} alt="marker" />
+              {/* <img src={markerImg} alt="marker" /> */}
+              <Typography variant="h5" sx={{ marginBottom: "40px" }}>
+                🍀
+              </Typography>
             </Marker>
           </Map>
         ) : (

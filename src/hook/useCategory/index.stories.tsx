@@ -26,5 +26,5 @@ const Template: Story<CategoryItemProps> = (args) => (
 );
 export const Default = Template.bind({});
 Default.args = {
-  children: "default",
+  children: { id: "DEFAULT", value: "default" },
 };

@@ -1,5 +1,7 @@
-export interface setViewportType {
-  setViewport: (value: React.SetStateAction<LocationProps | undefined>) => void;
+export interface setViewStateType {
+  setViewState: (
+    value: React.SetStateAction<LocationProps | undefined>
+  ) => void;
 }
 
 export interface Asddress_components {

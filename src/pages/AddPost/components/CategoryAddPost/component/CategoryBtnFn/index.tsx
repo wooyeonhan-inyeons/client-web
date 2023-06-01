@@ -27,8 +27,8 @@ const CategoryBtn = ({ category }: { category: OneCategoryType }) => {
         setPost((prevState) => ({ ...prevState, category: null }));
         setActiveColor(activeColor === "primary" ? "secondary" : "primary");
         setShaking(false);
-        console.log("setShaking: false", shaking);
-        console.log("type2: ", typeof shaking);
+        // console.log("setShaking: false", shaking);
+        // console.log("type2: ", typeof shaking);
       } else {
         console.log("님 이미 선택함");
         setShaking(true);

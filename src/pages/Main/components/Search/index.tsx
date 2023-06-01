@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDrawer } from "../../../../hook/useDrawer";
 import { Box, Typography } from "@mui/material";
 import WooyeonItem from "./components/WooyeonItem";
@@ -26,7 +26,6 @@ const Search = () => {
   const { open, Drawer, toggleDrawer } = useDrawer();
   const [wooyeons, setWooyeons] = useState<Wooyeons[]>([]);
   const [position, setPosition] = useState<positionType | undefined>(undefined);
-  const positionRef = useRef<positionType | undefined>(initPosition);
   const [filter, setFilter] = useRecoilState(filterState);
 
   //drawer를 올릴 떄 터치 이벤트를 사용할 수 없는 환경을 위함
@@ -40,16 +39,18 @@ const Search = () => {
   };
 
   useEffect(() => {
-    if (positionRef.current === initPosition) {
-      getCurrentLocation({ setPosition });
-    }
-    getWooyeons();
+    if (position !== undefined) getWooyeons();
+  }, [position]);
+
+  useEffect(() => {
+    if (position === undefined) getCurrentLocation({ setPosition });
   }, [navigator]);
 
   const { mutate: getWooyeons, isLoading } = useMutation(
     "get",
     () =>
       getPost({
+        // position: { latitude: 35.8527, longitude: 128.4971 },
         position: position,
         range: filter.searchRange,
         category: filter.preferCategory,
@@ -61,16 +62,17 @@ const Search = () => {
       },
       onSuccess: (data) => {
         console.log(data);
-        data.forEach((item, index) => {
-          setTimeout(() => {
-            wooyeonPositioning({
-              setWooyeons,
-              post_id: item.post_id,
-              distance: 70 * Math.random(),
-              image: item.image[0].img_url,
-            });
-          }, 100 * index + 50 * Math.random());
-        });
+        if (data !== undefined)
+          data.forEach((item, index) => {
+            setTimeout(() => {
+              wooyeonPositioning({
+                setWooyeons,
+                post_id: item.post_id,
+                distance: 70 * Math.random(),
+                image: item.image[0].img_url,
+              });
+            }, 100 * index + 50 * Math.random());
+          });
       },
     }
   );

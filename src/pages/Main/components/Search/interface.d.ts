@@ -93,3 +93,16 @@ export interface CategoryFilterInterface {
   filter: FilterState;
   setFilter: SetterOrUpdater<FilterState>;
 }
+
+export interface GetWooyeonsInterface {
+  position?: {
+    latitude: number;
+    longitude: number;
+  };
+  range: number;
+  category: Array<WooyeonsCategory>;
+}
+
+export interface RangeDictionary {
+  [key: number]: number;
+}

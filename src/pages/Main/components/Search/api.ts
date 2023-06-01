@@ -1,29 +1,31 @@
 import { BACK_URL } from "../../../../common";
-import { GetWooyeonsType } from "./interface";
+import {
+  GetWooyeonsInterface,
+  GetWooyeonsType,
+  RangeDictionary,
+} from "./interface";
+
+const rangeDictionary: RangeDictionary = {
+  1: 0.001,
+  50: 0.05,
+  100: 0.1,
+};
 
 export const getPost = async ({
   position,
   range,
   category,
-}: {
-  position?: {
-    latitude: number;
-    longitude: number;
-  };
-  range: number;
-  category: string[];
-}) => {
-  //test code
-  // await new Promise((resolve) => setTimeout(resolve, 5000));
-  console.log(position, range, category);
+}: GetWooyeonsInterface) => {
+  if (position == undefined) return;
+  //카테고리 쿼리화
   let categories = "";
   category.map((p, i) => {
     categories += `category[${i}]=${p}`;
     if (category.length - 1 !== i) categories += "&";
   });
-  console.log(categories);
+  console.log(position);
   const response: GetWooyeonsType[] = await fetch(
-    `${BACK_URL}/post/near?latitude=35.8527&longitude=128.4971&range=0.1&${categories}`,
+    `${BACK_URL}/post/near?latitude=${position?.latitude}&longitude=${position?.longitude}&range=${rangeDictionary[range]}&${categories}`,
     {
       method: "GET",
       headers: {

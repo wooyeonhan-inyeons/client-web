@@ -113,11 +113,14 @@ export const tempWooyeons: tempWooyeonsInterface[] = [
  *
  * @param setViewport setState를 인자로 받아 함수 내에서 업데이트
  */
-export function getCurrentLocation({ setPosition }: setPositionType) {
-  navigator.geolocation.getCurrentPosition((position) => {
+export const getCurrentLocation = async ({ setPosition }: setPositionType) => {
+  await navigator.geolocation.getCurrentPosition((prev) => {
     setPosition({
-      latitude: position.coords.latitude,
-      longitude: position.coords.longitude,
+      latitude: prev.coords.latitude,
+      longitude: prev.coords.longitude,
     });
   });
-}
+
+  // if (position === undefined) throw Error;
+  // return position;
+};

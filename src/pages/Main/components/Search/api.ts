@@ -6,7 +6,7 @@ import {
 } from "./interface";
 
 const rangeDictionary: RangeDictionary = {
-  1: 0.001,
+  1: 0.01,
   50: 0.05,
   100: 0.1,
 };

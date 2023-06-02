@@ -10,7 +10,7 @@ export interface IntroductionProps {
 }
 
 export interface SnsProps {
-  sns: boolean;
+  sns: "KAKAO" | "GOOGLE";
   text: string;
   imgSrc: string;
 }

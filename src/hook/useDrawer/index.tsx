@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { SwipeableDrawer, useTheme } from "@mui/material";
+import { SwipeableDrawer, alpha, useTheme } from "@mui/material";
 import { Global } from "@emotion/react";
 import DrawrHandle from "./components/DrawrHandle";
 import { DrawerProps } from "./inderface";
-import { StyledBox } from "../../common";
+import { StyledBox, mainPrimary } from "../../common";
 
 const Drawer = ({
   open,
@@ -30,12 +30,10 @@ const Drawer = ({
           ".use_drawer .MuiPaper-root": {
             maxWidth: "444px",
             margin: "0 auto",
+            background: theme.palette.background.default,
           },
           ".use_drawer .MuiBackdrop-root": {
-            backgroundColor:
-              theme.palette.mode === "dark"
-                ? "rgb(0 0 0 / 30%)"
-                : "rgb(255 255 255 / 30%)",
+            background: "none",
             backdropFilter: "blur(2px)",
             maxWidth: "444px",
             margin: "0 auto",
@@ -54,7 +52,11 @@ const Drawer = ({
         }}
         className="use_drawer"
       >
-        <DrawrHandle drawerBleeding={drawerBleeding} open={open}>
+        <DrawrHandle
+          drawerBleeding={drawerBleeding}
+          open={open}
+          onClick={toggleDrawer}
+        >
           {headerChildren}
         </DrawrHandle>
         <StyledBox
@@ -63,6 +65,7 @@ const Drawer = ({
             overflow: "scroll",
             zIndex: 10,
             px: 2,
+            boxShadow: `0px -4px 4px ${alpha(mainPrimary, 0.2)}`,
           }}
         >
           {children}

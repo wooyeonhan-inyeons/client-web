@@ -29,13 +29,14 @@ export function searchBtnStyle(open: boolean) {
     "& .MuiFab-root": {
       backgroundColor: "#ED6729",
       color: "#fff",
+      display: "flex",
     },
     "& .MuiFab-root:hover": {
       backgroundColor: "#ED6729",
       opacity: 0.8,
     },
     "& .hide_btn": {
-      display: open ? "none" : "block",
+      display: open ? "none" : "flex",
     },
   };
 }

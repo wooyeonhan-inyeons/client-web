@@ -1,14 +1,14 @@
 import { LocationProps } from "../../../../interface";
-import { Asddress_components, setViewportType } from "./type";
+import { Asddress_components, setViewStateType } from "./type";
 import Geocode from "react-geocode";
 
 /**
  *
- * @param setViewport setState를 인자로 받아 함수 내에서 업데이트
+ * @param setViewState setState를 인자로 받아 함수 내에서 업데이트
  */
-export function getCurrentLocation({ setViewport }: setViewportType) {
+export function getCurrentLocation({ setViewState }: setViewStateType) {
   navigator.geolocation.getCurrentPosition((position) => {
-    setViewport({
+    setViewState({
       latitude: position.coords.latitude,
       longitude: position.coords.longitude,
       zoom: 15,

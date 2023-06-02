@@ -1,5 +1,5 @@
-import { Box, Button, Chip, TextField } from "@mui/material";
-import React, { useState } from "react";
+import { Badge, Box, Button, Chip, TextField, Typography } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import { useOutletContext } from "react-router";
 import { PostStateInterface } from "../HeaderAddPost/interface";
 import {
@@ -10,17 +10,21 @@ import {
 } from "@mui/material/styles";
 import ImageUploading, { ImageListType } from "react-images-uploading";
 import ScrollContainer from "react-indiana-drag-scroll";
+import Icon from "@mui/material/Icon";
 
-// ** 커스텀 input **
-// import { styled } from "@mui/system";
-// const CustomTextField = styled(TextField)(({ theme }) => ({
-//   "& .MuiOutlinedInput-root": {
-//     "& fieldset": {
-//       borderWidth: "0 0 1px 0",
-//     },
-//   },
-// }));
+const defaultStyle = {
+  display: "flex",
+  height: "100%",
+  alignItems: "center",
+  justifyContent: "center",
+};
 
+const defaultStyle2 = {
+  display: "flex",
+  height: "100%",
+};
+
+// 아이폰 SE 규격 css 수정
 const customTheme = (outerTheme: Theme) =>
   createTheme({
     palette: {
@@ -87,14 +91,19 @@ const customTheme = (outerTheme: Theme) =>
     },
   });
 
+const shapeStyles = { bgcolor: "primary.main", width: 30, height: 30 };
+const shapeCircleStyles = { borderRadius: "50%" };
+
 const ContentAddPost = () => {
-  const { post } = useOutletContext<PostStateInterface>();
+  const { post, setPost } = useOutletContext<PostStateInterface>();
+  const [title, setTitle] = useState<string>();
+  const [content, setContent] = useState<string>();
   const outerTheme = useTheme();
 
   const [images, setImages] = useState([]);
   const maxNum = 10;
 
-  const onChange = (
+  const onPhotoUpload = (
     imageList: ImageListType,
     addUpdateIndex: number[] | undefined
   ) => {
@@ -103,18 +112,37 @@ const ContentAddPost = () => {
     setImages(imageList as never[]);
   };
 
+  const onHandleTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setTitle(event.target.value);
+  };
+  const onHandleContent = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setContent(event.target.value);
+  };
+
+  // 게시글 내용 post에 입력
+  useEffect(() => {
+    setPost((prevState) => ({
+      ...prevState,
+      title: title,
+      content: content,
+      photo: images,
+    }));
+    console.log("최종: ", post);
+    console.log("images's lenght: ", images.length);
+  }, [title, content, images]);
+
   // 이미지 삭제 버튼 이벤트 핸들러
   const [showButton, setShowButton] = useState(false);
   const [imageStyle, setImageStyle] = useState({});
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedImage, setSelectedImage] = useState<number>();
 
-  const handleImageClick = (idx: any) => {
+  const handleImageClick = (idx: number) => {
     setSelectedImage(idx);
     // 버튼 보이기
     setShowButton((prev) => !prev);
     // 이미지 스타일 변경
     setImageStyle({
-      filter: imageStyle === "brightness(70%)" ? "none" : "brightness(70%)",
+      filter: imageStyle === "brightness(50%)" ? "none" : "brightness(50%)",
     });
   };
 
@@ -152,6 +180,8 @@ const ContentAddPost = () => {
             variant="standard"
             margin="dense"
             color="primary"
+            value={title}
+            onChange={onHandleTitle}
           />
           <TextField
             multiline
@@ -162,93 +192,160 @@ const ContentAddPost = () => {
             InputProps={{
               disableUnderline: true, // 하단 보더 선을 제거하는 옵션입니다.
             }}
+            value={content}
+            onChange={onHandleContent}
           />
         </Box>
-        <Box>
-          <ImageUploading
-            multiple
-            value={images}
-            onChange={onChange}
-            maxNumber={maxNum}
-          >
-            {({ imageList, onImageUpload, onImageRemove }) => (
-              // write your building UI
+        <ImageUploading
+          multiple
+          value={images}
+          onChange={onPhotoUpload}
+          maxNumber={maxNum}
+        >
+          {({ imageList, onImageUpload, onImageRemove }) => (
+            // write your building UI
+            <Box>
               <ScrollContainer
-                className="scroll-container"
+                className={`scroll-container ${
+                  images.length == 0 ? defaultStyle : defaultStyle2
+                }`}
                 horizontal
                 vertical={false}
-                style={{
-                  display: "flex",
-                  height: "100%",
-                  alignItems: "center",
-                }}
               >
                 {imageList.map((image, index) => (
                   <Box
                     key={index}
-                    sx={{ width: "100%", p: 4, position: "relative" }}
+                    display="flex"
+                    justifyContent="center"
+                    alignItems="center"
+                    sx={{
+                      p: 20,
+                      "@media (max-width: 375px)": {
+                        p: 14,
+                      },
+                      position: "relative",
+                      mr: 3,
+                    }}
                     onClick={() => handleImageClick(index)}
                   >
                     <img
                       src={image.dataURL}
                       style={{
-                        // 이거 퍼센트로 어케 함
-                        width: "20rem",
-                        height: "20rem",
+                        position: "absolute",
+                        width: "100%",
+                        height: "100%",
                         objectFit: "cover",
                         borderRadius: "15px",
-
-                        // 여기 고쳐야댐 선택된 이미지 투명도를 토글형식으로
-                        ...imageStyle,
-                        // filter:
-                        //   selectedImage === index
-                        //     ? showButton
-                        //       ? "none"
-                        //       : "brightness(70%)"
-                        //     : "none",
+                        filter:
+                          selectedImage === index
+                            ? showButton
+                              ? "brightness(50%)"
+                              : "none"
+                            : "none",
                       }}
                     />
-                    {showButton && (
-                      <button
-                        onClick={() => {
-                          onImageRemove(index);
-                        }}
-                        style={{
-                          // 이미지 중앙에 위치
+                    <Badge
+                      color="secondary"
+                      overlap="circular"
+                      badgeContent=" "
+                      invisible
+                      sx={{
+                        position: "absolute",
+                        top: "5%",
+                        left: "86%",
+                        "@media (max-width: 375px)": {
+                          left: "83%",
+                        },
+                        transform: "translate(-50%, -50%)",
+                      }}
+                    >
+                      <Box
+                        component="span"
+                        sx={{
+                          ...shapeStyles,
+                          ...shapeCircleStyles,
                           position: "absolute",
-                          top: "50%",
-                          left: "50%",
-                          transform: "translate(-50%, -50%)",
-
-                          background: "transparent",
-                          border: "none",
-                          padding: 0,
+                          display: "flex",
+                          justifyContent: "center",
+                          textAlign: "center",
+                          pt: 0.3,
                           color: "white",
-                          fontSize: "2rem",
+                          fontWeight: "bold",
                         }}
                       >
-                        지우기
-                      </button>
-                    )}
+                        {index + 1}
+                      </Box>
+                    </Badge>
+                    {selectedImage === index
+                      ? showButton && (
+                          <button
+                            onClick={() => {
+                              onImageRemove(index);
+                            }}
+                            style={{
+                              // 이미지 중앙에 위치
+                              position: "absolute",
+                              top: "50%",
+                              left: "50%",
+                              transform: "translate(-50%, -50%)",
+
+                              background: "transparent",
+                              border: "none",
+                              padding: 0,
+                              color: "white",
+                              fontSize: "1.5rem",
+                              fontWeight: "bold",
+                            }}
+                          >
+                            지우기
+                          </button>
+                        )
+                      : null}
                   </Box>
                 ))}
-                <Button
-                  onClick={onImageUpload}
-                  style={{
-                    margin: "0 auto",
-                    border: "2px dashed #B2B1B1",
-                    borderRadius: "20px",
-                    backgroundColor: "#F3F3F3",
-                    width: "20rem",
-                    height: "20rem",
+                <Box
+                  display="flex"
+                  justifyContent="center"
+                  alignItems="center"
+                  sx={{
+                    p: 20,
+                    "@media (max-width: 375px)": {
+                      p: 15,
+                    },
+                    position: "relative",
                   }}
                 >
-                  사진 <br /> 추가
-                </Button>
+                  <Button
+                    onClick={onImageUpload}
+                    style={{
+                      border: "2px dashed #B2B1B1",
+                      borderRadius: "20px",
+                      backgroundColor: "#F3F3F3",
+                      position: "absolute",
+                      width: "100%",
+                      height: "100%",
+                      display: "flex",
+                      flexDirection: "column",
+                    }}
+                  >
+                    <Icon style={{ fontSize: "3rem", color: "#ED6728" }}>
+                      add_circle
+                    </Icon>
+                    <Typography
+                      sx={{
+                        color: "black",
+                        fontSize: "1.2rem",
+                        fontWeight: "medium",
+                      }}
+                    >
+                      사진 추가
+                    </Typography>
+                  </Button>
+                </Box>
               </ScrollContainer>
-            )}
-          </ImageUploading>
-        </Box>
+            </Box>
+          )}
+        </ImageUploading>
       </Box>
     </ThemeProvider>
   );

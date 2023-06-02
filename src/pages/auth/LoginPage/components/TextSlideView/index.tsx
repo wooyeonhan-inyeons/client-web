@@ -62,12 +62,12 @@ const TextSlideView = ({
         <Grid item>
           {/* <SaveBtn text="시작하기" /> */}
           <SnsButton
-            sns={false} // boolean -> enum으로 수정
+            sns="GOOGLE"
             text="Google 계정으로 로그인"
             imgSrc={googleIcon}
           ></SnsButton>
           <SnsButton
-            sns={true}
+            sns="KAKAO"
             text="Kakao 계정으로 로그인"
             imgSrc={kakaoIcon}
           ></SnsButton>

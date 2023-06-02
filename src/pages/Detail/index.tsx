@@ -1,18 +1,22 @@
-import React, { useLayoutEffect } from "react";
+import React, { Suspense, startTransition, useLayoutEffect } from "react";
 import { ContextInterface, HeaderOptinterface } from "../../interface";
 import { useOutletContext, useParams } from "react-router-dom";
-import { Box, Stack, alpha } from "@mui/material";
+import { Box, Skeleton, Stack, useTheme } from "@mui/material";
 import { WrapperOptInterface } from "../../component/MainWrapper/interface";
-import DetailImg from "./components/DetailImg";
-import DetailContent from "./components/DetailContent";
-import { mainPrimary } from "../../common";
-import DetailComment from "./components/DetailComment";
 import { CaretLeft } from "@phosphor-icons/react";
+import { useQuery } from "react-query";
+import { getDetailWooyeon } from "./api";
+import DetailContent from "./components/DetailContent";
+import DetailComment from "./components/DetailComment";
+import DetailImg from "./components/DetailImg";
+
+// const LazyDetailImg = React.lazy(() => import("./components/DetailImg"));
 
 export default function Detail() {
-  //const postId = useParams();
+  const { postId } = useParams();
   const { setHeadOpt, navigate, setWrapperOpt } =
     useOutletContext<ContextInterface>();
+  const theme = useTheme();
 
   const headerOption: HeaderOptinterface = {
     menus: [{ key: "", value: "/detail" }],
@@ -22,6 +26,7 @@ export default function Detail() {
     bgColor: "#ffffff00 !important",
     contentColor: "#fff",
   };
+
   const wrapperOption: WrapperOptInterface = {
     isFullWidth: true,
     isNoneHeadPadding: true,
@@ -29,27 +34,43 @@ export default function Detail() {
   };
 
   useLayoutEffect(() => {
-    //네비게이션 리스트 업데이트
-    setHeadOpt(headerOption);
-    setWrapperOpt(wrapperOption);
-  }, []);
+    startTransition(() => {
+      setHeadOpt(headerOption);
+      setWrapperOpt(wrapperOption);
+    });
+    console.log(postId);
+  }, [postId, setHeadOpt, setWrapperOpt]);
+
+  const { data: wooyeon } = useQuery(
+    "getWooyeon",
+    () => getDetailWooyeon(postId as unknown as string),
+    { suspense: true }
+  );
 
   return (
-    <Box
-      sx={{
-        position: "relative",
-        top: 0,
-        backgroundColor: alpha(mainPrimary, 0.05),
-      }}
-    >
-      <DetailImg />
-      <Stack
-        sx={{ top: "-24px", position: "relative", paddingTop: "1rem" }}
-        spacing={2}
+    <Suspense fallback={<div>loading... </div>}>
+      <Box
+        sx={{
+          position: "relative",
+          top: 0,
+          backgroundColor: theme.palette.background.paper,
+        }}
       >
-        <DetailContent />
-        <DetailComment />
-      </Stack>
-    </Box>
+        <Suspense
+          fallback={
+            <Skeleton variant="rectangular" width="100%" height={400} />
+          }
+        >
+          <DetailImg wooyeon={wooyeon} />
+        </Suspense>
+        <Stack
+          sx={{ top: "-24px", position: "relative", paddingTop: "1rem" }}
+          spacing={2}
+        >
+          <DetailContent />
+          <DetailComment />
+        </Stack>
+      </Box>
+    </Suspense>
   );
 }

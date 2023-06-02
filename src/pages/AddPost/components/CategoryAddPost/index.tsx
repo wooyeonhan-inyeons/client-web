@@ -1,26 +1,35 @@
 import { Box, Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2"; // Grid version 2
 import React, { useEffect } from "react";
-import { useNavigate, useOutletContext } from "react-router";
-import SaveBtn from "../../../../component/SaveBtn";
 import { categoryArr } from "../../../CategoryPage/components/CategoryArray";
-import { PostStateInterface } from "../HeaderAddPost/interface";
 import CategoryBtn from "./component/CategoryBtnFn";
+import { styled } from "@mui/system";
+import { useOutletContext } from "react-router";
+import { ShakingProp } from "./type";
 
 // skeleton -> suspense
 // build
 
 const CategoryAddPost = () => {
-  const navigate = useNavigate();
-  const { post } = useOutletContext<PostStateInterface>();
+  const { shaking } = useOutletContext<ShakingProp>();
 
-  const handleNext = () => {
-    navigate("/add-post/content");
-  };
+  // useEffect(() => {
+  //   console.log("흔들어?", shaking);
+  // }, []);
 
-  useEffect(() => {
-    console.log("post 중간확인", post);
-  }, []);
+  const ShakingTypography = styled(Typography)<{ shaking: boolean }>(
+    ({ shaking }) => ({
+      animation: shaking ? "shake 1s" : "none",
+
+      "@keyframes shake": {
+        "0%": { transform: "translateX(0)" },
+        "25%": { transform: "translateX(-5px)" },
+        "50%": { transform: "translateX(5px)" },
+        "75%": { transform: "translateX(-5px)" },
+        "100%": { transform: "translateX(0)" },
+      },
+    })
+  );
 
   return (
     <Box
@@ -39,16 +48,24 @@ const CategoryAddPost = () => {
         <Typography variant="h5" fontWeight={600} paddingBottom="1rem">
           선택해주세요
         </Typography>
-        <Typography
+        <ShakingTypography
           variant="subtitle1"
           fontWeight={500}
           sx={{ color: "#A2A2A2" }}
+          shaking={shaking}
         >
           1개의 카테고리를 선택해 주세요.
-        </Typography>
+        </ShakingTypography>
       </Box>
 
-      <Box>
+      <Box
+        sx={{
+          pt: "10rem",
+          "@media (max-width: 375px)": {
+            pt: "3rem",
+          },
+        }}
+      >
         <Grid container rowSpacing={3} columnSpacing={2} margin="0 auto">
           {categoryArr.map((category) => (
             <Grid
@@ -65,18 +82,6 @@ const CategoryAddPost = () => {
             </Grid>
           ))}
         </Grid>
-        {/* <Box sx={{ p: "5rem" }}></Box> */}
-        {/* <Box
-          sx={{
-            p: "3rem 0rem 1.5rem 0rem",
-            "@media (max-width: 375px)": {
-              pt: "2rem",
-              pb: "1rem",
-            },
-          }}
-        >
-          <SaveBtn text="다음" onClick={handleNext} />
-        </Box> */}
       </Box>
     </Box>
   );

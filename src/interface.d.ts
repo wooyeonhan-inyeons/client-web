@@ -10,7 +10,6 @@ export interface UserState {
 export type themeType = "system" | "light" | "dark";
 export interface EnvState {
   theme: themeType;
-  distance?: number;
 }
 
 export interface menuProps {
@@ -43,6 +42,9 @@ export interface ContextInterface {
   setHeadOpt: SetHeadType;
   navigate?: NavigateFunction;
   setWrapperOpt: SetWrapperType;
+  setCategory?: Dispatch<SetStateAction<string>>;
+  shaking: boolean;
+  setShaking: Dispatch<SetStateAction<boolean>>;
 }
 
 export interface onlyNavigateInterface {
@@ -53,4 +55,20 @@ export interface LocationProps {
   latitude: number | undefined;
   longitude: number | undefined;
   zoom: number;
+}
+
+// INFO, PRESENT, GROUP, EVENT, DAILY, ADS
+export type WooyeonsCategory =
+  | "DAILY"
+  | "GROUP"
+  | "ADS"
+  | "INFO"
+  | "EVENT"
+  | "PRESENT";
+
+export type RangeType = 1 | 50 | 100;
+
+export interface FilterState {
+  searchRange: RangeType;
+  preferCategory: Array<WooyeonsCategory>;
 }

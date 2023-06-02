@@ -8,7 +8,7 @@ import { userState } from "./recoil";
 import { useRecoilState } from "recoil";
 
 import MainWrapper from "./component/MainWrapper";
-import LoginPage from "./pages/LoginPage";
+import LoginPage from "./pages/auth/LoginPage";
 import CategoryPage from "./pages/CategoryPage";
 import Main from "./pages/Main";
 import Search from "./pages/Main/components/Search";
@@ -22,6 +22,7 @@ import Mypage from "./pages/Mypage";
 import EditProfile from "./pages/Mypage/components/Edit";
 import SettingPage from "./pages/Mypage/components/Setting";
 import Detail from "./pages/Detail";
+import Auth from "./pages/auth";
 
 const Router = () => {
   const [user] = useRecoilState(userState);
@@ -40,12 +41,17 @@ const Router = () => {
           path: "cate",
           element: <CategoryPage />,
         },
+        {
+          path: "kakao",
+          element: <Auth />,
+        },
       ],
       loader: () => user.role !== "GUEST" && redirect("/"),
     },
     {
       path: "/",
       element: <MainWrapper isHeader />,
+      errorElement: <div>error</div>,
       children: [
         {
           path: "/",

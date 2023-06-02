@@ -42,7 +42,7 @@ const Router = () => {
           element: <CategoryPage />,
         },
         {
-          path: "kakao",
+          path: "kakao/redirect",
           element: <Auth />,
         },
       ],

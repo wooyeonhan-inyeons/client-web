@@ -1,7 +1,6 @@
 export interface DetailCarousel {
   activeStep: number;
   handleStepChange: (setp: number) => void;
-  tempWooyeons?: tempWooyeonsInterface[];
   images: Array<imageObj> | undefined;
 }
 

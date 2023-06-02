@@ -36,10 +36,6 @@ export interface wooyeonPositionInterface {
   image: string;
   post_id: string;
 }
-export interface tempWooyeonsInterface {
-  id: number;
-  img: string;
-}
 
 export interface addWooyeonInterface {
   pos: WooPos;

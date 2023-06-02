@@ -1,9 +1,14 @@
 import React from "react";
+import { useSearchParams } from "react-router-dom";
 
 export default function Auth() {
-  const params = new URLSearchParams(location.search);
+  const [searchParams] = useSearchParams();
+  const query = searchParams.get("access_token");
 
-  const token = params.get("access_token");
-
-  return <div>{token}</div>;
+  return (
+    <div>
+      <h1>ACCESS TOKEN</h1>
+      <p>{query}</p>
+    </div>
+  );
 }

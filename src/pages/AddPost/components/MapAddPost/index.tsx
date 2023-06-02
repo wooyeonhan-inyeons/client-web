@@ -5,9 +5,10 @@ import { useOutletContext } from "react-router";
 import Map, { MapRef, Marker } from "react-map-gl";
 import mapboxgl from "mapbox-gl";
 import { LocationProps } from "../../../../interface";
-import { getCurrentGeocode, getCurrentLocation } from "./utils";
+import { getCurrentGeocode } from "./utils";
 import { PostStateInterface } from "../HeaderAddPost/interface";
 import markerImg from "/src/asset/marker.png";
+import { getCurrentLocation } from "./api";
 
 // 마커 표시
 // 일단 지도 컨트롤러 UI 수정은 우선순위 미뤄둠..

@@ -23,6 +23,7 @@ import EditProfile from "./pages/Mypage/components/Edit";
 import SettingPage from "./pages/Mypage/components/Setting";
 import Detail from "./pages/Detail";
 import Auth from "./pages/auth";
+import Error from "./pages/Error";
 
 const Router = () => {
   const [user] = useRecoilState(userState);
@@ -51,7 +52,7 @@ const Router = () => {
     {
       path: "/",
       element: <MainWrapper isHeader />,
-      errorElement: <div>error</div>,
+      errorElement: <Error />,
       children: [
         {
           path: "/",

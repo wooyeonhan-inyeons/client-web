@@ -14,6 +14,7 @@ import Icon from "@mui/material/Icon";
 import { makeStyles } from "@material-ui/core/styles";
 import { ClassNames } from "@emotion/react";
 import { MapPin } from "@phosphor-icons/react";
+import { grey } from "@material-ui/core/colors";
 
 const useStyles = makeStyles((theme) => ({
   default: {
@@ -97,7 +98,6 @@ const customTheme = (outerTheme: Theme) =>
 
 const shapeStyles = { bgcolor: "primary.main", width: 30, height: 30 };
 const shapeCircleStyles = { borderRadius: "50%" };
-
 const ContentAddPost = () => {
   const { post, setPost } = useOutletContext<PostStateInterface>();
   const [title, setTitle] = useState<string>();
@@ -214,10 +214,6 @@ const ContentAddPost = () => {
                 left: 0,
                 right: 0,
                 pb: "7rem",
-                px: "1rem",
-                // "@media (min-width: 390px)": {
-                //   pt: "4rem",
-                // },
               }}
             >
               <ScrollContainer
@@ -303,7 +299,6 @@ const ContentAddPost = () => {
                               top: "50%",
                               left: "50%",
                               transform: "translate(-50%, -50%)",
-
                               background: "transparent",
                               border: "none",
                               padding: 0,
@@ -325,7 +320,7 @@ const ContentAddPost = () => {
                   sx={{
                     p: 20,
                     "@media (max-width: 375px)": {
-                      p: 15,
+                      p: 19,
                     },
                     position: "relative",
                   }}
@@ -333,14 +328,20 @@ const ContentAddPost = () => {
                   <Button
                     onClick={onImageUpload}
                     style={{
-                      border: "2px dashed #B2B1B1",
-                      borderRadius: "20px",
-                      backgroundColor: "#F3F3F3",
+                      // border: "1px soild #B2B1B1",
+                      // borderRadius: "20px",
+                      // backgroundColor: "#F3F3F3",
                       position: "absolute",
                       width: "100%",
-                      height: "100%",
+                      height: "75%",
                       display: "flex",
                       flexDirection: "column",
+                      borderRadius: "50px",
+                      background:
+                        outerTheme.palette.mode === "light"
+                          ? "#f6f6f4"
+                          : "#343332",
+                      boxShadow: "10px 10x 50px #bebebe",
                     }}
                   >
                     <Icon style={{ fontSize: "3rem", color: "#ED6728" }}>

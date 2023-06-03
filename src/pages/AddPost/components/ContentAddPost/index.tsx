@@ -14,18 +14,17 @@ import Icon from "@mui/material/Icon";
 import { makeStyles } from "@material-ui/core/styles";
 import { MapPin, PlusCircle } from "@phosphor-icons/react";
 
-const useStyles = makeStyles((theme) => ({
-  default: {
-    display: "flex",
-    height: "100%",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  image: {
-    display: "flex",
-    height: "100%",
-  },
-}));
+const defaultStyle = {
+  display: "flex",
+  height: "100%",
+  alignItems: "center",
+  justifyContent: "center",
+};
+
+const defaultStyle2 = {
+  display: "flex",
+  height: "100%",
+};
 
 // 아이폰 SE 규격 css 수정
 const customTheme = (outerTheme: Theme) =>
@@ -100,7 +99,6 @@ const ContentAddPost = () => {
   const { post, setPost } = useOutletContext<PostStateInterface>();
   const [content, setContent] = useState<string>();
   const outerTheme = useTheme();
-  const classes = useStyles();
 
   const [images, setImages] = useState([]);
   const maxNum = 10;
@@ -211,7 +209,7 @@ const ContentAddPost = () => {
             >
               <ScrollContainer
                 className={`scroll-container ${
-                  images.length == 0 ? classes.default : classes.image
+                  images.length == 0 ? defaultStyle : defaultStyle2
                 }`}
                 horizontal
                 vertical={false}

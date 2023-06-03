@@ -12,9 +12,7 @@ import ImageUploading, { ImageListType } from "react-images-uploading";
 import ScrollContainer from "react-indiana-drag-scroll";
 import Icon from "@mui/material/Icon";
 import { makeStyles } from "@material-ui/core/styles";
-import { ClassNames } from "@emotion/react";
 import { MapPin } from "@phosphor-icons/react";
-import { grey } from "@material-ui/core/colors";
 
 const useStyles = makeStyles((theme) => ({
   default: {
@@ -100,7 +98,6 @@ const shapeStyles = { bgcolor: "primary.main", width: 30, height: 30 };
 const shapeCircleStyles = { borderRadius: "50%" };
 const ContentAddPost = () => {
   const { post, setPost } = useOutletContext<PostStateInterface>();
-  const [title, setTitle] = useState<string>();
   const [content, setContent] = useState<string>();
   const outerTheme = useTheme();
   const classes = useStyles();
@@ -117,9 +114,6 @@ const ContentAddPost = () => {
     setImages(imageList as never[]);
   };
 
-  const onHandleTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setTitle(event.target.value);
-  };
   const onHandleContent = (event: React.ChangeEvent<HTMLInputElement>) => {
     setContent(event.target.value);
   };
@@ -128,13 +122,12 @@ const ContentAddPost = () => {
   useEffect(() => {
     setPost((prevState) => ({
       ...prevState,
-      title: title,
       content: content,
       photo: images,
     }));
     console.log("최종: ", post);
     console.log("images's lenght: ", images.length);
-  }, [title, content, images]);
+  }, [content, images]);
 
   // 이미지 삭제 버튼 이벤트 핸들러
   const [showButton, setShowButton] = useState(false);

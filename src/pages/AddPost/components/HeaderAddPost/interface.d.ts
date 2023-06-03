@@ -9,7 +9,6 @@ export interface UploadPostType {
   address?: string | null;
   category?: string | null;
   photo?: Photo[];
-  title?: string;
   content?: string;
 }
 

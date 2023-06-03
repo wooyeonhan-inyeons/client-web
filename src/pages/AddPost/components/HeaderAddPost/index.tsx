@@ -22,7 +22,6 @@ function HeaderAddPost() {
     address: null,
     category: null,
     photo: [],
-    title: "",
     content: "",
   };
   const [post, setPost] = useState<UploadPostType | null>(initialPostState);

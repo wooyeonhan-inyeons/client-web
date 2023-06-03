@@ -1,6 +1,7 @@
 import React from "react";
-import { Button } from "@mui/material";
+import { Button, useTheme } from "@mui/material";
 import { OneCategoryType } from "../../../../AddPost/components/CategoryAddPost/type";
+import { mainPrimary } from "../../../../../common";
 
 // activeColor useState 전달 (CategoryBtnFn -> CategoryBtnUI)
 // CategoryBtn 컴포넌트 분리(UI와 onClick 함수) => CategoryBtnFn, CategoryBtnUI
@@ -10,14 +11,15 @@ const CategoryBtnUI = ({
   handleButtonClick,
   category,
 }: {
-  activeColor: ColorType;
+  activeColor: string;
   handleButtonClick: () => void;
   category: OneCategoryType;
 }) => {
+  const theme = useTheme();
   return (
     <Button
       variant="contained"
-      color={activeColor as ColorType} // 전달
+      // color={activeColor as ColorType} // 전달
       href="#contained-buttons"
       sx={{
         width: "100%",
@@ -29,6 +31,13 @@ const CategoryBtnUI = ({
       style={{
         boxShadow: "0 1px 3px rgba(0,0,0,0.12)",
         fontSize: 20,
+        backgroundColor: activeColor,
+        color:
+          theme.palette.mode === "light"
+            ? activeColor === mainPrimary
+              ? "#ffffff"
+              : "#222222"
+            : "#FFFFFF",
       }}
     >
       {category.id}

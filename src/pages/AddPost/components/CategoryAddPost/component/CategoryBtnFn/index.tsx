@@ -14,7 +14,7 @@ const CategoryBtn = ({ category }: { category: OneCategoryType }) => {
     theme.palette.background.paper
   );
   const { post, setPost } = useOutletContext<PostStateInterface>();
-  const { shaking, setShaking } = useOutletContext<ShakingProp>();
+  const { setShaking } = useOutletContext<ShakingProp>();
   const handleButtonClick = () => {
     if (post?.category) {
       if (post.category === category.id) {

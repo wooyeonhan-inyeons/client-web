@@ -324,6 +324,7 @@ const ContentAddPost = () => {
                     style={{
                       position: "absolute",
                       width: "100%",
+                      maxWidth: "22rem",
                       height: "75%",
                       display: "flex",
                       flexDirection: "column",

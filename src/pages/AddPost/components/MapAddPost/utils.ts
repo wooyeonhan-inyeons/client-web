@@ -56,15 +56,15 @@ import axios from "axios";
  *
  * @param setViewState setState를 인자로 받아 함수 내에서 업데이트
  */
-// export function getCurrentLocation({ setViewState }: setViewStateType) {
-//   navigator.geolocation.getCurrentPosition((position) => {
-//     setViewState({
-//       latitude: position.coords.latitude,
-//       longitude: position.coords.longitude,
-//       zoom: 15,
-//     });
-//   });
-// }
+export function getCurrentLocation({ setViewState }: setViewStateType) {
+  navigator.geolocation.getCurrentPosition((position) => {
+    setViewState({
+      latitude: position.coords.latitude,
+      longitude: position.coords.longitude,
+      zoom: 15,
+    });
+  });
+}
 
 /**
  *

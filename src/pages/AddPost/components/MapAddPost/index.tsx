@@ -43,9 +43,12 @@ const MapAddPost = () => {
     if (positionRef.current !== undefined) {
       getCurrentGeocode(positionRef.current).then((e) => {
         setGeocode(e.reverse().join(" "));
+        console.log("Geocode: ", e.reverse().join(" "));
       });
     }
+  }, [viewState, navigator]);
 
+  useEffect(() => {
     // post state 저장
     setPost((prevState) => ({
       ...prevState,
@@ -53,9 +56,8 @@ const MapAddPost = () => {
       longitude: viewState?.longitude,
       address: geocode,
     }));
-
     console.log("지도 정보입력 후: ", post); // 이게 엄청 많이 리렌더링 됨
-  }, [viewState]);
+  }, [geocode]);
 
   return (
     <Box
@@ -131,7 +133,7 @@ const MapAddPost = () => {
         ) : (
           <Skeleton
             variant="rectangular"
-            height={400}
+            height={600}
             sx={{ maxHeight: "65vh" }}
           />
         )}

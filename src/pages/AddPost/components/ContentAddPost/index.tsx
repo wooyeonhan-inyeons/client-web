@@ -34,7 +34,7 @@ const customTheme = (outerTheme: Theme) =>
     palette: {
       mode: outerTheme.palette.mode,
       primary: {
-        main: "#00A651",
+        main: "#ED6729",
       },
       secondary: {
         main: "#EEF1EE",
@@ -163,42 +163,36 @@ const ContentAddPost = () => {
         }}
       >
         <Box sx={{ display: "flex", flexDirection: "column" }}>
-          <Box sx={{ pb: "1rem" }}>
+          <Box
+            sx={{
+              display: "flex",
+              pb: "1rem",
+              justifyContent: "space-between",
+              alignItems: "flex-end",
+            }}
+          >
             <Chip
               label={`#${post?.category}`}
               size="medium"
               color="primary"
               sx={{ fontWeight: "800" }}
             />
-            <Box>
+            <Box sx={{ display: "flex" }}>
               <MapPin size={22} weight="fill" />
+              <Typography sx={{ pl: "5px" }}>{post?.address}</Typography>
             </Box>
           </Box>
           <TextField
-            label="주소를 확인해 주세요"
-            variant="standard"
-            InputProps={{
-              readOnly: true,
-            }}
-            defaultValue={post?.address}
-            margin="dense"
-          />
-          <TextField
-            label="우연의 제목을 입력해 주세요"
-            variant="standard"
-            margin="dense"
-            color="primary"
-            value={title}
-            onChange={onHandleTitle}
-          />
-          <TextField
             multiline
-            rows={4}
+            rows={6}
             label="어떤 일이 있었나요?"
+            // placeholder="어떤 우연을 발견하였나요?"
             variant="standard"
-            margin="dense"
             InputProps={{
               disableUnderline: true, // 하단 보더 선을 제거하는 옵션입니다.
+              style: {
+                borderTop: "0.5px solid #E5E5E5",
+              },
             }}
             value={content}
             onChange={onHandleContent}
@@ -212,7 +206,20 @@ const ContentAddPost = () => {
         >
           {({ imageList, onImageUpload, onImageRemove }) => (
             // write your building UI
-            <Box>
+            <Box
+              sx={{
+                position: "fixed",
+                bottom: 0,
+                margin: "0 auto",
+                left: 0,
+                right: 0,
+                pb: "7rem",
+                px: "1rem",
+                // "@media (min-width: 390px)": {
+                //   pt: "4rem",
+                // },
+              }}
+            >
               <ScrollContainer
                 className={`scroll-container ${
                   images.length == 0 ? classes.default : classes.image

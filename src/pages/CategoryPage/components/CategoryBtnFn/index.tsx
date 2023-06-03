@@ -10,7 +10,9 @@ import { mainPrimary } from "../../../../common";
 const CategoryBtn = ({ category }: { category: OneCategoryType }) => {
   // prop object type 삽질
   const theme = useTheme();
-  const [activeColor, setActiveColor] = useState("primary");
+  const [activeColor, setActiveColor] = useState(
+    theme.palette.background.paper
+  );
 
   const handleButtonClick = () => {
     setActiveColor(

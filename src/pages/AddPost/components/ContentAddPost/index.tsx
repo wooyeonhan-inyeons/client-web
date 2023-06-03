@@ -12,7 +12,7 @@ import ImageUploading, { ImageListType } from "react-images-uploading";
 import ScrollContainer from "react-indiana-drag-scroll";
 import Icon from "@mui/material/Icon";
 import { makeStyles } from "@material-ui/core/styles";
-import { MapPin } from "@phosphor-icons/react";
+import { MapPin, PlusCircle } from "@phosphor-icons/react";
 
 const useStyles = makeStyles((theme) => ({
   default: {
@@ -215,6 +215,9 @@ const ContentAddPost = () => {
                 }`}
                 horizontal
                 vertical={false}
+                style={{
+                  padding: "1.5rem",
+                }}
               >
                 {imageList.map((image, index) => (
                   <Box
@@ -321,25 +324,20 @@ const ContentAddPost = () => {
                   <Button
                     onClick={onImageUpload}
                     style={{
-                      // border: "1px soild #B2B1B1",
-                      // borderRadius: "20px",
-                      // backgroundColor: "#F3F3F3",
                       position: "absolute",
                       width: "100%",
                       height: "75%",
                       display: "flex",
                       flexDirection: "column",
-                      borderRadius: "50px",
+                      borderRadius: "15px",
                       background:
                         outerTheme.palette.mode === "light"
-                          ? "#f6f6f4"
+                          ? "#ffffff"
                           : "#343332",
-                      boxShadow: "10px 10x 50px #bebebe",
+                      boxShadow: "20px 20px 40px #bebebe",
                     }}
                   >
-                    <Icon style={{ fontSize: "3rem", color: "#ED6728" }}>
-                      add_circle
-                    </Icon>
+                    <PlusCircle size={40} />
                     <Typography
                       sx={{
                         color: "black",

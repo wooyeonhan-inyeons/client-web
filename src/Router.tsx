@@ -43,7 +43,7 @@ const Router = () => {
           element: <CategoryPage />,
         },
         {
-          path: "kakao/redirect",
+          path: "kakao/redirect/:access_token",
           element: <Auth />,
         },
       ],

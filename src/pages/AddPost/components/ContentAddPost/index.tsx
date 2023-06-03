@@ -13,6 +13,7 @@ import ScrollContainer from "react-indiana-drag-scroll";
 import Icon from "@mui/material/Icon";
 import { makeStyles } from "@material-ui/core/styles";
 import { ClassNames } from "@emotion/react";
+import { MapPin } from "@phosphor-icons/react";
 
 const useStyles = makeStyles((theme) => ({
   default: {
@@ -164,11 +165,14 @@ const ContentAddPost = () => {
         <Box sx={{ display: "flex", flexDirection: "column" }}>
           <Box sx={{ pb: "1rem" }}>
             <Chip
-              label={post?.category}
+              label={`#${post?.category}`}
               size="medium"
               color="primary"
-              sx={{ fontWeight: "900" }}
+              sx={{ fontWeight: "800" }}
             />
+            <Box>
+              <MapPin size={22} weight="fill" />
+            </Box>
           </Box>
           <TextField
             label="주소를 확인해 주세요"

@@ -1,24 +1,27 @@
 import { Box, CircularProgress, Typography } from "@mui/material";
 import React, { useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useLocation, useSearchParams } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { userState } from "../../recoil";
 
 export default function Auth() {
   const [searchParams] = useSearchParams();
+
   const access_token = searchParams.get("access_token");
   const [, setUser] = useRecoilState(userState);
+  const location = useLocation();
 
   useEffect(() => {
-    console.log("new token: ", access_token);
-    if (access_token !== null)
-      setUser((prev) => {
-        return {
-          ...prev,
-          first: true,
-          access_token: access_token as string,
-        };
-      });
+    console.log("test token: ", access_token);
+    console.log(location);
+    // if (access_token !== null)
+    //   setUser((prev) => {
+    //     return {
+    //       ...prev,
+    //       first: true,
+    //       access_token: access_token as string,
+    //     };
+    //   });
   }, []);
 
   return (

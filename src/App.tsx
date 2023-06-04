@@ -65,9 +65,9 @@ function App() {
         }}
       />
       <GlobalStyleWrapper>
-        <QueryClientProvider client={queryClient}>
-          <Router />
-        </QueryClientProvider>
+        {/* <QueryClientProvider client={queryClient}> */}
+        <Router />
+        {/* </QueryClientProvider> */}
       </GlobalStyleWrapper>
     </ThemeProvider>
   );

@@ -10,7 +10,7 @@ export default function Auth() {
   const [, setUser] = useRecoilState(userState);
 
   useEffect(() => {
-    console.log("access_token: ", access_token);
+    console.log("new token: ", access_token);
     if (access_token !== null)
       setUser((prev) => {
         return {

@@ -1,7 +1,6 @@
 import { LocationProps } from "../../../../interface";
 import { Asddress_components, setViewStateType } from "./type";
 import Geocode from "react-geocode";
-import axios from "axios";
 
 // export async function getCurrentLocation({ setViewState }: setViewStateType) {
 //   try {

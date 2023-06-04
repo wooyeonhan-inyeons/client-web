@@ -8,7 +8,6 @@ import { useOutletContext } from "react-router";
 import { ShakingProp } from "./type";
 
 // skeleton -> suspense
-// build
 
 const CategoryAddPost = () => {
   const { shaking } = useOutletContext<ShakingProp>();

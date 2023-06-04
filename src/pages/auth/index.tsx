@@ -6,19 +6,20 @@ import { userState } from "../../recoil";
 
 export default function Auth() {
   const [searchParams] = useSearchParams();
-  const query = searchParams.get("access_token");
+  const access_token = searchParams.get("access_token");
   const [, setUser] = useRecoilState(userState);
 
   useEffect(() => {
-    if (query !== null)
+    console.log("token: ", access_token);
+    if (access_token !== null)
       setUser((prev) => {
         return {
           ...prev,
           first: true,
-          access_token: query as string,
+          access_token: access_token as string,
         };
       });
-  }, []);
+  }, [access_token]);
 
   return (
     <Box
@@ -31,7 +32,7 @@ export default function Auth() {
         gap: "5rem",
       }}
     >
-      <Typography variant="h4">로그인 시도 중...</Typography>
+      <Typography variant="h4">{access_token} 로그인 시도 중...</Typography>
       <Box sx={{ py: 7 }}>
         <CircularProgress size={64} thickness={2} />
       </Box>

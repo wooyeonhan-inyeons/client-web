@@ -2,3 +2,5 @@ node_modules
 
 # API KEY
 .env
+
+.DS_Store

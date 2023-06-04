@@ -1,4 +1,12 @@
-import { Badge, Box, Button, Chip, TextField, Typography } from "@mui/material";
+import {
+  Badge,
+  Box,
+  Button,
+  Chip,
+  imageListClasses,
+  TextField,
+  Typography,
+} from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useOutletContext } from "react-router";
 import { PostStateInterface } from "../HeaderAddPost/interface";
@@ -10,8 +18,6 @@ import {
 } from "@mui/material/styles";
 import ImageUploading, { ImageListType } from "react-images-uploading";
 import ScrollContainer from "react-indiana-drag-scroll";
-import Icon from "@mui/material/Icon";
-import { makeStyles } from "@material-ui/core/styles";
 import { MapPin, PlusCircle } from "@phosphor-icons/react";
 
 const defaultStyle = {
@@ -215,6 +221,9 @@ const ContentAddPost = () => {
                 vertical={false}
                 style={{
                   padding: "1.5rem",
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: imageList.length ? "inherit" : "center",
                 }}
               >
                 {imageList.map((image, index) => (
@@ -325,7 +334,7 @@ const ContentAddPost = () => {
                       position: "absolute",
                       width: "100%",
                       maxWidth: "22rem",
-                      height: "75%",
+                      height: imageList.length ? "100%" : "75%",
                       display: "flex",
                       flexDirection: "column",
                       borderRadius: "15px",
@@ -347,6 +356,7 @@ const ContentAddPost = () => {
                       사진 추가
                     </Typography>
                   </Button>
+                  {/* )} */}
                 </Box>
               </ScrollContainer>
             </Box>

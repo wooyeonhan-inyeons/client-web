@@ -19,7 +19,7 @@ export default function Auth() {
           access_token: access_token as string,
         };
       });
-  }, [access_token]);
+  }, []);
 
   return (
     <Box

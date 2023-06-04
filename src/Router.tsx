@@ -39,12 +39,13 @@ const Router = () => {
           loader: () => Boolean(user.first) && redirect("/auth/cate"),
         },
         {
-          path: "cate",
-          element: <CategoryPage />,
+          path: "kakao/redirect/",
+          element: <Auth />,
+          loader: () => Boolean(user.first) && redirect("/auth/cate"),
         },
         {
-          path: "kakao/redirect/:access_token",
-          element: <Auth />,
+          path: "cate",
+          element: <CategoryPage />,
         },
       ],
       loader: () => user.role !== "GUEST" && redirect("/"),

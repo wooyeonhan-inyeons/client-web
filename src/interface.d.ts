@@ -5,6 +5,7 @@ export interface UserState {
   id: number;
   name: string;
   first: boolean;
+  access_token?: string;
 }
 
 export type themeType = "system" | "light" | "dark";

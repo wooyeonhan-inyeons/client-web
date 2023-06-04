@@ -30,7 +30,7 @@ const Router = () => {
 
   const router = createBrowserRouter([
     {
-      path: "auth/",
+      path: "auth/*",
       element: <MainWrapper isHeader={false} />,
       children: [
         {

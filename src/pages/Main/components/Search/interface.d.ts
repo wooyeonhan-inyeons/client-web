@@ -65,20 +65,6 @@ export interface GetWooyeonsType {
   post_id: string;
 }
 
-export interface GetDetailWooyeonType {
-  user_id: string;
-  post_id: string;
-  image: Array<imageObj>;
-  content: string;
-  category: WooyeonsCategory;
-  longitude: number;
-  latitude: number;
-  created_at: string;
-  comment_count: number;
-  emotion_count: number;
-  view_count: number;
-}
-
 export interface beforeWooyeonType {
   data: GetWooyeonsType[];
   setWooyeons: (value: React.SetStateAction<Wooyeons[]>) => void;

@@ -1,42 +1,62 @@
-import React from "react";
+import React, { useState } from "react";
 import SwipeableViews from "react-swipeable-views";
-import { Box } from "@mui/material";
+import { Box, MobileStepper } from "@mui/material";
 import { DetailCarousel } from "../../../../interface";
 
-export default function ImageCarousel({
-  activeStep,
-  handleStepChange,
-  images,
-}: DetailCarousel) {
+const ImageCarousel = ({ images }: DetailCarousel) => {
+  const [activeStep, setActiveStep] = useState(0);
+  const handleStepChange = (step: number) => {
+    setActiveStep(step);
+  };
+
   return (
-    <SwipeableViews
-      axis={"x"}
-      index={activeStep}
-      onChangeIndex={handleStepChange}
-      enableMouseEvents
-      style={{ width: "100%", aspectRatio: "3/4" }}
-    >
-      {images?.map((item) => (
-        <Box
-          key={item.img_id}
-          sx={{
-            width: "100%",
-            height: "100%",
-            minHeight: "100%",
-            // maxHeight: "70vh",
-            display: "flex",
-          }}
-        >
-          <img
-            src={item.img_url}
-            style={{
+    <>
+      <SwipeableViews
+        axis={"x"}
+        index={activeStep}
+        onChangeIndex={handleStepChange}
+        enableMouseEvents
+        style={{ width: "100%", aspectRatio: "1/1" }}
+      >
+        {images?.map((item) => (
+          <Box
+            key={item.img_id}
+            sx={{
               width: "100%",
-              minHeight: "50vh",
-              objectFit: "contain",
+              height: "100%",
+              minHeight: "100%",
+              display: "flex",
             }}
-          />
-        </Box>
-      ))}
-    </SwipeableViews>
+          >
+            <img
+              src={item.img_url}
+              style={{
+                width: "100%",
+                aspectRatio: "1/1",
+                minHeight: "50vh",
+                objectFit: "cover",
+              }}
+            />
+          </Box>
+        ))}
+      </SwipeableViews>
+      <MobileStepper
+        steps={1}
+        position="static"
+        activeStep={activeStep}
+        backButton={null}
+        nextButton={null}
+        sx={{
+          alignItems: "center",
+          justifyContent: "center",
+          dotStyle: { mx: 1 }, // dot 간격 조정하기
+          position: "relative",
+          top: "-30px",
+          background: "none",
+        }}
+      />
+    </>
   );
-}
+};
+
+export default ImageCarousel;

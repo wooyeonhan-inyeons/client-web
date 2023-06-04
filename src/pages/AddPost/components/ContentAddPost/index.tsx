@@ -1,12 +1,4 @@
-import {
-  Badge,
-  Box,
-  Button,
-  Chip,
-  imageListClasses,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Badge, Box, Button, Chip, TextField, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useOutletContext } from "react-router";
 import { PostStateInterface } from "../HeaderAddPost/interface";
@@ -19,18 +11,7 @@ import {
 import ImageUploading, { ImageListType } from "react-images-uploading";
 import ScrollContainer from "react-indiana-drag-scroll";
 import { MapPin, PlusCircle } from "@phosphor-icons/react";
-
-const defaultStyle = {
-  display: "flex",
-  height: "100%",
-  alignItems: "center",
-  justifyContent: "center",
-};
-
-const defaultStyle2 = {
-  display: "flex",
-  height: "100%",
-};
+import { mainPrimary, secondary } from "../../../../common";
 
 // 아이폰 SE 규격 css 수정
 const customTheme = (outerTheme: Theme) =>
@@ -38,10 +19,10 @@ const customTheme = (outerTheme: Theme) =>
     palette: {
       mode: outerTheme.palette.mode,
       primary: {
-        main: "#ED6729",
+        main: mainPrimary,
       },
       secondary: {
-        main: "#EEF1EE",
+        main: secondary,
       },
     },
     components: {
@@ -214,9 +195,7 @@ const ContentAddPost = () => {
               }}
             >
               <ScrollContainer
-                className={`scroll-container ${
-                  images.length == 0 ? defaultStyle : defaultStyle2
-                }`}
+                className="scroll-container"
                 horizontal
                 vertical={false}
                 style={{
@@ -229,10 +208,10 @@ const ContentAddPost = () => {
                 {imageList.map((image, index) => (
                   <Box
                     key={index}
-                    display="flex"
-                    justifyContent="center"
-                    alignItems="center"
                     sx={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
                       p: 20,
                       "@media (max-width: 375px)": {
                         p: 14,
@@ -345,7 +324,7 @@ const ContentAddPost = () => {
                       boxShadow: "20px 20px 40px #bebebe",
                     }}
                   >
-                    <PlusCircle size={40} />
+                    <PlusCircle size={40} color={secondary} />
                     <Typography
                       sx={{
                         color: "black",

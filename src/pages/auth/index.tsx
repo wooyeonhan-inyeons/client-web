@@ -35,7 +35,7 @@ export default function Auth() {
         gap: "5rem",
       }}
     >
-      <Typography variant="h4">{access_token} 로그인 시도 중...</Typography>
+      <Typography variant="h4">로그인 시도 중...</Typography>
       <Box sx={{ py: 7 }}>
         <CircularProgress size={64} thickness={2} />
       </Box>

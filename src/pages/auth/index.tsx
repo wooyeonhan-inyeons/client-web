@@ -14,14 +14,14 @@ export default function Auth() {
   useEffect(() => {
     console.log("test token: ", access_token);
     console.log(location);
-    // if (access_token !== null)
-    //   setUser((prev) => {
-    //     return {
-    //       ...prev,
-    //       first: true,
-    //       access_token: access_token as string,
-    //     };
-    //   });
+    if (access_token !== null)
+      setUser((prev) => {
+        return {
+          ...prev,
+          first: true,
+          access_token: access_token as string,
+        };
+      });
   }, []);
 
   return (

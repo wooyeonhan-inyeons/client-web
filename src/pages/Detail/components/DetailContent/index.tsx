@@ -1,43 +1,99 @@
-import React from "react";
-import { Box, Typography } from "@mui/material";
-import Avatar from "boring-avatars";
+import React, { Suspense } from "react";
+import { Box, IconButton, Skeleton, Typography } from "@mui/material";
 import { StyledDetailContent } from "./style";
 import TimeAgo from "javascript-time-ago";
 import ko from "javascript-time-ago/locale/ko";
-import { mainPrimary } from "../../../../common";
+import { avatarColors, secondary } from "../../../../common";
+import { GetPostInterface } from "../../interface";
+import { WooyeonsCategory } from "../../../../interface";
+import { Heart } from "@phosphor-icons/react";
 
-export default function DetailContent() {
+const LazyAvatar = React.lazy(() => import("boring-avatars"));
+const LazyTypography = React.lazy(() => import("@mui/material/Typography"));
+
+const wooyeonCategory: Array<{ id: WooyeonsCategory; value: string }> = [
+  { id: "DAILY", value: "일상" },
+  { id: "GROUP", value: "모임" },
+  { id: "INFO", value: "정보" },
+  { id: "EVENT", value: "이벤트" },
+  { id: "ADS", value: "광고" },
+  { id: "PRESENT", value: "선물" },
+];
+
+function getWooyeonCategory(key: string) {
+  const result = wooyeonCategory.find((p) => p.id === key);
+  return result?.value;
+}
+
+export default function DetailContent({
+  wooyeon,
+}: {
+  wooyeon: GetPostInterface | undefined;
+}) {
   TimeAgo.addLocale(ko);
   const timeAgo = new TimeAgo("ko");
-  const date = new Date();
+
+  let date;
+  if (wooyeon !== undefined) {
+    date = new Date(wooyeon?.created_at);
+  }
 
   return (
     <StyledDetailContent>
       <Box className="detail_header">
         <Box className="header_user">
-          <Avatar />
-          <Box sx={{ width: "100%" }}>
-            <Typography variant="body1">우연한 발견</Typography>
-            <Typography variant="body2">{timeAgo.format(date)}</Typography>
-          </Box>
-          <Box
-            sx={{
-              minWidth: "4rem",
-              height: "2rem",
-              lineHeight: "2rem",
-              borderRadius: "1rem",
-              backgroundColor: mainPrimary,
-              padding: "0rem 1rem",
-              textAlign: "center",
-              color: "#fff",
-            }}
+          <Suspense
+            fallback={
+              <Skeleton
+                variant="circular"
+                sx={{ width: "48px", height: "48px", aspectRatio: "1/1" }}
+              />
+            }
           >
-            <Typography variant="button">일상</Typography>
+            <Box>
+              <LazyAvatar
+                colors={avatarColors}
+                variant="beam"
+                size={48}
+                name={wooyeon?.post_id}
+              />
+            </Box>
+          </Suspense>
+          <Box sx={{ width: "100%" }}>
+            <Suspense
+              fallback={
+                <>
+                  <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
+                  <Skeleton
+                    variant="text"
+                    sx={{ fontSize: "1rem", width: "50%" }}
+                  />
+                </>
+              }
+            >
+              <LazyTypography variant="body1">뜨거운 감자</LazyTypography>
+              <Typography variant="body2">
+                {date && timeAgo.format(date?.getTime())}
+              </Typography>
+            </Suspense>
+          </Box>
+          <Box className="categoryTag">
+            <Typography variant="button">
+              #{getWooyeonCategory(wooyeon?.category as string)}
+            </Typography>
           </Box>
         </Box>
-        <Box className="header_content">
-          삼덕 인더매스,, 좋아요! 주말에 들려보세영
-          <br /> 드립커피 잘해여 👍👍
+        <Box className="header_content">{wooyeon?.content}</Box>
+        <Box className="footer_content">
+          <Box className="favorite">
+            <IconButton>
+              <Heart
+                color={secondary}
+                weight={wooyeon?.own_emotion ? "fill" : "regular"}
+              />
+            </IconButton>
+            <Typography variant="body2">{wooyeon?.emotion_count}</Typography>
+          </Box>
         </Box>
       </Box>
     </StyledDetailContent>

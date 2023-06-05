@@ -85,7 +85,7 @@ const Router = () => {
           ],
         },
         {
-          path: "detail/:postId",
+          path: "detail/:post_id",
           element: <Detail />,
         },
       ],

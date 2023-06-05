@@ -1,44 +1,41 @@
-import React, { useState } from "react";
+import React, { Suspense } from "react";
 import { HeadBlinder } from "./components/headBlinder";
-import { Box, MobileStepper } from "@mui/material";
-import { GetDetailWooyeonType } from "../../../Main/components/Search/interface";
-import ImageCarousel from "./components/ImageCarousel";
+import { Box, Skeleton } from "@mui/material";
+import { GetPostInterface } from "../../interface";
 
-// const ImageCarousel = React.lazy(() => import("./components/ImageCarousel"));
+const LazyImageCarousel = React.lazy(
+  () => import("./components/ImageCarousel")
+);
 
 export default function DetailImg({
   wooyeon,
 }: {
-  wooyeon: GetDetailWooyeonType | undefined;
+  wooyeon: GetPostInterface | undefined;
 }) {
-  const [activeStep, setActiveStep] = useState(0);
-  const handleStepChange = (step: number) => {
-    setActiveStep(step);
-  };
-
   return (
-    <Box sx={{ width: "100%" }}>
+    <Box
+      sx={{
+        width: "100%",
+        height: "100%",
+        aspectRatio: "1/1",
+        marginBottom: "2rem",
+      }}
+    >
       <HeadBlinder />
-      <ImageCarousel
-        activeStep={activeStep}
-        handleStepChange={handleStepChange}
-        images={wooyeon?.image}
-      />
-      <MobileStepper
-        steps={1}
-        position="static"
-        activeStep={activeStep}
-        backButton={null}
-        nextButton={null}
-        sx={{
-          alignItems: "center",
-          justifyContent: "center",
-          dotStyle: { mx: 1 }, // dot 간격 조정하기
-          position: "relative",
-          top: "-30px",
-          background: "none",
-        }}
-      />
+      <Suspense
+        fallback={
+          <Skeleton
+            variant="rectangular"
+            sx={{
+              display: "block",
+              width: "100%",
+              height: "100%",
+            }}
+          />
+        }
+      >
+        <LazyImageCarousel images={wooyeon?.image} />
+      </Suspense>
     </Box>
   );
 }

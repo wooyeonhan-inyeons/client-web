@@ -17,17 +17,19 @@ const SearchItem = ({ open, searchItems, isLoading }: SearchItemProps) => {
         variant="contained"
         onClick={searchItems}
         className="search-btn"
-        startIcon={!isLoading && <MagnifyingGlass />}
+        startIcon={
+          isLoading ? (
+            <CircularProgress sx={{ color: "#fff" }} size={16} />
+          ) : (
+            <MagnifyingGlass />
+          )
+        }
         disabled={isLoading}
         sx={{
           backgroundColor: mainPrimary + "!important",
         }}
       >
-        {!isLoading ? (
-          "우연 찾아보기"
-        ) : (
-          <CircularProgress sx={{ color: "#fff" }} size={20} />
-        )}
+        우연 찾아보기
       </Button>
 
       <Fab

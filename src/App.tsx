@@ -1,12 +1,23 @@
 import React, { useEffect, useState } from "react";
 import Router from "./Router";
-import { CssBaseline, GlobalStyles, Theme, ThemeProvider } from "@mui/material";
+import {
+  Button,
+  CssBaseline,
+  GlobalStyles,
+  Theme,
+  ThemeProvider,
+} from "@mui/material";
 import { useRecoilState } from "recoil";
 import { envState } from "./recoil";
 import { darkTheme, lightTheme } from "./common";
 import { grey } from "@mui/material/colors";
-import { QueryClient, QueryClientProvider } from "react-query";
+import {
+  QueryClient,
+  QueryClientProvider,
+  QueryErrorResetBoundary,
+} from "react-query";
 import GlobalStyleWrapper from "./component/GlobalStyle";
+import { ErrorBoundary } from "react-error-boundary";
 
 function App() {
   const [env] = useRecoilState(envState);
@@ -65,9 +76,25 @@ function App() {
         }}
       />
       <GlobalStyleWrapper>
-        <QueryClientProvider client={queryClient}>
-          <Router />
-        </QueryClientProvider>
+        <QueryErrorResetBoundary>
+          {({ reset }) => (
+            <ErrorBoundary
+              onReset={reset}
+              fallbackRender={({ resetErrorBoundary }) => (
+                <div>
+                  There was an error!
+                  <Button onClick={() => resetErrorBoundary()}>
+                    Try again
+                  </Button>
+                </div>
+              )}
+            >
+              <QueryClientProvider client={queryClient}>
+                <Router />
+              </QueryClientProvider>
+            </ErrorBoundary>
+          )}
+        </QueryErrorResetBoundary>
       </GlobalStyleWrapper>
     </ThemeProvider>
   );

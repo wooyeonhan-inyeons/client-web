@@ -1,10 +1,10 @@
 import { BACK_URL } from "../../common";
-import { GetDetailWooyeonType } from "../Main/components/Search/interface";
+import { GetPostInterface } from "./interface";
 
 export const getDetailWooyeon = async (post_id: string) => {
   //test code
   await new Promise((resolve) => setTimeout(resolve, 1000));
-  const response: GetDetailWooyeonType = await fetch(
+  const response: GetPostInterface = await fetch(
     `${BACK_URL}/post?post_id=${post_id}`,
     {
       method: "GET",

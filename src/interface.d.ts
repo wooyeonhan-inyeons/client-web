@@ -11,6 +11,7 @@ export interface UserState {
 export type themeType = "system" | "light" | "dark";
 export interface EnvState {
   theme: themeType;
+  backNoti: boolean;
 }
 
 export interface menuProps {

@@ -56,7 +56,13 @@ function LoginPage() {
       />
 
       {/* 이미지 영역(상단) */}
-      <Grid item width="100%" sx={{ margin: "0 auto" }}>
+      <Grid
+        item
+        width="100%"
+        sx={{
+          margin: "0 auto",
+        }}
+      >
         <ImageSlideView
           introduction={introduction}
           activeStep={activeStep}

@@ -27,6 +27,10 @@ const ImageSlideView = ({
               overflow: "hidden",
               display: "flex",
               justifyContent: "center",
+              alignItems: "center",
+              margin: "0 auto",
+              maxWidth: "65%",
+              overflowY: "hidden",
             }}
           >
             {Math.abs(activeStep - index) <= 2 ? (
@@ -38,7 +42,9 @@ const ImageSlideView = ({
                 sx={{
                   position: "relative",
                   top: step.css,
-                  // left: "2rem",
+                  "@media (max-width: 375px)": {
+                    height: "350px",
+                  },
                 }}
               />
             ) : null}

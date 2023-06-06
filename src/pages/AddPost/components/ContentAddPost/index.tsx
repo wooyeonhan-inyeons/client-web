@@ -310,12 +310,19 @@ const ContentAddPost = () => {
                         outerTheme.palette.mode === "light"
                           ? "#ffffff"
                           : "#343332",
+                      boxShadow:
+                        outerTheme.palette.mode === "light"
+                          ? "20px 20px 40px #bebebe"
+                          : "20px 20px 40px #1f1f1f",
                     }}
                   >
                     <PlusCircle size={40} color={secondary} />
                     <Typography
                       sx={{
-                        color: "black",
+                        color:
+                          outerTheme.palette.mode === "light"
+                            ? "black"
+                            : "white",
                         fontSize: "1.2rem",
                         fontWeight: "medium",
                       }}

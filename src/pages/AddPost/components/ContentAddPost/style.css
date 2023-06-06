@@ -30,7 +30,6 @@
   display: flex;
   flex-direction: column;
   border-radius: 15px;
-  box-shadow: 20px 20px 40px #bebebe;
   @media screen and (max-width: 375px) {
     margin-bottom: 2rem;
     height: 14rem;
@@ -45,7 +44,6 @@
   display: flex;
   flex-direction: column;
   border-radius: 15px;
-  box-shadow: 20px 20px 40px #bebebe;
   @media screen and (max-width: 375px) {
     height: 100%;
     width: 100%;

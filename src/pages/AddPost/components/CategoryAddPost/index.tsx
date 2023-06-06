@@ -18,7 +18,7 @@ const CategoryAddPost = () => {
 
   const ShakingTypography = styled(Typography)<{ shaking: boolean }>(
     ({ shaking }) => ({
-      animation: shaking ? "shake 1s" : "none",
+      animation: shaking === true ? "shake 1s" : "none",
 
       "@keyframes shake": {
         "0%": { transform: "translateX(0)" },

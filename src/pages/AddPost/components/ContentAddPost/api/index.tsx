@@ -7,54 +7,35 @@ import { UploadPostType } from "../../HeaderAddPost/interface";
 
 export const Post = async (post: any) => {
   const formData = new FormData();
-  console.log("form data123: ", formData);
+  console.log("==== updated 9 ====");
+  console.log("photo: ", post.photo);
 
-  const option = {
-    maxSizeMB: 1,
-    maxWidthOrHeight: 1024,
-  };
+  formData.append("latitude", post.latitude);
+  formData.append("longitude", post.longitude);
+  formData.append("category", post.category); // 데이터 형식 고치기
+  formData.append("content", post.content);
 
   const files = [];
   for (const photo of post.photo || []) {
     if (photo instanceof Blob || photo instanceof File) {
-      if (photo.type.startsWith("image/")) {
-        files.push(photo);
-      } else {
-        console.error("Invalid image file:", photo);
-      }
+      files.push(photo);
     } else {
       // photo가 Blob 또는 File이 아닌 경우, 적절한 변환 작업 수행
-      const blob = new Blob([photo], { type: "image/jpeg" });
-      const file = new File([blob], "photo.jpg");
+      const blob = new Blob([photo], { type: "image/png" });
+      const file = new File([blob], photo.file.name);
       files.push(file);
+      formData.append("file", file);
     }
   }
 
-  for (let i = 0; i < files.length; i++) {
-    const compressedBlob = await imageCompression(files[i] as any, option);
-    const compressedFile = new File([compressedBlob], compressedBlob.name, {
-      type: compressedBlob.type,
-    });
-    formData.append("photo", compressedFile);
-  }
-
-  formData.append("latitude", post.latitude);
-  formData.append("longitude", post.longitude);
-  formData.append("category", post.category);
-  formData.append("content", post.content);
-  // const blob = new Blob([post.photo], { type: "image/jpeg" });
-  // const file = new File([blob], "photo.jpg");
-  // formData.append("photo", file);
-  console.log("has?: ", formData.has("latitude"));
-  console.log("Form Data Contents:");
-  for (const [key, value] of formData.entries()) {
-    console.log("key : value ", key, value);
-  }
+  const boundary = `multipart-formdata-boundary-${Math.random()
+    .toString()
+    .substring(2)}`;
 
   const response = await fetch(`${BACK_URL}/post`, {
     method: "POST",
     headers: {
-      "Content-Type": "multipart/form-data",
+      "Content-Type": `multipart/form-data; boundary=${boundary};`,
       Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
     },
     body: formData,

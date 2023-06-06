@@ -89,6 +89,7 @@ function MainWrapper({ isHeader }: HeaderProp) {
       // navigate("/");
     },
   });
+
   return (
     <>
       {isHeader && (

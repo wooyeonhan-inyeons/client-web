@@ -5,42 +5,42 @@ import {
 
 export const categoryArr: CategoryArr = [
   {
-    id: Category.Daily,
+    id: Category.DAILY,
     selected: false,
     fn_print: function print() {
       console.log(this.id);
     },
   },
   {
-    id: Category.Metting,
+    id: Category.GROUP,
     selected: false,
     fn_print: function print() {
       console.log(this.id);
     },
   },
   {
-    id: Category.Commercial,
+    id: Category.ADS,
     selected: false,
     fn_print: function print() {
       console.log(this.id);
     },
   },
   {
-    id: Category.Information,
+    id: Category.INFO,
     selected: false,
     fn_print: function print() {
       console.log(this.id);
     },
   },
   {
-    id: Category.Event,
+    id: Category.EVENT,
     selected: false,
     fn_print: function print() {
       console.log(this.id);
     },
   },
   {
-    id: Category.Gift,
+    id: Category.PRESENT,
     selected: false,
     fn_print: function print() {
       console.log(this.id);

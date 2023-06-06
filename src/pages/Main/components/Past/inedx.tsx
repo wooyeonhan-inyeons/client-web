@@ -11,6 +11,14 @@ import {
   getCurrentLocation,
 } from "../../../AddPost/components/MapAddPost/utils";
 import { LocationProps } from "../../../../interface";
+import { getPastWooyeon } from "./api";
+import { number } from "prop-types";
+import { SearchDateType } from "./interface";
+import { useMutation } from "react-query";
+
+// 달별 우연 조회 : 달력의 날짜 클릭 -> 클릭한 날짜와 연도를 param로 넣고 getPastWooyeon
+// 클릭한 날짜에 created_at 우연을 달력 위 컴포넌트로 띄움
+// 컴포넌트 클릭시 post lat,log 위치로 지도 이동
 
 const Past = () => {
   const { open, Drawer, toggleDrawer } = useDrawer();
@@ -23,6 +31,12 @@ const Past = () => {
   );
   //drawer를 올릴 떄 터치 이벤트를 사용할 수 없는 환경을 위함
   const isTouchDevice = "ontouchstart" in window;
+  // 검색할 날짜 연월일
+  const [searchDate, setSearchDate] = useState<SearchDateType>({
+    year: today.getFullYear(),
+    month: today.getMonth() + 1,
+    date: today.getDate(),
+  });
 
   const initPosition = {
     longitude: 127.9068,
@@ -37,10 +51,26 @@ const Past = () => {
     if (positionRef.current == initPosition) {
       getCurrentLocation({ setViewState });
     }
-  }, [navigator]);
+    console.log("searchDate: ", searchDate);
+    mutate(); // 일단 이번달 우연 조회 시작
+  }, [navigator, searchDate]);
 
   const [geocode, setGeocode] = useState<string | undefined>(undefined);
   const positionRef = useRef<LocationProps | undefined>(initPosition);
+
+  const { mutate } = useMutation(
+    "get",
+    () => getPastWooyeon(searchDate.month, searchDate.year),
+    {
+      onMutate() {
+        //기존 우연들 초기화와 함께 시작
+      },
+      onSuccess: (data) => {
+        console.log("data: ", data);
+        console.log("searchDate: ", searchDate);
+      },
+    }
+  );
 
   // 받아온 위치 정보를 한글주소체계로 변환 후 post에 저장
   useEffect(() => {
@@ -99,7 +129,10 @@ const Past = () => {
         headerChildren={CalendarHeader(displayDate)}
         drawerBleeding={100}
       >
-        <Calendar setDisplayDate={setDisplayDate} />
+        <Calendar
+          setDisplayDate={setDisplayDate}
+          setSearchDate={setSearchDate}
+        />
       </Drawer>
     </>
   );

@@ -12,8 +12,8 @@ import ImageUploading, { ImageListType } from "react-images-uploading";
 import ScrollContainer from "react-indiana-drag-scroll";
 import { MapPin, PlusCircle } from "@phosphor-icons/react";
 import { mainPrimary, secondary } from "../../../../common";
-import { useMutation } from "react-query";
-import { Post } from "./api";
+import { Category } from "../CategoryAddPost/type";
+import "./style.css";
 
 // 아이폰 SE 규격 css 수정
 const customTheme = (outerTheme: Theme) =>
@@ -97,7 +97,8 @@ const ContentAddPost = () => {
     addUpdateIndex: number[] | undefined
   ) => {
     // data for submit
-    console.log(imageList, addUpdateIndex);
+    console.log("imageList: ", imageList);
+    console.log("addUpdateIndex: ", addUpdateIndex);
     setImages(imageList as never[]);
   };
 
@@ -120,8 +121,6 @@ const ContentAddPost = () => {
   const [showButton, setShowButton] = useState(false);
   const [imageStyle, setImageStyle] = useState({});
   const [selectedImage, setSelectedImage] = useState<number>();
-  const [submitLoding, setSubmitLoding] = useState(false);
-  const [error, setError] = useState("");
 
   const handleImageClick = (idx: number) => {
     setSelectedImage(idx);
@@ -154,7 +153,7 @@ const ContentAddPost = () => {
             }}
           >
             <Chip
-              label={`#${post?.category}`}
+              label={post?.category && `#${Category[post.category as never]}`}
               size="medium"
               color="primary"
               sx={{ fontWeight: "800" }}
@@ -168,7 +167,6 @@ const ContentAddPost = () => {
             multiline
             rows={6}
             label="어떤 일이 있었나요?"
-            // placeholder="어떤 우연을 발견하였나요?"
             variant="standard"
             InputProps={{
               disableUnderline: true, // 하단 보더 선을 제거하는 옵션입니다.
@@ -196,18 +194,19 @@ const ContentAddPost = () => {
                 left: 0,
                 right: 0,
                 pb: "7rem",
+                "@media (max-width: 375px)": {
+                  pb: "1rem",
+                },
               }}
             >
               <ScrollContainer
-                className="scroll-container"
+                className={
+                  imageList.length
+                    ? "scroll-container scrollContainer--imgExist"
+                    : "scroll-container scrollContainer"
+                }
                 horizontal
                 vertical={false}
-                style={{
-                  padding: "1.5rem",
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: imageList.length ? "inherit" : "center",
-                }}
               >
                 {imageList.map((image, index) => (
                   <Box
@@ -222,6 +221,7 @@ const ContentAddPost = () => {
                       },
                       position: "relative",
                       mr: 3,
+                      height: imageList.length ? "100%" : "75%",
                     }}
                     onClick={() => handleImageClick(index)}
                   >
@@ -299,39 +299,30 @@ const ContentAddPost = () => {
                       : null}
                   </Box>
                 ))}
-                <Box
-                  display="flex"
-                  justifyContent="center"
-                  alignItems="center"
-                  sx={{
-                    p: 20,
-                    "@media (max-width: 375px)": {
-                      p: 19,
-                    },
-                    position: "relative",
-                  }}
-                >
+                <Box display="flex" justifyContent="center" alignItems="center">
                   <Button
                     onClick={onImageUpload}
+                    className={
+                      imageList.length ? "plusImage--imgExist" : "plusImage"
+                    }
                     style={{
-                      position: "absolute",
-                      width: "100%",
-                      maxWidth: "22rem",
-                      height: imageList.length ? "100%" : "75%",
-                      display: "flex",
-                      flexDirection: "column",
-                      borderRadius: "15px",
                       background:
                         outerTheme.palette.mode === "light"
                           ? "#ffffff"
                           : "#343332",
-                      boxShadow: "20px 20px 40px #bebebe",
+                      boxShadow:
+                        outerTheme.palette.mode === "light"
+                          ? "20px 20px 40px #bebebe"
+                          : "20px 20px 40px #1f1f1f",
                     }}
                   >
                     <PlusCircle size={40} color={secondary} />
                     <Typography
                       sx={{
-                        color: "black",
+                        color:
+                          outerTheme.palette.mode === "light"
+                            ? "black"
+                            : "white",
                         fontSize: "1.2rem",
                         fontWeight: "medium",
                       }}

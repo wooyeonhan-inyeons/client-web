@@ -32,11 +32,28 @@ const TextSlideView = ({
           >
             {/* 안내 문구 map */}
             {introduction.map((text, index) => (
-              <Grid item sx={{ pt: "2rem", pb: "2rem" }} key={index}>
+              <Grid
+                item
+                sx={{
+                  py: "2rem",
+                  "@media (max-width: 375px)": {
+                    py: "1rem",
+                  },
+                }}
+                key={index}
+              >
                 <Typography
-                  variant="h4"
+                  // variant="h4"
                   align="center"
-                  sx={{ fontWeight: 600 }}
+                  sx={{
+                    fontSize: "2rem",
+                    fontWeight: 600,
+                    lineHeight: 1.2,
+                    "@media (max-width: 375px)": {
+                      fontSize: "1.5rem",
+                      fontWeight: 500,
+                    },
+                  }}
                 >
                   <span
                     dangerouslySetInnerHTML={{ __html: text.mainTextLine1 }}
@@ -49,7 +66,13 @@ const TextSlideView = ({
                 <Typography
                   variant="subtitle1"
                   align="center"
-                  sx={{ color: "#A2A2A2", pt: "0.7rem" }}
+                  sx={{
+                    color: "#A2A2A2",
+                    pt: "0.7rem",
+                    "@media (max-width: 375px)": {
+                      pt: "0.5rem",
+                    },
+                  }}
                 >
                   {text.subText}
                 </Typography>

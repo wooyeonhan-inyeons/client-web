@@ -71,24 +71,27 @@ function MainWrapper({ isHeader }: HeaderProp) {
   };
 
   // mutation
-  const { mutate } = useMutation("post", () => Post(post), {
+  const { mutate, isLoading } = useMutation("post", () => Post(post), {
     onMutate: (data) => {
       //시작
       console.log("onMutation: ", data);
+      console.log("isLoading: ", isLoading);
       setSubmitLoding(true);
     },
     onError: (error: Error) => {
       setError(error.message);
     },
     onSuccess: () => {
-      console.log("success.?");
+      console.log("우연 등록하기 성공!");
+      navigate("/");
     },
     onSettled: () => {
       //종료
       setSubmitLoding(false);
-      // navigate("/");
+      navigate("/");
     },
   });
+
   return (
     <>
       {isHeader && (
@@ -148,7 +151,11 @@ function MainWrapper({ isHeader }: HeaderProp) {
                 pb: 4,
               }}
             >
-              <SaveBtn text={btnText} onClick={handleBtnNavigate} />
+              <SaveBtn
+                text={btnText}
+                onClick={handleBtnNavigate}
+                isLoading={isLoading}
+              />
             </Box>
           )}
         </Box>

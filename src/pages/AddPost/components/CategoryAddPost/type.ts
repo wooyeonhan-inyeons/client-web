@@ -1,12 +1,12 @@
 import { Dispatch, SetStateAction } from "react";
 
 export enum Category {
-  Daily = "일상",
-  Metting = "모임",
-  Commercial = "광고",
-  Information = "정보",
-  Event = "이벤트",
-  Gift = "선물",
+  "DAILY" = "일상",
+  "GROUP" = "모임",
+  "ADS" = "광고",
+  "INFO" = "정보",
+  "EVENT" = "이벤트",
+  "PRESENT" = "선물",
 }
 
 export interface OneCategoryType {

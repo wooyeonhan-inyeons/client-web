@@ -6,6 +6,9 @@ import { HeaderProp, WrapperOptInterface } from "./interface";
 import Header from "../Header";
 import { StyledContainer } from "./style";
 import SaveBtn from "../SaveBtn";
+import { useMutation } from "react-query";
+import { Post } from "../../pages/AddPost/components/ContentAddPost/api";
+import { UploadPostType } from "../../pages/AddPost/components/HeaderAddPost/interface";
 
 function MainWrapper({ isHeader }: HeaderProp) {
   const [headOpt, setHeadOpt] = useState<HeaderOptinterface>({
@@ -26,6 +29,27 @@ function MainWrapper({ isHeader }: HeaderProp) {
   const [category, setCategory] = useState<string>();
   const [shaking, setShaking] = useState<boolean>(false);
   const [btnText, setBtnText] = useState("다음");
+
+  const initialPostState: UploadPostType = {
+    latitude: undefined,
+    longitude: undefined,
+    address: null,
+    category: null,
+    photo: [],
+    content: "",
+  };
+  const [post, setPost] = useState<UploadPostType | null>(initialPostState);
+  const [submitLoding, setSubmitLoding] = useState(false);
+  const [error, setError] = useState("");
+
+  const uploadWooyeon = (post: any | null) => {
+    console.log("오호라 잘도 여기까지 왔군");
+    console.log(post);
+    // if (!post?.photo.length) return setError("⚠️  사진이 포함되어야 합니다.");
+    // if (!post?.content) return setError("⚠️  내용이 없습니다.");
+    mutate();
+  };
+
   const handleBtnNavigate = () => {
     if (location.pathname === "/add-post") {
       setBtnText("다음");
@@ -35,15 +59,36 @@ function MainWrapper({ isHeader }: HeaderProp) {
       category && navigate("/add-post/content");
       if (!category) {
         setShaking(true);
-        // console.log("흔들흔들 setShaking", shaking);
+        console.log("흔들흔들 setShaking", shaking);
         // 이후에 바로 false로 설정해야 되는데 일단 미루겠음
       }
     } else {
-      setBtnText("다음");
-      navigate("/add-post/category"); // 우연 등록 시 라우팅 수정하기
+      // 우연 등록하기 버튼 클릭시
+      // setBtnText("다음");
+      // navigate("/add-post/category"); // 우연 등록 시 라우팅 수정하기
+      uploadWooyeon(post);
     }
   };
 
+  // mutation
+  const { mutate } = useMutation("post", () => Post(post), {
+    onMutate: (data) => {
+      //시작
+      console.log("onMutation: ", data);
+      setSubmitLoding(true);
+    },
+    onError: (error: Error) => {
+      setError(error.message);
+    },
+    onSuccess: () => {
+      console.log("success.?");
+    },
+    onSettled: () => {
+      //종료
+      setSubmitLoding(false);
+      // navigate("/");
+    },
+  });
   return (
     <>
       {isHeader && (
@@ -87,6 +132,8 @@ function MainWrapper({ isHeader }: HeaderProp) {
               setCategory,
               shaking,
               setShaking,
+              post,
+              setPost,
             }}
           />
           {wrapperOpt.isBtn && (

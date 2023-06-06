@@ -29,8 +29,8 @@ const MapAddPost = () => {
     if (positionRef.current == initPosition) {
       getCurrentLocation({ setViewState });
     }
-    console.log("viewstate: ", viewState);
-    console.log("navigator: ", navigator);
+    // console.log("viewstate: ", viewState);
+    // console.log("navigator: ", navigator);
   }, [navigator]);
 
   const [geocode, setGeocode] = useState<string | undefined>(undefined);
@@ -43,7 +43,7 @@ const MapAddPost = () => {
     if (positionRef.current !== undefined) {
       getCurrentGeocode(positionRef.current).then((e) => {
         setGeocode(e.reverse().join(" "));
-        console.log("Geocode: ", e.reverse().join(" "));
+        // console.log("Geocode: ", e.reverse().join(" "));
       });
     }
   }, [viewState, navigator]);
@@ -56,7 +56,7 @@ const MapAddPost = () => {
       longitude: viewState?.longitude,
       address: geocode,
     }));
-    console.log("지도 정보입력 후: ", post); // 이게 엄청 많이 리렌더링 됨
+    // console.log("지도 정보입력 후: ", post);
   }, [geocode]);
 
   return (

@@ -12,6 +12,8 @@ import ImageUploading, { ImageListType } from "react-images-uploading";
 import ScrollContainer from "react-indiana-drag-scroll";
 import { MapPin, PlusCircle } from "@phosphor-icons/react";
 import { mainPrimary, secondary } from "../../../../common";
+import { useMutation } from "react-query";
+import { Post } from "./api";
 
 // 아이폰 SE 규격 css 수정
 const customTheme = (outerTheme: Theme) =>
@@ -118,6 +120,8 @@ const ContentAddPost = () => {
   const [showButton, setShowButton] = useState(false);
   const [imageStyle, setImageStyle] = useState({});
   const [selectedImage, setSelectedImage] = useState<number>();
+  const [submitLoding, setSubmitLoding] = useState(false);
+  const [error, setError] = useState("");
 
   const handleImageClick = (idx: number) => {
     setSelectedImage(idx);

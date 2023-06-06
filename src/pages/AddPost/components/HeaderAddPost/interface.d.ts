@@ -8,7 +8,7 @@ export interface UploadPostType {
   longitude?: number | undefined;
   address?: string | null;
   category?: string | null;
-  photo?: Photo[];
+  photo?: Iterable<Photo>;
   content?: string;
 }
 

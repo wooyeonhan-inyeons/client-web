@@ -60,7 +60,7 @@ const CategoryBtn = ({ category }: { category: OneCategoryType }) => {
   };
 
   useEffect(() => {
-    if (post?.category === category.id) {
+    if (post?.category === setCate(category.id)) {
       setActiveColor(mainPrimary);
     }
   }, []);

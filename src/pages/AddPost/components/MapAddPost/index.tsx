@@ -29,8 +29,6 @@ const MapAddPost = () => {
     if (positionRef.current == initPosition) {
       getCurrentLocation({ setViewState });
     }
-    // console.log("viewstate: ", viewState);
-    // console.log("navigator: ", navigator);
   }, [navigator]);
 
   const [geocode, setGeocode] = useState<string | undefined>(undefined);

@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from "react";
+import React, { memo, useLayoutEffect } from "react";
 import { useOutletContext } from "react-router-dom";
 import {
   ContextInterface,
@@ -10,7 +10,6 @@ import {
   Box,
   Divider,
   Stack,
-  Switch,
   ToggleButton,
   ToggleButtonGroup,
   Typography,
@@ -19,8 +18,9 @@ import { useRecoilState } from "recoil";
 import { envState } from "../../../../recoil";
 import { CircleHalf, Moon, Sun, X } from "@phosphor-icons/react";
 import { mainPrimary } from "../../../../common";
+import { StyledSwitch } from "../../../../component/StyledSwitch";
 
-export default function SettingPage() {
+const SettingPage = () => {
   const { setHeadOpt, navigate } = useOutletContext<ContextInterface>();
 
   const [env, setEnv] = useRecoilState(envState);
@@ -119,7 +119,7 @@ export default function SettingPage() {
           }}
         >
           <Typography variant="body1">백그라운드 알림</Typography>
-          <Switch
+          <StyledSwitch
             checked={env.backNoti}
             value="backgroundNotification"
             onChange={handleBackNoti}
@@ -131,4 +131,6 @@ export default function SettingPage() {
       </Box>
     </Stack>
   );
-}
+};
+
+export default memo(SettingPage);

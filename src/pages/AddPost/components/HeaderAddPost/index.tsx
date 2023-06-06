@@ -4,6 +4,8 @@ import { ContextInterface, HeaderOptinterface } from "../../../../interface";
 import { UploadPostType } from "./interface";
 import { WrapperOptInterface } from "../../../../component/MainWrapper/interface";
 import { X } from "@phosphor-icons/react";
+import { useMutation } from "react-query";
+import { Post } from "../ContentAddPost/api";
 
 function HeaderAddPost() {
   const {
@@ -13,18 +15,20 @@ function HeaderAddPost() {
     setCategory,
     shaking,
     setShaking,
+    post,
+    setPost,
   } = useOutletContext<ContextInterface>();
 
   // 컴포넌트에서 사용할 기본 상태
-  const initialPostState: UploadPostType = {
-    latitude: undefined,
-    longitude: undefined,
-    address: null,
-    category: null,
-    photo: [],
-    content: "",
-  };
-  const [post, setPost] = useState<UploadPostType | null>(initialPostState);
+  // const initialPostState: UploadPostType = {
+  //   latitude: undefined,
+  //   longitude: undefined,
+  //   address: null,
+  //   category: null,
+  //   photo: [],
+  //   content: "",
+  // };
+  // const [post, setPost] = useState<UploadPostType | null>(initialPostState);
 
   const headerOption: HeaderOptinterface = {
     menus: [

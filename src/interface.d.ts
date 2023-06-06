@@ -47,6 +47,8 @@ export interface ContextInterface {
   setCategory?: Dispatch<SetStateAction<string>>;
   shaking: boolean;
   setShaking: Dispatch<SetStateAction<boolean>>;
+  post: UploadPostType | null;
+  setPost: React.Dispatch<React.SetStateAction<UploadPostType | null>>;
 }
 
 export interface onlyNavigateInterface {

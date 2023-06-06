@@ -47,6 +47,25 @@ export const searchPageStyle = {
     from: { borderColor: "#c6c6c661" },
     to: { borderColor: "#4646467a" },
   },
+  "& .loadingWooyeon": {
+    minWidth: "120vw",
+    aspectRatio: "1/1",
+    // backgroundColor: "inherit",
+    // marginBottom: "16px",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    zIndex: 9,
+  },
+  "& .loadingWooyeon .lottie": {
+    // padding: "28%",
+    width: "50%",
+    margin: "0 auto",
+  },
+  "& .loadingWooyeon .MuiTypography-root": {
+    padding: "0 20vw",
+    textAlign: "center",
+  },
 };
 
 export const forUntouchableStyle = {

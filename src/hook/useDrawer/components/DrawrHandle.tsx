@@ -21,7 +21,7 @@ const DrawrHandle = ({
         visibility: "visible",
         right: 0,
         left: 0,
-        boxShadow: `0px -7px 7px ${alpha(mainPrimary, 0.2)}`,
+        boxShadow: `0px -7px 7px ${alpha(mainPrimary, 0.1)}`,
         backgroundColor: theme.palette.background.default,
         cursor: "pointer",
         zIndex: 99,

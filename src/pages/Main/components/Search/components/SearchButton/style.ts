@@ -22,6 +22,7 @@ export function searchBtnStyle(open: boolean) {
       maxWidth: "444px",
       borderRadius: open ? "0" : "1.5rem",
       padding: open ? "2rem 0 4rem" : "0 2rem",
+      color: "#fff !important",
     },
     "& .MuiButton-startIcon svg": {
       fontSize: "15px",

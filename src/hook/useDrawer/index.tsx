@@ -65,7 +65,7 @@ const Drawer = ({
             overflow: "scroll",
             zIndex: 10,
             px: 2,
-            boxShadow: `0px -4px 4px ${alpha(mainPrimary, 0.2)}`,
+            boxShadow: `0px -4px 4px ${alpha(mainPrimary, 0.1)}`,
           }}
         >
           {children}

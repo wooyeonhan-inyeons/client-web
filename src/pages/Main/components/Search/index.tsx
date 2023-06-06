@@ -15,11 +15,8 @@ import { getPost } from "./api";
 import { useMutation } from "react-query";
 import { filterState } from "../../../../recoil";
 import { useRecoilState } from "recoil";
-
-const initPosition = {
-  latitude: 35.8527,
-  longitude: 128.4971,
-};
+import Lottie from "lottie-react";
+import thinkingAnimation from "../../../../asset/thinking.json";
 
 const Search = () => {
   const { navigate } = useOutletContext<ContextInterface>();
@@ -40,6 +37,7 @@ const Search = () => {
 
   useEffect(() => {
     if (position !== undefined) getWooyeons();
+    else console.log("위치 찾는 중...");
   }, [position]);
 
   useEffect(() => {
@@ -92,26 +90,43 @@ const Search = () => {
             <div />
           </div>
         </div>
-        <Typography variant="h5" sx={{ marginBottom: "40px" }}>
-          🍀
-        </Typography>
-        <Box className="wooyeonArea">
-          {wooyeons.map((item, index) => (
-            <WooyeonItem
-              post_id={item.post_id}
-              key={item.image + index.toString()}
-              image={item.image}
-              pos={item.pos}
-              onClick={() => navigate(`detail/${item.post_id}`)}
+        {position !== undefined && !isLoading && wooyeons.length === 0 ? (
+          //우연이 없을 떄
+          <Box className="loadingWooyeon">
+            <Lottie
+              className="lottie"
+              animationData={thinkingAnimation}
+              loop={true}
             />
-          ))}
-        </Box>
+            <Typography variant="body1" sx={{ marginBottom: "40px" }}>
+              근처에 확인할 수 있는 <br />
+              우연이 존재하지 않아요.
+            </Typography>
+          </Box>
+        ) : (
+          <>
+            <Typography variant="h5" sx={{ marginBottom: "40px" }}>
+              🍀
+            </Typography>
+            <Box className="wooyeonArea">
+              {wooyeons.map((item, index) => (
+                <WooyeonItem
+                  post_id={item.post_id}
+                  key={item.image + index.toString()}
+                  image={item.image}
+                  pos={item.pos}
+                  onClick={() => navigate(`detail/${item.post_id}`)}
+                />
+              ))}
+            </Box>
+          </>
+        )}
       </Box>
       <SearchItem
         open={open}
         searchItems={searchItems}
         navigate={navigate}
-        isLoading={isLoading}
+        isLoading={isLoading === true || position === undefined}
       />
       {
         //터치 이벤트를 사용할 수 없는 환경을 위함

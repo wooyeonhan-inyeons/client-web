@@ -7,11 +7,13 @@ import { UploadPostType } from "../../HeaderAddPost/interface";
 
 export const Post = async (post: any) => {
   const formData = new FormData();
-  console.log("==== updated 9 ====");
+  console.log("==== updated 15 ====");
   console.log("photo: ", post.photo);
 
-  formData.append("latitude", post.latitude);
-  formData.append("longitude", post.longitude);
+  console.log("append하기 전 타입: ", typeof post.latitude);
+
+  formData.append("latitude", post.latitude.toString());
+  formData.append("longitude", post.longitude.toString());
   formData.append("category", post.category); // 데이터 형식 고치기
   formData.append("content", post.content);
 
@@ -28,6 +30,10 @@ export const Post = async (post: any) => {
     }
   }
 
+  for (const pair of formData.entries()) {
+    console.log(`${pair[0]}: ${pair[1]}`);
+    console.log(`${typeof pair[0]}: ${typeof pair[1]}`);
+  }
   const boundary = `multipart-formdata-boundary-${Math.random()
     .toString()
     .substring(2)}`;
@@ -35,7 +41,8 @@ export const Post = async (post: any) => {
   const response = await fetch(`${BACK_URL}/post`, {
     method: "POST",
     headers: {
-      "Content-Type": `multipart/form-data; boundary=${boundary};`,
+      // "Content-Type": `multipart/form-data; boundary=${boundary};`,
+      "Content-Type": "multipart/form-data;",
       Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
     },
     body: formData,

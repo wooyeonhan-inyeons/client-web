@@ -14,6 +14,7 @@ import { MapPin, PlusCircle } from "@phosphor-icons/react";
 import { mainPrimary, secondary } from "../../../../common";
 import { useMutation } from "react-query";
 import { Post } from "./api";
+import { Category } from "../CategoryAddPost/type";
 
 // 아이폰 SE 규격 css 수정
 const customTheme = (outerTheme: Theme) =>
@@ -154,7 +155,7 @@ const ContentAddPost = () => {
             }}
           >
             <Chip
-              label={`#${post?.category}`}
+              label={post?.category && `#${Category[post.category as never]}`}
               size="medium"
               color="primary"
               sx={{ fontWeight: "800" }}

@@ -7,7 +7,7 @@ import mapboxgl from "mapbox-gl";
 import { LocationProps } from "../../../../interface";
 import { getCurrentGeocode, getCurrentLocation } from "./utils";
 import { PostStateInterface } from "../HeaderAddPost/interface";
-// import markerImg from "/src/asset/marker.png";
+import markerImg from "/src/asset/marker.png";
 
 // 마커 표시
 // 일단 지도 컨트롤러 UI 수정은 우선순위 미뤄둠..
@@ -112,22 +112,15 @@ const MapAddPost = () => {
             }}
             mapLib={mapboxgl}
           >
-            {/* <GeolocateControl
-              trackUserLocation={true}
-              showUserLocation={true} // default
-              positionOptions={{ enableHighAccuracy: true }}
-              fitBoundsOptions={{ maxZoom: 15 }} // maxZoom이 어느정도인지 확인하고 다시 설정
-            />
-            <NavigationControl /> */}
             <Marker
               longitude={viewState.longitude}
               latitude={viewState.latitude}
               anchor="center"
             >
-              {/* <img src={markerImg} alt="marker" /> */}
-              <Typography variant="h5" sx={{ marginBottom: "40px" }}>
+              <img src={markerImg} alt="marker" style={{ width: "2.5rem" }} />
+              {/* <Typography variant="h5" sx={{ marginBottom: "40px" }}>
                 🍀
-              </Typography>
+              </Typography> */}
             </Marker>
           </Map>
         ) : (

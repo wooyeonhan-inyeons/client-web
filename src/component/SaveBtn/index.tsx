@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { createTheme } from "@mui/material/styles";
 import Button from "@mui/material/Button";
+import { CircularProgress } from "@mui/material";
+import { MagnifyingGlass } from "@phosphor-icons/react";
 
 export const theme = createTheme({
   palette: {
@@ -25,6 +27,7 @@ type ColorType =
 export interface SaveTextProps {
   text: string;
   onClick: () => void;
+  isLoading: boolean;
 }
 
 const SaveBtn = (props: SaveTextProps) => {
@@ -35,6 +38,9 @@ const SaveBtn = (props: SaveTextProps) => {
       variant="contained"
       color={activeColor as ColorType}
       onClick={props.onClick}
+      startIcon={
+        props.isLoading && <CircularProgress sx={{ color: "#fff" }} size={16} />
+      }
       sx={{
         width: "100%",
         height: "3rem",

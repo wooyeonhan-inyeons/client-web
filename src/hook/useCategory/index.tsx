@@ -13,6 +13,11 @@ function CategoryItem({ children, setFilter, checked }: CategoryItemProps) {
       if (!checked && index === -1) {
         newCategory = [...newCategory, id];
       } else if (index !== -1) {
+        if (prev.preferCategory.length === 1)
+          return {
+            ...prev,
+            preferCategory: newCategory,
+          };
         newCategory = prev.preferCategory.filter((item) => item !== id);
       }
       return {

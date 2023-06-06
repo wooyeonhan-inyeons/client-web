@@ -90,19 +90,22 @@ const Search = () => {
             <div />
           </div>
         </div>
-        {position !== undefined && !isLoading && wooyeons.length === 0 ? (
-          //우연이 없을 떄
-          <Box className="loadingWooyeon">
-            <Lottie
-              className="lottie"
-              animationData={thinkingAnimation}
-              loop={true}
-            />
-            <Typography variant="body1" sx={{ marginBottom: "40px" }}>
-              근처에 확인할 수 있는 <br />
-              우연이 존재하지 않아요.
-            </Typography>
-          </Box>
+        {position === undefined && isLoading ? (
+          wooyeons.length === 0 ? (
+            <Box className="loadingWooyeon">
+              <Lottie
+                className="lottie"
+                animationData={thinkingAnimation}
+                loop={true}
+              />
+              <Typography variant="body1" sx={{ marginBottom: "40px" }}>
+                근처에 확인할 수 있는 <br />
+                우연이 존재하지 않아요.
+              </Typography>
+            </Box>
+          ) : (
+            "찾는 중"
+          )
         ) : (
           <>
             <Typography variant="h5" sx={{ marginBottom: "40px" }}>

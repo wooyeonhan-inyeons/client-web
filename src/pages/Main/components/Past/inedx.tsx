@@ -66,7 +66,7 @@ const Past = () => {
         //기존 우연들 초기화와 함께 시작
       },
       onSuccess: (data) => {
-        console.log("data: ", data);
+        console.log("조회된 우연들: ", data);
         console.log("searchDate: ", searchDate);
       },
     }

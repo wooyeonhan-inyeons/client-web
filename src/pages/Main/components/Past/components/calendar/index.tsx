@@ -28,7 +28,7 @@ function Calendar({
   setSearchDate,
 }: CalenderInterface & SetSearchDateType) {
   const today = new Date();
-  console.log(today.getMonth() + 1, today.getFullYear(), today.getDate());
+  // console.log(today.getMonth() + 1, today.getFullYear(), today.getDate());
   today.setHours(0, 0, 0, 0); // 시간, 분, 초, 밀리초를 0으로 설정
   const datesRef = useRef<HTMLElement | null>(null);
   const rangedDate = get200Dates(today);
@@ -42,7 +42,7 @@ function Calendar({
   }, []);
 
   const onIntersect: IntersectionObserverCallback = ([{ isIntersecting }]) => {
-    console.log(`감지결과 : ${isIntersecting}`);
+    // console.log(`감지결과 : ${isIntersecting}`);
     setDisplayDate(
       `${today.getFullYear()}.${(today.getMonth() + 1)
         .toString()

@@ -1,3 +1,4 @@
+import { LocationProps } from "../../../../interface";
 import { GetWooyeonsType } from "../Search/interface";
 
 export interface SearchDateType {
@@ -12,11 +13,27 @@ export interface PreviewProp {
   onClick: () => void;
 }
 
-export interface TodayWooyeonProp {
-  todayWooyeons: GetWooyeonsType[];
-}
-
 export interface CalendarHeaderProp {
   displayDate: string;
-  todayWooyeons: GetWooyeonsType[];
+  todayWooyeons: WooyeonsType[];
+  setViewState: Dispatch<
+    SetStateAction<{ longitude: number; latitude: number; zoom: number }>
+  >;
+  setPreview: Dispatch<SetStateAction<WooyeonsType>>;
+}
+
+export interface WooyeonsType {
+  created_at: string;
+  image: Array<imageObj>;
+  post_id: string;
+  latitude: number;
+  longitude: number;
+}
+
+export interface TodayWooyeonProp {
+  todayWooyeons: WooyeonsType[];
+  setViewState: Dispatch<
+    SetStateAction<{ longitude: number; latitude: number; zoom: number }>
+  >;
+  setPreview: Dispatch<SetStateAction<WooyeonsType>>;
 }

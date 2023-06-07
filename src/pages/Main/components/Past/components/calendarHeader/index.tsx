@@ -9,13 +9,17 @@ const week = ["S", "M", "T", "W", "T", "F", "S"];
 export const CalendarHeader = ({
   displayDate,
   todayWooyeons,
+  setViewState,
+  setPreview,
 }: CalendarHeaderProp) => {
-  console.log("왜안돼 todayWooyeons: ", todayWooyeons);
-  // console.log("displayDate: ", displayDate);
   return (
     <Box sx={handleHeaderStyle}>
       <Box className="drawerHeader">
-        <Preview todayWooyeons={todayWooyeons} />
+        <Preview
+          todayWooyeons={todayWooyeons}
+          setViewState={setViewState}
+          setPreview={setPreview}
+        />
         <Typography variant="h6">Calendar</Typography>
         <Typography variant="body2">{displayDate}</Typography>
       </Box>

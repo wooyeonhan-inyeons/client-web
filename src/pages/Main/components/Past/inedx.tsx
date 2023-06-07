@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Box, Typography, useTheme } from "@mui/material";
+import { Avatar, Box, useTheme } from "@mui/material";
 import { useDrawer } from "../../../../hook/useDrawer";
 import { CalendarHeader } from "./components/calendarHeader";
 import Calendar from "./components/calendar";
@@ -12,10 +12,9 @@ import {
 } from "../../../AddPost/components/MapAddPost/utils";
 import { LocationProps } from "../../../../interface";
 import { getPastWooyeon } from "./api";
-import { SearchDateType } from "./interface";
+import { SearchDateType, WooyeonsType } from "./interface";
 import { useMutation } from "react-query";
-import { MonthlyWooyeonList } from "./utils";
-import { GetWooyeonsType } from "../Search/interface";
+import { MonthlyWooyeonList, getDaysInMonth } from "./utils";
 
 // 가끔 우연 정보가 안받아와짐
 
@@ -36,24 +35,28 @@ const Past = () => {
     month: today.getMonth() + 1,
     date: today.getDate(),
   });
-  const [monthlyList, setMonthlyList] = useState<GetWooyeonsType[][]>([]);
-  const [todayWooyeons, setTodayWooyeons] = useState<GetWooyeonsType[]>([]);
+  // const [monthlyList, setMonthlyList] =
+  //   useState<WooyeonsType[][]>(initialDoubleList); useState 갖다 버려
+  let monthlyList: WooyeonsType[][];
+  const [todayWooyeons, setTodayWooyeons] = useState<WooyeonsType[]>([]);
   const initPosition = {
     longitude: 127.9068,
     latitude: 35.6699,
-    zoom: 6,
+    zoom: 15,
   };
   const mapRef = useRef<MapRef | null>(null);
   const [viewState, setViewState] = React.useState(initPosition);
   const [geocode, setGeocode] = useState<string | undefined>(undefined);
   const positionRef = useRef<LocationProps | undefined>(initPosition);
+  const [preview, setPreview] = useState<WooyeonsType>();
   // 초기화면 : 지도를 현재위치로 고정
   useEffect(() => {
     if (positionRef.current == initPosition) {
       getCurrentLocation({ setViewState });
     }
     mutate();
-  }, [navigator, searchDate]);
+    console.log("preview: ", preview);
+  }, [navigator, searchDate, preview]);
 
   // 받아온 위치 정보를 한글주소체계로 변환 후 post에 저장
   useEffect(() => {
@@ -63,6 +66,7 @@ const Past = () => {
         setGeocode(e.reverse().join(" "));
       });
     }
+    // console.log("viewstate: ", viewState);
   }, [viewState]);
 
   const { mutate } = useMutation(
@@ -76,16 +80,15 @@ const Past = () => {
         console.log("[success] 이번달 우연들: ", wooyeons);
         // console.log("searchDate: ", searchDate);
         // 오늘 기준 이번달 우연 리스트 만드는 함수 수행
-        setMonthlyList(
-          MonthlyWooyeonList(
-            wooyeons,
-            today.getFullYear(),
-            today.getMonth() + 1
-          )
+        monthlyList = MonthlyWooyeonList(
+          wooyeons,
+          today.getFullYear(),
+          today.getMonth() + 1
         );
-        console.log("오늘의 우연", monthlyList[today.getDate() - 1]);
+        // console.log("monthlyList", monthlyList);
+        // console.log("오늘의 우연", monthlyList[today.getDate() - 1]);
         setTodayWooyeons(monthlyList[today.getDate() - 1]); // 오늘 생성된 조회한 우연들
-        console.log("여기선 todayWooyeons: ", todayWooyeons);
+        // console.log("여기선 todayWooyeons: ", todayWooyeons);
 
         // 오늘의 우연을 연산하기전에 가져가는듯 그럼 어카지
       },
@@ -115,16 +118,25 @@ const Past = () => {
           }}
           mapLib={mapboxgl}
         >
-          <Marker
-            longitude={viewState.longitude}
-            latitude={viewState.latitude}
-            anchor="center"
-          >
-            {/* <img src={markerImg} alt="marker" /> */}
-            <Typography variant="h5" sx={{ marginBottom: "40px" }}>
-              🍀
-            </Typography>
-          </Marker>
+          {preview !== undefined && (
+            <Marker
+              longitude={viewState.longitude}
+              latitude={viewState.latitude}
+              anchor="center"
+            >
+              <Avatar
+                alt={preview.image[0].img_url}
+                src={preview.image[0].img_url}
+                sx={{
+                  width: 56,
+                  height: 56,
+                  boxShadow:
+                    "rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px",
+                  zIndex: 50,
+                }}
+              />
+            </Marker>
+          )}
         </Map>
       </Box>
       {
@@ -136,7 +148,12 @@ const Past = () => {
       <Drawer
         open={open}
         toggleDrawer={toggleDrawer}
-        headerChildren={CalendarHeader({ displayDate, todayWooyeons })}
+        headerChildren={CalendarHeader({
+          displayDate,
+          todayWooyeons,
+          setViewState,
+          setPreview,
+        })}
         drawerBleeding={100}
       >
         <Calendar

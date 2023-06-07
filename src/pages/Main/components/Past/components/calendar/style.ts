@@ -29,4 +29,14 @@ export const calendarStyle = {
     opacity: 0.8,
   },
   "& .disableItem:hover": { opacity: 0.3 },
+  "& .monthIcon": {
+    width: "calc((100% / 7) * 2 - 8px)",
+    margin: "4px",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+
+    backgroundColor: "#FAECE4",
+    borderRadius: "50px",
+  },
 };

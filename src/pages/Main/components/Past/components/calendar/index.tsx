@@ -1,9 +1,10 @@
-import React, { useEffect, useRef } from "react";
+import React, { createElement, useEffect, useRef } from "react";
 import { Box } from "@mui/material";
 import { calendarStyle } from "./style";
 import useIntersectionObserver from "../../../../../../hook/useIntersectionObserver";
 import { CalenderInterface, SetSearchDateType } from "./interface";
 import { SearchDateType } from "../../interface";
+import { getDaysInMonth } from "../../utils";
 
 //현재일 기준으로 앞 뒤로 특정 범위의 데이터 배열 반환
 function get200Dates(date: Date): Date[] {
@@ -64,7 +65,7 @@ function Calendar({
   return (
     <Box sx={calendarStyle} ref={datesRef}>
       <Box sx={{ width: `calc((100% / 7) * ${rangedDate[0].getDay()})` }} />
-      {rangedDate.map((item: Date) => {
+      {rangedDate.map((item: Date, index: number) => {
         let classNames = "calendarItem";
         if (item.getTime() === today.getTime()) {
           classNames += " todayItem";
@@ -73,6 +74,31 @@ function Calendar({
           if (item.getDate() === 1) classNames += " monthItem";
           if (item.getTime() > today.getTime()) classNames += " disableItem";
           // 마지막 일자면 month 컴포넌트 className 추가
+          // 이전 월과 현재 월이 다른 경우, 새로운 월을 나타내는 컴포넌트 생성
+          if (
+            index > 0 &&
+            item.getMonth() !== rangedDate[index - 1].getMonth()
+          ) {
+            // 월별 컴포넌트를 생성하고, 월 정보를 전달
+            const monthComponent = (
+              <Box className="monthIcon" key={`month-${item.getMonth()}`}>
+                {item.toLocaleString("default", { month: "long" })}
+              </Box>
+            );
+            return (
+              <>
+                {monthComponent}
+                <Box
+                  className={classNames}
+                  key={item.toString()}
+                  ref={item.getTime() === today.getTime() ? setTarget : null}
+                  onClick={onClickDate}
+                >
+                  {item.getDate()}
+                </Box>
+              </>
+            );
+          }
           // 조회한 우연데이터에 해당하는 일자일 경우 테두리 className 추가
         }
 

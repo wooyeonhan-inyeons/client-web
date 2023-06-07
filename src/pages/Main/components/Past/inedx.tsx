@@ -10,15 +10,17 @@ import {
   getCurrentGeocode,
   getCurrentLocation,
 } from "../../../AddPost/components/MapAddPost/utils";
-import { LocationProps } from "../../../../interface";
+import { ContextInterface, LocationProps } from "../../../../interface";
 import { getPastWooyeon } from "./api";
 import { SearchDateType, WooyeonsType } from "./interface";
 import { useMutation } from "react-query";
 import { MonthlyWooyeonList, getDaysInMonth } from "./utils";
+import { Navigate, useOutletContext } from "react-router";
 
 // 가끔 우연 정보가 안받아와짐
 
 const Past = () => {
+  const { navigate } = useOutletContext<ContextInterface>();
   const { open, Drawer, toggleDrawer } = useDrawer();
   const theme = useTheme();
   const today = new Date();
@@ -134,6 +136,7 @@ const Past = () => {
                     "rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px",
                   zIndex: 50,
                 }}
+                onClick={() => navigate(`detail/${preview.post_id}`)}
               />
             </Marker>
           )}

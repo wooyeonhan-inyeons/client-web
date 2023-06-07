@@ -1,11 +1,9 @@
-import React, { createElement, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { Box } from "@mui/material";
 import { calendarStyle } from "./style";
 import useIntersectionObserver from "../../../../../../hook/useIntersectionObserver";
 import { CalenderInterface, SetSearchDateType } from "./interface";
 import { SearchDateType } from "../../interface";
-import { getDaysInMonth } from "../../utils";
-import { week } from "../calendarHeader";
 
 //현재일 기준으로 앞 뒤로 특정 범위의 데이터 배열 반환
 function get200Dates(date: Date): Date[] {
@@ -100,7 +98,7 @@ function Calendar({
                 {item.getDay() === 1 && (
                   <Box
                     className="emptyItem"
-                    key={index.toString()}
+                    key={index + 0.1}
                     ref={item.getTime() === today.getTime() ? setTarget : null}
                     onClick={onClickDate}
                   >

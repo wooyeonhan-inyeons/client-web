@@ -4,7 +4,7 @@ import { handleHeaderStyle } from "./style";
 import Preview from "../Preview";
 import { CalendarHeaderProp } from "../../interface";
 
-const week = ["S", "M", "T", "W", "T", "F", "S"];
+export const week = ["S", "M", "T", "W", "T", "F", "S"];
 
 export const CalendarHeader = ({
   displayDate,

@@ -38,5 +38,12 @@ export const calendarStyle = {
 
     backgroundColor: "#FAECE4",
     borderRadius: "50px",
+    color: "#ED6729",
+    fontWeight: "bold",
+    fontSize: "large",
+  },
+  "& .emptyItem": {
+    width: "calc((100% / 7) - 8px)",
+    margin: "4px",
   },
 };

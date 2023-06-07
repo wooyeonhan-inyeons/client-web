@@ -5,6 +5,7 @@ import useIntersectionObserver from "../../../../../../hook/useIntersectionObser
 import { CalenderInterface, SetSearchDateType } from "./interface";
 import { SearchDateType } from "../../interface";
 import { getDaysInMonth } from "../../utils";
+import { week } from "../calendarHeader";
 
 //현재일 기준으로 앞 뒤로 특정 범위의 데이터 배열 반환
 function get200Dates(date: Date): Date[] {
@@ -82,11 +83,20 @@ function Calendar({
             // 월별 컴포넌트를 생성하고, 월 정보를 전달
             const monthComponent = (
               <Box className="monthIcon" key={`month-${item.getMonth()}`}>
-                {item.toLocaleString("default", { month: "long" })}
+                {item.toLocaleString("en-US", { month: "short" })}
               </Box>
             );
             return (
               <>
+                {Array.from({ length: 5 }).map((_, index) => (
+                  <Box
+                    className="emptyItem"
+                    key={index.toString()}
+                    ref={item.getTime() === today.getTime() ? setTarget : null}
+                    onClick={onClickDate}
+                  />
+                ))}
+
                 {monthComponent}
                 <Box
                   className={classNames}

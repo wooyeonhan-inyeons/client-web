@@ -16,9 +16,6 @@ export interface PreviewProp {
 export interface CalendarHeaderProp {
   displayDate: string;
   todayWooyeons: WooyeonsType[];
-  setViewState: Dispatch<
-    SetStateAction<{ longitude: number; latitude: number; zoom: number }>
-  >;
   setPreview: Dispatch<SetStateAction<WooyeonsType>>;
 }
 
@@ -32,8 +29,5 @@ export interface WooyeonsType {
 
 export interface TodayWooyeonProp {
   todayWooyeons: WooyeonsType[];
-  setViewState: Dispatch<
-    SetStateAction<{ longitude: number; latitude: number; zoom: number }>
-  >;
   setPreview: Dispatch<SetStateAction<WooyeonsType>>;
 }

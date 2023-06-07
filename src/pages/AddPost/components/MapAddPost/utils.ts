@@ -87,7 +87,7 @@ export async function getCurrentGeocode(
         switch (type) {
           case "sublocality":
             address.push(item.long_name);
-            console.log(typeof address);
+            // console.log(typeof address);
             break;
           case "administrative_area_level_1":
             address.push(item.long_name);

@@ -58,17 +58,20 @@ const Past = () => {
     }
     mutate();
     console.log("preview: ", preview);
-  }, [navigator, searchDate, preview]);
+    preview !== undefined &&
+      mapRef.current?.flyTo({
+        center: [preview.longitude, preview.latitude],
+        duration: 80,
+      });
+  }, [searchDate, preview]);
 
-  // 받아온 위치 정보를 한글주소체계로 변환 후 post에 저장
   useEffect(() => {
     positionRef.current = viewState;
-    if (positionRef.current !== undefined) {
-      getCurrentGeocode(positionRef.current).then((e) => {
-        setGeocode(e.reverse().join(" "));
+    preview !== undefined &&
+      mapRef.current?.flyTo({
+        center: [preview.longitude, preview.latitude],
+        duration: 80,
       });
-    }
-    // console.log("viewstate: ", viewState);
   }, [viewState]);
 
   const { mutate } = useMutation(
@@ -79,22 +82,22 @@ const Past = () => {
         //기존 우연들 초기화와 함께 시작
       },
       onSuccess: (wooyeons) => {
-        console.log(
-          "[success] 조회한 연월: ",
-          searchDate.month,
-          searchDate.year
-        );
-        console.log("[success] 이번달 우연들: ", wooyeons);
+        // console.log(
+        //   "[success] 조회한 연월: ",
+        //   searchDate.month,
+        //   searchDate.year
+        // );
+        // console.log("[success] 이번달 우연들: ", wooyeons);
         // 오늘 기준 이번달 우연 리스트 만드는 함수 수행
         monthlyList = MonthlyWooyeonList(
           wooyeons,
           today.getFullYear(),
           today.getMonth() + 1
         );
-        console.log("monthlyList", monthlyList);
+        // console.log("monthlyList", monthlyList);
         // console.log("오늘의 우연", monthlyList[today.getDate() - 1]);
         setTodayWooyeons(monthlyList[searchDate.date - 1]); // 오늘 생성된 조회한 우연들
-        console.log("여기선 todayWooyeons: ", todayWooyeons);
+        // console.log("여기선 todayWooyeons: ", todayWooyeons);
 
         // 오늘의 우연을 연산하기전에 가져가는듯 그럼 어카지
       },
@@ -112,6 +115,7 @@ const Past = () => {
       >
         <Map
           ref={mapRef}
+          dragPan={false}
           mapboxAccessToken={import.meta.env.VITE_MAP_API}
           {...viewState}
           onMove={(evt) => setViewState(evt.viewState)}
@@ -158,7 +162,6 @@ const Past = () => {
         headerChildren={CalendarHeader({
           displayDate,
           todayWooyeons,
-          setViewState,
           setPreview,
         })}
         drawerBleeding={100}

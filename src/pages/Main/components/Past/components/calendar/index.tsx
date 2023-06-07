@@ -44,7 +44,7 @@ function Calendar({
   }, []);
 
   const onIntersect: IntersectionObserverCallback = ([{ isIntersecting }]) => {
-    console.log(`감지결과 : ${isIntersecting}`);
+    // console.log(`감지결과 : ${isIntersecting}`);
     setDisplayDate(
       `${today.getFullYear()}.${(today.getMonth() + 1)
         .toString()

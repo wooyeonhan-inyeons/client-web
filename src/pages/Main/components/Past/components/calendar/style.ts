@@ -1,3 +1,5 @@
+import { mainPrimary, secondary } from "../../../../../../common";
+
 export const calendarStyle = {
   width: "100%",
   display: "flex",
@@ -20,7 +22,11 @@ export const calendarStyle = {
   },
   "& .weekendItem": { backgroundColor: "#d8dbd8" },
   "& .todayItem": {
-    backgroundColor: "#ED6729",
+    backgroundColor: secondary,
+    color: "#fff",
+  },
+  "& .focusItem": {
+    backgroundColor: mainPrimary,
     color: "#fff",
   },
   "& .disableItem": { opacity: 0.3 },
@@ -38,7 +44,7 @@ export const calendarStyle = {
 
     backgroundColor: "#FAECE4",
     borderRadius: "50px",
-    color: "#ED6729",
+    color: secondary,
     fontWeight: "bold",
     fontSize: "large",
   },

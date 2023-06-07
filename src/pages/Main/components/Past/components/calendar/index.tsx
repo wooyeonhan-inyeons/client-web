@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Box } from "@mui/material";
 import { calendarStyle } from "./style";
 import useIntersectionObserver from "../../../../../../hook/useIntersectionObserver";
@@ -34,7 +34,7 @@ function Calendar({
   today.setHours(0, 0, 0, 0); // 시간, 분, 초, 밀리초를 0으로 설정
   const datesRef = useRef<HTMLElement | null>(null);
   const rangedDate = get200Dates(today);
-
+  const [selectDay, setSelectDay] = useState<number>(0);
   useEffect(() => {
     if (datesRef.current) {
       datesRef.current
@@ -54,7 +54,9 @@ function Calendar({
 
   const onClickDate = (e: React.MouseEvent<HTMLDivElement>) => {
     const date = e.currentTarget.innerText;
-    // console.log(date);
+    setSelectDay(parseInt(date));
+    console.log("클릭된 날짜: ", date);
+    console.log("클릭된 날짜: ", selectDay);
     setSearchDate((prevDate: SearchDateType) => ({
       ...prevDate,
       date: parseInt(date),
@@ -71,7 +73,7 @@ function Calendar({
           classNames += " todayItem";
         } else {
           if (item.getDay() % 6 === 0) classNames += " weekendItem";
-          if (item.getDate() === 1) classNames += " monthItem";
+          if (item.getDate() === selectDay) classNames += " focusItem";
           if (item.getTime() > today.getTime()) classNames += " disableItem";
           if (
             index > 0 &&
@@ -91,7 +93,6 @@ function Calendar({
                     className="emptyItem"
                     key={idx}
                     ref={item.getTime() === today.getTime() ? setTarget : null}
-                    onClick={onClickDate}
                   >
                     00
                   </Box>
@@ -102,7 +103,6 @@ function Calendar({
                     className="emptyItem"
                     key={index.toString()}
                     ref={item.getTime() === today.getTime() ? setTarget : null}
-                    onClick={onClickDate}
                   >
                     00
                   </Box>

@@ -34,6 +34,7 @@ export default function Auth() {
         };
       });
     } else {
+      // localstorage에 저장하기 위해 기존의 값으로 업데이트
       setFilter(filter);
       setEnv(env);
     }

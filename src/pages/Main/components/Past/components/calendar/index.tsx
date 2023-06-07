@@ -5,6 +5,8 @@ import useIntersectionObserver from "../../../../../../hook/useIntersectionObser
 import { CalenderInterface, SetSearchDateType } from "./interface";
 import { SearchDateType } from "../../interface";
 
+// key값 고유성 warning 뜸
+
 //현재일 기준으로 앞 뒤로 특정 범위의 데이터 배열 반환
 function get200Dates(date: Date): Date[] {
   const millisecsInDay = 86400000; // 1일의 밀리초 수
@@ -84,10 +86,10 @@ function Calendar({
             );
             return (
               <>
-                {Array.from({ length: term }).map((_, index) => (
+                {Array.from({ length: term }).map((_, idx) => (
                   <Box
                     className="emptyItem"
-                    key={index.toString()}
+                    key={idx}
                     ref={item.getTime() === today.getTime() ? setTarget : null}
                     onClick={onClickDate}
                   >
@@ -98,7 +100,7 @@ function Calendar({
                 {item.getDay() === 1 && (
                   <Box
                     className="emptyItem"
-                    key={index + 0.1}
+                    key={index.toString()}
                     ref={item.getTime() === today.getTime() ? setTarget : null}
                     onClick={onClickDate}
                   >

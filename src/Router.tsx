@@ -81,7 +81,7 @@ const Router = () => {
           path: "/",
           element: <Main />,
           children: [
-            { index: true, element: isSuccess ? <Search /> : <div>asd</div> },
+            { index: true, element: <Search /> },
             { path: "previous", element: <Past /> },
           ],
         },

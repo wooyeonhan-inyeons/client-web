@@ -27,7 +27,7 @@ type ColorType =
 export interface SaveTextProps {
   text: string;
   onClick: () => void;
-  isLoading: boolean;
+  isLoading?: boolean;
 }
 
 const SaveBtn = (props: SaveTextProps) => {

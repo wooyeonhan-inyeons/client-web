@@ -8,7 +8,7 @@ import {
   ThemeProvider,
 } from "@mui/material";
 import { useRecoilState } from "recoil";
-import { envState } from "./recoil";
+import { envState, userState } from "./recoil";
 import { darkTheme, lightTheme } from "./common";
 import { grey } from "@mui/material/colors";
 import {
@@ -21,6 +21,7 @@ import { ErrorBoundary } from "react-error-boundary";
 
 function App() {
   const [env] = useRecoilState(envState);
+  const [user] = useRecoilState(userState);
   const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
   const [systemTheme, setSystemTheme] = useState<Theme>(() => {
     return window.matchMedia("(prefers-color-scheme: dark)").matches
@@ -44,6 +45,13 @@ function App() {
   }, [env]);
 
   useEffect(() => {
+    //flutter에서만 setItem을 사용하여 web에서 관련 코드 없음 & flutter의 동기화 실행
+    if (localStorage.getItem("isFlutter") === "1" && user.role !== "GUEST") {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      //@ts-ignore
+      Synch.postMessage("run");
+    }
+
     if (env.theme === "system") {
       //브라우저, 기기의 테마 변경 감지 등록
       mediaQuery.addEventListener("change", handleChange);

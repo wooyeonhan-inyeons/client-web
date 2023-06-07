@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import SaveBtn from "../../component/SaveBtn";
 import Grid from "@mui/material/Unstable_Grid2"; // Grid version 2
 import { Box, Typography } from "@mui/material";
-import { filterState, userState } from "../../recoil";
+import { userState } from "../../recoil";
 import { useRecoilState } from "recoil";
 import { Global } from "@emotion/react";
 import { categoryArr } from "./components/CategoryArray";
@@ -10,14 +10,6 @@ import CategoryBtnFn from "./components/CategoryBtnFn";
 
 const CategoryPage = () => {
   const [, setUser] = useRecoilState(userState);
-  const [, setFilter] = useRecoilState(filterState);
-
-  useEffect(() => {
-    setFilter({
-      searchRange: 100,
-      preferCategory: ["DAILY", "GROUP", "ADS", "INFO", "EVENT", "PRESENT"],
-    });
-  }, []);
 
   return (
     <>

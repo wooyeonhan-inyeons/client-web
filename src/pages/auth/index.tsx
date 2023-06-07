@@ -9,6 +9,8 @@ export default function Auth() {
 
   const access_token = searchParams.get("access_token");
   const [, setUser] = useRecoilState(userState);
+  const [filter, setFilter] = useRecoilState(filterState);
+  const [env, setEnv] = useRecoilState(envState);
   const resetFilter = useResetRecoilState(filterState);
   const resetEnv = useResetRecoilState(envState);
 
@@ -18,8 +20,12 @@ export default function Auth() {
     console.log("test token: ", access_token);
     console.log(location);
     if (access_token !== null) {
+      //토큰을 받아 기존에 있을 수 있는 전역 변수를 초기화함
       resetFilter();
       resetEnv();
+      // localstorage에 저장하기 위해 기존의 값으로 업데이트
+      setFilter(filter);
+      setEnv(env);
       setUser((prev) => {
         return {
           ...prev,
@@ -27,6 +33,9 @@ export default function Auth() {
           access_token: access_token as string,
         };
       });
+    } else {
+      setFilter(filter);
+      setEnv(env);
     }
   }, []);
 

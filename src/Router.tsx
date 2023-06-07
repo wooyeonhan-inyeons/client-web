@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import {
   RouterProvider,
   createBrowserRouter,
   redirect,
 } from "react-router-dom";
-import { filterState, userState } from "./recoil";
+import { userState } from "./recoil";
 import { useRecoilState } from "recoil";
 
 import MainWrapper from "./component/MainWrapper";
@@ -37,6 +37,7 @@ const Router = () => {
     // useErrorBoundary: true,
     onSuccess(userData: UserInfo) {
       // console.log(userData);
+      //localstorage에 저장되어야 flutter에서 읽을 수 있기에 업데이트
       setUser((prev: UserState) => {
         return {
           ...prev,

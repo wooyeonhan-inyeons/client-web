@@ -15,7 +15,7 @@ export const envState = atom<EnvState>({
   default: {
     //밝기모드
     theme: "system",
-    backNoti: false,
+    backNoti: true,
   },
   effects_UNSTABLE: [persistAtom],
 });

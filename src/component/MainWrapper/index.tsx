@@ -39,14 +39,10 @@ function MainWrapper({ isHeader }: HeaderProp) {
     content: "",
   };
   const [post, setPost] = useState<UploadPostType | null>(initialPostState);
-  const [submitLoding, setSubmitLoding] = useState(false);
-  const [error, setError] = useState("");
 
   const uploadWooyeon = (post: any | null) => {
     console.log("오호라 잘도 여기까지 왔군");
     console.log(post);
-    // if (!post?.photo.length) return setError("⚠️  사진이 포함되어야 합니다.");
-    // if (!post?.content) return setError("⚠️  내용이 없습니다.");
     mutate();
   };
 
@@ -75,19 +71,13 @@ function MainWrapper({ isHeader }: HeaderProp) {
     onMutate: (data) => {
       //시작
       console.log("onMutation: ", data);
-      console.log("isLoading: ", isLoading);
-      setSubmitLoding(true);
-    },
-    onError: (error: Error) => {
-      setError(error.message);
+      // console.log("isLoading: ", isLoading);
     },
     onSuccess: () => {
       console.log("우연 등록하기 성공!");
       navigate("/");
     },
     onSettled: () => {
-      //종료
-      setSubmitLoding(false);
       navigate("/");
     },
   });

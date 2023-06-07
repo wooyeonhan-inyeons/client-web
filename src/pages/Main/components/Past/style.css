@@ -1,0 +1,14 @@
+.previewBar {
+  position: absolute;
+  top: -6rem;
+  z-index: 200;
+  width: 100%;
+  overflow-x: auto;
+  white-space: nowrap;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.previewBar::-webkit-scrollbar {
+  display: none;
+}

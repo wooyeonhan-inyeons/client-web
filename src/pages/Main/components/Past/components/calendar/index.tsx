@@ -44,7 +44,7 @@ function Calendar({
   }, []);
 
   const onIntersect: IntersectionObserverCallback = ([{ isIntersecting }]) => {
-    // console.log(`감지결과 : ${isIntersecting}`);
+    console.log(`감지결과 : ${isIntersecting}`);
     setDisplayDate(
       `${today.getFullYear()}.${(today.getMonth() + 1)
         .toString()
@@ -55,8 +55,6 @@ function Calendar({
   const onClickDate = (e: React.MouseEvent<HTMLDivElement>) => {
     const date = e.currentTarget.innerText;
     setSelectDay(parseInt(date));
-    console.log("클릭된 날짜: ", date);
-    console.log("클릭된 날짜: ", selectDay);
     setSearchDate((prevDate: SearchDateType) => ({
       ...prevDate,
       date: parseInt(date),

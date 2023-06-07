@@ -79,18 +79,22 @@ const Past = () => {
         //기존 우연들 초기화와 함께 시작
       },
       onSuccess: (wooyeons) => {
+        console.log(
+          "[success] 조회한 연월: ",
+          searchDate.month,
+          searchDate.year
+        );
         console.log("[success] 이번달 우연들: ", wooyeons);
-        // console.log("searchDate: ", searchDate);
         // 오늘 기준 이번달 우연 리스트 만드는 함수 수행
         monthlyList = MonthlyWooyeonList(
           wooyeons,
           today.getFullYear(),
           today.getMonth() + 1
         );
-        // console.log("monthlyList", monthlyList);
+        console.log("monthlyList", monthlyList);
         // console.log("오늘의 우연", monthlyList[today.getDate() - 1]);
-        setTodayWooyeons(monthlyList[today.getDate() - 1]); // 오늘 생성된 조회한 우연들
-        // console.log("여기선 todayWooyeons: ", todayWooyeons);
+        setTodayWooyeons(monthlyList[searchDate.date - 1]); // 오늘 생성된 조회한 우연들
+        console.log("여기선 todayWooyeons: ", todayWooyeons);
 
         // 오늘의 우연을 연산하기전에 가져가는듯 그럼 어카지
       },

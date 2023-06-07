@@ -1,8 +1,8 @@
 import { BACK_URL } from "../../../../../common";
-import { GetWooyeonsType } from "../../Search/interface";
+import { WooyeonsType } from "../interface";
 
 export const getPastWooyeon = async (month: number, year: number) => {
-  const response: GetWooyeonsType[] = await fetch(
+  const response: WooyeonsType[] = await fetch(
     `${BACK_URL}/post/viewed?month=${month}&year=${year}`,
     {
       method: "GET",

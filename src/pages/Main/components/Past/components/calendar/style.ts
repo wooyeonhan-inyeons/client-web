@@ -1,3 +1,5 @@
+import { mainPrimary, secondary } from "../../../../../../common";
+
 export const calendarStyle = {
   width: "100%",
   display: "flex",
@@ -20,7 +22,11 @@ export const calendarStyle = {
   },
   "& .weekendItem": { backgroundColor: "#d8dbd8" },
   "& .todayItem": {
-    backgroundColor: "#ED6729",
+    backgroundColor: secondary,
+    color: "#fff",
+  },
+  "& .focusItem": {
+    backgroundColor: mainPrimary,
     color: "#fff",
   },
   "& .disableItem": { opacity: 0.3 },
@@ -29,4 +35,23 @@ export const calendarStyle = {
     opacity: 0.8,
   },
   "& .disableItem:hover": { opacity: 0.3 },
+  "& .monthIcon": {
+    width: "calc((100% / 7) * 2 - 8px)",
+    margin: "4px",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+
+    backgroundColor: "#FAECE4",
+    borderRadius: "50px",
+    color: secondary,
+    fontWeight: "bold",
+    fontSize: "large",
+  },
+  "& .emptyItem": {
+    width: "calc((100% / 7) - 8px)",
+    margin: "4px",
+    aspectRatio: "1",
+    visibility: "hidden",
+  },
 };

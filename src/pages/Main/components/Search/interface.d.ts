@@ -60,7 +60,7 @@ export interface imageObj {
 }
 
 export interface GetWooyeonsType {
-  create_at: string;
+  created_at: string;
   image: Array<imageObj>;
   post_id: string;
 }

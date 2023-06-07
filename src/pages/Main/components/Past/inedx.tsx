@@ -1,26 +1,23 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Box, Typography, useTheme } from "@mui/material";
+import { Avatar, Box, useTheme } from "@mui/material";
 import { useDrawer } from "../../../../hook/useDrawer";
 import { CalendarHeader } from "./components/calendarHeader";
 import Calendar from "./components/calendar";
 import { Map, MapRef, Marker } from "react-map-gl";
 import mapboxgl from "mapbox-gl";
 import { forUntouchableStyle } from "../Search/style";
-import {
-  getCurrentGeocode,
-  getCurrentLocation,
-} from "../../../AddPost/components/MapAddPost/utils";
-import { LocationProps } from "../../../../interface";
+import { getCurrentLocation } from "../../../AddPost/components/MapAddPost/utils";
+import { ContextInterface, LocationProps } from "../../../../interface";
 import { getPastWooyeon } from "./api";
-import { number } from "prop-types";
-import { SearchDateType } from "./interface";
+import { SearchDateType, WooyeonsType } from "./interface";
 import { useMutation } from "react-query";
+import { MonthlyWooyeonList } from "./utils";
+import { useOutletContext } from "react-router";
 
-// 달별 우연 조회 : 달력의 날짜 클릭 -> 클릭한 날짜와 연도를 param로 넣고 getPastWooyeon
-// 클릭한 날짜에 created_at 우연을 달력 위 컴포넌트로 띄움
-// 컴포넌트 클릭시 post lat,log 위치로 지도 이동
+// 가끔 우연 정보가 안받아와짐
 
 const Past = () => {
+  const { navigate } = useOutletContext<ContextInterface>();
   const { open, Drawer, toggleDrawer } = useDrawer();
   const theme = useTheme();
   const today = new Date();
@@ -37,26 +34,39 @@ const Past = () => {
     month: today.getMonth() + 1,
     date: today.getDate(),
   });
-
+  let monthlyList: WooyeonsType[][];
+  const [todayWooyeons, setTodayWooyeons] = useState<WooyeonsType[]>([]);
   const initPosition = {
     longitude: 127.9068,
     latitude: 35.6699,
-    zoom: 6,
+    zoom: 15,
   };
   const mapRef = useRef<MapRef | null>(null);
   const [viewState, setViewState] = React.useState(initPosition);
-
-  // 사용자의 위치정보 가져와서 viewport에 저장
+  const positionRef = useRef<LocationProps | undefined>(initPosition);
+  const [preview, setPreview] = useState<WooyeonsType>();
+  // 초기화면 : 지도를 현재위치로 고정
   useEffect(() => {
     if (positionRef.current == initPosition) {
       getCurrentLocation({ setViewState });
     }
-    console.log("searchDate: ", searchDate);
-    mutate(); // 일단 이번달 우연 조회 시작
-  }, [navigator, searchDate]);
+    mutate();
+    console.log("preview: ", preview);
+    preview !== undefined &&
+      mapRef.current?.flyTo({
+        center: [preview.longitude, preview.latitude],
+        duration: 80,
+      });
+  }, [searchDate, preview]);
 
-  const [geocode, setGeocode] = useState<string | undefined>(undefined);
-  const positionRef = useRef<LocationProps | undefined>(initPosition);
+  useEffect(() => {
+    positionRef.current = viewState;
+    preview !== undefined &&
+      mapRef.current?.flyTo({
+        center: [preview.longitude, preview.latitude],
+        duration: 80,
+      });
+  }, [viewState]);
 
   const { mutate } = useMutation(
     "get",
@@ -65,22 +75,17 @@ const Past = () => {
       onMutate() {
         //기존 우연들 초기화와 함께 시작
       },
-      onSuccess: (data) => {
-        console.log("조회된 우연들: ", data);
-        console.log("searchDate: ", searchDate);
+      onSuccess: (wooyeons) => {
+        // 오늘 기준 이번달 우연 리스트 만드는 함수 수행
+        monthlyList = MonthlyWooyeonList(
+          wooyeons,
+          today.getFullYear(),
+          today.getMonth() + 1
+        );
+        setTodayWooyeons(monthlyList[searchDate.date - 1]); // 오늘 생성된 조회한 우연들
       },
     }
   );
-
-  // 받아온 위치 정보를 한글주소체계로 변환 후 post에 저장
-  useEffect(() => {
-    positionRef.current = viewState;
-    if (positionRef.current !== undefined) {
-      getCurrentGeocode(positionRef.current).then((e) => {
-        setGeocode(e.reverse().join(" "));
-      });
-    }
-  }, [viewState]);
 
   return (
     <>
@@ -93,6 +98,7 @@ const Past = () => {
       >
         <Map
           ref={mapRef}
+          dragPan={false}
           mapboxAccessToken={import.meta.env.VITE_MAP_API}
           {...viewState}
           onMove={(evt) => setViewState(evt.viewState)}
@@ -105,16 +111,26 @@ const Past = () => {
           }}
           mapLib={mapboxgl}
         >
-          <Marker
-            longitude={viewState.longitude}
-            latitude={viewState.latitude}
-            anchor="center"
-          >
-            {/* <img src={markerImg} alt="marker" /> */}
-            <Typography variant="h5" sx={{ marginBottom: "40px" }}>
-              🍀
-            </Typography>
-          </Marker>
+          {preview !== undefined && (
+            <Marker
+              longitude={viewState.longitude}
+              latitude={viewState.latitude}
+              anchor="center"
+            >
+              <Avatar
+                alt={preview.image[0].img_url}
+                src={preview.image[0].img_url}
+                sx={{
+                  width: 56,
+                  height: 56,
+                  boxShadow:
+                    "rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px",
+                  zIndex: 50,
+                }}
+                onClick={() => navigate(`detail/${preview.post_id}`)}
+              />
+            </Marker>
+          )}
         </Map>
       </Box>
       {
@@ -126,7 +142,11 @@ const Past = () => {
       <Drawer
         open={open}
         toggleDrawer={toggleDrawer}
-        headerChildren={CalendarHeader(displayDate)}
+        headerChildren={CalendarHeader({
+          displayDate,
+          todayWooyeons,
+          setPreview,
+        })}
         drawerBleeding={100}
       >
         <Calendar

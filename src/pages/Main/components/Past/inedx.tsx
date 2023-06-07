@@ -6,16 +6,13 @@ import Calendar from "./components/calendar";
 import { Map, MapRef, Marker } from "react-map-gl";
 import mapboxgl from "mapbox-gl";
 import { forUntouchableStyle } from "../Search/style";
-import {
-  getCurrentGeocode,
-  getCurrentLocation,
-} from "../../../AddPost/components/MapAddPost/utils";
+import { getCurrentLocation } from "../../../AddPost/components/MapAddPost/utils";
 import { ContextInterface, LocationProps } from "../../../../interface";
 import { getPastWooyeon } from "./api";
 import { SearchDateType, WooyeonsType } from "./interface";
 import { useMutation } from "react-query";
-import { MonthlyWooyeonList, getDaysInMonth } from "./utils";
-import { Navigate, useOutletContext } from "react-router";
+import { MonthlyWooyeonList } from "./utils";
+import { useOutletContext } from "react-router";
 
 // 가끔 우연 정보가 안받아와짐
 
@@ -37,8 +34,6 @@ const Past = () => {
     month: today.getMonth() + 1,
     date: today.getDate(),
   });
-  // const [monthlyList, setMonthlyList] =
-  //   useState<WooyeonsType[][]>(initialDoubleList); useState 갖다 버려
   let monthlyList: WooyeonsType[][];
   const [todayWooyeons, setTodayWooyeons] = useState<WooyeonsType[]>([]);
   const initPosition = {
@@ -48,7 +43,6 @@ const Past = () => {
   };
   const mapRef = useRef<MapRef | null>(null);
   const [viewState, setViewState] = React.useState(initPosition);
-  const [geocode, setGeocode] = useState<string | undefined>(undefined);
   const positionRef = useRef<LocationProps | undefined>(initPosition);
   const [preview, setPreview] = useState<WooyeonsType>();
   // 초기화면 : 지도를 현재위치로 고정
@@ -82,24 +76,13 @@ const Past = () => {
         //기존 우연들 초기화와 함께 시작
       },
       onSuccess: (wooyeons) => {
-        // console.log(
-        //   "[success] 조회한 연월: ",
-        //   searchDate.month,
-        //   searchDate.year
-        // );
-        // console.log("[success] 이번달 우연들: ", wooyeons);
         // 오늘 기준 이번달 우연 리스트 만드는 함수 수행
         monthlyList = MonthlyWooyeonList(
           wooyeons,
           today.getFullYear(),
           today.getMonth() + 1
         );
-        // console.log("monthlyList", monthlyList);
-        // console.log("오늘의 우연", monthlyList[today.getDate() - 1]);
         setTodayWooyeons(monthlyList[searchDate.date - 1]); // 오늘 생성된 조회한 우연들
-        // console.log("여기선 todayWooyeons: ", todayWooyeons);
-
-        // 오늘의 우연을 연산하기전에 가져가는듯 그럼 어카지
       },
     }
   );

@@ -72,6 +72,8 @@ function Calendar({
           if (item.getDay() % 6 === 0) classNames += " weekendItem";
           if (item.getDate() === 1) classNames += " monthItem";
           if (item.getTime() > today.getTime()) classNames += " disableItem";
+          // 마지막 일자면 month 컴포넌트 className 추가
+          // 조회한 우연데이터에 해당하는 일자일 경우 테두리 className 추가
         }
 
         return (

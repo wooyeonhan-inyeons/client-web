@@ -15,6 +15,7 @@ import { getPastWooyeon } from "./api";
 import { number } from "prop-types";
 import { SearchDateType } from "./interface";
 import { useMutation } from "react-query";
+import { MonthlyWooyeonList } from "./utils";
 
 // 달별 우연 조회 : 달력의 날짜 클릭 -> 클릭한 날짜와 연도를 param로 넣고 getPastWooyeon
 // 클릭한 날짜에 created_at 우연을 달력 위 컴포넌트로 띄움
@@ -37,7 +38,7 @@ const Past = () => {
     month: today.getMonth() + 1,
     date: today.getDate(),
   });
-
+  let monthlyWooyeonList = [];
   const initPosition = {
     longitude: 127.9068,
     latitude: 35.6699,
@@ -46,12 +47,11 @@ const Past = () => {
   const mapRef = useRef<MapRef | null>(null);
   const [viewState, setViewState] = React.useState(initPosition);
 
-  // 사용자의 위치정보 가져와서 viewport에 저장
+  // 초기화면 : 지도를 현재위치로 고정
   useEffect(() => {
     if (positionRef.current == initPosition) {
       getCurrentLocation({ setViewState });
     }
-    console.log("searchDate: ", searchDate);
     mutate(); // 일단 이번달 우연 조회 시작
   }, [navigator, searchDate]);
 
@@ -65,9 +65,16 @@ const Past = () => {
       onMutate() {
         //기존 우연들 초기화와 함께 시작
       },
-      onSuccess: (data) => {
-        console.log("조회된 우연들: ", data);
+      onSuccess: (wooyeons) => {
+        console.log("조회된 우연들: ", wooyeons);
         console.log("searchDate: ", searchDate);
+        // 오늘기준 한달리스트 만드는 함수 수행
+        monthlyWooyeonList = MonthlyWooyeonList(
+          wooyeons,
+          today.getFullYear(),
+          today.getMonth() + 1
+        );
+        console.log("오늘의 우연", monthlyWooyeonList[today.getDate()]);
       },
     }
   );

@@ -73,15 +73,12 @@ function Calendar({
           if (item.getDay() % 6 === 0) classNames += " weekendItem";
           if (item.getDate() === 1) classNames += " monthItem";
           if (item.getTime() > today.getTime()) classNames += " disableItem";
-          // 마지막 일자면 month 컴포넌트 className 추가
-          // 이전 월과 현재 월이 다른 경우, 새로운 월을 나타내는 컴포넌트 생성
           if (
             index > 0 &&
             item.getMonth() !== rangedDate[index - 1].getMonth()
           ) {
             let term = 12;
             if (item.getDay() === 1) term = 11;
-            // 월별 컴포넌트를 생성하고, 월 정보를 전달
             const monthComponent = (
               <Box className="monthIcon" key={`month-${item.getMonth()}`}>
                 {item.toLocaleString("en-US", { month: "short" })}

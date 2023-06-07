@@ -62,7 +62,6 @@ function Calendar({
   };
 
   const { setTarget } = useIntersectionObserver({ onIntersect });
-
   return (
     <Box sx={calendarStyle} ref={datesRef}>
       <Box sx={{ width: `calc((100% / 7) * ${rangedDate[0].getDay()})` }} />
@@ -80,6 +79,8 @@ function Calendar({
             index > 0 &&
             item.getMonth() !== rangedDate[index - 1].getMonth()
           ) {
+            let term = 12;
+            if (item.getDay() === 1) term = 11;
             // 월별 컴포넌트를 생성하고, 월 정보를 전달
             const monthComponent = (
               <Box className="monthIcon" key={`month-${item.getMonth()}`}>
@@ -88,7 +89,7 @@ function Calendar({
             );
             return (
               <>
-                {Array.from({ length: 12 }).map((_, index) => (
+                {Array.from({ length: term }).map((_, index) => (
                   <Box
                     className="emptyItem"
                     key={index.toString()}
@@ -98,8 +99,17 @@ function Calendar({
                     00
                   </Box>
                 ))}
-
                 {monthComponent}
+                {item.getDay() === 1 && (
+                  <Box
+                    className="emptyItem"
+                    key={index.toString()}
+                    ref={item.getTime() === today.getTime() ? setTarget : null}
+                    onClick={onClickDate}
+                  >
+                    00
+                  </Box>
+                )}
                 <Box
                   className={classNames}
                   key={item.toString()}

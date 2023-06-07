@@ -11,7 +11,7 @@ import { ContextInterface, LocationProps } from "../../../../interface";
 import { getPastWooyeon } from "./api";
 import { SearchDateType, WooyeonsType } from "./interface";
 import { useMutation } from "react-query";
-import { MonthlyWooyeonList } from "./utils";
+import { MonthlyWooyeonList, getDaysExist } from "./utils";
 import { useOutletContext } from "react-router";
 
 // 가끔 우연 정보가 안받아와짐
@@ -45,6 +45,7 @@ const Past = () => {
   const [viewState, setViewState] = React.useState(initPosition);
   const positionRef = useRef<LocationProps | undefined>(initPosition);
   const [preview, setPreview] = useState<WooyeonsType>();
+  const [existDays, setExistDays] = useState<Array<number>>([]);
   // 초기화면 : 지도를 현재위치로 고정
   useEffect(() => {
     if (positionRef.current == initPosition) {
@@ -83,6 +84,8 @@ const Past = () => {
           today.getMonth() + 1
         );
         setTodayWooyeons(monthlyList[searchDate.date - 1]); // 오늘 생성된 조회한 우연들
+        setExistDays(getDaysExist(monthlyList));
+        // console.log("ex: ", existDays);
       },
     }
   );
@@ -152,6 +155,7 @@ const Past = () => {
         <Calendar
           setDisplayDate={setDisplayDate}
           setSearchDate={setSearchDate}
+          existDays={existDays}
         />
       </Drawer>
     </>

@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Box } from "@mui/material";
 import { calendarStyle } from "./style";
 import useIntersectionObserver from "../../../../../../hook/useIntersectionObserver";
-import { CalenderInterface, SetSearchDateType } from "./interface";
+import { CalendarProps } from "./interface";
 import { SearchDateType } from "../../interface";
 
 // key값 고유성 warning 뜸
@@ -25,12 +25,10 @@ function get200Dates(date: Date): Date[] {
   return output;
 }
 
-function Calendar({
-  setDisplayDate,
-  setSearchDate,
-}: CalenderInterface & SetSearchDateType) {
+function Calendar({ setDisplayDate, setSearchDate, existDays }: CalendarProps) {
   const today = new Date();
-  // console.log(today.getMonth() + 1, today.getFullYear(), today.getDate());
+  // console.log("여기선 왜 ex: ", existDays);
+
   today.setHours(0, 0, 0, 0); // 시간, 분, 초, 밀리초를 0으로 설정
   const datesRef = useRef<HTMLElement | null>(null);
   const rangedDate = get200Dates(today);
@@ -72,6 +70,7 @@ function Calendar({
         } else {
           if (item.getDay() % 6 === 0) classNames += " weekendItem";
           if (item.getDate() === selectDay) classNames += " focusItem";
+          if (existDays.includes(item.getDate())) classNames += " hasWooyeon";
           if (item.getTime() > today.getTime()) classNames += " disableItem";
           if (
             index > 0 &&

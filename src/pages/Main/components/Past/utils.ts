@@ -25,3 +25,16 @@ export const getDaysInMonth = (year: number, month: number) => {
   date.setDate(date.getDate() - 1);
   return date.getDate(); // 30 or 31 or 28
 };
+
+export const getDaysExist = (list: WooyeonsType[][]) => {
+  const arr = [];
+  for (let i = 0; i < list.length; i++) {
+    if (
+      list[i].some((element) => {
+        return element !== null && element !== undefined;
+      })
+    )
+      arr.push(i + 1);
+  }
+  return arr;
+};

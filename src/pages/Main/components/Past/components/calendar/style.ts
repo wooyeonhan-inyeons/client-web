@@ -54,4 +54,7 @@ export const calendarStyle = {
     aspectRatio: "1",
     visibility: "hidden",
   },
+  "& .hasWooyeon": {
+    border: "2px solid rgba(0, 166, 81, 0.21);",
+  },
 };

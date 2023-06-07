@@ -36,6 +36,7 @@ function Categories({ filter, setFilter }: CategoryFilterInterface) {
           <CategoryItem
             key={item.id}
             checked={filter.preferCategory.includes(item.id)}
+            filter={filter}
             setFilter={setFilter}
           >
             {item}

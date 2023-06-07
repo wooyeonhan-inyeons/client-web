@@ -98,13 +98,13 @@ const SettingPage = () => {
     "updateCategory",
     (arg: string) =>
       PatchUser({
-        name: "도경",
+        name: user.name,
         message: "hello",
         category: filter.preferCategory,
       }),
     {
       onSuccess: (data, arg) => {
-        console.log(data);
+        // console.log(data);
         setFilter((prev: FilterState) => {
           let newCategory = prev.preferCategory;
           const index = newCategory.indexOf(arg as WooyeonsCategory);

@@ -4,8 +4,10 @@ import { OneCategoryType } from "../../../AddPost/components/CategoryAddPost/typ
 import CategoryBtnUI from "./CategoryBtnUI";
 import { mainPrimary } from "../../../../common";
 import { useRecoilState } from "recoil";
-import { filterState } from "../../../../recoil";
+import { filterState, userState } from "../../../../recoil";
 import { FilterState, WooyeonsCategory } from "../../../../interface";
+import { useMutation } from "react-query";
+import { PatchUser } from "../../../../api";
 
 // 유저가 선택한 카테고리 정보 저장하기
 
@@ -16,34 +18,51 @@ const CategoryBtn = ({ category }: { category: OneCategoryType }) => {
   const [activeColor, setActiveColor] = useState(
     theme.palette.background.paper
   );
+  const [user] = useRecoilState(userState);
   const [filter, setFilter] = useRecoilState(filterState);
 
   const handleButtonClick = () => {
     setActiveColor(
       activeColor === mainPrimary ? theme.palette.background.paper : mainPrimary
     );
-    setFilter((prev: FilterState) => {
-      let newCategory = prev.preferCategory;
-      const index = newCategory.indexOf(category.value as WooyeonsCategory);
+    mutateUser(category.value);
+  };
 
-      if (index === -1) {
-        newCategory = [...newCategory, category.value as WooyeonsCategory];
-      } else if (index !== -1) {
-        if (prev.preferCategory.length === 1)
+  const { mutate: mutateUser } = useMutation(
+    "updateCategory",
+    (arg: string) =>
+      PatchUser({
+        name: user.name,
+        message: "hello",
+        category: filter.preferCategory,
+      }),
+    {
+      onSuccess: (data, arg) => {
+        // console.log(data);
+        setFilter((prev: FilterState) => {
+          let newCategory = prev.preferCategory;
+          const index = newCategory.indexOf(arg as WooyeonsCategory);
+
+          if (index === -1) {
+            newCategory = [...newCategory, arg as WooyeonsCategory];
+          } else if (index !== -1) {
+            if (prev.preferCategory.length === 1)
+              return {
+                ...prev,
+                preferCategory: newCategory,
+              };
+            newCategory = prev.preferCategory.filter(
+              (item) => item !== (arg as WooyeonsCategory)
+            );
+          }
           return {
             ...prev,
             preferCategory: newCategory,
           };
-        newCategory = prev.preferCategory.filter(
-          (item) => item !== (category.value as WooyeonsCategory)
-        );
-      }
-      return {
-        ...prev,
-        preferCategory: newCategory,
-      };
-    });
-  };
+        });
+      },
+    }
+  );
 
   return (
     <CategoryBtnUI

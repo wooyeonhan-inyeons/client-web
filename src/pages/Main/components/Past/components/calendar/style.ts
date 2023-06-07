@@ -45,5 +45,6 @@ export const calendarStyle = {
   "& .emptyItem": {
     width: "calc((100% / 7) - 8px)",
     margin: "4px",
+    visibility: "hidden",
   },
 };

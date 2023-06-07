@@ -88,13 +88,15 @@ function Calendar({
             );
             return (
               <>
-                {Array.from({ length: 5 }).map((_, index) => (
+                {Array.from({ length: 12 }).map((_, index) => (
                   <Box
                     className="emptyItem"
                     key={index.toString()}
                     ref={item.getTime() === today.getTime() ? setTarget : null}
                     onClick={onClickDate}
-                  />
+                  >
+                    00
+                  </Box>
                 ))}
 
                 {monthComponent}

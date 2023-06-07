@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   RouterProvider,
   createBrowserRouter,
   redirect,
 } from "react-router-dom";
-import { userState } from "./recoil";
+import { filterState, userState } from "./recoil";
 import { useRecoilState } from "recoil";
 
 import MainWrapper from "./component/MainWrapper";
@@ -24,9 +24,30 @@ import SettingPage from "./pages/Mypage/components/Setting";
 import Detail from "./pages/Detail";
 import Auth from "./pages/auth";
 import Error from "./pages/Error";
+import { useQuery } from "react-query";
+import { getUser } from "./pages/auth/api";
+import { UserState } from "./interface";
+import { UserInfo } from "./pages/auth/interface";
 
 const Router = () => {
-  const [user] = useRecoilState(userState);
+  const [user, setUser] = useRecoilState(userState);
+
+  const { data: userData, isSuccess } = useQuery("getUser", getUser, {
+    // suspense: true,
+    // useErrorBoundary: true,
+    onSuccess(userData: UserInfo) {
+      // console.log(userData);
+      setUser((prev: UserState) => {
+        return {
+          ...prev,
+          user_id: userData.user_id,
+          name: userData.name,
+          create_at: userData.create_at,
+          role: userData.role,
+        };
+      });
+    },
+  });
 
   const router = createBrowserRouter([
     {
@@ -59,7 +80,7 @@ const Router = () => {
           path: "/",
           element: <Main />,
           children: [
-            { index: true, element: <Search /> },
+            { index: true, element: isSuccess ? <Search /> : <div>asd</div> },
             { path: "previous", element: <Past /> },
           ],
         },

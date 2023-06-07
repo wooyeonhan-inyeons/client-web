@@ -20,7 +20,7 @@ const CategoryBtnUI = ({
     <Button
       variant="contained"
       // color={activeColor as ColorType} // 전달
-      href="#contained-buttons"
+      // href="#contained-buttons"
       sx={{
         width: "100%",
         height: "100%",

@@ -18,10 +18,12 @@ import {
   Typography,
 } from "@mui/material";
 import { useRecoilState } from "recoil";
-import { envState, filterState } from "../../../../recoil";
+import { envState, filterState, userState } from "../../../../recoil";
 import { CircleHalf, Moon, Sun, X } from "@phosphor-icons/react";
 import { StyledSwitch } from "../../../../component/StyledSwitch";
 import { SettingStyle } from "./style";
+import { useMutation } from "react-query";
+import { PatchUser } from "../../../../api";
 
 const wooyeonCategory: Array<{ id: WooyeonsCategory; value: string }> = [
   { id: "DAILY", value: "일상" },
@@ -35,6 +37,7 @@ const wooyeonCategory: Array<{ id: WooyeonsCategory; value: string }> = [
 const SettingPage = () => {
   const { setHeadOpt, navigate } = useOutletContext<ContextInterface>();
   const [filter, setFilter] = useRecoilState(filterState);
+  const [user] = useRecoilState(userState);
   const [env, setEnv] = useRecoilState(envState);
 
   const headerOption: HeaderOptinterface = {
@@ -87,28 +90,45 @@ const SettingPage = () => {
     e: React.MouseEvent<HTMLElement>,
     value: string | null
   ) => {
-    setFilter((prev: FilterState) => {
-      let newCategory = prev.preferCategory;
-      const index = newCategory.indexOf(value as WooyeonsCategory);
+    //value = category value
+    if (value !== null) mutateUser(value);
+  };
 
-      if (index === -1) {
-        newCategory = [...newCategory, value as WooyeonsCategory];
-      } else if (index !== -1) {
-        if (prev.preferCategory.length === 1)
+  const { mutate: mutateUser } = useMutation(
+    "updateCategory",
+    (arg: string) =>
+      PatchUser({
+        name: "도경",
+        message: "hello",
+        category: filter.preferCategory,
+      }),
+    {
+      onSuccess: (data, arg) => {
+        console.log(data);
+        setFilter((prev: FilterState) => {
+          let newCategory = prev.preferCategory;
+          const index = newCategory.indexOf(arg as WooyeonsCategory);
+
+          if (index === -1) {
+            newCategory = [...newCategory, arg as WooyeonsCategory];
+          } else if (index !== -1) {
+            if (prev.preferCategory.length === 1)
+              return {
+                ...prev,
+                preferCategory: newCategory,
+              };
+            newCategory = prev.preferCategory.filter(
+              (item) => item !== (arg as WooyeonsCategory)
+            );
+          }
           return {
             ...prev,
             preferCategory: newCategory,
           };
-        newCategory = prev.preferCategory.filter(
-          (item) => item !== (value as WooyeonsCategory)
-        );
-      }
-      return {
-        ...prev,
-        preferCategory: newCategory,
-      };
-    });
-  };
+        });
+      },
+    }
+  );
 
   return (
     <Stack

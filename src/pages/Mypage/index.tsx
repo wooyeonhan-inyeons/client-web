@@ -1,6 +1,6 @@
 import React, { useLayoutEffect } from "react";
 import { useResetRecoilState } from "recoil";
-import { userState } from "../../recoil";
+import { envState, filterState, userState } from "../../recoil";
 import { Box, Button, Stack, Typography } from "@mui/material";
 import { ContextInterface, HeaderOptinterface } from "../../interface.d";
 import { useOutletContext } from "react-router-dom";
@@ -11,6 +11,8 @@ export default function Mypage() {
   const { setHeadOpt, navigate, setWrapperOpt } =
     useOutletContext<ContextInterface>();
   const resetUser = useResetRecoilState(userState);
+  const resetFilter = useResetRecoilState(filterState);
+  const resetEnv = useResetRecoilState(envState);
 
   const headerOption: HeaderOptinterface = {
     menus: [{ key: "마이페이지", value: "/mypage" }],
@@ -30,6 +32,12 @@ export default function Mypage() {
     setWrapperOpt(wrapperOpt);
   }, []);
 
+  const handleLogout = () => {
+    resetUser();
+    resetFilter();
+    resetEnv();
+  };
+
   return (
     <Stack>
       <Box sx={{ height: "20rem" }}>
@@ -38,7 +46,7 @@ export default function Mypage() {
       <Button fullWidth onClick={() => navigate("/mypage/edit")}>
         프로필 수정
       </Button>
-      <Button fullWidth onClick={resetUser}>
+      <Button fullWidth onClick={handleLogout}>
         로그아웃
       </Button>
     </Stack>

@@ -22,7 +22,7 @@ function Main() {
     fn_L: () => navigate("/notification"),
     icon_R: () => (
       <Avatar
-        name={user.id.toString()}
+        name={user.user_id}
         variant="beam"
         size={28}
         colors={avatarColors}

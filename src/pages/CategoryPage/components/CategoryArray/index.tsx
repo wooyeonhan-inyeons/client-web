@@ -6,6 +6,7 @@ import {
 export const categoryArr: CategoryArr = [
   {
     id: Category.DAILY,
+    value: "DAILY",
     selected: false,
     fn_print: function print() {
       console.log(this.id);
@@ -13,6 +14,7 @@ export const categoryArr: CategoryArr = [
   },
   {
     id: Category.GROUP,
+    value: "GROUP",
     selected: false,
     fn_print: function print() {
       console.log(this.id);
@@ -20,6 +22,7 @@ export const categoryArr: CategoryArr = [
   },
   {
     id: Category.ADS,
+    value: "ADS",
     selected: false,
     fn_print: function print() {
       console.log(this.id);
@@ -27,6 +30,7 @@ export const categoryArr: CategoryArr = [
   },
   {
     id: Category.INFO,
+    value: "INFO",
     selected: false,
     fn_print: function print() {
       console.log(this.id);
@@ -34,6 +38,7 @@ export const categoryArr: CategoryArr = [
   },
   {
     id: Category.EVENT,
+    value: "EVENT",
     selected: false,
     fn_print: function print() {
       console.log(this.id);
@@ -41,6 +46,7 @@ export const categoryArr: CategoryArr = [
   },
   {
     id: Category.PRESENT,
+    value: "PRESENT",
     selected: false,
     fn_print: function print() {
       console.log(this.id);

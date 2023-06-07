@@ -2,9 +2,10 @@ import { WrapperOptInterface } from "./component/MainWrapper/interface";
 
 export interface UserState {
   role: "GUEST" | "USER" | "ADMIN";
-  id: number;
+  user_id: string;
   name: string;
   first: boolean;
+  create_at: string;
   access_token?: string;
 }
 

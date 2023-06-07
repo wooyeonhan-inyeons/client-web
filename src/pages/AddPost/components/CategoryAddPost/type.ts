@@ -9,8 +9,17 @@ export enum Category {
   "PRESENT" = "선물",
 }
 
+export type CategoryValue =
+  | "DAILY"
+  | "GROUP"
+  | "ADS"
+  | "INFO"
+  | "EVENT"
+  | "PRESENT";
+
 export interface OneCategoryType {
   id: Category;
+  value: CategoryValue;
   selected: boolean;
   fn_print: () => void;
 }

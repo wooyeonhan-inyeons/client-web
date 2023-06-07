@@ -2,7 +2,8 @@ import React, { useEffect, useRef } from "react";
 import { Box } from "@mui/material";
 import { calendarStyle } from "./style";
 import useIntersectionObserver from "../../../../../../hook/useIntersectionObserver";
-import { CalenderInterface } from "./interface";
+import { CalenderInterface, SetSearchDateType } from "./interface";
+import { SearchDateType } from "../../interface";
 
 //현재일 기준으로 앞 뒤로 특정 범위의 데이터 배열 반환
 function get200Dates(date: Date): Date[] {
@@ -22,9 +23,12 @@ function get200Dates(date: Date): Date[] {
   return output;
 }
 
-function Calendar({ setDisplayDate }: CalenderInterface) {
+function Calendar({
+  setDisplayDate,
+  setSearchDate,
+}: CalenderInterface & SetSearchDateType) {
   const today = new Date();
-  console.log(today.getMonth() + 1, today.getFullYear(), today.getDate());
+  // console.log(today.getMonth() + 1, today.getFullYear(), today.getDate());
   today.setHours(0, 0, 0, 0); // 시간, 분, 초, 밀리초를 0으로 설정
   const datesRef = useRef<HTMLElement | null>(null);
   const rangedDate = get200Dates(today);
@@ -38,12 +42,21 @@ function Calendar({ setDisplayDate }: CalenderInterface) {
   }, []);
 
   const onIntersect: IntersectionObserverCallback = ([{ isIntersecting }]) => {
-    console.log(`감지결과 : ${isIntersecting}`);
+    // console.log(`감지결과 : ${isIntersecting}`);
     setDisplayDate(
       `${today.getFullYear()}.${(today.getMonth() + 1)
         .toString()
         .padStart(2, "0")}`
     );
+  };
+
+  const onClickDate = (e: React.MouseEvent<HTMLDivElement>) => {
+    const date = e.currentTarget.innerText;
+    // console.log(date);
+    setSearchDate((prevDate: SearchDateType) => ({
+      ...prevDate,
+      date: parseInt(date),
+    }));
   };
 
   const { setTarget } = useIntersectionObserver({ onIntersect });
@@ -66,6 +79,7 @@ function Calendar({ setDisplayDate }: CalenderInterface) {
             className={classNames}
             key={item.toString()}
             ref={item.getTime() === today.getTime() ? setTarget : null}
+            onClick={onClickDate}
           >
             {item.getDate()}
           </div>

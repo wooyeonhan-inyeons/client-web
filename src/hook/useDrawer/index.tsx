@@ -52,6 +52,9 @@ const Drawer = ({
         }}
         className="use_drawer"
       >
+        <div style={{ position: "relative", bottom: "9rem", height: "0rem" }}>
+          우연 이미지 미리보기 표시할 부분
+        </div>
         <DrawrHandle
           drawerBleeding={drawerBleeding}
           open={open}

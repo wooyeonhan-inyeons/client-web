@@ -14,10 +14,10 @@ export default function CommentItem({ value, createAt }: CommentInterface) {
       <Box className="commentContent">
         <Typography variant="body2">{value}</Typography>
         <Typography variant="caption" color="#8e8e8e">
-          5분 전
+          {createAt}
         </Typography>
       </Box>
-      <Box className="rightSide">{createAt}</Box>
+      <Box className="rightSide"></Box>
     </StyledCommentItem>
   );
 }

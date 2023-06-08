@@ -15,15 +15,15 @@ export default function DetailComment({
   const timeAgo = new TimeAgo("ko");
   const date = new Date();
 
-  // if (wooyeon?.comment_count === 0) {
-  //   return (
-  //     <StyledComment sx={{ padding: "0 1rem" }}>
-  //       <Stack spacing={2} className="comments">
-  //         등록된 댓글이 없습니다.
-  //       </Stack>
-  //     </StyledComment>
-  //   );
-  // }
+  if (wooyeon?.comment_count === 0) {
+    return (
+      <StyledComment sx={{ padding: "0 1rem" }}>
+        <Stack spacing={2} className="comments">
+          등록된 댓글이 없습니다.
+        </Stack>
+      </StyledComment>
+    );
+  }
 
   return (
     <StyledComment sx={{ padding: "0 1rem" }}>

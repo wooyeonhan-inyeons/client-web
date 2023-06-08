@@ -31,18 +31,26 @@ export const deletePost = async (post_id: string): Promise<void> => {
   return response;
 };
 
-export const postEmotion = async (post_id: string) => {
-  const response = await fetch(`${BACK_URL}/emotion`, {
+export const postEmotion = async (post_id: string): Promise<void> => {
+  await fetch(`${BACK_URL}/emotion`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
     },
     body: JSON.stringify({ post_id: post_id }),
-  }).then((response) => {
-    return response.json();
   });
-  return response;
+};
+
+export const removeEmotion = async (post_id: string): Promise<void> => {
+  await fetch(`${BACK_URL}/emotion`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+    },
+    body: JSON.stringify({ post_id: post_id }),
+  });
 };
 
 export const postComment = async (post_id: string, content: string) => {

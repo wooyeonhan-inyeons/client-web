@@ -7,6 +7,8 @@ import { avatarColors, secondary } from "../../../../common";
 import { GetPostInterface } from "../../interface";
 import { WooyeonsCategory } from "../../../../interface";
 import { Heart } from "@phosphor-icons/react";
+import { postEmotion } from "../../api";
+import { useMutation } from "react-query";
 
 const LazyAvatar = React.lazy(() => import("boring-avatars"));
 const LazyTypography = React.lazy(() => import("@mui/material/Typography"));
@@ -37,6 +39,10 @@ export default function DetailContent({
   if (wooyeon !== undefined) {
     date = new Date(wooyeon?.created_at);
   }
+
+  const { mutate } = useMutation("deletePost", () =>
+    postEmotion(wooyeon?.post_id as string)
+  );
 
   return (
     <StyledDetailContent>
@@ -86,7 +92,7 @@ export default function DetailContent({
         <Box className="header_content">{wooyeon?.content}</Box>
         <Box className="footer_content">
           <Box className="favorite">
-            <IconButton>
+            <IconButton onClick={() => mutate()}>
               <Heart
                 color={secondary}
                 weight={wooyeon?.own_emotion ? "fill" : "regular"}

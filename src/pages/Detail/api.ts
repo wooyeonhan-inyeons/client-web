@@ -16,3 +16,77 @@ export const getDetailWooyeon = async (post_id: string) => {
   });
   return response;
 };
+
+export const deletePost = async (post_id: string): Promise<void> => {
+  const response = await fetch(`${BACK_URL}/post`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+    },
+    body: JSON.stringify({ post_id: post_id }),
+  }).then((response) => {
+    return response.json();
+  });
+  return response;
+};
+
+export const postEmotion = async (post_id: string) => {
+  const response = await fetch(`${BACK_URL}/emotion`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+    },
+    body: JSON.stringify({ post_id: post_id }),
+  }).then((response) => {
+    return response.json();
+  });
+  return response;
+};
+
+export const postComment = async (post_id: string, content: string) => {
+  const response = await fetch(`${BACK_URL}/comment`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+    },
+    body: JSON.stringify({ post_id: post_id, content: content }),
+  }).then((response) => {
+    return response.json();
+  });
+  return response;
+};
+
+export const getEmotion = async (post_id: string) => {
+  const response: GetPostInterface = await fetch(
+    `${BACK_URL}/readPost?post_id=${post_id}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+      },
+    }
+  ).then((response) => {
+    return response.json();
+  });
+  return response;
+};
+
+export const getComment = async (post_id: string) => {
+  const response: GetPostInterface = await fetch(
+    `${BACK_URL}/comment?post_id=${post_id}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+      },
+    }
+  ).then((response) => {
+    return response.json();
+  });
+  return response;
+};

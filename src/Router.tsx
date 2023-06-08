@@ -32,23 +32,27 @@ import { UserInfo } from "./pages/auth/interface";
 const Router = () => {
   const [user, setUser] = useRecoilState(userState);
 
-  const { data: userData, isSuccess } = useQuery("getUser", getUser, {
-    // suspense: true,
-    // useErrorBoundary: true,
-    onSuccess(userData: UserInfo) {
-      // console.log(userData);
-      //localstorage에 저장되어야 flutter에서 읽을 수 있기에 업데이트
-      setUser((prev: UserState) => {
-        return {
-          ...prev,
-          user_id: userData.user_id,
-          name: userData.name,
-          create_at: userData.create_at,
-          role: userData.role,
-        };
-      });
-    },
-  });
+  const { data: userData, isSuccess } = useQuery(
+    "getUser",
+    () => getUser(user.access_token),
+    {
+      // suspense: true,
+      // useErrorBoundary: true,
+      onSuccess(userData: UserInfo) {
+        // console.log(userData);
+        //localstorage에 저장되어야 flutter에서 읽을 수 있기에 업데이트
+        setUser((prev: UserState) => {
+          return {
+            ...prev,
+            user_id: userData.user_id,
+            name: userData.name,
+            create_at: userData.create_at,
+            role: userData.role,
+          };
+        });
+      },
+    }
+  );
 
   const router = createBrowserRouter([
     {

@@ -15,6 +15,7 @@ export const getPost = async ({
   position,
   range,
   category,
+  token,
 }: GetWooyeonsInterface) => {
   if (position == undefined) return;
   //카테고리 쿼리화
@@ -30,7 +31,7 @@ export const getPost = async ({
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+        Authorization: `Bearer ${token}`,
       },
     }
   ).then((response) => {

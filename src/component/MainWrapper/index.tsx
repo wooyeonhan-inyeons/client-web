@@ -9,8 +9,11 @@ import SaveBtn from "../SaveBtn";
 import { useMutation } from "react-query";
 import { Post } from "../../pages/AddPost/components/ContentAddPost/api";
 import { UploadPostType } from "../../pages/AddPost/components/HeaderAddPost/interface";
+import { useRecoilState } from "recoil";
+import { userState } from "../../recoil";
 
 function MainWrapper({ isHeader }: HeaderProp) {
+  const [user] = useRecoilState(userState);
   const [headOpt, setHeadOpt] = useState<HeaderOptinterface>({
     menus: [{ key: "", value: "" }],
     isForward: true,
@@ -67,20 +70,24 @@ function MainWrapper({ isHeader }: HeaderProp) {
   };
 
   // mutation
-  const { mutate, isLoading } = useMutation("post", () => Post(post), {
-    onMutate: (data) => {
-      //시작
-      console.log("onMutation: ", data);
-      // console.log("isLoading: ", isLoading);
-    },
-    onSuccess: () => {
-      console.log("우연 등록하기 성공!");
-      navigate("/");
-    },
-    onSettled: () => {
-      navigate("/");
-    },
-  });
+  const { mutate, isLoading } = useMutation(
+    "post",
+    () => Post(post, user.access_token),
+    {
+      onMutate: (data) => {
+        //시작
+        console.log("onMutation: ", data);
+        // console.log("isLoading: ", isLoading);
+      },
+      onSuccess: () => {
+        console.log("우연 등록하기 성공!");
+        navigate("/");
+      },
+      onSettled: () => {
+        navigate("/");
+      },
+    }
+  );
 
   return (
     <>

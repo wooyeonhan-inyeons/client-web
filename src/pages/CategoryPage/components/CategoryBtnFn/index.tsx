@@ -35,6 +35,7 @@ const CategoryBtn = ({ category }: { category: OneCategoryType }) => {
         name: user.name,
         message: "hello",
         category: filter.preferCategory,
+        token: user.access_token,
       }),
     {
       onSuccess: (data, arg) => {

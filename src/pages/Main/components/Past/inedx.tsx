@@ -13,10 +13,13 @@ import { SearchDateType, WooyeonsType } from "./interface";
 import { useMutation } from "react-query";
 import { MonthlyWooyeonList, getDaysExist } from "./utils";
 import { useOutletContext } from "react-router";
+import { userState } from "../../../../recoil";
+import { useRecoilState } from "recoil";
 
 // 가끔 우연 정보가 안받아와짐
 
 const Past = () => {
+  const [user] = useRecoilState(userState);
   const { navigate } = useOutletContext<ContextInterface>();
   const { open, Drawer, toggleDrawer } = useDrawer();
   const theme = useTheme();
@@ -71,12 +74,14 @@ const Past = () => {
 
   const { mutate } = useMutation(
     "get",
-    () => getPastWooyeon(searchDate.month, searchDate.year),
+    () => getPastWooyeon(searchDate.month, searchDate.year, user.access_token),
     {
       onMutate() {
         //기존 우연들 초기화와 함께 시작
+        console.log("onmutate");
       },
       onSuccess: (wooyeons) => {
+        console.log("success");
         // 오늘 기준 이번달 우연 리스트 만드는 함수 수행
         monthlyList = MonthlyWooyeonList(
           wooyeons,
@@ -85,7 +90,6 @@ const Past = () => {
         );
         setTodayWooyeons(monthlyList[searchDate.date - 1]); // 오늘 생성된 조회한 우연들
         setExistDays(getDaysExist(monthlyList));
-        // console.log("ex: ", existDays);
       },
     }
   );

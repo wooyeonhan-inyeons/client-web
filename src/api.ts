@@ -4,10 +4,12 @@ export const PatchUser = async ({
   name,
   message,
   category,
+  token,
 }: {
   name: string;
   message: string;
   category: string[];
+  token: string | undefined;
 }) => {
   //카테고리 쿼리화
   let categories = "";
@@ -22,7 +24,7 @@ export const PatchUser = async ({
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
         name: name,

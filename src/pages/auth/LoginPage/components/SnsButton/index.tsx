@@ -16,7 +16,6 @@ const theme = createTheme({
 
 const SnsButton = ({ sns, text, imgSrc }: SnsProps) => {
   const navigate = useNavigate();
-
   const getLogin = () => {
     if (import.meta.env.DEV) {
       navigate(

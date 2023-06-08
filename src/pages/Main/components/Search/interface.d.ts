@@ -83,6 +83,7 @@ export interface GetWooyeonsInterface {
   };
   range: number;
   category: Array<WooyeonsCategory>;
+  token: string | undefined;
 }
 
 export interface RangeDictionary {

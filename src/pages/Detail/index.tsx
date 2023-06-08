@@ -66,7 +66,7 @@ export default function Detail() {
 
   const { data: wooyeon } = useQuery(
     "getWooyeon",
-    () => getDetailWooyeon(post_id as unknown as string),
+    () => getDetailWooyeon(post_id as unknown as string, user.access_token),
     {
       // suspense: true,
       // useErrorBoundary: true,
@@ -78,19 +78,19 @@ export default function Detail() {
 
   const { mutate: deletePostMutation } = useMutation(
     "deletePost",
-    () => deletePost(wooyeon?.post_id as string),
+    () => deletePost(wooyeon?.post_id as string, user.access_token),
     { onSuccess: () => navigate(-1) }
   );
 
   const { mutate: commentPostMutation } = useMutation(
     "postComment",
-    () => postComment(wooyeon?.post_id as string, comment),
+    () => postComment(wooyeon?.post_id as string, comment, user.access_token),
     { onSuccess: () => setComment("") }
   );
 
   const { data: wooyeon_comment } = useQuery(
     "getWooyeon_emotion",
-    () => getComment(post_id!),
+    () => getComment(post_id!, user.access_token),
     {
       // suspense: true,
       // useErrorBoundary: true,

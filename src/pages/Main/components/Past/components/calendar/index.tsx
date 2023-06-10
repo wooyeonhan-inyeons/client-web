@@ -32,7 +32,7 @@ function Calendar({ setDisplayDate, setSearchDate, existDays }: CalendarProps) {
   today.setHours(0, 0, 0, 0); // 시간, 분, 초, 밀리초를 0으로 설정
   const datesRef = useRef<HTMLElement | null>(null);
   const rangedDate = get200Dates(today);
-  const [selectDay, setSelectDay] = useState<number | string>();
+  const [selectDay, setSelectDay] = useState<number>();
   useEffect(() => {
     if (datesRef.current) {
       datesRef.current
@@ -50,14 +50,23 @@ function Calendar({ setDisplayDate, setSearchDate, existDays }: CalendarProps) {
     );
   };
 
+  /**
+   *
+   * @time dom에 포함되어 있는 문자타입의 Date
+   * @newDate `time`의 타입을 Date로 변경한 것
+   * @returns
+   */
   const getWooyeon = (e: React.MouseEvent<HTMLDivElement>) => {
     const time = e.currentTarget.querySelector(".hiddenValue")?.innerHTML;
     let newDate: Date;
     if (time !== undefined) {
       newDate = new Date(time);
-      console.log(time, newDate.getTime());
 
-      setSelectDay(newDate.getTime());
+      // 미래의 날짜는 선택 불가능 하도록
+      if (Number(time) > today.getTime()) {
+        return;
+      }
+      setSelectDay(Number(time));
       setSearchDate((prevDate: SearchDateType) => ({
         ...prevDate,
         month: newDate.getMonth(),
@@ -80,7 +89,6 @@ function Calendar({ setDisplayDate, setSearchDate, existDays }: CalendarProps) {
           if (existDays.includes(item.getDate())) classNames += " hasWooyeon";
           if (item.getTime() > today.getTime()) classNames += " disableItem";
           if (item.getTime() === selectDay) classNames += " focusItem";
-          // console.log(item.getTime(), selectDay.getTime());
 
           if (
             index > 0 &&

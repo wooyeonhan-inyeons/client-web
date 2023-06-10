@@ -7,6 +7,8 @@ import Avatar from "boring-avatars";
 import { useRecoilState } from "recoil";
 import { userState } from "../../recoil";
 import { avatarColors } from "../../common";
+import Map from "react-map-gl";
+import mapboxgl from "mapbox-gl";
 
 function Main() {
   const [user] = useRecoilState(userState);
@@ -42,7 +44,7 @@ function Main() {
     setWrapperOpt(wrapperOption);
   }, []);
 
-  return <Outlet context={{ navigate }} />;
+  return <Outlet context={{ navigate, Map, mapboxgl }} />;
 }
 
 export default Main;

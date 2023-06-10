@@ -9,6 +9,8 @@ import { WooyeonsCategory } from "../../../../interface";
 import { Heart } from "@phosphor-icons/react";
 import { postEmotion, removeEmotion } from "../../api";
 import { useMutation } from "react-query";
+import { useRecoilState } from "recoil";
+import { userState } from "../../../../recoil";
 
 const LazyAvatar = React.lazy(() => import("boring-avatars"));
 const LazyTypography = React.lazy(() => import("@mui/material/Typography"));
@@ -32,6 +34,7 @@ export default function DetailContent({
 }: {
   wooyeon: GetPostInterface | undefined;
 }) {
+  const [user] = useRecoilState(userState);
   TimeAgo.addLocale(ko);
   const timeAgo = new TimeAgo("ko");
 
@@ -41,11 +44,11 @@ export default function DetailContent({
   }
 
   const { mutate: postEmotionMutate } = useMutation("deletePost", () =>
-    postEmotion(wooyeon?.post_id as string)
+    postEmotion(wooyeon?.post_id as string, user.access_token)
   );
 
   const { mutate: removeEmotionMutate } = useMutation("deletePost", () =>
-    removeEmotion(wooyeon?.post_id as string)
+    removeEmotion(wooyeon?.post_id as string, user.access_token)
   );
 
   return (

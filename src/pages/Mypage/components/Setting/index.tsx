@@ -101,6 +101,7 @@ const SettingPage = () => {
         name: user.name,
         message: "hello",
         category: filter.preferCategory,
+        token: user.access_token,
       }),
     {
       onSuccess: (data, arg) => {

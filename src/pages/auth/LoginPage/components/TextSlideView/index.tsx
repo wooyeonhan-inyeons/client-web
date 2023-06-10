@@ -1,10 +1,8 @@
-import { createTheme, Grid, Typography, useTheme } from "@mui/material";
-import SwipeableViews from "react-swipeable-views";
 import React from "react";
-// import SaveBtn from "../../../Category/components/SaveBtn";
+import { Grid, Typography, useTheme } from "@mui/material";
+import SwipeableViews from "react-swipeable-views";
 import { IntroductionProps } from "../../types";
 import kakaoIcon from "../../img/kakaoIcon.png";
-import googleIcon from "../../img/googleIcon.png";
 import SnsButton from "../SnsButton";
 
 const TextSlideView = ({
@@ -16,12 +14,7 @@ const TextSlideView = ({
   return (
     <>
       {/* 하반부 전체을 감싸는 Grid */}
-      <Grid
-        container
-        // sx={{ p: "0rem" }}
-        alignItems="center"
-        justifyContent="center"
-      >
+      <Grid container alignItems="center" justifyContent="center">
         <Grid item>
           {/* 슬라이드 뷰 */}
           <SwipeableViews
@@ -84,11 +77,11 @@ const TextSlideView = ({
         {/* 시작하기 버튼 */}
         <Grid item>
           {/* <SaveBtn text="시작하기" /> */}
-          <SnsButton
+          {/* <SnsButton
             sns="GOOGLE"
             text="Google 계정으로 로그인"
             imgSrc={googleIcon}
-          ></SnsButton>
+          ></SnsButton> */}
           <SnsButton
             sns="KAKAO"
             text="Kakao 계정으로 로그인"

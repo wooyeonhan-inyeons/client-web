@@ -4,9 +4,7 @@ import { userState } from "../../../../../recoil";
 
 // files 타입에 자꾸 undefined 에러가 떠서.. 일단 any로 해둠....일단은..
 
-export const Post = async (post: any) => {
-  const [user] = useRecoilState(userState);
-  console.log("유저토큰", user.access_token);
+export const Post = async (post: any, token: string | undefined) => {
   const formData = new FormData();
 
   formData.append("latitude", post.latitude);
@@ -22,7 +20,7 @@ export const Post = async (post: any) => {
     method: "POST",
     headers: {
       // "Content-Type": "multipart/form-data;",
-      Authorization: `Bearer ${user.access_token}`,
+      Authorization: `Bearer ${token}`,
     },
     body: formData,
   }).then((response) => {

@@ -13,7 +13,7 @@ import { getCurrentLocation, wooyeonPositioning } from "./utils";
 import { ContextInterface } from "../../../../interface";
 import { getPost } from "./api";
 import { useMutation } from "react-query";
-import { filterState } from "../../../../recoil";
+import { filterState, userState } from "../../../../recoil";
 import { useRecoilState } from "recoil";
 import Lottie from "lottie-react";
 import thinkingAnimation from "../../../../asset/thinking.json";
@@ -24,6 +24,7 @@ const Search = () => {
   const [wooyeons, setWooyeons] = useState<Wooyeons[]>([]);
   const [position, setPosition] = useState<positionType | undefined>(undefined);
   const [filter, setFilter] = useRecoilState(filterState);
+  const [user] = useRecoilState(userState);
 
   //drawer를 올릴 떄 터치 이벤트를 사용할 수 없는 환경을 위함
   const isTouchDevice = "ontouchstart" in window;
@@ -52,6 +53,7 @@ const Search = () => {
         position: position,
         range: filter.searchRange,
         category: filter.preferCategory,
+        token: user.access_token,
       }),
     {
       onMutate() {

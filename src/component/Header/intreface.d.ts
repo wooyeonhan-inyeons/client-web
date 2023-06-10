@@ -9,5 +9,6 @@ export interface menuProp {
 export interface HeaderProp {
   headProp: HeaderOptinterface;
   navigate: NavigateFunction;
+
   setBtnText?: Dispatch<SetStateAction<string>>; // 현재 헤더바 태그 위치
 }

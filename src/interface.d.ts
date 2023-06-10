@@ -54,6 +54,7 @@ export interface ContextInterface {
 
   Map: MapContextType | undefined;
   mapboxgl: object;
+  user: userState;
 }
 
 export interface onlyNavigateInterface {

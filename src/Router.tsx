@@ -13,7 +13,7 @@ import CategoryPage from "./pages/CategoryPage";
 import Main from "./pages/Main";
 import Search from "./pages/Main/components/Search";
 import Past from "./pages/Main/components/Past/inedx";
-import HeaderAddPost from "./pages/AddPost/components/HeaderAddPost";
+import HeaderAddPost from "./pages/AddPost";
 import MapAddPost from "./pages/AddPost/components/MapAddPost";
 import CategoryAddPost from "./pages/AddPost/components/CategoryAddPost";
 import ContentAddPost from "./pages/AddPost/components/ContentAddPost";

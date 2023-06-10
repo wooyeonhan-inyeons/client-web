@@ -16,9 +16,9 @@ const CategoryAddPost = () => {
     console.log("흔들어?", shaking);
   }, []);
 
-  const ShakingTypography = styled(Typography)<{ shaking: boolean }>(
+  const ShakingTypography = styled(Typography)<{ shaking: string }>(
     ({ shaking }) => ({
-      animation: shaking === true ? "shake 1s" : "none",
+      animation: shaking === "true" ? "shake 1s" : "none",
 
       "@keyframes shake": {
         "0%": { transform: "translateX(0)" },
@@ -51,7 +51,7 @@ const CategoryAddPost = () => {
           variant="subtitle1"
           fontWeight={500}
           sx={{ color: "#A2A2A2" }}
-          shaking={shaking}
+          shaking={shaking.toString()}
         >
           1개의 카테고리를 선택해 주세요.
         </ShakingTypography>

@@ -3,9 +3,10 @@ import { useTheme } from "@mui/material";
 
 import { useOutletContext } from "react-router";
 import { Category, OneCategoryType, ShakingProp } from "../../type";
-import { PostStateInterface } from "../../../HeaderAddPost/interface";
+
 import CategoryBtnUI from "../../../../../CategoryPage/components/CategoryBtnFn/CategoryBtnUI";
 import { mainPrimary } from "../../../../../../common";
+import { PostStateInterface } from "../../../../interface";
 
 // 카테고리 버튼 컴포넌트
 const CategoryBtn = ({ category }: { category: OneCategoryType }) => {

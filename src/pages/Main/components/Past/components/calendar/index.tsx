@@ -4,6 +4,7 @@ import { calendarStyle } from "./style";
 import useIntersectionObserver from "../../../../../../hook/useIntersectionObserver";
 import { CalendarProps } from "./interface";
 import { SearchDateType } from "../../interface";
+import DayWooyenItem from "./components/DayWooyenItem";
 
 // key값 고유성 warning 뜸
 
@@ -27,12 +28,11 @@ function get200Dates(date: Date): Date[] {
 
 function Calendar({ setDisplayDate, setSearchDate, existDays }: CalendarProps) {
   const today = new Date();
-  // console.log("여기선 왜 ex: ", existDays);
 
   today.setHours(0, 0, 0, 0); // 시간, 분, 초, 밀리초를 0으로 설정
   const datesRef = useRef<HTMLElement | null>(null);
   const rangedDate = get200Dates(today);
-  const [selectDay, setSelectDay] = useState<number>(0);
+  const [selectDay, setSelectDay] = useState<number>();
   useEffect(() => {
     if (datesRef.current) {
       datesRef.current
@@ -50,16 +50,33 @@ function Calendar({ setDisplayDate, setSearchDate, existDays }: CalendarProps) {
     );
   };
 
-  const onClickDate = (e: React.MouseEvent<HTMLDivElement>) => {
-    const date = e.currentTarget.innerText;
-    setSelectDay(parseInt(date));
-    setSearchDate((prevDate: SearchDateType) => ({
-      ...prevDate,
-      date: parseInt(date),
-    }));
+  /**
+   *
+   * @time dom에 포함되어 있는 문자타입의 Date
+   * @newDate `time`의 타입을 Date로 변경한 것
+   * @returns
+   */
+  const getWooyeon = (e: React.MouseEvent<HTMLDivElement>) => {
+    const time = e.currentTarget.querySelector(".hiddenValue")?.innerHTML;
+    let newDate: Date;
+    if (time !== undefined) {
+      newDate = new Date(time);
+
+      // 미래의 날짜는 선택 불가능 하도록
+      if (Number(time) > today.getTime()) {
+        return;
+      }
+      setSelectDay(Number(time));
+      setSearchDate((prevDate: SearchDateType) => ({
+        ...prevDate,
+        month: newDate.getMonth(),
+        date: newDate.getDate(),
+      }));
+    }
   };
 
   const { setTarget } = useIntersectionObserver({ onIntersect });
+
   return (
     <Box sx={calendarStyle} ref={datesRef}>
       <Box sx={{ width: `calc((100% / 7) * ${rangedDate[0].getDay()})` }} />
@@ -69,64 +86,51 @@ function Calendar({ setDisplayDate, setSearchDate, existDays }: CalendarProps) {
           classNames += " todayItem";
         } else {
           if (item.getDay() % 6 === 0) classNames += " weekendItem";
-          if (item.getDate() === selectDay) classNames += " focusItem";
           if (existDays.includes(item.getDate())) classNames += " hasWooyeon";
           if (item.getTime() > today.getTime()) classNames += " disableItem";
+          if (item.getTime() === selectDay) classNames += " focusItem";
+
           if (
             index > 0 &&
             item.getMonth() !== rangedDate[index - 1].getMonth()
           ) {
             let term = 12;
             if (item.getDay() === 1) term = 11;
-            const monthComponent = (
-              <Box className="monthIcon" key={`month-${item.getMonth()}`}>
-                {item.toLocaleString("en-US", { month: "short" })}
-              </Box>
-            );
+
             return (
-              <>
+              <div style={{ display: "contents" }} key={item.getTime()}>
                 {Array.from({ length: term }).map((_, idx) => (
-                  <Box
-                    className="emptyItem"
-                    key={idx}
-                    ref={item.getTime() === today.getTime() ? setTarget : null}
-                  >
-                    00
-                  </Box>
+                  <Box className="emptyItem" key={idx.toString()} />
                 ))}
-                {monthComponent}
-                {item.getDay() === 1 && (
-                  <Box
-                    className="emptyItem"
-                    key={index.toString()}
-                    ref={item.getTime() === today.getTime() ? setTarget : null}
-                  >
-                    00
-                  </Box>
-                )}
-                <Box
-                  className={classNames}
-                  key={item.toString()}
-                  ref={item.getTime() === today.getTime() ? setTarget : null}
-                  onClick={onClickDate}
-                >
-                  {item.getDate()}
+                <Box className="monthIcon" key={`month-${item.getMonth()}`}>
+                  {item.toLocaleString("en-US", { month: "short" })}
                 </Box>
-              </>
+                {item.getDay() === 1 && (
+                  <Box className="emptyItem" key={index.toString()} />
+                )}
+                <DayWooyenItem
+                  classNames={classNames}
+                  item={item}
+                  key={item.getTime()}
+                  getWooyeon={getWooyeon}
+                  setTarget={setTarget}
+                  today={today}
+                />
+              </div>
             );
           }
           // 조회한 우연데이터에 해당하는 일자일 경우 테두리 className 추가
         }
 
         return (
-          <div
-            className={classNames}
-            key={item.toString()}
-            ref={item.getTime() === today.getTime() ? setTarget : null}
-            onClick={onClickDate}
-          >
-            {item.getDate()}
-          </div>
+          <DayWooyenItem
+            classNames={classNames}
+            item={item}
+            key={item.getTime()}
+            getWooyeon={getWooyeon}
+            setTarget={setTarget}
+            today={today}
+          />
         );
       })}
     </Box>

@@ -1,7 +1,7 @@
 import { Badge, Box, Button, Chip, TextField, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useOutletContext } from "react-router";
-import { PostStateInterface } from "../HeaderAddPost/interface";
+
 import {
   createTheme,
   ThemeProvider,
@@ -14,6 +14,7 @@ import { MapPin, PlusCircle } from "@phosphor-icons/react";
 import { mainPrimary, secondary } from "../../../../common";
 import { Category } from "../CategoryAddPost/type";
 import "./style.css";
+import { PostStateInterface } from "../../interface";
 
 // 아이폰 SE 규격 css 수정
 const customTheme = (outerTheme: Theme) =>

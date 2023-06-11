@@ -99,7 +99,7 @@ export default function Mypage() {
             <Button
               sx={buttonStyle(theme)}
               variant="contained"
-              // onClick={}
+              onClick={() => navigate("/mypage/history")}
             >
               <Typography variant="subtitle2">내가 발견한 우연들</Typography>
               <Typography variant="subtitle2">

@@ -7,6 +7,7 @@ export const getUser = async (token: string | undefined) => {
     headers: {
       credentials: "include",
       "Content-Type": "application/json",
+      // Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
       Authorization: `Bearer ${token}`,
     },
   }).then((response) => {

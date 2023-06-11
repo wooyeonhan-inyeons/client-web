@@ -47,6 +47,7 @@ const SettingPage = () => {
     headerType: "V2",
   };
 
+  console.log("user data: ", user);
   useLayoutEffect(() => {
     //네비게이션 리스트 업데이트
     setHeadOpt(headerOption);

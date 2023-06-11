@@ -61,6 +61,7 @@ const Past = () => {
         duration: 80,
       });
     console.log("user token", user.access_token);
+    console.log("user: ", user);
   }, [searchDate, preview]);
 
   useEffect(() => {

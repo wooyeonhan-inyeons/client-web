@@ -1,5 +1,5 @@
 import { Box, CircularProgress, Typography } from "@mui/material";
-import React, { useEffect } from "react";
+import React, { useEffect, useLayoutEffect } from "react";
 import { useLocation, useSearchParams } from "react-router-dom";
 import { useRecoilState, useResetRecoilState } from "recoil";
 import { envState, filterState, userState } from "../../recoil";
@@ -16,7 +16,7 @@ export default function Auth() {
 
   const location = useLocation();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     console.log("test token: ", access_token);
     console.log(location);
     if (access_token !== null) {

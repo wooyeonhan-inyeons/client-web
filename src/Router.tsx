@@ -48,6 +48,7 @@ const Router = () => {
             name: userData.name,
             create_at: userData.create_at,
             role: userData.role,
+            email: userData.email,
           };
         });
       },

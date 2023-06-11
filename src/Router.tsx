@@ -74,7 +74,7 @@ const Router = () => {
           element: <CategoryPage />,
         },
       ],
-      loader: () => user.role !== "GUEST" && redirect("/"),
+      loader: () => user.role === "USER" && redirect("/"),
     },
     {
       path: "/",
@@ -115,7 +115,7 @@ const Router = () => {
           element: <Detail />,
         },
       ],
-      loader: () => user.role === "GUEST" && redirect("/auth"),
+      loader: () => user.role !== "USER" && redirect("/auth"),
     },
   ]);
 

@@ -19,7 +19,7 @@ const initialPostState: UploadPostType = {
 };
 
 function HeaderAddPost() {
-  const { setHeadOpt, navigate, setWrapperOpt, user } =
+  const { setHeadOpt, navigate, setWrapperOpt, user, Map, mapboxgl } =
     useOutletContext<ContextInterface>();
 
   const headerOption: HeaderOptinterface = {

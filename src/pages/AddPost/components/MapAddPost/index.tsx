@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Box, Skeleton, Typography, useTheme } from "@mui/material";
 import { useOutletContext } from "react-router";
-// import { Map, MapProvider } from "react-map-gl";
-import Map, { MapRef, Marker } from "react-map-gl";
+import { Map } from "react-map-gl";
+import { MapRef, Marker, ViewStateChangeEvent } from "react-map-gl";
 import mapboxgl from "mapbox-gl";
 import { LocationProps } from "../../../../interface";
 import { getCurrentGeocode, getCurrentLocation } from "./utils";
@@ -20,7 +20,7 @@ const initPosition = {
 };
 
 const MapAddPost = () => {
-  const { post, setPost } = useOutletContext<PostStateInterface>();
+  const { setPost } = useOutletContext<PostStateInterface>();
   const mapRef = useRef<MapRef | null>(null);
   const [viewState, setViewState] = React.useState(initPosition);
 
@@ -35,15 +35,8 @@ const MapAddPost = () => {
   const positionRef = useRef<LocationProps | undefined>(initPosition);
   const theme = useTheme();
 
-  // 받아온 위치 정보를 한글주소체계로 변환 후 post에 저장
   useEffect(() => {
     positionRef.current = viewState;
-    if (positionRef.current !== undefined) {
-      getCurrentGeocode(positionRef.current).then((e) => {
-        setGeocode(e.reverse().join(" "));
-        // console.log("Geocode: ", e.reverse().join(" "));
-      });
-    }
   }, [viewState, navigator]);
 
   useEffect(() => {
@@ -102,13 +95,21 @@ const MapAddPost = () => {
             ref={mapRef}
             mapboxAccessToken={import.meta.env.VITE_MAP_API}
             {...viewState}
-            onMove={(evt) => setViewState(evt.viewState)}
+            onMove={(evt: ViewStateChangeEvent) => setViewState(evt.viewState)}
             mapStyle={`mapbox://styles/mapbox/${theme.palette.mode}-v9`}
             style={{
               backgroundColor:
                 theme.palette.mode === "light" ? "#f6f6f4" : "#343332",
             }}
             mapLib={mapboxgl}
+            onTouchEnd={() => {
+              //touch 종료 때 마다 이벤트 실행
+              if (positionRef.current !== undefined) {
+                getCurrentGeocode(positionRef.current).then((e) => {
+                  setGeocode(e.reverse().join(" "));
+                });
+              }
+            }}
           >
             <Marker
               longitude={viewState.longitude}

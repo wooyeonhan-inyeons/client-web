@@ -83,6 +83,10 @@ function App() {
                 : grey[100],
           },
           touchAction: "none",
+
+          "& .notistack-SnackbarContainer": {
+            paddingTop: "3rem",
+          },
         }}
       />
       <GlobalStyleWrapper>

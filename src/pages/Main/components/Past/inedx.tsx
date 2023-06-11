@@ -50,6 +50,7 @@ const Past = () => {
   const [existDays, setExistDays] = useState<Array<number>>([]);
   // 초기화면 : 지도를 현재위치로 고정
   useEffect(() => {
+    console.log(mapboxgl);
     if (positionRef.current == initPosition) {
       getCurrentLocation({ setViewState });
     }
@@ -106,10 +107,9 @@ const Past = () => {
         {Map && (
           <Map
             ref={mapRef}
-            dragPan={false}
             mapboxAccessToken={import.meta.env.VITE_MAP_API}
             {...viewState}
-            onMove={(evt: ViewStateChangeEvent) => setViewState(evt.viewState)}
+            // onMove={(evt: ViewStateChangeEvent) => setViewState(evt.viewState)}
             mapStyle={`mapbox://styles/mapbox/${theme.palette.mode}-v9`}
             style={{
               backgroundColor:
@@ -118,6 +118,9 @@ const Past = () => {
               height: "100vh",
             }}
             mapLib={mapboxgl}
+            dragPan={false}
+            dragRotate={false}
+            scrollZoom={false}
           >
             {preview !== undefined && (
               <Marker

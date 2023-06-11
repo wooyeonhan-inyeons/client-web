@@ -3,12 +3,12 @@ import { Outlet, useOutletContext } from "react-router-dom";
 import { ContextInterface, HeaderOptinterface } from "../../interface";
 import { WrapperOptInterface } from "../../component/MainWrapper/interface";
 import { BellSimple } from "@phosphor-icons/react";
-import Avatar from "boring-avatars";
 import { useRecoilState } from "recoil";
 import { userState } from "../../recoil";
 import { avatarColors } from "../../common";
 import Map from "react-map-gl";
 import mapboxgl from "mapbox-gl";
+import Avatar from "boring-avatars";
 
 function Main() {
   const [user] = useRecoilState(userState);

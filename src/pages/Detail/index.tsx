@@ -4,7 +4,7 @@ import React, {
   useLayoutEffect,
   useState,
 } from "react";
-import { ContextInterface, HeaderOptinterface } from "../../interface";
+import { ContextInterface } from "../../interface";
 import { useOutletContext, useParams } from "react-router-dom";
 import { Box, Button, Stack, TextField } from "@mui/material";
 import { WrapperOptInterface } from "../../component/MainWrapper/interface";

@@ -70,12 +70,17 @@ export const postComment = async (
   content: string,
   token: string | undefined
 ) => {
+  // const formData = new FormData();
+  // formData.append("post_id", post_id);
+  // formData.append("content", content);
+
   const response = await fetch(`${BACK_URL}/comment`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
+    // body: formData,
     body: JSON.stringify({ post_id: post_id, content: content }),
   }).then((response) => {
     return response.json();

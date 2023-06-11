@@ -5,9 +5,12 @@ import { Box, Stack } from "@mui/material";
 import NotiItem from "./components/NotiItem";
 import { WrapperOptInterface } from "../../component/MainWrapper/interface";
 import { X } from "@phosphor-icons/react";
+import { useQuery } from "react-query";
+import { getNotification } from "./api";
+import { NotificationStyle } from "./style";
 
 export default function Notification() {
-  const { headOpt, setHeadOpt, navigate, setWrapperOpt } =
+  const { headOpt, setHeadOpt, navigate, setWrapperOpt, user } =
     useOutletContext<ContextInterface>();
 
   const headerOption: HeaderOptinterface = {
@@ -39,59 +42,35 @@ export default function Notification() {
     alertAt: new Date(2023, 4, 3, 23, 55),
   };
 
+  const { data: notification } = useQuery(
+    "getWooyeon",
+    () => getNotification(user.access_token),
+    {
+      onSuccess(data) {
+        console.log(data);
+      },
+    }
+  );
+
   if (!headOpt) {
     return <Box />;
   }
   return (
-    <Stack
-      sx={{
-        padding: 0,
-        maxHeight: "calc(100vh - 56px)",
-        overflow: "hidden",
-        "@media (min-width: 600px)": {
-          maxHeight: "calc(100vh - 64px)",
-        },
-      }}
-    >
-      <Box
-        sx={{
-          maxHeight: "calc(100vh - 56px)",
-          overflow: "scroll",
-          paddingBottom: 10,
-          "&::-webkit-scrollbar": {
-            width: "4px",
-          },
-          "&::-webkit-scrollbar-thumb": {
-            background: "#ddd",
-            borderRadius: "5px",
-          },
-          "&::-webkit-scrollbar-button:vertical:end:decrement": {
-            display: "block",
-            height: "20px",
-          },
-          "&::-webkit-scrollbar-corner": {
-            display: "none",
-          },
-          "@media (min-width: 600px)": {
-            maxHeight: "calc(100vh - 64px)",
-          },
-        }}
-      >
-        <NotiItem prop={testData} />
-        <NotiItem prop={testData} />
-        <NotiItem prop={testData} />
-        <NotiItem prop={testData} />
-        <NotiItem prop={testData2} />
-        <NotiItem prop={testData} />
-        <NotiItem prop={testData} />
-        <NotiItem prop={testData} />
-        <NotiItem prop={testData2} />
-        <NotiItem prop={testData} />
-        <NotiItem prop={testData} />
-        <NotiItem prop={testData} />
-        <NotiItem prop={testData2} />
-        <NotiItem prop={testData} />
-        <NotiItem prop={testData} />
+    <Stack sx={NotificationStyle}>
+      <Box className="notificationBox">
+        {notification?.length === 0 ? (
+          <Box className="no_notification">알람이 없습니다.</Box>
+        ) : (
+          <Box>
+            {notification?.map((item, index) => (
+              <NotiItem
+                content={item.content}
+                created_at={item.created_at}
+                key={item.notification_id}
+              />
+            ))}
+          </Box>
+        )}
       </Box>
     </Stack>
   );

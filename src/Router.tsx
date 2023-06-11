@@ -30,6 +30,7 @@ import { getUser } from "./pages/auth/api";
 import { UserState } from "./interface";
 import { UserInfo } from "./pages/auth/interface";
 import Loading from "./component/LoadingPage";
+import History from "./pages/Mypage/components/History";
 
 const Router = () => {
   const [user, setUser] = useRecoilState(userState);
@@ -124,8 +125,9 @@ const Router = () => {
           path: "mypage/",
           children: [
             { index: true, element: <Mypage /> },
-            { path: "edit", element: <EditProfile /> },
+            { path: "history", element: <History /> },
             { path: "setting", element: <SettingPage /> },
+            // { path: "edit", element: <EditProfile /> },
           ],
         },
         {

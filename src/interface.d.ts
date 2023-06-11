@@ -7,6 +7,7 @@ export interface UserState {
   first: boolean;
   create_at: string;
   access_token?: string;
+  email?: string;
 }
 
 export type themeType = "system" | "light" | "dark";

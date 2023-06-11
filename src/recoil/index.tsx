@@ -12,6 +12,7 @@ export const userState = atom<UserState>({
     name: "",
     create_at: "",
     first: false,
+    email: "",
   },
   effects_UNSTABLE: [persistAtom],
 });

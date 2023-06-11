@@ -15,7 +15,7 @@
   display: flex;
   flex-direction: row;
   justify-content: inherit;
-  @media screen and (max-width: 375px) {
+  @media (max-width: 375px) {
     padding-bottom: 5rem;
     height: 22rem;
   }
@@ -30,7 +30,7 @@
   display: flex;
   flex-direction: column;
   border-radius: 15px;
-  @media screen and (max-width: 375px) {
+  @media (max-width: 375px) {
     margin-bottom: 2rem;
     height: 14rem;
     max-width: 75%;
@@ -44,7 +44,7 @@
   display: flex;
   flex-direction: column;
   border-radius: 15px;
-  @media screen and (max-width: 375px) {
+  @media (max-width: 375px) {
     height: 100%;
     width: 100%;
     min-width: 15rem;

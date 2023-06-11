@@ -67,7 +67,7 @@ export default function Mypage() {
         </Typography>
         {/* <Typography variant="h3">{user.email}</Typography> */}
         <Typography variant="body1" sx={{ color: "#B3B3B3" }}>
-          anon42@gmail.com
+          {user.email ? user.email : "anon42@gmail.com"}
         </Typography>
         {/* <Button fullWidth onClick={() => navigate("/mypage/edit")}>
             프로필 수정

@@ -1,5 +1,6 @@
+import { useTheme } from "@mui/material";
 import { mainPrimary, secondary } from "../../../../../../common";
-
+const theme = useTheme();
 export const calendarStyle = {
   width: "100%",
   display: "flex",
@@ -16,7 +17,8 @@ export const calendarStyle = {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-
+    color: "red",
+    // backgroundColor: theme.palette.mode === "light" ? "#EEF1EE" : "#888888",
     backgroundColor: "#EEF1EE",
     borderRadius: "50%",
   },

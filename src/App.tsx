@@ -18,6 +18,8 @@ import {
 } from "react-query";
 import GlobalStyleWrapper from "./component/GlobalStyle";
 import { ErrorBoundary } from "react-error-boundary";
+import { SnackbarProvider } from "notistack";
+import { StyledMaterialDesignContent } from "./component/Snackbar/style";
 
 function App() {
   const [env] = useRecoilState(envState);
@@ -98,7 +100,15 @@ function App() {
               )}
             >
               <QueryClientProvider client={queryClient}>
-                <Router />
+                <SnackbarProvider
+                  Components={{
+                    success: StyledMaterialDesignContent,
+                    error: StyledMaterialDesignContent,
+                  }}
+                  maxSnack={3}
+                >
+                  <Router />
+                </SnackbarProvider>
               </QueryClientProvider>
             </ErrorBoundary>
           )}

@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import { useLocation, useSearchParams } from "react-router-dom";
 import { useRecoilState, useResetRecoilState } from "recoil";
 import { envState, filterState, userState } from "../../recoil";
+import { enqueueSnackbar } from "notistack";
 
 export default function Auth() {
   const [searchParams] = useSearchParams();
@@ -33,10 +34,18 @@ export default function Auth() {
           access_token: access_token as string,
         };
       });
+      enqueueSnackbar({
+        message: "로그인을 성공하였습니다.",
+        variant: "success",
+      });
     } else {
       // localstorage에 저장하기 위해 기존의 값으로 업데이트
       setFilter(filter);
       setEnv(env);
+      enqueueSnackbar({
+        message: "문제가 발생하였습니다.",
+        variant: "warning",
+      });
     }
   }, []);
 

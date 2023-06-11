@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect } from "react";
 import MobileStepper from "@mui/material/MobileStepper";
 import { CssBaseline, Grid } from "@mui/material";
 import { Global } from "@emotion/react";
@@ -6,6 +6,7 @@ import "./style.css";
 import TextSlideView from "./components/TextSlideView";
 import ImageSlideView from "./components/ImageSlideView";
 import { images } from "./components/ImageArray";
+import { enqueueSnackbar } from "notistack";
 
 const introduction = [
   {

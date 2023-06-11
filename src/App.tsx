@@ -101,11 +101,13 @@ function App() {
             >
               <QueryClientProvider client={queryClient}>
                 <SnackbarProvider
+                  anchorOrigin={{ horizontal: "center", vertical: "top" }}
+                  autoHideDuration={2000}
+                  maxSnack={3}
                   Components={{
                     success: StyledMaterialDesignContent,
                     error: StyledMaterialDesignContent,
                   }}
-                  maxSnack={3}
                 >
                   <Router />
                 </SnackbarProvider>

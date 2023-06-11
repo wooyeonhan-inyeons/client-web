@@ -28,6 +28,7 @@ import { useQuery } from "react-query";
 import { getUser } from "./pages/auth/api";
 import { UserState } from "./interface";
 import { UserInfo } from "./pages/auth/interface";
+import Loading from "./component/LoadingPage";
 
 const Router = () => {
   const [user, setUser] = useRecoilState(userState);
@@ -78,7 +79,7 @@ const Router = () => {
     },
     {
       path: "/",
-      element: <MainWrapper isHeader />,
+      element: userData ? <MainWrapper isHeader /> : <Loading />,
       errorElement: <Error />,
       children: [
         {

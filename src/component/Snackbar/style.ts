@@ -1,11 +1,12 @@
-import { styled, useTheme } from "@mui/material";
+import { alpha, styled, useTheme } from "@mui/material";
 import { MaterialDesignContent } from "notistack";
 
 export const StyledMaterialDesignContent = styled(MaterialDesignContent)(() => {
   const theme = useTheme();
   return {
     "&.notistack-MuiContent": {
-      backgroundColor: theme.palette.background.default,
+      backgroundColor: alpha(theme.palette.background.default, 0.3),
+      backdropFilter: "blur(5px)",
       color: theme.palette.text.primary,
       borderRadius: "1rem",
     },

@@ -13,7 +13,7 @@ import CategoryPage from "./pages/CategoryPage";
 import Main from "./pages/Main";
 import Search from "./pages/Main/components/Search";
 import Past from "./pages/Main/components/Past/inedx";
-import HeaderAddPost from "./pages/AddPost/components/HeaderAddPost";
+import HeaderAddPost from "./pages/AddPost";
 import MapAddPost from "./pages/AddPost/components/MapAddPost";
 import CategoryAddPost from "./pages/AddPost/components/CategoryAddPost";
 import ContentAddPost from "./pages/AddPost/components/ContentAddPost";
@@ -74,7 +74,7 @@ const Router = () => {
           element: <CategoryPage />,
         },
       ],
-      loader: () => user.role !== "GUEST" && redirect("/"),
+      loader: () => user.role === "USER" && redirect("/"),
     },
     {
       path: "/",
@@ -115,7 +115,7 @@ const Router = () => {
           element: <Detail />,
         },
       ],
-      loader: () => user.role === "GUEST" && redirect("/auth"),
+      loader: () => user.role !== "USER" && redirect("/auth"),
     },
   ]);
 

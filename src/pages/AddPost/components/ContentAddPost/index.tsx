@@ -1,7 +1,7 @@
 import { Badge, Box, Button, Chip, TextField, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useOutletContext } from "react-router";
-import { PostStateInterface } from "../HeaderAddPost/interface";
+
 import {
   createTheme,
   ThemeProvider,
@@ -14,6 +14,7 @@ import { MapPin, PlusCircle } from "@phosphor-icons/react";
 import { mainPrimary, secondary } from "../../../../common";
 import { Category } from "../CategoryAddPost/type";
 import "./style.css";
+import { PostStateInterface } from "../../interface";
 
 // 아이폰 SE 규격 css 수정
 const customTheme = (outerTheme: Theme) =>
@@ -136,14 +137,20 @@ const ContentAddPost = () => {
     <ThemeProvider theme={customTheme(outerTheme)}>
       <Box
         sx={{
-          maxHeight: "100vh",
-          padding: "1rem 1.5rem",
+          height: "100%",
+          padding: "1rem 0rem",
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
         }}
       >
-        <Box sx={{ display: "flex", flexDirection: "column" }}>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            padding: "0rem 1.5rem",
+          }}
+        >
           <Box
             sx={{
               display: "flex",
@@ -186,19 +193,7 @@ const ContentAddPost = () => {
         >
           {({ imageList, onImageUpload, onImageRemove }) => (
             // write your building UI
-            <Box
-              sx={{
-                position: "fixed",
-                bottom: 0,
-                margin: "0 auto",
-                left: 0,
-                right: 0,
-                pb: "7rem",
-                "@media (max-width: 375px)": {
-                  pb: "1rem",
-                },
-              }}
-            >
+            <Box>
               <ScrollContainer
                 className={
                   imageList.length

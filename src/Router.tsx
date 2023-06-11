@@ -4,8 +4,9 @@ import {
   createBrowserRouter,
   redirect,
 } from "react-router-dom";
-import { userState } from "./recoil";
-import { useRecoilState } from "recoil";
+import { envState, filterState, userState } from "./recoil";
+import { useRecoilState, useResetRecoilState } from "recoil";
+import { jwtDecode } from "jwt-js-decode";
 
 import MainWrapper from "./component/MainWrapper";
 import LoginPage from "./pages/auth/LoginPage";
@@ -32,25 +33,40 @@ import Loading from "./component/LoadingPage";
 
 const Router = () => {
   const [user, setUser] = useRecoilState(userState);
+  const resetUser = useResetRecoilState(userState);
+  const resetEnv = useResetRecoilState(envState);
+  const resetFilter = useResetRecoilState(filterState);
 
-  const { data: userData, isSuccess } = useQuery(
+  const { data: userData } = useQuery(
     "getUser",
     () => getUser(user.access_token),
     {
       // suspense: true,
       // useErrorBoundary: true,
+      //매 접속 때 마다 api로 토큰 검증
+      refetchOnReconnect: "always",
       onSuccess(userData: UserInfo) {
-        // console.log(userData);
-        //localstorage에 저장되어야 flutter에서 읽을 수 있기에 업데이트
-        setUser((prev: UserState) => {
-          return {
-            ...prev,
-            user_id: userData.user_id,
-            name: userData.name,
-            create_at: userData.create_at,
-            role: userData.role,
-          };
-        });
+        if (user.access_token) {
+          const decodeed_token = jwtDecode(user.access_token);
+          const exp = Number(decodeed_token.payload.exp) * 1000;
+
+          if (exp > Date.now()) {
+            //localstorage에 저장되어야 flutter에서 읽을 수 있기에 업데이트
+            setUser((prev: UserState) => {
+              return {
+                ...prev,
+                user_id: userData.user_id,
+                name: userData.name,
+                create_at: userData.create_at,
+                role: userData.role,
+              };
+            });
+          } else {
+            resetFilter();
+            resetEnv();
+            resetUser();
+          }
+        }
       },
     }
   );

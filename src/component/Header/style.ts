@@ -40,7 +40,10 @@ export const HeaderWrapper = styled("div")(({ theme }: ThemeProps) => ({
     display: "flex",
     gap: 1,
   },
-  "& .MuiToolbar-root .right_section .mainFn svg, & .MuiToolbar-root .mainFn svg":
+  "& .MuiToolbar-root .avatarIcon svg": {
+    border: "1px solid #000",
+  },
+  "& .MuiToolbar-root .right_section .mainFn svg, & .MuiToolbar-root .mainFn.avatarIcon svg":
     {
       aspectRatio: "1",
     },

@@ -90,7 +90,7 @@ function Header({ headProp, navigate }: HeaderProp) {
                 <headProp.icon_L />
               </IconButton>
             )}
-            <IconButton onClick={headProp.fn_R} className="mainFn">
+            <IconButton onClick={headProp.fn_R} className="mainFn avatarIcon">
               {headProp.icon_R && <headProp.icon_R />}
             </IconButton>
           </Box>

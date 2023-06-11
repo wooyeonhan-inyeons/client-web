@@ -10,7 +10,6 @@ export const getUser = async (token: string | undefined) => {
       Authorization: `Bearer ${token}`,
     },
   }).then((response) => {
-    console.log("res: ", response);
     return response.json();
   });
   return response;

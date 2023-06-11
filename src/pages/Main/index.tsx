@@ -8,7 +8,7 @@ import { userState } from "../../recoil";
 import { avatarColors } from "../../common";
 import Map from "react-map-gl";
 import mapboxgl from "mapbox-gl";
-import Avatar from "boring-avatars";
+import StyledAvatar from "../../component/StyledAvatar";
 
 function Main() {
   const [user] = useRecoilState(userState);
@@ -23,7 +23,7 @@ function Main() {
     icon_L: BellSimple,
     fn_L: () => navigate("/notification"),
     icon_R: () => (
-      <Avatar
+      <StyledAvatar
         name={user.user_id}
         variant="beam"
         size={28}

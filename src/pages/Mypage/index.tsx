@@ -7,8 +7,8 @@ import { useOutletContext } from "react-router-dom";
 import { WrapperOptInterface } from "../../component/MainWrapper/interface";
 import { CaretLeft, GearSix } from "@phosphor-icons/react";
 import Header from "../../component/Header";
-import Avatar from "boring-avatars";
 import { avatarColors } from "../../common";
+import StyledAvatar from "../../component/StyledAvatar";
 
 export default function Mypage() {
   const { setHeadOpt, navigate, setWrapperOpt } =
@@ -54,7 +54,7 @@ export default function Mypage() {
           py: "5rem",
         }}
       >
-        <Avatar
+        <StyledAvatar
           name={user.user_id}
           variant="beam"
           size={120}

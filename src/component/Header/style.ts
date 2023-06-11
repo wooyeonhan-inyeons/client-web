@@ -41,7 +41,7 @@ export const HeaderWrapper = styled("div")(({ theme }: ThemeProps) => ({
     gap: 1,
   },
   "& .MuiToolbar-root .avatarIcon svg": {
-    border: `1.5px solid ${theme.palette.text.secondary}`,
+    // border: `1.5px solid ${theme.palette.text.secondary}`,
     borderRadius: "50%",
   },
   "& .MuiToolbar-root .right_section .mainFn svg, & .MuiToolbar-root .mainFn.avatarIcon svg":

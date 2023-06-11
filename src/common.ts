@@ -9,9 +9,9 @@ export const secondary = "#ED6729";
 export const avatarColors = [
   "#E58859",
   "#5DA457",
+  "#EAFDE6",
   "#9EBE62",
   "#80BE91",
-  "#EAFDE6",
 ];
 
 export const Root = styled("div")(({ theme }: ThemeProps) => ({

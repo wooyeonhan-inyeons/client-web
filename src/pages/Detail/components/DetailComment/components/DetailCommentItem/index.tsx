@@ -2,14 +2,19 @@ import { Box, Typography } from "@mui/material";
 import React from "react";
 import { CommentInterface } from "../../../../interface";
 import { StyledCommentItem } from "./style";
-import Avatar from "boring-avatars";
 import { avatarColors } from "../../../../../../common";
+import StyledAvatar from "../../../../../../component/StyledAvatar";
 
 export default function CommentItem({ value, createAt }: CommentInterface) {
   return (
     <StyledCommentItem>
       <Box>
-        <Avatar name="asd" variant="beam" colors={avatarColors} size={36} />
+        <StyledAvatar
+          name="asd"
+          variant="beam"
+          colors={avatarColors}
+          size={36}
+        />
       </Box>
       <Box className="commentContent">
         <Typography variant="body2">{value}</Typography>

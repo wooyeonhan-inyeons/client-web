@@ -12,7 +12,9 @@ import { useMutation } from "react-query";
 import { useRecoilState } from "recoil";
 import { userState } from "../../../../recoil";
 
-const LazyAvatar = React.lazy(() => import("boring-avatars"));
+const LazyAvatar = React.lazy(
+  () => import("../../../../component/StyledAvatar")
+);
 const LazyTypography = React.lazy(() => import("@mui/material/Typography"));
 
 const wooyeonCategory: Array<{ id: WooyeonsCategory; value: string }> = [

@@ -24,6 +24,7 @@ export const PatchUser = async ({
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
+        // Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}}`,
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({

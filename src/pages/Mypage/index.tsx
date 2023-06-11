@@ -10,12 +10,13 @@ import {
   useTheme,
 } from "@mui/material";
 import { ContextInterface, HeaderOptinterface } from "../../interface.d";
-import { useNavigate, useOutletContext } from "react-router-dom";
+import { useOutletContext } from "react-router-dom";
 import { WrapperOptInterface } from "../../component/MainWrapper/interface";
 import { CaretLeft, CaretRight, GearSix } from "@phosphor-icons/react";
 import Header from "../../component/Header";
 import Avatar from "boring-avatars";
-import { avatarColors, secondary } from "../../common";
+import { avatarColors } from "../../common";
+import { buttonStyle, logoutStyle } from "./style";
 
 export default function Mypage() {
   const { setHeadOpt, navigate, setWrapperOpt } =
@@ -24,7 +25,6 @@ export default function Mypage() {
   const resetFilter = useResetRecoilState(filterState);
   const resetEnv = useResetRecoilState(envState);
   const theme = useTheme();
-
   const headerOption: HeaderOptinterface = {
     menus: [{ key: "마이페이지", value: "/mypage" }],
     icon_L: CaretLeft,
@@ -53,7 +53,8 @@ export default function Mypage() {
   const buttonColorTheme = createTheme({
     palette: {
       primary: {
-        main: "#333333", // 사용자 정의 색상
+        main: "#ecececc8", // 사용자 정의 색상
+        // theme.palette.mode === "light" ? : "#333333"
       },
     },
   });
@@ -67,7 +68,7 @@ export default function Mypage() {
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
-          py: "5rem",
+          py: "2rem",
         }}
       >
         <Avatar
@@ -79,14 +80,11 @@ export default function Mypage() {
 
         {/* <Typography variant="h3">{user.name}</Typography> */}
         <Typography variant="h5" sx={{ fontWeight: "bold", pt: "2rem" }}>
-          초록초록 매실님
+          {user.name ? user.name : "초록초록 매실님"}
         </Typography>
         <Typography variant="body1" sx={{ color: "#B3B3B3" }}>
           {user.email ? user.email : "anon42@gmail.com"}
         </Typography>
-        {/* <Button fullWidth onClick={() => navigate("/mypage/edit")}>
-            프로필 수정
-          </Button> */}
         <ThemeProvider theme={buttonColorTheme}>
           <Box
             sx={{
@@ -99,23 +97,8 @@ export default function Mypage() {
             }}
           >
             <Button
-              sx={{
-                width: "100%",
-                py: "0.8rem",
-                px: "1.4rem",
-                mb: "0.5rem",
-                borderRadius: "10px",
-                backgroundColor:
-                  theme.palette.mode == "light" ? "#EDF1EE" : "#444444",
-                color: theme.palette.mode == "light" ? "black" : "white",
-                display: "flex",
-                justifyContent: "space-between",
-                boxShadow: `1px 2px 5px ${
-                  theme.palette.mode == "light" ? "#ababab85" : "#222222"
-                }`,
-              }}
+              sx={buttonStyle(theme)}
               variant="contained"
-              // color=
               // onClick={}
             >
               <Typography variant="subtitle2">내가 발견한 우연들</Typography>
@@ -128,23 +111,8 @@ export default function Mypage() {
               </Typography>
             </Button>
             <Button
-              sx={{
-                width: "100%",
-                py: "0.8rem",
-                px: "1.4rem",
-                mb: "0.5rem",
-                borderRadius: "10px",
-                backgroundColor:
-                  theme.palette.mode == "light" ? "#EDF1EE" : "#444444",
-                color: theme.palette.mode == "light" ? "black" : "white",
-                display: "flex",
-                justifyContent: "space-between",
-                boxShadow: `1px 2px 5px ${
-                  theme.palette.mode == "light" ? "#ababab85" : "#222222"
-                }`,
-              }}
+              sx={buttonStyle(theme)}
               variant="contained"
-              // color=
               onClick={() => navigate("/previous")}
             >
               <Typography variant="subtitle2">남이 발견한 우연들</Typography>
@@ -157,21 +125,7 @@ export default function Mypage() {
               </Typography>
             </Button>
             <Button
-              sx={{
-                width: "100%",
-                py: "0.8rem",
-                px: "1.4rem",
-                mb: "0.5rem",
-                borderRadius: "10px",
-                backgroundColor:
-                  theme.palette.mode == "light" ? "#EDF1EE" : "#444444",
-                color: theme.palette.mode == "light" ? "black" : "white",
-                display: "flex",
-                justifyContent: "space-between",
-                boxShadow: `1px 2px 5px ${
-                  theme.palette.mode == "light" ? "#ababab85" : "#222222"
-                }`,
-              }}
+              sx={buttonStyle(theme)}
               variant="contained"
               // onClick={}
             >
@@ -184,16 +138,7 @@ export default function Mypage() {
                 />
               </Typography>
             </Button>
-            <Button
-              sx={{
-                width: "100%",
-                borderRadius: "10px",
-                my: "1rem",
-                backgroundColor: secondary,
-              }}
-              variant="contained"
-              onClick={handleLogout}
-            >
+            <Button sx={logoutStyle} variant="contained" onClick={handleLogout}>
               로그아웃
             </Button>
           </Box>

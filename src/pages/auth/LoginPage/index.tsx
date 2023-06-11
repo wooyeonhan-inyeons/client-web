@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import MobileStepper from "@mui/material/MobileStepper";
 import { CssBaseline, Grid } from "@mui/material";
 import { Global } from "@emotion/react";

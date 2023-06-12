@@ -18,10 +18,11 @@ const MapAddPost = () => {
   //   latitude: 35.6699,
   //   zoom: 6,
   // };
-  const { setPost, initPosition } = useOutletContext<PostStateInterface>();
+  const { setPost, initPosition, initGeocode } =
+    useOutletContext<PostStateInterface>();
   const mapRef = useRef<MapRef | null>(null);
   const [viewState, setViewState] = React.useState(initPosition);
-  const [geocode, setGeocode] = useState<string | undefined>(undefined);
+  const [geocode, setGeocode] = useState<string>(initGeocode);
   const positionRef = useRef<LocationProps | undefined>(initPosition);
   const theme = useTheme();
 

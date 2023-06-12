@@ -1,5 +1,4 @@
 import { menuProps } from "../../interface";
-import { Dispatch, SetStateAction } from "react";
 
 export interface HeaderProp {
   isHeader: boolean;
@@ -20,4 +19,9 @@ export interface WrapperOptInterface {
 
 export interface setInitPositionType {
   setInitPosition: React.Dispatch<React.SetStateAction<LocationProps>>;
+}
+export interface Address_components {
+  long_name: string;
+  short_name: string;
+  types: string[];
 }

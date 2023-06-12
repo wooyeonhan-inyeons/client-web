@@ -7,7 +7,7 @@ import Header from "../Header";
 import { StyledContainer } from "./style";
 import { useRecoilState } from "recoil";
 import { userState } from "../../recoil";
-import { getCurrentLocation } from "./utils";
+import { getCurrentGeocode, getCurrentLocation } from "./utils";
 
 function MainWrapper({ isHeader }: HeaderProp) {
   const [user] = useRecoilState(userState);
@@ -33,12 +33,24 @@ function MainWrapper({ isHeader }: HeaderProp) {
 
   const positionRef = useRef<LocationProps | undefined>(defaultPosition);
   const [initPosition, setInitPosition] =
-    React.useState<LocationProps>(defaultPosition);
+    useState<LocationProps>(defaultPosition);
+  const [initGeocode, setInitGeocode] = useState<string | undefined>(undefined);
+
   useEffect(() => {
     if (positionRef.current === defaultPosition)
       getCurrentLocation({ setInitPosition });
     console.log("mainwrapper에서: ", initPosition);
   }, []);
+
+  useEffect(() => {
+    if (initPosition !== defaultPosition) {
+      getCurrentGeocode(initPosition).then((e) => {
+        setInitGeocode(e.reverse().join(" "));
+        console.log("InitGeocode: ", e.reverse().join(" "));
+      });
+    }
+    console.log(initGeocode);
+  }, [initPosition]);
 
   return (
     <>
@@ -82,6 +94,7 @@ function MainWrapper({ isHeader }: HeaderProp) {
               setWrapperOpt,
               user,
               initPosition,
+              initGeocode,
             }}
           />
         </Box>

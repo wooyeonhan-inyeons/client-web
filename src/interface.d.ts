@@ -37,7 +37,7 @@ export interface HeaderOptinterface {
   contentColor?: string;
 }
 
-type SetHeadType = React.Dispatch<React.SetStateAction<HeaderOptinterface>>;
+type SetHeadType = Dispatch<SetStateAction<HeaderOptinterface>>;
 
 type SetWrapperType = React.Dispatch<React.SetStateAction<WrapperOptInterface>>;
 

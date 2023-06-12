@@ -2,7 +2,7 @@ import React, { useLayoutEffect } from "react";
 import { Box, Stack, Typography } from "@mui/material";
 import { useOutletContext } from "react-router-dom";
 import { ContextInterface, HeaderOptinterface } from "../../../../interface.d";
-import { CaretLeft, X } from "@phosphor-icons/react";
+import { CaretLeft } from "@phosphor-icons/react";
 
 export default function History() {
   const { setHeadOpt, navigate } = useOutletContext<ContextInterface>();

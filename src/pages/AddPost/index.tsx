@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Outlet, useLocation, useOutletContext } from "react-router-dom";
-import { ContextInterface, HeaderOptinterface } from "../../interface";
 import { UploadPostType } from "./interface";
 import { WrapperOptInterface } from "../../component/MainWrapper/interface";
 import { X } from "@phosphor-icons/react";
@@ -8,6 +7,7 @@ import { useMutation } from "react-query";
 import { Post } from "./components/ContentAddPost/api";
 import { Box } from "@mui/material";
 import SaveBtn from "../../component/SaveBtn";
+import { ContextInterface, HeaderOptinterface } from "../../interface";
 
 const initialPostState: UploadPostType = {
   latitude: undefined,
@@ -43,6 +43,7 @@ function HeaderAddPost() {
   useEffect(() => {
     setHeadOpt(headerOption);
     setWrapperOpt(wrapperOption);
+    console.log("helo");
   }, []);
 
   ////////////////////////////////

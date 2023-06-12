@@ -4,22 +4,20 @@ import { useOutletContext } from "react-router";
 import { Map } from "react-map-gl";
 import { MapRef, Marker, ViewStateChangeEvent } from "react-map-gl";
 import mapboxgl from "mapbox-gl";
-import { LocationProps } from "../../../../interface";
 import { getCurrentGeocode, getCurrentLocation } from "./utils";
-import markerImg from "/src/asset/marker.png";
 import { PostStateInterface } from "../../interface";
+import markerImg from "/src/asset/marker.png";
+import { LocationProps } from "../../../../interface";
 
 // 마커 표시
 // 일단 지도 컨트롤러 UI 수정은 우선순위 미뤄둠..
-// 역지오코더 가끔 오작동 => 위도경도 toFixed()로 소수점 일정부분까지만 받아와보자 => 소용없었음 소수점 자리랑 관계 없었음 오히려 좌표가 세세해야 더 잘나오는 것 같음
-
-const initPosition = {
-  longitude: 127.9068,
-  latitude: 35.6699,
-  zoom: 6,
-};
 
 const MapAddPost = () => {
+  const initPosition = {
+    longitude: 127.9068,
+    latitude: 35.6699,
+    zoom: 6,
+  };
   const { setPost } = useOutletContext<PostStateInterface>();
   const mapRef = useRef<MapRef | null>(null);
   const [viewState, setViewState] = React.useState(initPosition);
@@ -49,6 +47,17 @@ const MapAddPost = () => {
     }));
     // console.log("지도 정보입력 후: ", post);
   }, [geocode]);
+
+  // 받아온 위치 정보를 한글주소체계로 변환 후 post에 저장
+  useEffect(() => {
+    positionRef.current = viewState;
+    if (positionRef.current !== undefined) {
+      getCurrentGeocode(positionRef.current).then((e) => {
+        setGeocode(e.reverse().join(" "));
+        console.log("Geocode: ", e.reverse().join(" "));
+      });
+    }
+  }, [viewState]);
 
   return (
     <Box
@@ -102,14 +111,14 @@ const MapAddPost = () => {
                 theme.palette.mode === "light" ? "#f6f6f4" : "#343332",
             }}
             mapLib={mapboxgl}
-            onTouchEnd={() => {
-              //touch 종료 때 마다 이벤트 실행
-              if (positionRef.current !== undefined) {
-                getCurrentGeocode(positionRef.current).then((e) => {
-                  setGeocode(e.reverse().join(" "));
-                });
-              }
-            }}
+            // onTouchEnd={() => {
+            //   //touch 종료 때 마다 이벤트 실행
+            //   if (positionRef.current !== undefined) {
+            //     getCurrentGeocode(positionRef.current).then((e) => {
+            //       setGeocode(e.reverse().join(" "));
+            //     });
+            //   }
+            // }}
           >
             <Marker
               longitude={viewState.longitude}

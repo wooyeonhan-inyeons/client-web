@@ -50,7 +50,6 @@ const Past = () => {
   const [existDays, setExistDays] = useState<Array<number>>([]);
   // 초기화면 : 지도를 현재위치로 고정
   useEffect(() => {
-    console.log(mapboxgl);
     if (positionRef.current == initPosition) {
       getCurrentLocation({ setViewState });
     }
@@ -61,8 +60,6 @@ const Past = () => {
         center: [preview.longitude, preview.latitude],
         duration: 80,
       });
-    // console.log("user token", user.access_token);
-    console.log("user: ", user);
   }, [searchDate, preview]);
 
   useEffect(() => {

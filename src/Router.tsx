@@ -31,6 +31,7 @@ import { UserState } from "./interface";
 import { UserInfo } from "./pages/auth/interface";
 import Loading from "./component/LoadingPage";
 import History from "./pages/Mypage/components/History";
+import { enqueueSnackbar } from "notistack";
 
 const Router = () => {
   const [user, setUser] = useRecoilState(userState);
@@ -54,7 +55,7 @@ const Router = () => {
           const exp = Number(decodeed_token.payload.exp) * 1000;
 
           if (exp > Date.now() && userData?.statusCode === 200) {
-            console.log("vailed token", userData);
+            // console.log("vailed token", userData);
             //localstorage에 저장되어야 flutter에서 읽을 수 있기에 업데이트
             setUser((prev: UserState) => {
               return {
@@ -66,10 +67,14 @@ const Router = () => {
                 email: userData.email,
               };
             });
-            return;
           }
+          return;
         }
-        console.log("not valid token");
+        enqueueSnackbar({
+          message: "로그인 정보가 옳바르지 않습니다..",
+          variant: "error",
+        });
+        // console.log("not valid token");
         resetFilter();
         resetEnv();
         resetUser();

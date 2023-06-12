@@ -4,36 +4,27 @@ import { useOutletContext } from "react-router";
 import { Map } from "react-map-gl";
 import { MapRef, Marker, ViewStateChangeEvent } from "react-map-gl";
 import mapboxgl from "mapbox-gl";
-import { LocationProps } from "../../../../interface";
 import { getCurrentGeocode, getCurrentLocation } from "./utils";
-import markerImg from "/src/asset/marker.png";
 import { PostStateInterface } from "../../interface";
-
-// 마커 표시
-// 일단 지도 컨트롤러 UI 수정은 우선순위 미뤄둠..
-// 역지오코더 가끔 오작동 => 위도경도 toFixed()로 소수점 일정부분까지만 받아와보자 => 소용없었음 소수점 자리랑 관계 없었음 오히려 좌표가 세세해야 더 잘나오는 것 같음
-
-const initPosition = {
-  longitude: 127.9068,
-  latitude: 35.6699,
-  zoom: 6,
-};
+import markerImg from "/src/asset/marker.png";
+import { LocationProps } from "../../../../interface";
+import { defaultPosition } from "../../../../component/MainWrapper/index";
 
 const MapAddPost = () => {
-  const { setPost } = useOutletContext<PostStateInterface>();
+  const { setPost, initPosition, initGeocode } =
+    useOutletContext<PostStateInterface>();
   const mapRef = useRef<MapRef | null>(null);
-  const [viewState, setViewState] = React.useState(initPosition);
+  const [viewState, setViewState] = React.useState<LocationProps>(initPosition);
+  const [geocode, setGeocode] = useState<string>(initGeocode);
+  const positionRef = useRef<LocationProps>(initPosition);
+  const theme = useTheme();
 
   // 사용자의 위치정보 가져와서 viewport에 저장
   useEffect(() => {
-    if (positionRef.current == initPosition) {
+    if (positionRef.current !== initPosition) {
       getCurrentLocation({ setViewState });
     }
   }, [navigator]);
-
-  const [geocode, setGeocode] = useState<string | undefined>(undefined);
-  const positionRef = useRef<LocationProps | undefined>(initPosition);
-  const theme = useTheme();
 
   useEffect(() => {
     positionRef.current = viewState;
@@ -47,7 +38,6 @@ const MapAddPost = () => {
       longitude: viewState?.longitude,
       address: geocode,
     }));
-    // console.log("지도 정보입력 후: ", post);
   }, [geocode]);
 
   return (
@@ -90,7 +80,7 @@ const MapAddPost = () => {
           overflow: "hidden",
         }}
       >
-        {positionRef.current !== initPosition ? (
+        {positionRef.current !== defaultPosition ? (
           <Map
             ref={mapRef}
             mapboxAccessToken={import.meta.env.VITE_MAP_API}
@@ -104,7 +94,7 @@ const MapAddPost = () => {
             mapLib={mapboxgl}
             onTouchEnd={() => {
               //touch 종료 때 마다 이벤트 실행
-              if (positionRef.current !== undefined) {
+              if (positionRef.current !== initPosition) {
                 getCurrentGeocode(positionRef.current).then((e) => {
                   setGeocode(e.reverse().join(" "));
                 });
@@ -117,9 +107,6 @@ const MapAddPost = () => {
               anchor="center"
             >
               <img src={markerImg} alt="marker" style={{ width: "2.5rem" }} />
-              {/* <Typography variant="h5" sx={{ marginBottom: "40px" }}>
-                🍀
-              </Typography> */}
             </Marker>
           </Map>
         ) : (

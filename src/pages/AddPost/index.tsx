@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Outlet, useLocation, useOutletContext } from "react-router-dom";
-import { ContextInterface, HeaderOptinterface } from "../../interface";
 import { UploadPostType } from "./interface";
 import { WrapperOptInterface } from "../../component/MainWrapper/interface";
 import { X } from "@phosphor-icons/react";
@@ -8,6 +7,7 @@ import { useMutation } from "react-query";
 import { Post } from "./components/ContentAddPost/api";
 import { Box } from "@mui/material";
 import SaveBtn from "../../component/SaveBtn";
+import { ContextInterface, HeaderOptinterface } from "../../interface";
 
 const initialPostState: UploadPostType = {
   latitude: undefined,
@@ -19,8 +19,14 @@ const initialPostState: UploadPostType = {
 };
 
 function HeaderAddPost() {
-  const { setHeadOpt, navigate, setWrapperOpt, user, Map, mapboxgl } =
-    useOutletContext<ContextInterface>();
+  const {
+    setHeadOpt,
+    navigate,
+    setWrapperOpt,
+    user,
+    initPosition,
+    initGeocode,
+  } = useOutletContext<ContextInterface>();
 
   const headerOption: HeaderOptinterface = {
     menus: [
@@ -59,7 +65,7 @@ function HeaderAddPost() {
     }
   }, [post]);
 
-  const uploadWooyeon = (post: any | null) => {
+  const uploadWooyeon = (post: UploadPostType | null) => {
     console.log(post);
     mutate();
   };
@@ -78,9 +84,6 @@ function HeaderAddPost() {
         // 이후에 바로 false로 설정해야 되는데 일단 미루겠음
       }
     } else {
-      // 우연 등록하기 버튼 클릭시
-      // setBtnText("다음");
-      // navigate("/add-post/category"); // 우연 등록 시 라우팅 수정하기
       uploadWooyeon(post);
     }
   };
@@ -91,9 +94,7 @@ function HeaderAddPost() {
     () => Post(post, user.access_token),
     {
       onMutate: (data) => {
-        //시작
         console.log("onMutation: ", data);
-        // console.log("isLoading: ", isLoading);
       },
       onSuccess: () => {
         console.log("우연 등록하기 성공!");
@@ -115,6 +116,8 @@ function HeaderAddPost() {
           shaking,
           setShaking,
           setCategory,
+          initPosition,
+          initGeocode,
         }}
       />
       <Box

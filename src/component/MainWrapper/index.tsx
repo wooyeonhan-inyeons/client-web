@@ -1,13 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { Box } from "@mui/material";
-import { HeaderOptinterface } from "../../interface";
+import { HeaderOptinterface, LocationProps } from "../../interface";
 import { HeaderProp, WrapperOptInterface } from "./interface";
 import Header from "../Header";
 import { StyledContainer } from "./style";
 import { useRecoilState } from "recoil";
 import { userState } from "../../recoil";
+import { getCurrentGeocode, getCurrentLocation } from "./utils";
 
+export const defaultPosition = {
+  longitude: 127.9068,
+  latitude: 35.6699,
+  zoom: 6,
+};
 function MainWrapper({ isHeader }: HeaderProp) {
   const [user] = useRecoilState(userState);
   const [headOpt, setHeadOpt] = useState<HeaderOptinterface>({
@@ -24,15 +30,27 @@ function MainWrapper({ isHeader }: HeaderProp) {
     isBtn: false,
   });
 
+  const positionRef = useRef<LocationProps | undefined>(defaultPosition);
+  const [initPosition, setInitPosition] =
+    useState<LocationProps>(defaultPosition);
+  const [initGeocode, setInitGeocode] = useState<string | undefined>(undefined);
+
+  useEffect(() => {
+    if (positionRef.current === defaultPosition)
+      getCurrentLocation({ setInitPosition });
+  }, []);
+
+  useEffect(() => {
+    if (initPosition !== defaultPosition) {
+      getCurrentGeocode(initPosition).then((e) => {
+        setInitGeocode(e.reverse().join(" "));
+      });
+    }
+  }, [initPosition]);
+
   return (
     <>
-      {isHeader && (
-        <Header
-          headProp={headOpt}
-          navigate={navigate}
-          // setBtnText={setBtnText}
-        />
-      )}
+      {isHeader && <Header headProp={headOpt} navigate={navigate} />}
       <StyledContainer
         className="globalContainer"
         maxWidth="xs"
@@ -65,6 +83,8 @@ function MainWrapper({ isHeader }: HeaderProp) {
               navigate,
               setWrapperOpt,
               user,
+              initPosition,
+              initGeocode,
             }}
           />
         </Box>

@@ -1,28 +1,19 @@
-import { LocationProps } from "../../../../interface";
-import { Asddress_components, setViewStateType } from "./type";
+import { LocationProps } from "../../interface";
+import { Address_components, setInitPositionType } from "./interface";
 import Geocode from "react-geocode";
 
-/**
- *
- * @param setViewState setState를 인자로 받아 함수 내에서 업데이트
- */
-export function getCurrentLocation({ setViewState }: setViewStateType) {
-  navigator.geolocation.getCurrentPosition((position) => {
-    setViewState({
+export const getCurrentLocation = async ({
+  setInitPosition,
+}: setInitPositionType) => {
+  await navigator.geolocation.getCurrentPosition((position) => {
+    setInitPosition({
       latitude: position.coords.latitude,
       longitude: position.coords.longitude,
       zoom: 15,
     });
-
-    console.log("안에서: ", position.coords);
   });
-}
+};
 
-/**
- *
- * @param viewport viewport에 쓰이는 좌표 값 오프젝트
- * @returns `address`:string[] 지역 정보가 담긴 배열
- */
 export async function getCurrentGeocode(
   viewport: LocationProps
 ): Promise<string[]> {
@@ -35,7 +26,7 @@ export async function getCurrentGeocode(
       String(viewport.latitude),
       String(viewport.longitude)
     );
-    response.results[1].address_components.map((item: Asddress_components) => {
+    response.results[1].address_components.map((item: Address_components) => {
       item.types.map((type: string) => {
         switch (type) {
           case "sublocality":

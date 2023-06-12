@@ -16,3 +16,12 @@ export interface WrapperOptInterface {
   scrollable?: boolean;
   isBtn?: boolean;
 }
+
+export interface setInitPositionType {
+  setInitPosition: React.Dispatch<React.SetStateAction<LocationProps>>;
+}
+export interface Address_components {
+  long_name: string;
+  short_name: string;
+  types: string[];
+}

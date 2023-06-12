@@ -6,7 +6,7 @@ import Categories from "./components/Categories";
 import RangeBar from "./components/RangeBar";
 import { Global } from "@emotion/react";
 import { forUntouchableStyle, searchPageStyle } from "./style";
-import { Wooyeons, positionType } from "./interface";
+import { Wooyeons, positionType, setPositionType } from "./interface";
 import SearchItem from "./components/SearchButton";
 import { useOutletContext } from "react-router-dom";
 import { getCurrentLocation, wooyeonPositioning } from "./utils";
@@ -19,10 +19,11 @@ import Lottie from "lottie-react";
 import thinkingAnimation from "../../../../asset/thinking.json";
 
 const Search = () => {
+  const [position, setPosition] = useState<positionType | undefined>(undefined);
   const { navigate } = useOutletContext<ContextInterface>();
   const { open, Drawer, toggleDrawer } = useDrawer();
   const [wooyeons, setWooyeons] = useState<Wooyeons[]>([]);
-  const [position, setPosition] = useState<positionType | undefined>(undefined);
+  // const [position, setPosition] = useState<positionType | undefined>(undefined);
   const [filter, setFilter] = useRecoilState(filterState);
   const [user] = useRecoilState(userState);
 
@@ -38,7 +39,7 @@ const Search = () => {
 
   useEffect(() => {
     if (position !== undefined) getWooyeons();
-    else console.log("위치 찾는 중...");
+    else console.log("[Search] 위치 찾는 중...");
   }, [position]);
 
   useEffect(() => {

@@ -1,5 +1,6 @@
 import { NavigateFunction } from "react-router-dom";
 import { WooyeonsCategory } from "../../../../interface";
+import { Dispatch } from "react";
 
 export interface WooPos {
   x: number;
@@ -50,8 +51,12 @@ export interface positionType {
 }
 
 export interface setPositionType {
-  setPosition: (value: React.SetStateAction<positionType | undefined>) => void;
+  setPosition: Dispatch<SetStateAction<positionType>>;
 }
+
+// export interface setPositionType {
+//   setPosition: (value: React.SetStateAction<positionType | undefined>) => void;
+// }
 
 export interface imageObj {
   img_id: string;

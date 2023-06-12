@@ -38,7 +38,7 @@ export interface HeaderOptinterface {
   contentColor?: string;
 }
 
-type SetHeadType = React.Dispatch<React.SetStateAction<HeaderOptinterface>>;
+type SetHeadType = Dispatch<SetStateAction<HeaderOptinterface>>;
 
 type SetWrapperType = React.Dispatch<React.SetStateAction<WrapperOptInterface>>;
 
@@ -52,6 +52,8 @@ export interface ContextInterface {
   setShaking: Dispatch<SetStateAction<boolean>>;
   post: UploadPostType | null;
   setPost: React.Dispatch<React.SetStateAction<UploadPostType | null>>;
+  initPosition: LocationProps;
+  initGeocode: string;
   // 정리 부탁
 
   Map: MapContextType | undefined;
@@ -64,8 +66,8 @@ export interface onlyNavigateInterface {
 }
 
 export interface LocationProps {
-  latitude: number | undefined;
-  longitude: number | undefined;
+  latitude: number;
+  longitude: number;
   zoom: number;
 }
 

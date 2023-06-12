@@ -59,6 +59,7 @@ function Main() {
     () => getNotificationCount(user.access_token as string),
     {
       onSuccess(data) {
+        setHeadOpt(headerOption);
         console.log(data);
       },
     }

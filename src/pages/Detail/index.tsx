@@ -7,7 +7,7 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { ContextInterface } from "../../interface";
+import { ContextInterface, SetHeadType } from "../../interface";
 import { useOutletContext, useParams } from "react-router-dom";
 import {
   Box,
@@ -149,7 +149,7 @@ export default function Detail() {
         if (targetRef.current === null || parentRef.current === null) return;
         if (parentRef.current.scrollTop < 100) {
           setHideHeader(false);
-          setHeadOpt((prev) => ({
+          setHeadOpt((prev: SetHeadType) => ({
             ...prev,
             bgColor: "#ffffff00",
             contentColor: "#fff",
@@ -162,7 +162,7 @@ export default function Detail() {
         if (prevScroll < parentRef.current.scrollTop) {
           if (prevScroll - parentRef.current.scrollTop < 30) {
             setHideHeader(false);
-            setHeadOpt((prev) => ({
+            setHeadOpt((prev: SetHeadType) => ({
               ...prev,
               bgColor: theme.palette.background.default,
               contentColor: theme.palette.text.primary,
@@ -170,7 +170,7 @@ export default function Detail() {
           }
         } else {
           setHideHeader(true);
-          setHeadOpt((prev) => ({
+          setHeadOpt((prev: SetHeadType) => ({
             ...prev,
             bgColor: "#ffffff00",
             contentColor: "#fff",

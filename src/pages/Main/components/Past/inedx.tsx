@@ -3,7 +3,7 @@ import { Avatar, Box, useTheme } from "@mui/material";
 import { useDrawer } from "../../../../hook/useDrawer";
 import { CalendarHeader } from "./components/calendarHeader";
 import Calendar from "./components/calendar";
-import { MapRef, Marker } from "react-map-gl";
+import { Map, MapRef, Marker } from "react-map-gl";
 import { forUntouchableStyle } from "../Search/style";
 import { ContextInterface, LocationProps } from "../../../../interface";
 import { getPastWooyeon } from "./api";
@@ -15,12 +15,13 @@ import { userState } from "../../../../recoil";
 import { useRecoilState } from "recoil";
 import mapboxgl from "mapbox-gl";
 import { getCurrentLocation } from "../../../AddPost/components/MapAddPost/utils";
+import MapboxLanguage from "@mapbox/mapbox-gl-language";
 
 // 가끔 우연 정보가 안받아와짐
 
 const Past = () => {
   const [user] = useRecoilState(userState);
-  const { navigate, Map, initPosition } = useOutletContext<ContextInterface>();
+  const { navigate, initPosition } = useOutletContext<ContextInterface>();
   const { open, Drawer, toggleDrawer } = useDrawer();
   const theme = useTheme();
   const today = new Date();
@@ -90,6 +91,12 @@ const Past = () => {
     }
   );
 
+  useEffect(() => {
+    if (mapRef.current === null) return;
+    const language = new MapboxLanguage();
+    mapRef.current.addControl(language);
+  }, [mapRef.current]);
+
   return (
     <>
       <Box
@@ -101,11 +108,11 @@ const Past = () => {
       >
         {Map && (
           <Map
+            id="map"
             ref={mapRef}
             mapboxAccessToken={import.meta.env.VITE_MAP_API}
             {...viewState}
-            // onMove={(evt: ViewStateChangeEvent) => setViewState(evt.viewState)}
-            mapStyle={`mapbox://styles/mapbox/${theme.palette.mode}-v9`}
+            mapStyle={`mapbox://styles/mapbox/${theme.palette.mode}-v10`}
             style={{
               backgroundColor:
                 theme.palette.mode === "light" ? "#f6f6f4" : "#343332",

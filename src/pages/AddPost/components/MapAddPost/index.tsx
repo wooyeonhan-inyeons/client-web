@@ -8,22 +8,18 @@ import { getCurrentGeocode, getCurrentLocation } from "./utils";
 import { PostStateInterface } from "../../interface";
 import markerImg from "/src/asset/marker.png";
 import { LocationProps } from "../../../../interface";
+import { defaultPosition } from "../../../../component/MainWrapper/index";
 
 // 마커 표시
 // 일단 지도 컨트롤러 UI 수정은 우선순위 미뤄둠..
 
 const MapAddPost = () => {
-  // const initPosition = {
-  //   longitude: 127.9068,
-  //   latitude: 35.6699,
-  //   zoom: 6,
-  // };
   const { setPost, initPosition, initGeocode } =
     useOutletContext<PostStateInterface>();
   const mapRef = useRef<MapRef | null>(null);
-  const [viewState, setViewState] = React.useState(initPosition);
+  const [viewState, setViewState] = React.useState<LocationProps>(initPosition);
   const [geocode, setGeocode] = useState<string>(initGeocode);
-  const positionRef = useRef<LocationProps | undefined>(initPosition);
+  const positionRef = useRef<LocationProps>(initPosition);
   const theme = useTheme();
 
   // 사용자의 위치정보 가져와서 viewport에 저장
@@ -99,7 +95,7 @@ const MapAddPost = () => {
           overflow: "hidden",
         }}
       >
-        {positionRef.current === initPosition ? (
+        {positionRef.current !== defaultPosition ? (
           <Map
             ref={mapRef}
             mapboxAccessToken={import.meta.env.VITE_MAP_API}
@@ -113,7 +109,7 @@ const MapAddPost = () => {
             mapLib={mapboxgl}
             onTouchEnd={() => {
               //touch 종료 때 마다 이벤트 실행
-              if (positionRef.current !== undefined) {
+              if (positionRef.current !== initPosition) {
                 getCurrentGeocode(positionRef.current).then((e) => {
                   setGeocode(e.reverse().join(" "));
                 });

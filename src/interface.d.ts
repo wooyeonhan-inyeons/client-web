@@ -65,8 +65,8 @@ export interface onlyNavigateInterface {
 }
 
 export interface LocationProps {
-  latitude: number | undefined;
-  longitude: number | undefined;
+  latitude: number;
+  longitude: number;
   zoom: number;
 }
 

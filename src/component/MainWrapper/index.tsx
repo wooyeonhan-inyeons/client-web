@@ -9,6 +9,11 @@ import { useRecoilState } from "recoil";
 import { userState } from "../../recoil";
 import { getCurrentGeocode, getCurrentLocation } from "./utils";
 
+export const defaultPosition = {
+  longitude: 127.9068,
+  latitude: 35.6699,
+  zoom: 6,
+};
 function MainWrapper({ isHeader }: HeaderProp) {
   const [user] = useRecoilState(userState);
   const [headOpt, setHeadOpt] = useState<HeaderOptinterface>({
@@ -24,12 +29,6 @@ function MainWrapper({ isHeader }: HeaderProp) {
     scrollable: false,
     isBtn: false,
   });
-
-  const defaultPosition = {
-    longitude: 127.9068,
-    latitude: 35.6699,
-    zoom: 6,
-  };
 
   const positionRef = useRef<LocationProps | undefined>(defaultPosition);
   const [initPosition, setInitPosition] =

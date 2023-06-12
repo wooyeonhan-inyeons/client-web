@@ -27,7 +27,7 @@ import Auth from "./pages/auth";
 import Error from "./pages/Error";
 import { useQuery } from "react-query";
 import { getUser } from "./pages/auth/api";
-import { UserState } from "./interface";
+import { UserState, roleType } from "./interface";
 import { UserInfo } from "./pages/auth/interface";
 import Loading from "./component/LoadingPage";
 import History from "./pages/Mypage/components/History";
@@ -50,12 +50,13 @@ const Router = () => {
       refetchOnMount: "always",
       refetchOnReconnect: "always",
       onSuccess(userData: UserInfo) {
+        console.log(userData);
         if (user.access_token) {
           const decodeed_token = jwtDecode(user.access_token);
           const exp = Number(decodeed_token.payload.exp) * 1000;
 
-          if (exp > Date.now() && userData?.statusCode === 200) {
-            // console.log("vailed token", userData);
+          if (exp > Date.now()) {
+            console.log("vailed token", userData);
             //localstorage에 저장되어야 flutter에서 읽을 수 있기에 업데이트
             setUser((prev: UserState) => {
               return {
@@ -63,7 +64,7 @@ const Router = () => {
                 user_id: userData.user_id,
                 name: userData.name,
                 create_at: userData.create_at,
-                role: userData.role,
+                role: userData.role.toUpperCase() as roleType,
                 email: userData.email,
               };
             });

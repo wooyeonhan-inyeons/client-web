@@ -1,7 +1,7 @@
 import { WrapperOptInterface } from "./component/MainWrapper/interface";
 
 export interface UserState {
-  role: "GUEST" | "USER" | "ADMIN";
+  role: roleType;
   user_id: string;
   name: string;
   first: boolean;
@@ -9,6 +9,7 @@ export interface UserState {
   access_token?: string;
   email?: string;
 }
+export type roleType = "GUEST" | "USER" | "ADMIN";
 
 export type themeType = "system" | "light" | "dark";
 export interface EnvState {

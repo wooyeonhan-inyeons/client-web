@@ -69,6 +69,7 @@ export default function Detail() {
     () => getDetailWooyeon(post_id as unknown as string, user.access_token),
     {
       onSuccess(data) {
+        console.log(data);
         //init option을 따로 두니 조건연산자에서 동기처리 되어서 직접 넣음
         setHeadOpt({
           menus: [{ key: "", value: "/detail" }],
@@ -125,8 +126,8 @@ export default function Detail() {
           <DetailImg wooyeon={wooyeon} />
         </Box>
         <Stack className="DetailSection" spacing={2}>
-          <DetailContent wooyeon={wooyeon} />
-          <DetailComment wooyeon={wooyeon} />
+          {/* <DetailContent wooyeon={wooyeon} />
+          <DetailComment wooyeon={wooyeon} /> */}
         </Stack>
       </Box>
       <Box sx={CommentBoxStyle}>

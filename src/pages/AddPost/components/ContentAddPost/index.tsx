@@ -114,8 +114,6 @@ const ContentAddPost = () => {
       content: content,
       photo: images,
     }));
-    console.log("최종: ", post);
-    console.log("images's lenght: ", images.length);
   }, [content, images]);
 
   // 이미지 삭제 버튼 이벤트 핸들러

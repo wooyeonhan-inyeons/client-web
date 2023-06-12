@@ -49,7 +49,6 @@ function HeaderAddPost() {
   useEffect(() => {
     setHeadOpt(headerOption);
     setWrapperOpt(wrapperOption);
-    console.log("일단 받음", initPosition);
   }, []);
 
   ////////////////////////////////
@@ -66,7 +65,7 @@ function HeaderAddPost() {
     }
   }, [post]);
 
-  const uploadWooyeon = (post: any | null) => {
+  const uploadWooyeon = (post: UploadPostType | null) => {
     console.log(post);
     mutate();
   };
@@ -85,9 +84,6 @@ function HeaderAddPost() {
         // 이후에 바로 false로 설정해야 되는데 일단 미루겠음
       }
     } else {
-      // 우연 등록하기 버튼 클릭시
-      // setBtnText("다음");
-      // navigate("/add-post/category"); // 우연 등록 시 라우팅 수정하기
       uploadWooyeon(post);
     }
   };
@@ -98,9 +94,7 @@ function HeaderAddPost() {
     () => Post(post, user.access_token),
     {
       onMutate: (data) => {
-        //시작
         console.log("onMutation: ", data);
-        // console.log("isLoading: ", isLoading);
       },
       onSuccess: () => {
         console.log("우연 등록하기 성공!");

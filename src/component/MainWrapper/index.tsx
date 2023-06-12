@@ -38,28 +38,19 @@ function MainWrapper({ isHeader }: HeaderProp) {
   useEffect(() => {
     if (positionRef.current === defaultPosition)
       getCurrentLocation({ setInitPosition });
-    console.log("mainwrapper에서: ", initPosition);
   }, []);
 
   useEffect(() => {
     if (initPosition !== defaultPosition) {
       getCurrentGeocode(initPosition).then((e) => {
         setInitGeocode(e.reverse().join(" "));
-        console.log("InitGeocode: ", e.reverse().join(" "));
       });
     }
-    console.log(initGeocode);
   }, [initPosition]);
 
   return (
     <>
-      {isHeader && (
-        <Header
-          headProp={headOpt}
-          navigate={navigate}
-          // setBtnText={setBtnText}
-        />
-      )}
+      {isHeader && <Header headProp={headOpt} navigate={navigate} />}
       <StyledContainer
         className="globalContainer"
         maxWidth="xs"

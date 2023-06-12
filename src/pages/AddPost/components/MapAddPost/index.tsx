@@ -10,9 +10,6 @@ import markerImg from "/src/asset/marker.png";
 import { LocationProps } from "../../../../interface";
 import { defaultPosition } from "../../../../component/MainWrapper/index";
 
-// 마커 표시
-// 일단 지도 컨트롤러 UI 수정은 우선순위 미뤄둠..
-
 const MapAddPost = () => {
   const { setPost, initPosition, initGeocode } =
     useOutletContext<PostStateInterface>();
@@ -41,19 +38,7 @@ const MapAddPost = () => {
       longitude: viewState?.longitude,
       address: geocode,
     }));
-    // console.log("지도 정보입력 후: ", post);
   }, [geocode]);
-
-  // 받아온 위치 정보를 한글주소체계로 변환 후 post에 저장
-  // useEffect(() => {
-  //   positionRef.current = viewState;
-  //   if (positionRef.current !== undefined) {
-  //     getCurrentGeocode(positionRef.current).then((e) => {
-  //       setGeocode(e.reverse().join(" "));
-  //       console.log("Geocode: ", e.reverse().join(" "));
-  //     });
-  //   }
-  // }, [viewState]);
 
   return (
     <Box
@@ -122,9 +107,6 @@ const MapAddPost = () => {
               anchor="center"
             >
               <img src={markerImg} alt="marker" style={{ width: "2.5rem" }} />
-              {/* <Typography variant="h5" sx={{ marginBottom: "40px" }}>
-                🍀
-              </Typography> */}
             </Marker>
           </Map>
         ) : (

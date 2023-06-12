@@ -11,7 +11,6 @@ export const getCurrentLocation = async ({
       longitude: position.coords.longitude,
       zoom: 15,
     });
-    console.log("position: ", position.coords);
   });
 };
 

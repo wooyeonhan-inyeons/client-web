@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from "react";
+import React, { useLayoutEffect } from "react";
 import { Outlet, useOutletContext } from "react-router-dom";
 import { ContextInterface, HeaderOptinterface } from "../../interface";
 import { WrapperOptInterface } from "../../component/MainWrapper/interface";
@@ -9,12 +9,10 @@ import { avatarColors } from "../../common";
 import Map from "react-map-gl";
 // import mapboxgl from "mapbox-gl";
 import StyledAvatar from "../../component/StyledAvatar";
-import { positionType } from "./components/Search/interface";
 
 function Main() {
-  const [position, setPosition] = useState<positionType | undefined>(undefined);
   const [user] = useRecoilState(userState);
-  const { setHeadOpt, navigate, setWrapperOpt } =
+  const { setHeadOpt, navigate, setWrapperOpt, initPosition } =
     useOutletContext<ContextInterface>();
   const headerOption: HeaderOptinterface = {
     menus: [
@@ -46,7 +44,7 @@ function Main() {
     setWrapperOpt(wrapperOption);
   }, []);
 
-  return <Outlet context={{ navigate, Map }} />;
+  return <Outlet context={{ navigate, Map, initPosition }} />;
 }
 
 export default Main;

@@ -7,10 +7,10 @@ import {
   Typography,
 } from "@mui/material";
 import { useOutletContext } from "react-router-dom";
-import { ContextInterface, HeaderOptinterface } from "../../../../interface.d";
 import { CaretLeft } from "@phosphor-icons/react";
 import { historyStyle } from "./style";
 import { WrapperOptInterface } from "../../../../component/MainWrapper/interface";
+import { ContextInterface, HeaderOptinterface } from "../../../../interface";
 
 export default function History() {
   const { setHeadOpt, setWrapperOpt, navigate } =

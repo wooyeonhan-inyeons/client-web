@@ -35,6 +35,7 @@ export default function Mypage() {
   };
   const wrapperOpt: WrapperOptInterface = {
     isNoneHeadPadding: false,
+    isFullWidth: true,
   };
 
   useLayoutEffect(() => {
@@ -64,6 +65,7 @@ export default function Mypage() {
       <Header headProp={headerOption} navigate={navigate} />
       <Box
         sx={{
+          height: "100%",
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
@@ -101,7 +103,7 @@ export default function Mypage() {
               variant="contained"
               onClick={() => navigate("/mypage/history")}
             >
-              <Typography variant="subtitle2">내가 발견한 우연들</Typography>
+              <Typography variant="subtitle2">나의 우연들</Typography>
               <Typography variant="subtitle2">
                 00건
                 <CaretRight
@@ -115,7 +117,7 @@ export default function Mypage() {
               variant="contained"
               onClick={() => navigate("/previous")}
             >
-              <Typography variant="subtitle2">남이 발견한 우연들</Typography>
+              <Typography variant="subtitle2">내가 발견한 우연들</Typography>
               <Typography variant="subtitle2">
                 00건
                 <CaretRight

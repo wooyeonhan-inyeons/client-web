@@ -11,4 +11,9 @@ export const StyledComment = styled(Box)(({ theme }: ThemeProps) => ({
   // display: "flex",
   // flexDirection: "column",
   // gap: "1rem",
+  "& .comments .skeletonComment": {
+    display: "flex",
+    alignItems: "center",
+    gap: "1rem",
+  },
 }));

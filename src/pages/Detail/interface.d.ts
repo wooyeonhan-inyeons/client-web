@@ -9,6 +9,7 @@ export interface DetailCarousel {
 export interface CommentInterface {
   value: string;
   createAt: string;
+  user_id: string;
 }
 
 export interface GetPostInterface {

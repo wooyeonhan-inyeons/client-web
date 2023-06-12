@@ -5,12 +5,16 @@ import { StyledCommentItem } from "./style";
 import { avatarColors } from "../../../../../../common";
 import StyledAvatar from "../../../../../../component/StyledAvatar";
 
-export default function CommentItem({ value, createAt }: CommentInterface) {
+export default function CommentItem({
+  value,
+  createAt,
+  user_id,
+}: CommentInterface) {
   return (
     <StyledCommentItem>
       <Box>
         <StyledAvatar
-          name="asd"
+          name={user_id}
           variant="beam"
           colors={avatarColors}
           size={36}

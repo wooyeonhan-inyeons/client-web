@@ -18,27 +18,29 @@ const ImageCarousel = ({ images }: DetailCarousel) => {
         enableMouseEvents
         style={{ width: "100%", aspectRatio: "1/1" }}
       >
-        {images?.map((item) => (
-          <Box
-            key={item.img_id}
-            sx={{
-              width: "100%",
-              height: "100%",
-              minHeight: "100%",
-              display: "flex",
-            }}
-          >
-            <img
-              src={item.img_url}
-              style={{
+        <div>
+          {images?.map((item) => (
+            <Box
+              key={item.img_id}
+              sx={{
                 width: "100%",
-                aspectRatio: "1/1",
-                minHeight: "50vh",
-                objectFit: "cover",
+                height: "100%",
+                minHeight: "100%",
+                display: "flex",
               }}
-            />
-          </Box>
-        ))}
+            >
+              <img
+                src={item.img_url}
+                style={{
+                  width: "100%",
+                  aspectRatio: "1/1",
+                  minHeight: "50vh",
+                  objectFit: "cover",
+                }}
+              />
+            </Box>
+          ))}
+        </div>
       </SwipeableViews>
       <MobileStepper
         steps={1}

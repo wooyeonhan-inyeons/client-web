@@ -15,6 +15,7 @@ export const getHistory = async (
       },
     }
   ).then((response) => {
+    // console.log(month, year);
     return response.json();
   });
   return response;

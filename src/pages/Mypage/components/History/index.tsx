@@ -38,7 +38,7 @@ const Past = () => {
   // 검색할 날짜 연월일
   const [searchDate, setSearchDate] = useState<SearchDateType>({
     year: today.getFullYear(),
-    month: today.getMonth() + 1,
+    month: 1 + today.getMonth(),
     date: today.getDate(),
   });
   let monthlyList: WooyeonsType[][];
@@ -88,6 +88,7 @@ const Past = () => {
           today.getFullYear(),
           today.getMonth() + 1
         );
+        console.log(searchDate.month);
         setTodayWooyeons(monthlyList[searchDate.date - 1]); // 오늘 생성된 조회한 우연들
         setExistDays(getDaysExist(monthlyList));
       },

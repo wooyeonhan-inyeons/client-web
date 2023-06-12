@@ -1,8 +1,8 @@
-export interface AlertData {
+export interface NotificationInterface {
   notification_id: string;
   user_id: string;
   target_id: string;
-  type: object;
+  type: "COMMENT" | "EMOTION";
   content: string;
   viewed: string;
   hidden: string;

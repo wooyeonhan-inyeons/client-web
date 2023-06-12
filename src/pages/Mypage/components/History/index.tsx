@@ -1,11 +1,5 @@
 import React, { useLayoutEffect } from "react";
-import {
-  Box,
-  ImageList,
-  ImageListItem,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Box } from "@mui/material";
 import { useOutletContext } from "react-router-dom";
 import { ContextInterface, HeaderOptinterface } from "../../../../interface.d";
 import { CaretLeft } from "@phosphor-icons/react";

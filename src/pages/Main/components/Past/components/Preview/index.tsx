@@ -9,6 +9,7 @@ const Preview = ({ todayWooyeons, setPreview }: TodayWooyeonProp) => {
 
   const moveMap = (item: WooyeonsType) => {
     setPreview(item);
+    console.log("item: ", item);
   };
 
   return (

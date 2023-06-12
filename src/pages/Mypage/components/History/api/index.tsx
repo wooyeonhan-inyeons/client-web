@@ -1,12 +1,12 @@
 import { BACK_URL } from "../../../../../common";
 import { WooyeonsType } from "../interface";
-export const getPastWooyeon = async (
+export const getHistory = async (
   month: number,
   year: number,
   token: string | undefined
 ) => {
   const response: WooyeonsType[] = await fetch(
-    `${BACK_URL}/post/viewed?month=${month}&year=${year}`,
+    `${BACK_URL}/post/uploaded?month=${month}&year=${year}`,
     {
       method: "GET",
       headers: {
@@ -15,6 +15,7 @@ export const getPastWooyeon = async (
       },
     }
   ).then((response) => {
+    // console.log(month, year);
     return response.json();
   });
   return response;

@@ -46,6 +46,7 @@ function MainWrapper({ isHeader }: HeaderProp) {
         setInitGeocode(e.reverse().join(" "));
       });
     }
+    console.log("역지오코드");
   }, [initPosition]);
 
   return (

@@ -60,7 +60,7 @@ const CategoryPage = () => {
                   xs={6}
                   key={categoryArr.indexOf(category)}
                   sx={{
-                    height: "7rem",
+                    height: "6rem",
                     "@media (max-width: 375px)": {
                       height: "5rem",
                     },

@@ -15,7 +15,7 @@ import { Badge } from "@mui/material";
 
 function Main() {
   const [user] = useRecoilState(userState);
-  const { setHeadOpt, navigate, setWrapperOpt } =
+  const { setHeadOpt, navigate, setWrapperOpt, initPosition } =
     useOutletContext<ContextInterface>();
   const headerOption: HeaderOptinterface = {
     menus: [

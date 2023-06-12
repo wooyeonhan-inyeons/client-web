@@ -14,13 +14,8 @@ import CategoryPage from "./pages/CategoryPage";
 import Main from "./pages/Main";
 import Search from "./pages/Main/components/Search";
 import Past from "./pages/Main/components/Past/inedx";
-import HeaderAddPost from "./pages/AddPost";
-import MapAddPost from "./pages/AddPost/components/MapAddPost";
-import CategoryAddPost from "./pages/AddPost/components/CategoryAddPost";
-import ContentAddPost from "./pages/AddPost/components/ContentAddPost";
 import Notification from "./pages/Notifycation";
 import Mypage from "./pages/Mypage";
-import EditProfile from "./pages/Mypage/components/Edit";
 import SettingPage from "./pages/Mypage/components/Setting";
 import Detail from "./pages/Detail";
 import Auth from "./pages/auth";
@@ -30,8 +25,12 @@ import { getUser } from "./pages/auth/api";
 import { UserState, roleType } from "./interface";
 import { UserInfo } from "./pages/auth/interface";
 import Loading from "./component/LoadingPage";
-import History from "./pages/Mypage/components/History";
 import { enqueueSnackbar } from "notistack";
+import HeaderAddPost from "./pages/AddPost";
+import MapAddPost from "./pages/AddPost/components/MapAddPost";
+import CategoryAddPost from "./pages/AddPost/components/CategoryAddPost";
+import ContentAddPost from "./pages/AddPost/components/ContentAddPost";
+import History from "./pages/Mypage/components/History";
 
 const Router = () => {
   const [user, setUser] = useRecoilState(userState);

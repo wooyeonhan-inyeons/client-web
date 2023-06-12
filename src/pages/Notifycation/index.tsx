@@ -30,18 +30,6 @@ export default function Notification() {
     setWrapperOpt(wrapperOpt);
   }, []);
 
-  const testData = {
-    title: "근처의 우연 발견!!",
-    data: "신당동 주변의 우연을 사라지기 전에 확인해봐요!",
-    alertAt: new Date(),
-  };
-
-  const testData2 = {
-    title: "근처의 우연 발견!!",
-    data: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nisi a egestas ultrices , nisl urna viverra diam, a ultricies ante nunc sit amet nisl. Sed euismod, nisi a egestas ultrices , nisl urna viverra diam, a ultricies ante nunc sit amet nisl. (장문 테스트)",
-    alertAt: new Date(2023, 4, 3, 23, 55),
-  };
-
   const { data: notification } = useQuery(
     "getWooyeon",
     () => getNotification(user.access_token),
@@ -56,22 +44,22 @@ export default function Notification() {
     return <Box />;
   }
   return (
-    <Stack sx={NotificationStyle}>
+    <Box sx={NotificationStyle}>
       <Box className="notificationBox">
         {notification?.length === 0 ? (
           <Box className="no_notification">알람이 없습니다.</Box>
         ) : (
-          <Box>
-            {notification?.map((item, index) => (
+          <Stack spacing={2}>
+            {notification?.map((item) => (
               <NotiItem
-                content={item.content}
-                created_at={item.created_at}
                 key={item.notification_id}
+                navigate={navigate}
+                item={item}
               />
             ))}
-          </Box>
+          </Stack>
         )}
       </Box>
-    </Stack>
+    </Box>
   );
 }

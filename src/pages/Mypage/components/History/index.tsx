@@ -11,6 +11,7 @@ import { getCurrentLocation } from "../../../AddPost/components/MapAddPost/utils
 import { useMutation } from "react-query";
 import { getHistory } from "./api";
 import { MonthlyWooyeonList, getDaysExist } from "./utils";
+
 import { CaretLeft } from "@phosphor-icons/react";
 import { WrapperOptInterface } from "../../../../component/MainWrapper/interface";
 import Header from "../../../../component/Header";

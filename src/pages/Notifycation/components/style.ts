@@ -24,4 +24,10 @@ export const StyledNoti = styled(Box)(({ theme }: ThemeProps) => ({
   "&:hover": {
     backgroundColor: alpha(grey[800], 0.2),
   },
+  "& .notiInfo": {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    gap: "0.5rem",
+  },
 }));

@@ -16,7 +16,6 @@ import Search from "./pages/Main/components/Search";
 import Past from "./pages/Main/components/Past/inedx";
 import Notification from "./pages/Notifycation";
 import Mypage from "./pages/Mypage";
-import EditProfile from "./pages/Mypage/components/Edit";
 import SettingPage from "./pages/Mypage/components/Setting";
 import Detail from "./pages/Detail";
 import Auth from "./pages/auth";

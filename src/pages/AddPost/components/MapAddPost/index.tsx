@@ -9,6 +9,7 @@ import { PostStateInterface } from "../../interface";
 import markerImg from "/src/asset/marker.png";
 import { LocationProps } from "../../../../interface";
 import { defaultPosition } from "../../../../component/MainWrapper/index";
+import MapboxLanguage from "@mapbox/mapbox-gl-language";
 
 const MapAddPost = () => {
   const { setPost, initPosition, initGeocode } =
@@ -39,6 +40,12 @@ const MapAddPost = () => {
       address: geocode,
     }));
   }, [geocode]);
+
+  useEffect(() => {
+    if (mapRef.current === null) return;
+    const language = new MapboxLanguage();
+    mapRef.current.addControl(language);
+  }, [mapRef.current]);
 
   return (
     <Box
@@ -86,7 +93,7 @@ const MapAddPost = () => {
             mapboxAccessToken={import.meta.env.VITE_MAP_API}
             {...viewState}
             onMove={(evt: ViewStateChangeEvent) => setViewState(evt.viewState)}
-            mapStyle={`mapbox://styles/mapbox/${theme.palette.mode}-v9`}
+            mapStyle={`mapbox://styles/mapbox/${theme.palette.mode}-v10`}
             style={{
               backgroundColor:
                 theme.palette.mode === "light" ? "#f6f6f4" : "#343332",

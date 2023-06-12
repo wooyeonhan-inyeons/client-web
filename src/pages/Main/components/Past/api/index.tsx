@@ -1,7 +1,6 @@
-import { useRecoilState } from "recoil";
 import { BACK_URL } from "../../../../../common";
 import { WooyeonsType } from "../interface";
-import { userState } from "../../../../../recoil";
+
 export const getPastWooyeon = async (
   month: number,
   year: number,

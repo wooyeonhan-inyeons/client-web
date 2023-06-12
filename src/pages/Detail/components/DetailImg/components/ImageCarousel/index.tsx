@@ -16,7 +16,7 @@ const ImageCarousel = ({ images }: DetailCarousel) => {
         index={activeStep}
         onChangeIndex={handleStepChange}
         enableMouseEvents
-        style={{ width: "100%", aspectRatio: "1/1" }}
+        style={{ width: "100%", aspectRatio: "1/1", overflow: "hidden" }}
       >
         <div>
           {images?.map((item) => (

@@ -1,12 +1,22 @@
 import React, {
   ChangeEvent,
   FormEvent,
+  useEffect,
   useLayoutEffect,
+  useMemo,
+  useRef,
   useState,
 } from "react";
 import { ContextInterface } from "../../interface";
 import { useOutletContext, useParams } from "react-router-dom";
-import { Box, Button, Stack, TextField } from "@mui/material";
+import {
+  Box,
+  Button,
+  GlobalStyles,
+  Stack,
+  TextField,
+  useTheme,
+} from "@mui/material";
 import { WrapperOptInterface } from "../../component/MainWrapper/interface";
 import { CaretLeft, Trash } from "@phosphor-icons/react";
 import { useMutation, useQuery } from "react-query";
@@ -19,6 +29,7 @@ import { userState } from "../../recoil";
 import { CommentBoxStyle, DetailBoxStyle, DetailStyle } from "./style";
 import DetailMenu from "./components/DetailMenu";
 import { enqueueSnackbar } from "notistack";
+import { throttle } from "lodash";
 
 // const LazyDetailImg = React.lazy(() => import("./components/DetailImg"));
 
@@ -28,6 +39,7 @@ export default function Detail() {
   const [comment, setComment] = useState("");
   const { setHeadOpt, navigate, setWrapperOpt } =
     useOutletContext<ContextInterface>();
+  const theme = useTheme();
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -66,9 +78,6 @@ export default function Detail() {
     () => getDetailWooyeon(post_id as unknown as string, user.access_token),
     {
       refetchOnWindowFocus: false,
-      onSettled() {
-        getMutateComment();
-      },
       onSuccess(data) {
         getMutateComment();
         console.log(data);
@@ -80,7 +89,7 @@ export default function Detail() {
           icon_R: () => (data.user_id === user.user_id ? <Trash /> : <></>),
           fn_R: handleOpen,
           headerType: "V3",
-          bgColor: "#ffffff00 !important",
+          bgColor: "#ffffff00",
           contentColor: "#fff",
         });
       },
@@ -92,6 +101,10 @@ export default function Detail() {
     () => deletePost(post_id as string, user.access_token),
     { onSuccess: () => navigate(-1) }
   );
+
+  useEffect(() => {
+    getMutateComment();
+  }, [wooyeon]);
 
   const { mutate: commentPostMutation } = useMutation(
     "postComment",
@@ -119,38 +132,115 @@ export default function Detail() {
     }
   );
 
+  const [switchView, setSwitchView] = useState(false);
+  const [hideHeader, setHideHeader] = useState(false);
+  //window.scroll 값을 가져왔으면 하나만 써도 되지만 오브젝트 내의 스크롤을 감지해야해서 두 개 사용
+  const parentRef = useRef<HTMLInputElement>(null);
+  const targetRef = useRef<HTMLInputElement>(null);
+  let prevScroll = 0;
+
+  const throttledScroll = useMemo(
+    () =>
+      throttle(() => {
+        if (targetRef.current === null || parentRef.current === null) return;
+        if (parentRef.current.scrollTop < 100) {
+          setHideHeader(false);
+          setHeadOpt((prev) => ({
+            ...prev,
+            bgColor: "#ffffff00",
+            contentColor: "#fff",
+          }));
+          return;
+        }
+        const nextTabnavOn =
+          parentRef.current.scrollTop > targetRef.current.offsetTop / 2;
+
+        if (prevScroll < parentRef.current.scrollTop) {
+          if (prevScroll - parentRef.current.scrollTop < 30) {
+            setHideHeader(false);
+            setHeadOpt((prev) => ({
+              ...prev,
+              bgColor: theme.palette.background.default,
+              contentColor: theme.palette.text.primary,
+            }));
+          }
+        } else {
+          setHideHeader(true);
+          setHeadOpt((prev) => ({
+            ...prev,
+            bgColor: "#ffffff00",
+            contentColor: "#fff",
+          }));
+        }
+        prevScroll = parentRef.current.scrollTop;
+        if (nextTabnavOn !== switchView) {
+          setSwitchView(nextTabnavOn);
+        }
+      }, 100),
+    [switchView]
+  );
+
+  useEffect(() => {
+    if (parentRef.current === null) return;
+    parentRef.current.addEventListener("scroll", throttledScroll);
+    return () => {
+      if (parentRef.current === null) return;
+      parentRef.current.removeEventListener("scroll", throttledScroll);
+    };
+  }, [throttledScroll]); // 여기에 throttledScroll 대신 switchView을 넣어줘도 정상작동한다
+
+  //스크롤 이벤트
+  //스크롤 다운 시 헤더 보이고 이미지 사이즈의 /2 미만에서는 항상 보이게
   return (
-    <Box sx={DetailBoxStyle}>
-      <DetailMenu
-        open={open}
-        handleClose={handleClose}
-        deletePost={deletePostMutation}
+    <>
+      <GlobalStyles
+        styles={{
+          ".HeaderWrapper": {
+            transition: "all 0.2s ease-in-out",
+          },
+        }}
       />
-      <Box sx={DetailStyle}>
-        <Box className="DetailImg">
-          <DetailImg wooyeon={wooyeon} />
+      {hideHeader && switchView && (
+        <GlobalStyles
+          styles={{
+            ".HeaderWrapper": {
+              top: "-70px !important",
+            },
+          }}
+        />
+      )}
+      <Box sx={DetailBoxStyle} ref={parentRef}>
+        <DetailMenu
+          open={open}
+          handleClose={handleClose}
+          deletePost={deletePostMutation}
+        />
+        <Box sx={DetailStyle}>
+          <Box className="DetailImg">
+            <DetailImg wooyeon={wooyeon} />
+          </Box>
+          <Stack className="DetailSection" spacing={2} ref={targetRef}>
+            <DetailContent wooyeon={wooyeon} />
+            <DetailComment
+              comment={wooyeon_comment}
+              isLoading={isGetCommentLoading}
+            />
+          </Stack>
         </Box>
-        <Stack className="DetailSection" spacing={2}>
-          <DetailContent wooyeon={wooyeon} />
-          <DetailComment
-            comment={wooyeon_comment}
-            isLoading={isGetCommentLoading}
-          />
-        </Stack>
+        <Box sx={CommentBoxStyle}>
+          <form onSubmit={handleSubmitComment}>
+            <TextField
+              fullWidth
+              placeholder="댓글을 입력하세요."
+              value={comment}
+              onChange={handleComment}
+              InputProps={{
+                endAdornment: <Button type="submit">작성</Button>,
+              }}
+            />
+          </form>
+        </Box>
       </Box>
-      <Box sx={CommentBoxStyle}>
-        <form onSubmit={handleSubmitComment}>
-          <TextField
-            fullWidth
-            placeholder="댓글을 입력하세요."
-            value={comment}
-            onChange={handleComment}
-            InputProps={{
-              endAdornment: <Button type="submit">작성</Button>,
-            }}
-          />
-        </form>
-      </Box>
-    </Box>
+    </>
   );
 }

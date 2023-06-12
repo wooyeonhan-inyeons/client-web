@@ -11,6 +11,7 @@ export const DetailStyle = (theme: Theme) => {
       position: "relative",
       top: 0,
       backgroundColor: theme.palette.background.paper,
+      // paddingTop: "3rem",
     },
     "& .DetailImg": {
       width: "100%",
@@ -36,6 +37,7 @@ export const CommentBoxStyle = (theme: Theme) => {
   return {
     "&": {
       width: "100%",
+      maxWidth: "444px",
       position: "fixed",
       bottom: "0",
       backgroundColor: theme.palette.background.default,

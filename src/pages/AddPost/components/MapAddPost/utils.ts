@@ -13,6 +13,8 @@ export function getCurrentLocation({ setViewState }: setViewStateType) {
       longitude: position.coords.longitude,
       zoom: 15,
     });
+
+    console.log("안에서: ", position.coords);
   });
 }
 

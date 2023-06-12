@@ -19,7 +19,7 @@ const initialPostState: UploadPostType = {
 };
 
 function HeaderAddPost() {
-  const { setHeadOpt, navigate, setWrapperOpt, user, Map, mapboxgl } =
+  const { setHeadOpt, navigate, setWrapperOpt, user, initPosition } =
     useOutletContext<ContextInterface>();
 
   const headerOption: HeaderOptinterface = {
@@ -43,7 +43,7 @@ function HeaderAddPost() {
   useEffect(() => {
     setHeadOpt(headerOption);
     setWrapperOpt(wrapperOption);
-    console.log("helo");
+    console.log("일단 받음", initPosition);
   }, []);
 
   ////////////////////////////////
@@ -116,6 +116,7 @@ function HeaderAddPost() {
           shaking,
           setShaking,
           setCategory,
+          initPosition,
         }}
       />
       <Box

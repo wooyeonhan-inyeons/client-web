@@ -13,25 +13,24 @@ import { LocationProps } from "../../../../interface";
 // 일단 지도 컨트롤러 UI 수정은 우선순위 미뤄둠..
 
 const MapAddPost = () => {
-  const initPosition = {
-    longitude: 127.9068,
-    latitude: 35.6699,
-    zoom: 6,
-  };
-  const { setPost } = useOutletContext<PostStateInterface>();
+  // const initPosition = {
+  //   longitude: 127.9068,
+  //   latitude: 35.6699,
+  //   zoom: 6,
+  // };
+  const { setPost, initPosition } = useOutletContext<PostStateInterface>();
   const mapRef = useRef<MapRef | null>(null);
   const [viewState, setViewState] = React.useState(initPosition);
-
-  // 사용자의 위치정보 가져와서 viewport에 저장
-  useEffect(() => {
-    if (positionRef.current == initPosition) {
-      getCurrentLocation({ setViewState });
-    }
-  }, [navigator]);
-
   const [geocode, setGeocode] = useState<string | undefined>(undefined);
   const positionRef = useRef<LocationProps | undefined>(initPosition);
   const theme = useTheme();
+
+  // 사용자의 위치정보 가져와서 viewport에 저장
+  useEffect(() => {
+    if (positionRef.current !== initPosition) {
+      getCurrentLocation({ setViewState });
+    }
+  }, [navigator]);
 
   useEffect(() => {
     positionRef.current = viewState;
@@ -49,15 +48,15 @@ const MapAddPost = () => {
   }, [geocode]);
 
   // 받아온 위치 정보를 한글주소체계로 변환 후 post에 저장
-  useEffect(() => {
-    positionRef.current = viewState;
-    if (positionRef.current !== undefined) {
-      getCurrentGeocode(positionRef.current).then((e) => {
-        setGeocode(e.reverse().join(" "));
-        console.log("Geocode: ", e.reverse().join(" "));
-      });
-    }
-  }, [viewState]);
+  // useEffect(() => {
+  //   positionRef.current = viewState;
+  //   if (positionRef.current !== undefined) {
+  //     getCurrentGeocode(positionRef.current).then((e) => {
+  //       setGeocode(e.reverse().join(" "));
+  //       console.log("Geocode: ", e.reverse().join(" "));
+  //     });
+  //   }
+  // }, [viewState]);
 
   return (
     <Box
@@ -99,7 +98,7 @@ const MapAddPost = () => {
           overflow: "hidden",
         }}
       >
-        {positionRef.current !== initPosition ? (
+        {positionRef.current === initPosition ? (
           <Map
             ref={mapRef}
             mapboxAccessToken={import.meta.env.VITE_MAP_API}
@@ -111,14 +110,14 @@ const MapAddPost = () => {
                 theme.palette.mode === "light" ? "#f6f6f4" : "#343332",
             }}
             mapLib={mapboxgl}
-            // onTouchEnd={() => {
-            //   //touch 종료 때 마다 이벤트 실행
-            //   if (positionRef.current !== undefined) {
-            //     getCurrentGeocode(positionRef.current).then((e) => {
-            //       setGeocode(e.reverse().join(" "));
-            //     });
-            //   }
-            // }}
+            onTouchEnd={() => {
+              //touch 종료 때 마다 이벤트 실행
+              if (positionRef.current !== undefined) {
+                getCurrentGeocode(positionRef.current).then((e) => {
+                  setGeocode(e.reverse().join(" "));
+                });
+              }
+            }}
           >
             <Marker
               longitude={viewState.longitude}

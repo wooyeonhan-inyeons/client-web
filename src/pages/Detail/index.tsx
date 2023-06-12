@@ -56,6 +56,8 @@ export default function Detail() {
     setWrapperOpt(wrapperOption);
   }, []);
 
+  /////
+
   const handleComment = (e: ChangeEvent<HTMLInputElement>) => {
     setComment(e.target.value);
   };
@@ -131,6 +133,8 @@ export default function Detail() {
       },
     }
   );
+
+  //////
 
   const [switchView, setSwitchView] = useState(false);
   const [hideHeader, setHideHeader] = useState(false);

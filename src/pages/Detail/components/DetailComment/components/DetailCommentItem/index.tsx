@@ -4,12 +4,15 @@ import { CommentInterface } from "../../../../interface";
 import { StyledCommentItem } from "./style";
 import { avatarColors } from "../../../../../../common";
 import StyledAvatar from "../../../../../../component/StyledAvatar";
+import { useRecoilState } from "recoil";
+import { userState } from "../../../../../../recoil";
 
 export default function CommentItem({
   value,
   createAt,
   user_id,
 }: CommentInterface) {
+  const [user] = useRecoilState(userState);
   return (
     <StyledCommentItem>
       <Box>
@@ -26,7 +29,7 @@ export default function CommentItem({
           {createAt}
         </Typography>
       </Box>
-      <Box className="rightSide"></Box>
+      <Box className="rightSide">{user.user_id === user_id && "X"}</Box>
     </StyledCommentItem>
   );
 }

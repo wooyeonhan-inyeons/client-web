@@ -1,4 +1,4 @@
-import { Theme } from "@mui/material";
+import { Theme, alpha } from "@mui/material";
 
 export const DetailBoxStyle = {
   height: "calc(100vh - 87px)",
@@ -10,7 +10,7 @@ export const DetailStyle = (theme: Theme) => {
     "&": {
       position: "relative",
       top: 0,
-      backgroundColor: theme.palette.background.paper,
+      backgroundColor: alpha(theme.palette.background.paper, 0.8),
       // paddingTop: "3rem",
     },
     "& .DetailImg": {

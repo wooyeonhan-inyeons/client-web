@@ -51,6 +51,7 @@ const Past = () => {
     }
     mutate();
     console.log("preview: ", preview);
+    // console.log(user.access_token);
     preview !== undefined &&
       mapRef.current?.flyTo({
         center: [preview.longitude, preview.latitude],
@@ -73,7 +74,7 @@ const Past = () => {
     {
       onMutate() {
         //기존 우연들 초기화와 함께 시작
-        console.log("onmutate");
+        console.log("getPastWooyeon onutate");
       },
       onSuccess: (wooyeons) => {
         console.log("success");

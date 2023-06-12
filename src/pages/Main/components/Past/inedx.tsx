@@ -14,12 +14,13 @@ import { MonthlyWooyeonList, getDaysExist } from "./utils";
 import { useOutletContext } from "react-router";
 import { userState } from "../../../../recoil";
 import { useRecoilState } from "recoil";
+import mapboxgl from "mapbox-gl";
 
 // 가끔 우연 정보가 안받아와짐
 
 const Past = () => {
   const [user] = useRecoilState(userState);
-  const { navigate, Map, mapboxgl } = useOutletContext<ContextInterface>();
+  const { navigate, Map } = useOutletContext<ContextInterface>();
   const { open, Drawer, toggleDrawer } = useDrawer();
   const theme = useTheme();
   const today = new Date();
@@ -95,6 +96,10 @@ const Past = () => {
       },
     }
   );
+
+  useEffect(() => {
+    console.log(mapboxgl.Map);
+  }, []);
 
   return (
     <>

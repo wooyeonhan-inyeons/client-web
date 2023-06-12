@@ -7,7 +7,7 @@ import { useRecoilState } from "recoil";
 import { userState } from "../../recoil";
 import { avatarColors } from "../../common";
 import Map from "react-map-gl";
-import mapboxgl from "mapbox-gl";
+// import mapboxgl from "mapbox-gl";
 import StyledAvatar from "../../component/StyledAvatar";
 
 function Main() {
@@ -44,7 +44,7 @@ function Main() {
     setWrapperOpt(wrapperOption);
   }, []);
 
-  return <Outlet context={{ navigate, Map, mapboxgl }} />;
+  return <Outlet context={{ navigate, Map }} />;
 }
 
 export default Main;

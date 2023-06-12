@@ -22,6 +22,7 @@
     "@emotion/styled": "^11.10.6",
     "@fontsource/roboto": "^4.5.8",
     "@googlemaps/js-api-loader": "^1.15.1",
+    "@mapbox/mapbox-gl-language": "^1.0.1",
     "@mapbox/mapbox-sdk": "^0.15.1",
     "@mui/material": "^5.11.15",
     "@mui/styled-engine-sc": "^5.11.11",

@@ -1,8 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Box, Skeleton, Typography, useTheme } from "@mui/material";
 import { useOutletContext } from "react-router";
-import { Map } from "react-map-gl";
-import { MapRef, Marker, ViewStateChangeEvent } from "react-map-gl";
+import { Map, MapRef, Marker, ViewStateChangeEvent } from "react-map-gl";
 import mapboxgl from "mapbox-gl";
 import { getCurrentGeocode, getCurrentLocation } from "./utils";
 import { PostStateInterface } from "../../interface";
@@ -89,6 +88,7 @@ const MapAddPost = () => {
       >
         {positionRef.current !== defaultPosition ? (
           <Map
+            id="map"
             ref={mapRef}
             mapboxAccessToken={import.meta.env.VITE_MAP_API}
             {...viewState}

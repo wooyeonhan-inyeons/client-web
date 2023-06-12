@@ -1,9 +1,9 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Avatar, Box, useTheme } from "@mui/material";
 import { useDrawer } from "../../../../hook/useDrawer";
 import { CalendarHeader } from "./components/calendarHeader";
 import Calendar from "./components/calendar";
-import { Map, MapRef, Marker, ViewStateChangeEvent } from "react-map-gl";
+import { Map, MapRef, Marker } from "react-map-gl";
 import { forUntouchableStyle } from "../Search/style";
 import { getCurrentLocation } from "../../../AddPost/components/MapAddPost/utils";
 import { ContextInterface, LocationProps } from "../../../../interface";
@@ -95,15 +95,6 @@ const Past = () => {
     }
   );
 
-  const onMapLoad = useCallback(() => {
-    if (mapRef.current === null) return;
-    mapRef.current.on("idle", (map) => {
-      // do something
-      // mapRef.current?.setLayoutProperty("layername", "visibility", "none");
-      console.log("idle", map.target);
-    });
-  }, []);
-
   useEffect(() => {
     if (mapRef.current === null) return;
     const language = new MapboxLanguage();
@@ -125,7 +116,6 @@ const Past = () => {
             ref={mapRef}
             mapboxAccessToken={import.meta.env.VITE_MAP_API}
             {...viewState}
-            // onMove={(evt: ViewStateChangeEvent) => setViewState(evt.viewState)}
             mapStyle={`mapbox://styles/mapbox/${theme.palette.mode}-v10`}
             style={{
               backgroundColor:
@@ -133,9 +123,7 @@ const Past = () => {
               width: "100%",
               height: "100vh",
             }}
-            // language="ko"
             mapLib={mapboxgl}
-            onLoad={onMapLoad}
             dragPan={false}
             dragRotate={false}
             scrollZoom={false}

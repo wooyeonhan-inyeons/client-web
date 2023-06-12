@@ -16,7 +16,7 @@ import DetailComment from "./components/DetailComment";
 import DetailImg from "./components/DetailImg";
 import { useRecoilState } from "recoil";
 import { userState } from "../../recoil";
-import { CommentBoxStyle, DetailStyle } from "./style";
+import { CommentBoxStyle, DetailBoxStyle, DetailStyle } from "./style";
 import DetailMenu from "./components/DetailMenu";
 import { enqueueSnackbar } from "notistack";
 
@@ -65,6 +65,7 @@ export default function Detail() {
     "getWooyeon",
     () => getDetailWooyeon(post_id as unknown as string, user.access_token),
     {
+      refetchOnWindowFocus: false,
       onSettled() {
         getMutateComment();
       },
@@ -119,7 +120,7 @@ export default function Detail() {
   );
 
   return (
-    <>
+    <Box sx={DetailBoxStyle}>
       <DetailMenu
         open={open}
         handleClose={handleClose}
@@ -150,6 +151,6 @@ export default function Detail() {
           />
         </form>
       </Box>
-    </>
+    </Box>
   );
 }

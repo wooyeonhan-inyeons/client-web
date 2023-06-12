@@ -25,7 +25,7 @@ export default function DetailComment({
       </StyledComment>
     );
   }
-  if (!isLoading) {
+  if (isLoading) {
     return (
       <StyledComment sx={{ padding: "0 1rem" }}>
         <Stack spacing={2} className="comments">

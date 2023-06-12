@@ -1,12 +1,16 @@
 import { Theme } from "@mui/material";
 
+export const DetailBoxStyle = {
+  height: "calc(100vh - 87px)",
+  overflow: "scroll",
+};
+
 export const DetailStyle = (theme: Theme) => {
   return {
     "&": {
       position: "relative",
       top: 0,
       backgroundColor: theme.palette.background.paper,
-      paddingBottom: "5rem",
     },
     "& .DetailImg": {
       width: "100%",

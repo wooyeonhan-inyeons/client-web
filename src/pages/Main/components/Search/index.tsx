@@ -38,7 +38,6 @@ const Search = () => {
 
   useEffect(() => {
     if (position !== undefined) getWooyeons();
-    else console.log("위치 찾는 중...");
   }, [position]);
 
   useEffect(() => {
@@ -61,7 +60,7 @@ const Search = () => {
         setWooyeons([]);
       },
       onSuccess: (data) => {
-        console.log(data);
+        // console.log(data);
         if (data !== undefined)
           data.forEach((item, index) => {
             setTimeout(() => {

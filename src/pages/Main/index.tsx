@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from "react";
+import React, { useEffect, useLayoutEffect } from "react";
 import { Outlet, useOutletContext } from "react-router-dom";
 import { ContextInterface, HeaderOptinterface } from "../../interface";
 import { WrapperOptInterface } from "../../component/MainWrapper/interface";
@@ -9,7 +9,7 @@ import { avatarColors } from "../../common";
 import Map from "react-map-gl";
 // import mapboxgl from "mapbox-gl";
 import StyledAvatar from "../../component/StyledAvatar";
-import { useQuery } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import { getNotificationCount } from "./api";
 import { Badge } from "@mui/material";
 
@@ -25,7 +25,7 @@ function Main() {
     isForward: true,
     icon_L: () => (
       <Badge
-        badgeContent={notifyCount ? notifyCount.count : 0}
+        badgeContent={notifyCount?.count ? notifyCount.count : 0}
         color="secondary"
       >
         <BellSimple />
@@ -59,8 +59,15 @@ function Main() {
     () => getNotificationCount(user.access_token as string),
     {
       onSuccess(data) {
-        setHeadOpt(headerOption);
-        console.log(data);
+        setHeadOpt((prev) => ({
+          ...prev,
+          icon_L: () => (
+            <Badge badgeContent={data.count ? data.count : 0} color="secondary">
+              <BellSimple />
+            </Badge>
+          ),
+        }));
+        // console.log(data);
       },
     }
   );

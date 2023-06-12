@@ -40,6 +40,10 @@ export const HeaderWrapper = styled("div")(({ theme }: ThemeProps) => ({
     display: "flex",
     gap: 1,
   },
+  "& .MuiToolbar-root .right_section .mainFn": {
+    aspectRatio: "1/1",
+    width: "50px",
+  },
   "& .MuiToolbar-root .avatarIcon svg": {
     // border: `1.5px solid ${theme.palette.text.secondary}`,
     borderRadius: "50%",

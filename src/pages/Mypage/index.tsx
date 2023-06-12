@@ -35,7 +35,7 @@ export default function Mypage() {
   };
   const wrapperOpt: WrapperOptInterface = {
     isNoneHeadPadding: false,
-    isFullWidth: true,
+    // isFullWidth: true,
   };
 
   useLayoutEffect(() => {

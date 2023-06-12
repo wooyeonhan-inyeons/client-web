@@ -10,7 +10,7 @@ import { Box, Button, Stack, TextField } from "@mui/material";
 import { WrapperOptInterface } from "../../component/MainWrapper/interface";
 import { CaretLeft, Trash } from "@phosphor-icons/react";
 import { useMutation, useQuery } from "react-query";
-import { deletePost, getDetailWooyeon, postComment } from "./api";
+import { deletePost, getComment, getDetailWooyeon, postComment } from "./api";
 import DetailContent from "./components/DetailContent";
 import DetailComment from "./components/DetailComment";
 import DetailImg from "./components/DetailImg";
@@ -40,11 +40,8 @@ export default function Detail() {
   };
 
   useLayoutEffect(() => {
-    console.log("USER: ", user);
     // setHeadOpt(headerOption);
     setWrapperOpt(wrapperOption);
-
-    console.log(post_id);
   }, []);
 
   const handleComment = (e: ChangeEvent<HTMLInputElement>) => {
@@ -54,7 +51,7 @@ export default function Detail() {
   const handleSubmitComment = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (comment !== "") {
-      console.log(comment);
+      // console.log(comment);
       commentPostMutation();
     } else {
       enqueueSnackbar({
@@ -69,7 +66,8 @@ export default function Detail() {
     () => getDetailWooyeon(post_id as unknown as string, user.access_token),
     {
       onSuccess(data) {
-        console.log(data);
+        getMutateComment();
+        // console.log(data);
         //init option을 따로 두니 조건연산자에서 동기처리 되어서 직접 넣음
         setHeadOpt({
           menus: [{ key: "", value: "/detail" }],
@@ -102,17 +100,17 @@ export default function Detail() {
     }
   );
 
-  // const { data: wooyeon_comment } = useQuery(
-  //   "getWooyeon_emotion",
-  //   () => getComment(post_id!, user.access_token),
-  //   {
-  //     // suspense: true,
-  //     // useErrorBoundary: true,
-  //     onSuccess(data) {
-  //       console.log("comment", data);
-  //     },
-  //   }
-  // );
+  const { mutate: getMutateComment, data: wooyeon_comment } = useMutation(
+    "getWooyeon_emotion",
+    () => getComment(wooyeon?.post_id as string, user.access_token),
+    {
+      // suspense: true,
+      // useErrorBoundary: true,
+      onSuccess(data) {
+        console.log("comment", data);
+      },
+    }
+  );
 
   return (
     <>
@@ -126,8 +124,8 @@ export default function Detail() {
           <DetailImg wooyeon={wooyeon} />
         </Box>
         <Stack className="DetailSection" spacing={2}>
-          {/* <DetailContent wooyeon={wooyeon} />
-          <DetailComment wooyeon={wooyeon} /> */}
+          <DetailContent wooyeon={wooyeon} />
+          <DetailComment comment={wooyeon_comment} />
         </Stack>
       </Box>
       <Box sx={CommentBoxStyle}>

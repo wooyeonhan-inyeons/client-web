@@ -13,7 +13,7 @@ export interface CommentInterface {
 
 export interface GetPostInterface {
   category: WooyeonsCategory;
-  comment: any[];
+  comment: GetCommentInterface[];
   comment_count: number;
   content: string;
   created_at: string;
@@ -25,4 +25,12 @@ export interface GetPostInterface {
   post_id: string;
   user_id: string;
   viewCount: number;
+}
+
+export interface GetCommentInterface {
+  // length: number;
+  comment_id: string;
+  content: string;
+  created_at: string;
+  post_id: string;
 }

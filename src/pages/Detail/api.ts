@@ -1,5 +1,5 @@
 import { BACK_URL } from "../../common";
-import { GetPostInterface } from "./interface";
+import { GetCommentInterface, GetPostInterface } from "./interface";
 
 export const getDetailWooyeon = async (
   post_id: string,
@@ -111,7 +111,7 @@ export const getComment = async (
   post_id: string,
   token: string | undefined
 ) => {
-  const response: GetPostInterface = await fetch(
+  const response: GetCommentInterface[] = await fetch(
     `${BACK_URL}/comment?post_id=${post_id}`,
     {
       method: "GET",

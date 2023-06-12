@@ -50,13 +50,13 @@ const Router = () => {
       refetchOnMount: "always",
       refetchOnReconnect: "always",
       onSuccess(userData: UserInfo) {
-        console.log(userData);
+        // console.log(userData);
         if (user.access_token) {
           const decodeed_token = jwtDecode(user.access_token);
           const exp = Number(decodeed_token.payload.exp) * 1000;
 
           if (exp > Date.now()) {
-            console.log("vailed token", userData);
+            // console.log("vailed token", userData);
             //localstorage에 저장되어야 flutter에서 읽을 수 있기에 업데이트
             setUser((prev: UserState) => {
               return {

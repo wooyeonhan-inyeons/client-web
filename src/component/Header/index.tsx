@@ -55,7 +55,7 @@ function Header({ headProp, navigate }: HeaderProp) {
     return <HeaderV3 headProp={headProp} navigate={navigate} />;
   }
   return (
-    <HeaderWrapper>
+    <HeaderWrapper className="HeaderWrapper">
       <AppBar sx={{ background: "none" }}>
         <Toolbar>
           <Box>

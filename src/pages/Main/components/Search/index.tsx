@@ -6,7 +6,7 @@ import Categories from "./components/Categories";
 import RangeBar from "./components/RangeBar";
 import { Global } from "@emotion/react";
 import { forUntouchableStyle, searchPageStyle } from "./style";
-import { Wooyeons, positionType, setPositionType } from "./interface";
+import { Wooyeons, positionType } from "./interface";
 import SearchItem from "./components/SearchButton";
 import { useOutletContext } from "react-router-dom";
 import { getCurrentLocation, wooyeonPositioning } from "./utils";
@@ -62,7 +62,7 @@ const Search = () => {
         setWooyeons([]);
       },
       onSuccess: (data) => {
-        console.log(data);
+        // console.log(data);
         if (data !== undefined)
           data.forEach((item, index) => {
             setTimeout(() => {

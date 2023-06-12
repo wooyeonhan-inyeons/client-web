@@ -14,7 +14,10 @@ import { HeaderWrapper } from "../style";
 
 export default function HeaderV3({ headProp }: HeaderProp) {
   return (
-    <HeaderWrapper style={{ backgroundColor: headProp.bgColor }}>
+    <HeaderWrapper
+      style={{ backgroundColor: headProp.bgColor }}
+      className="HeaderWrapper"
+    >
       <AppBar
         position="fixed"
         sx={{

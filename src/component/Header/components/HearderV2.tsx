@@ -12,7 +12,7 @@ import { HeaderProp } from "../intreface";
 
 export default function HeaderV2({ headProp }: HeaderProp) {
   return (
-    <HeaderWrapper>
+    <HeaderWrapper className="HeaderWrapper">
       <AppBar
         position="fixed"
         sx={{

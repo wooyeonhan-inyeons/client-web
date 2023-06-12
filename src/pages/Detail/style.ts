@@ -1,12 +1,17 @@
-import { Theme } from "@mui/material";
+import { Theme, alpha } from "@mui/material";
+
+export const DetailBoxStyle = {
+  height: "calc(100vh - 87px)",
+  overflow: "scroll",
+};
 
 export const DetailStyle = (theme: Theme) => {
   return {
     "&": {
       position: "relative",
       top: 0,
-      backgroundColor: theme.palette.background.paper,
-      paddingBottom: "5rem",
+      backgroundColor: alpha(theme.palette.background.paper, 0.8),
+      // paddingTop: "3rem",
     },
     "& .DetailImg": {
       width: "100%",
@@ -32,6 +37,7 @@ export const CommentBoxStyle = (theme: Theme) => {
   return {
     "&": {
       width: "100%",
+      maxWidth: "444px",
       position: "fixed",
       bottom: "0",
       backgroundColor: theme.palette.background.default,

@@ -9,6 +9,9 @@ import { avatarColors } from "../../common";
 import Map from "react-map-gl";
 // import mapboxgl from "mapbox-gl";
 import StyledAvatar from "../../component/StyledAvatar";
+import { useQuery } from "react-query";
+import { getNotificationCount } from "./api";
+import { Badge } from "@mui/material";
 
 function Main() {
   const [user] = useRecoilState(userState);
@@ -20,7 +23,14 @@ function Main() {
       { key: "과거 우연", value: "/previous" },
     ],
     isForward: true,
-    icon_L: BellSimple,
+    icon_L: () => (
+      <Badge
+        badgeContent={notifyCount ? notifyCount.count : 0}
+        color="secondary"
+      >
+        <BellSimple />
+      </Badge>
+    ),
     fn_L: () => navigate("/notification"),
     icon_R: () => (
       <StyledAvatar
@@ -43,6 +53,16 @@ function Main() {
     setHeadOpt(headerOption);
     setWrapperOpt(wrapperOption);
   }, []);
+
+  const { data: notifyCount } = useQuery(
+    "getNotifyCount",
+    () => getNotificationCount(user.access_token as string),
+    {
+      onSuccess(data) {
+        console.log(data);
+      },
+    }
+  );
 
   return <Outlet context={{ navigate, Map }} />;
 }

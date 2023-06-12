@@ -53,4 +53,11 @@ export const SettingStyle = {
     {
       border: "1px solid #00000000",
     },
+  "& .webAlert": {
+    paddingBottom: "1rem",
+    color: mainPrimary,
+  },
+  "& .disabled": {
+    opacity: "0.4",
+  },
 };

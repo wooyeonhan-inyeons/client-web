@@ -39,6 +39,7 @@ const SettingPage = () => {
   const [filter, setFilter] = useRecoilState(filterState);
   const [user] = useRecoilState(userState);
   const [env, setEnv] = useRecoilState(envState);
+  const isFlutter = localStorage.getItem("isFlutter");
 
   const headerOption: HeaderOptinterface = {
     menus: [{ key: "설정", value: "/mypage/setting" }],
@@ -160,22 +161,32 @@ const SettingPage = () => {
         </ToggleButtonGroup>
       </Box>
       <Box className="backgroundNotification">
+        {isFlutter !== "1" && (
+          <Typography variant="body1" className="webAlert">
+            웹 환경에서는 알람 기능을 지원하지 않습니다.
+          </Typography>
+        )}
         <Typography variant="h5">알람 수신 여부</Typography>
-        <Box>
+        <Box className={isFlutter !== "1" ? "disabled" : ""}>
           <Typography variant="body1">백그라운드 알림</Typography>
           <StyledSwitch
             checked={env.backNoti}
             value="backgroundNotification"
             onChange={handleBackNoti}
+            disabled={isFlutter !== "1"}
           />
         </Box>
-        <Typography variant="body2" sx={{ px: "0.5rem" }}>
+        <Typography
+          variant="body2"
+          sx={{ px: "0.5rem" }}
+          className={isFlutter !== "1" ? "disabled" : ""}
+        >
           어플을 실행하지 않았을 때, 내 주변의 새로운 우연을 알려드립니다.
         </Typography>
       </Box>
       <Box className="NofificationCategory">
         <Typography variant="h5">수신 받을 카테고리</Typography>
-        <Box>
+        <Box className={isFlutter !== "1" ? "disabled" : ""}>
           {wooyeonCategory.map((item) => {
             const varianted = filter.preferCategory.includes(item.id);
             return (
@@ -183,6 +194,7 @@ const SettingPage = () => {
                 key={item.id}
                 variant={varianted ? "contained" : "outlined"}
                 onClick={(e) => handleFilter(e, item.id)}
+                disabled={isFlutter !== "1"}
               >
                 {item.value}
               </Button>

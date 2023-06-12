@@ -45,13 +45,16 @@ const Router = () => {
       // suspense: true,
       // useErrorBoundary: true,
       //매 접속 때 마다 api로 토큰 검증
+      refetchOnWindowFocus: "always",
+      refetchOnMount: "always",
       refetchOnReconnect: "always",
       onSuccess(userData: UserInfo) {
         if (user.access_token) {
           const decodeed_token = jwtDecode(user.access_token);
           const exp = Number(decodeed_token.payload.exp) * 1000;
 
-          if (exp > Date.now()) {
+          if (exp > Date.now() && userData?.statusCode === 200) {
+            console.log("vailed token", userData);
             //localstorage에 저장되어야 flutter에서 읽을 수 있기에 업데이트
             setUser((prev: UserState) => {
               return {
@@ -63,12 +66,13 @@ const Router = () => {
                 email: userData.email,
               };
             });
-          } else {
-            resetFilter();
-            resetEnv();
-            resetUser();
+            return;
           }
         }
+        console.log("not valid token");
+        resetFilter();
+        resetEnv();
+        resetUser();
       },
     }
   );

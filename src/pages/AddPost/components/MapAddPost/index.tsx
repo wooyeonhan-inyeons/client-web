@@ -9,14 +9,15 @@ import markerImg from "/src/asset/marker.png";
 import { LocationProps } from "../../../../interface";
 import { defaultPosition } from "../../../../component/MainWrapper/index";
 import MapboxLanguage from "@mapbox/mapbox-gl-language";
+import { ContactlessPayment } from "@phosphor-icons/react";
 
 const MapAddPost = () => {
   const { setPost } = useOutletContext<PostStateInterface>();
   const mapRef = useRef<MapRef | null>(null);
   const initPosition = {
-    longitude: 127.9068,
-    latitude: 35.6699,
-    zoom: 8,
+    longitude: 127.5068,
+    latitude: 35.8099,
+    zoom: 15,
   };
   const [viewState, setViewState] = React.useState<LocationProps>(initPosition);
   const [geocode, setGeocode] = useState<string>("");
@@ -35,36 +36,45 @@ const MapAddPost = () => {
     const language = new MapboxLanguage({
       defaultLanguage: "ko",
     });
+
     mapRef.current.addControl(language);
-  }, [viewState]);
-
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition((position) => {
-      getGeo({
-        longitude: position.coords.longitude,
-        latitude: position.coords.latitude,
-        zoom: 15,
-      });
-      console.log(position.coords);
-      console.log("viewstate: ", viewState);
-    });
-  }, []);
-
-  function getGeo(viewstate: LocationProps) {
-    getCurrentGeocode(viewstate).then((e) => {
-      setGeocode(e.reverse().join(" "));
-    });
-  }
-
-  useEffect(() => {
-    // post state 저장
+    // console.log("view State", viewState);
     setPost((prevState) => ({
       ...prevState,
       latitude: viewState?.latitude,
       longitude: viewState?.longitude,
       address: geocode,
     }));
-  }, [geocode]);
+  }, [viewState]);
+
+  // useEffect(() => {
+  //   navigator.geolocation.getCurrentPosition((position) => {
+  //     getGeo({
+  //       longitude: position.coords.longitude,
+  //       latitude: position.coords.latitude,
+  //       zoom: 15,
+  //     });
+  //     console.log("gps 좌표", position.coords);
+  //     console.log("viewstate: ", viewState);
+  //   });
+  // }, []);
+
+  // function getGeo(viewstate: LocationProps) {
+  //   getCurrentGeocode(viewstate).then((e) => {
+  //     setGeocode(e.reverse().join(" "));
+  //   });
+  // }
+
+  // useEffect(() => {
+  //   // post state 저장
+  //   setPost((prevState) => ({
+  //     ...prevState,
+  //     latitude: viewState?.latitude,
+  //     longitude: viewState?.longitude,
+  //     address: geocode,
+  //   }));
+  //   // console.log("geoCOde", geocode);
+  // }, [geocode]);
 
   return (
     <Box
@@ -126,11 +136,11 @@ const MapAddPost = () => {
             //touch 종료 때 마다 이벤트 실행
             onTouchEnd={() => {
               //touch 종료 때 마다 이벤트 실행
-              if (positionRef.current !== undefined) {
-                getCurrentGeocode(positionRef.current).then((e) => {
-                  setGeocode(e.reverse().join(" "));
-                });
-              }
+              // if (positionRef.current !== undefined) {
+              //   getCurrentGeocode(positionRef.current).then((e) => {
+              //     setGeocode(e.reverse().join(" "));
+              //   });
+              // }
             }}
           >
             <Marker

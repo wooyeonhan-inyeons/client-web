@@ -24,6 +24,7 @@ const CategoryPage = () => {
         padding="0rem 2rem 0rem 2rem"
         spacing={0}
         height="100vh"
+        overflow="auto"
       >
         <Global styles={{ ".globalContainer .MuiBox-root": { padding: 0 } }} />
         {/* 인사 문구 구역 */}

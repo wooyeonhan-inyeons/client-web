@@ -76,14 +76,18 @@ export default function Detail() {
     }
   };
 
-  const { data: wooyeon, refetch } = useQuery(
+  const {
+    data: wooyeon,
+    refetch,
+    isSuccess: getSuccess,
+  } = useQuery(
     "getWooyeon",
     () => getDetailWooyeon(post_id as unknown as string, user.access_token),
     {
       refetchOnWindowFocus: false,
       onSuccess(data) {
         getMutateComment();
-        console.log(data);
+        // console.log(data);
         //init option을 따로 두니 조건연산자에서 동기처리 되어서 직접 넣음
         setHeadOpt({
           menus: [{ key: "", value: "/detail" }],
@@ -130,7 +134,7 @@ export default function Detail() {
     () => getComment(wooyeon?.post_id as string, user.access_token),
     {
       onSuccess(data) {
-        console.log("comment", data);
+        // console.log("comment", data);
       },
     }
   );
@@ -225,7 +229,11 @@ export default function Detail() {
             <DetailImg wooyeon={wooyeon} />
           </Box>
           <Stack className="DetailSection" spacing={2} ref={targetRef}>
-            <DetailContent wooyeon={wooyeon} refetch={refetch} />
+            <DetailContent
+              getSuccess={getSuccess}
+              wooyeon={wooyeon}
+              refetch={refetch}
+            />
             <DetailComment
               comment={wooyeon_comment}
               isLoading={isGetCommentLoading}

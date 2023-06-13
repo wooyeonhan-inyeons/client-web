@@ -19,7 +19,7 @@ import MapboxLanguage from "@mapbox/mapbox-gl-language";
 
 const Past = () => {
   const [user] = useRecoilState(userState);
-  const { navigate } = useOutletContext<ContextInterface>();
+  const { navigate, initPosition } = useOutletContext<ContextInterface>();
   const { open, Drawer, toggleDrawer } = useDrawer();
   const theme = useTheme();
   const today = new Date();
@@ -38,24 +38,23 @@ const Past = () => {
   });
   let monthlyList: WooyeonsType[][];
   const [todayWooyeons, setTodayWooyeons] = useState<WooyeonsType[]>([]);
-  const initPosition = {
+  const defaultPosition = {
     longitude: 127.9068,
     latitude: 35.6699,
     zoom: 15,
   };
   const mapRef = useRef<MapRef | null>(null);
   const [viewState, setViewState] = React.useState(initPosition);
-  const positionRef = useRef<LocationProps | undefined>(initPosition);
+  const positionRef = useRef<LocationProps>(initPosition);
   const [preview, setPreview] = useState<WooyeonsType>();
   const [existDays, setExistDays] = useState<Array<number>>([]);
 
   // 초기화면 : 지도를 현재위치로 고정
   useEffect(() => {
-    if (positionRef.current === initPosition) {
+    if (positionRef.current === defaultPosition) {
       getCurrentLocation({ setViewState });
     }
     mutate();
-    console.log("preview: ", preview);
     preview !== undefined &&
       mapRef.current?.flyTo({
         center: [preview.longitude, preview.latitude],

@@ -62,7 +62,7 @@ const History = () => {
       getCurrentLocation({ setViewState });
     }
     mutate();
-    console.log("preview: ", preview);
+    console.log("preview is ", preview);
     preview !== undefined &&
       mapRef.current?.flyTo({
         center: [preview.longitude, preview.latitude],
@@ -131,14 +131,13 @@ const History = () => {
           "& .mapboxgl-map": {
             touchAction: "none",
           },
-          overflow: "auto",
         }}
       >
         {Map && (
           <Map
             ref={mapRef}
-            initialViewState={initPosition}
             mapboxAccessToken={import.meta.env.VITE_MAP_API}
+            initialViewState={initPosition}
             // {...viewState}
             // onMove={(evt: ViewStateChangeEvent) => setViewState(evt.viewState)}
             mapStyle={`mapbox://styles/mapbox/${theme.palette.mode}-v9`}
@@ -147,6 +146,7 @@ const History = () => {
                 theme.palette.mode === "light" ? "#f6f6f4" : "#343332",
               width: "100%",
               height: "100vh",
+              overflow: "auto",
             }}
             mapLib={mapboxgl}
             dragPan={false}
@@ -158,8 +158,8 @@ const History = () => {
           >
             {preview !== undefined && (
               <Marker
-                longitude={viewState.longitude}
-                latitude={viewState.latitude}
+                longitude={preview.longitude}
+                latitude={preview.latitude}
                 anchor="center"
               >
                 <Avatar
@@ -189,6 +189,7 @@ const History = () => {
         open={open}
         toggleDrawer={toggleDrawer}
         headerChildren={CalendarHeader({
+          displayDate,
           todayWooyeons,
           setPreview,
         })}

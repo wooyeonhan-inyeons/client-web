@@ -3,7 +3,7 @@ import { Avatar, Box, useTheme } from "@mui/material";
 import { useDrawer } from "../../../../hook/useDrawer";
 import { CalendarHeader } from "./components/calendarHeader";
 import Calendar from "./components/calendar";
-import { Map, MapRef, Marker, ViewStateChangeEvent } from "react-map-gl";
+import { Map, MapRef, Marker } from "react-map-gl";
 import { forUntouchableStyle } from "../Search/style";
 import { getCurrentLocation } from "../../../AddPost/components/MapAddPost/utils";
 import { ContextInterface, LocationProps } from "../../../../interface";
@@ -56,6 +56,7 @@ const Past = () => {
       getCurrentLocation({ setViewState });
     }
     mutate();
+    // console.log("preview is ", preview);
     preview !== undefined &&
       mapRef.current?.flyTo({
         center: [preview.longitude, preview.latitude],
@@ -164,6 +165,7 @@ const Past = () => {
         open={open}
         toggleDrawer={toggleDrawer}
         headerChildren={CalendarHeader({
+          displayDate,
           todayWooyeons,
           setPreview,
         })}

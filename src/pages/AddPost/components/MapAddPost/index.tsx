@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Box, Skeleton, Typography, useTheme } from "@mui/material";
 import { useOutletContext } from "react-router";
 import { Map, MapRef, Marker, ViewStateChangeEvent } from "react-map-gl";

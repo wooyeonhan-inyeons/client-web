@@ -103,7 +103,7 @@ export default function Mypage() {
             >
               <Typography variant="subtitle2">나의 우연들</Typography>
               <Typography variant="subtitle2">
-                00건
+                06건
                 <CaretRight
                   size={15}
                   style={{ position: "relative", top: "2px" }}
@@ -117,7 +117,7 @@ export default function Mypage() {
             >
               <Typography variant="subtitle2">내가 발견한 우연들</Typography>
               <Typography variant="subtitle2">
-                00건
+                10건
                 <CaretRight
                   size={15}
                   style={{ position: "relative", top: "2px" }}
@@ -131,7 +131,7 @@ export default function Mypage() {
             >
               <Typography variant="subtitle2">모임 채팅</Typography>
               <Typography variant="subtitle2">
-                00건
+                01건
                 <CaretRight
                   size={15}
                   style={{ position: "relative", top: "2px" }}

@@ -86,11 +86,17 @@ function Header({ headProp, navigate }: HeaderProp) {
           </Box>
           <Box className="right_section">
             {headProp.icon_L && (
-              <IconButton onClick={headProp.fn_L} className="mainFn">
+              <IconButton
+                onClick={() => navigate("/notification")}
+                className="mainFn"
+              >
                 <headProp.icon_L />
               </IconButton>
             )}
-            <IconButton onClick={headProp.fn_R} className="mainFn avatarIcon">
+            <IconButton
+              onClick={() => navigate("/mypage")}
+              className="mainFn avatarIcon"
+            >
               {headProp.icon_R && <headProp.icon_R />}
             </IconButton>
           </Box>

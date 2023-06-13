@@ -89,7 +89,7 @@ const Past = () => {
           today.getFullYear(),
           today.getMonth() + 1
         );
-        console.log(searchDate.month);
+        // console.log(searchDate.month);
         setTodayWooyeons(monthlyList[searchDate.date - 1]); // 오늘 생성된 조회한 우연들
         setExistDays(getDaysExist(monthlyList));
       },
@@ -98,7 +98,7 @@ const Past = () => {
 
   //// 헤더 설정
   const headerOption: HeaderOptinterface = {
-    menus: [{ key: "내가 발견한 우연들", value: "/history" }],
+    menus: [{ key: "나의 우연들", value: "/history" }],
     icon_L: CaretLeft,
     fn_L: () => navigate(-1),
     headerType: "V3",

@@ -77,6 +77,7 @@ const Past = () => {
     {
       onMutate() {
         //기존 우연들 초기화와 함께 시작
+        setTodayWooyeons([]);
         console.log("getPastWooyeon onutate");
       },
       onSuccess: (wooyeons) => {

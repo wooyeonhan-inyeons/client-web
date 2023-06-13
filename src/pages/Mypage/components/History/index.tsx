@@ -38,7 +38,7 @@ const History = () => {
   const initPosition = {
     longitude: 127.9068,
     latitude: 35.6699,
-    zoom: 6,
+    zoom: 15,
   };
 
   //drawer를 올릴 떄 터치 이벤트를 사용할 수 없는 환경을 위함
@@ -62,14 +62,12 @@ const History = () => {
       getCurrentLocation({ setViewState });
     }
     mutate();
-    console.log("preview is ", preview);
     preview !== undefined &&
       mapRef.current?.flyTo({
         center: [preview.longitude, preview.latitude],
         duration: 500,
       });
-    console.log("fly to ", preview?.longitude, preview?.latitude);
-  }, [searchDate, preview]);
+  }, [navigator, searchDate, preview]);
 
   useEffect(() => {
     positionRef.current = viewState;
@@ -82,7 +80,7 @@ const History = () => {
       onMutate() {
         //기존 우연들 초기화와 함께 시작
         setTodayWooyeons([]);
-        console.log("onmutate");
+        console.log("onMutate");
       },
       onSuccess: (wooyeons) => {
         console.log("success");
@@ -139,7 +137,6 @@ const History = () => {
             mapboxAccessToken={import.meta.env.VITE_MAP_API}
             initialViewState={initPosition}
             // {...viewState}
-            // onMove={(evt: ViewStateChangeEvent) => setViewState(evt.viewState)}
             mapStyle={`mapbox://styles/mapbox/${theme.palette.mode}-v9`}
             style={{
               backgroundColor:

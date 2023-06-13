@@ -16,7 +16,7 @@ const MapAddPost = () => {
   const initPosition = {
     longitude: 127.9068,
     latitude: 35.6699,
-    zoom: 6,
+    zoom: 8,
   };
   const [viewState, setViewState] = React.useState<LocationProps>(initPosition);
   const [geocode, setGeocode] = useState<string>("");

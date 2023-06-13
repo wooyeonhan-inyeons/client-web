@@ -28,6 +28,11 @@ const Past = () => {
       today.getMonth() < 10 ? "0" + today.getMonth() : today.getMonth()
     }`
   );
+  const [initPosition, setInitPosition] = useState({
+    longitude: 127.9068,
+    latitude: 35.6699,
+    zoom: 15,
+  });
   //drawer를 올릴 떄 터치 이벤트를 사용할 수 없는 환경을 위함
   const isTouchDevice = "ontouchstart" in window;
   // 검색할 날짜 연월일
@@ -39,11 +44,6 @@ const Past = () => {
   let monthlyList: WooyeonsType[][];
   const [todayWooyeons, setTodayWooyeons] = useState<WooyeonsType[]>([]);
 
-  const initPosition = {
-    longitude: 127.9068,
-    latitude: 35.6699,
-    zoom: 6,
-  };
   const mapRef = useRef<MapRef | null>(null);
   const [viewState, setViewState] = React.useState(initPosition);
   const positionRef = useRef<LocationProps>(initPosition);
@@ -56,21 +56,30 @@ const Past = () => {
       getCurrentLocation({ setViewState });
     }
     mutate();
-    // console.log("preview is ", preview);
     preview !== undefined &&
       mapRef.current?.flyTo({
         center: [preview.longitude, preview.latitude],
         duration: 500,
       });
-  }, [searchDate, preview]);
+
+    navigator.geolocation.getCurrentPosition((position) => {
+      setPosition({
+        longitude: position.coords.longitude,
+        latitude: position.coords.latitude,
+        zoom: 15,
+      });
+      console.log("setposi: ", position.coords);
+    });
+  }, [navigator, searchDate, preview]);
+
+  function setPosition(viewstate: LocationProps) {
+    setInitPosition(viewstate);
+    console.log("setposition");
+    console.log("initpo: ", initPosition);
+  }
 
   useEffect(() => {
     positionRef.current = viewState;
-    preview !== undefined &&
-      mapRef.current?.flyTo({
-        center: [preview.longitude, preview.latitude],
-        duration: 80,
-      });
   }, [viewState]);
 
   const { mutate } = useMutation(
@@ -80,7 +89,7 @@ const Past = () => {
       onMutate() {
         //기존 우연들 초기화와 함께 시작
         setTodayWooyeons([]);
-        console.log("getPastWooyeon onutate");
+        console.log("getPastWooyeon onMutate");
       },
       onSuccess: (wooyeons) => {
         console.log("success");
@@ -115,8 +124,9 @@ const Past = () => {
           <Map
             id="map"
             ref={mapRef}
+            initialViewState={initPosition}
             mapboxAccessToken={import.meta.env.VITE_MAP_API}
-            {...viewState}
+            // {...viewState}
             mapStyle={`mapbox://styles/mapbox/${theme.palette.mode}-v10`}
             style={{
               backgroundColor:
@@ -134,8 +144,8 @@ const Past = () => {
           >
             {preview !== undefined && (
               <Marker
-                longitude={viewState.longitude}
-                latitude={viewState.latitude}
+                longitude={preview.longitude}
+                latitude={preview.latitude}
                 anchor="center"
               >
                 <Avatar

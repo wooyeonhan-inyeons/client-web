@@ -8,7 +8,6 @@ import { mainPrimary, secondary } from "../../../../../../common";
 const week = ["S", "M", "T", "W", "T", "F", "S"];
 
 export const CalendarHeader = ({
-  displayDate,
   todayWooyeons,
   setPreview,
 }: CalendarHeaderProp) => {

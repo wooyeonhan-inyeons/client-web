@@ -69,6 +69,7 @@ function Calendar({ setDisplayDate, setSearchDate, existDays }: CalendarProps) {
       setSelectDay(Number(time));
       setSearchDate((prevDate: SearchDateType) => ({
         ...prevDate,
+        month: newDate.getMonth() + 1,
         date: newDate.getDate(),
       }));
     }

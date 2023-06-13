@@ -21,10 +21,10 @@ import { CalendarHeader } from "../../../Main/components/Past/components/calenda
 import Calendar from "../../../Main/components/Past/components/calendar";
 import Map from "react-map-gl";
 
-const Past = () => {
-  const [user] = useRecoilState(userState);
+const History = () => {
   const { navigate, initPosition, setHeadOpt, setWrapperOpt } =
     useOutletContext<ContextInterface>();
+  const [user] = useRecoilState(userState);
   const { open, Drawer, toggleDrawer } = useDrawer();
   const theme = useTheme();
   const today = new Date();
@@ -175,7 +175,6 @@ const Past = () => {
         open={open}
         toggleDrawer={toggleDrawer}
         headerChildren={CalendarHeader({
-          displayDate,
           todayWooyeons,
           setPreview,
         })}
@@ -191,4 +190,4 @@ const Past = () => {
   );
 };
 
-export default Past;
+export default History;

@@ -31,6 +31,7 @@ import MapAddPost from "./pages/AddPost/components/MapAddPost";
 import CategoryAddPost from "./pages/AddPost/components/CategoryAddPost";
 import ContentAddPost from "./pages/AddPost/components/ContentAddPost";
 import History from "./pages/Mypage/components/History";
+import Message from "./pages/message";
 
 const Router = () => {
   const [user, setUser] = useRecoilState(userState);
@@ -142,6 +143,13 @@ const Router = () => {
         {
           path: "detail/:post_id",
           element: <Detail />,
+        },
+        {
+          path: "message/",
+          children: [
+            { index: true, element: <Message /> },
+            { path: ":message_id", element: <Message /> },
+          ],
         },
       ],
       loader: () => user.role !== "USER" && redirect("/auth"),

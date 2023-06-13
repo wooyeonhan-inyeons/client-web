@@ -14,7 +14,6 @@ import { MonthlyWooyeonList, getDaysExist } from "./utils";
 
 import { CaretLeft } from "@phosphor-icons/react";
 import { WrapperOptInterface } from "../../../../component/MainWrapper/interface";
-import Header from "../../../../component/Header";
 import mapboxgl from "mapbox-gl";
 import { forUntouchableStyle } from "../../../Main/components/Search/style";
 import { CalendarHeader } from "../../../Main/components/Past/components/calendarHeader";
@@ -122,7 +121,6 @@ const History = () => {
 
   return (
     <>
-      <Header headProp={headerOption} navigate={navigate} />
       <Box
         sx={{
           "& .mapboxgl-map": {

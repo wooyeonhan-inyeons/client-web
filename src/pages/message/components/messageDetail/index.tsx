@@ -50,12 +50,18 @@ export default function MessageDetail() {
     setWrapperOpt(wrapperOpt);
   }, []);
 
-  const { data: messages, refetch } = useQuery(
-    "getMessages",
+  const {
+    data: messagesItems,
+    refetch,
+    isSuccess,
+  } = useQuery(
+    "getMessagesDetail",
     () => getMessage(user.access_token as string, message_id as string),
     {
+      retry: true,
+      refetchInterval: 3000,
       onSuccess(data) {
-        console.log(data);
+        console.log("message item ", data);
       },
     }
   );
@@ -67,6 +73,7 @@ export default function MessageDetail() {
     {
       onSuccess(data) {
         console.log(data);
+        setMessage("");
         refetch();
       },
     }
@@ -80,7 +87,6 @@ export default function MessageDetail() {
   const handleSubmitMessage = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (message !== "") {
-      // console.log(comment);
       postMutateMessage();
     }
   };
@@ -88,12 +94,13 @@ export default function MessageDetail() {
   return (
     <>
       <Stack sx={messageStyle}>
-        {messages ? (
-          messages.map((item, index) => {
+        {isSuccess && messagesItems !== undefined ? (
+          messagesItems.length &&
+          messagesItems.map((item, index) => {
             return (
-              <>
+              <div key={item.chat_id + index}>
                 {index !== 0 ? (
-                  testData[index - 1].createAt.getDate() !==
+                  new Date(messagesItems[index - 1].created_at).getDate() !==
                     new Date(item.created_at).getDate() && (
                     <DateItem createAt={item.created_at} />
                   )
@@ -111,7 +118,7 @@ export default function MessageDetail() {
                     createAt={item.created_at}
                   />
                 )}
-              </>
+              </div>
             );
           })
         ) : (
@@ -134,15 +141,3 @@ export default function MessageDetail() {
     </>
   );
 }
-
-const testData = [
-  { content: "Hello", createAt: new Date(2023, 6, 12, 14, 25), is_own: true },
-  { content: "Hi", createAt: new Date(2023, 6, 13, 16, 25), is_own: false },
-  {
-    content:
-      "lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed hendrerit velit euismod, ultrices eros eget, vulputate urna. Nullam velit erat , commodo sed dui quis, ultricies sodales nisi. Nullam euismod, nisl at fermentum ultrices, eros ipsum aliquam nisi, a viverra nunc nisi id nisl. Sed sed lacinia nibh, nec fa",
-    createAt: new Date(2023, 6, 13, 16, 27),
-    is_own: false,
-  },
-  { content: "Good", createAt: new Date(2023, 6, 16, 18, 25), is_own: true },
-];

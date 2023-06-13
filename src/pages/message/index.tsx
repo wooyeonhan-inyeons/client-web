@@ -3,7 +3,7 @@ import { useOutletContext } from "react-router-dom";
 import { ContextInterface, HeaderOptinterface } from "../../interface";
 import { CaretLeft } from "@phosphor-icons/react";
 import { WrapperOptInterface } from "../../component/MainWrapper/interface";
-import { Box, Divider, Stack } from "@mui/material";
+import { Box, CircularProgress, Divider, Stack } from "@mui/material";
 import { useQuery } from "react-query";
 import { getMessageList } from "./api";
 import { useRecoilState } from "recoil";
@@ -34,7 +34,7 @@ export default function Message() {
     setWrapperOpt(wrapperOpt);
   }, []);
 
-  const { data: messages } = useQuery(
+  const { data: messages, isLoading } = useQuery(
     "getMessages",
     () => getMessageList(user.access_token as string),
     {
@@ -50,11 +50,22 @@ export default function Message() {
       divider={<Divider orientation="horizontal" flexItem />}
       spacing={2}
     >
-      {messages === undefined || messages.length === 0 ? (
-        <Box className="no_message">읽을 메세지가 없습니다.</Box>
+      {messages === undefined ? (
+        !isLoading ? (
+          <Box className="no_message">읽을 메세지가 없습니다.</Box>
+        ) : (
+          <Box sx={{ textAlign: "center", py: 10 }}>
+            <CircularProgress />
+          </Box>
+        )
       ) : (
         messages.map((item, index) => (
-          <MessageItem key={item.group_id} index={index} navigate={navigate} />
+          <MessageItem
+            key={item.group_id}
+            message_id={item.group_id}
+            index={index}
+            navigate={navigate}
+          />
         ))
       )}
     </Stack>

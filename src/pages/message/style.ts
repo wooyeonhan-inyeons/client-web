@@ -56,13 +56,14 @@ export const MyMessageStyle = (theme: Theme) => ({
   marginLeft: "auto",
   display: "flex",
   alignItems: "flex-end",
+  justifyContent: "flex-end",
   gap: "0.3rem",
 
   "& .MuiPaper-root": {
     backgroundColor: theme.palette.primary.main,
     color: "#fff",
     borderRadius: "2rem 2rem 0 2rem",
-    textAlign: "right",
+    // textAlign: "right",
     maxWidth: "70%",
     width: "fit-content",
     minWidth: "5rem",
@@ -76,13 +77,14 @@ export const ReceivedMessageStyle = (theme: Theme) => ({
   marginRight: "auto",
   display: "flex",
   alignItems: "flex-end",
+  justifyContent: "flex-start",
   gap: "0.3rem",
 
   "& .MuiPaper-root": {
     backgroundColor: theme.palette.background.paper,
     color: theme.palette.text.primary,
     borderRadius: "2rem 2rem 2rem 0",
-    textAlign: "left",
+    // textAlign: "left",
     maxWidth: "70%",
     width: "fit-content",
     minWidth: "5rem",

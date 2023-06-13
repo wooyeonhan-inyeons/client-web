@@ -34,10 +34,10 @@ function MainWrapper({ isHeader }: HeaderProp) {
   const [initPosition, setInitPosition] =
     useState<LocationProps>(defaultPosition);
 
-  useEffect(() => {
-    if (positionRef.current === defaultPosition)
-      getCurrentLocation({ setInitPosition });
-  }, []);
+  // useEffect(() => {
+  //   if (positionRef.current === defaultPosition)
+  //     getCurrentLocation({ setInitPosition });
+  // }, []);
 
   return (
     <>

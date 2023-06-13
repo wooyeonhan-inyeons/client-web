@@ -200,6 +200,8 @@ export default function Detail() {
 
   //스크롤 이벤트
   //스크롤 다운 시 헤더 보이고 이미지 사이즈의 /2 미만에서는 항상 보이게
+
+  if (!getSuccess) return <Box />;
   return (
     <>
       <GlobalStyles

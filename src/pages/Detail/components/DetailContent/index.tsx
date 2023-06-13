@@ -1,4 +1,10 @@
-import React, { Suspense, useState } from "react";
+import React, {
+  Suspense,
+  lazy,
+  useEffect,
+  useLayoutEffect,
+  useState,
+} from "react";
 import { Box, IconButton, Skeleton, Typography } from "@mui/material";
 import { StyledDetailContent } from "./style";
 import TimeAgo from "javascript-time-ago";
@@ -17,10 +23,8 @@ import {
 import { useRecoilState } from "recoil";
 import { userState } from "../../../../recoil";
 
-const LazyAvatar = React.lazy(
-  () => import("../../../../component/StyledAvatar")
-);
-const LazyTypography = React.lazy(() => import("@mui/material/Typography"));
+const LazyAvatar = lazy(() => import("../../../../component/StyledAvatar"));
+const LazyTypography = lazy(() => import("@mui/material/Typography"));
 
 const wooyeonCategory: Array<{ id: WooyeonsCategory; value: string }> = [
   { id: "DAILY", value: "일상" },
@@ -48,15 +52,11 @@ export default function DetailContent({
   getSuccess: boolean;
 }) {
   const [ableEmotion, setAbleEmotion] = useState(true);
+  const [date, setDate] = useState<Date>(new Date());
 
   const [user] = useRecoilState(userState);
   TimeAgo.addLocale(ko);
   const timeAgo = new TimeAgo("ko");
-
-  let date;
-  if (wooyeon !== undefined) {
-    date = new Date(wooyeon?.created_at);
-  }
 
   const { mutate: postEmotionMutate } = useMutation(
     "postEmotion",
@@ -109,6 +109,12 @@ export default function DetailContent({
   //   }
   // );
 
+  useLayoutEffect(() => {
+    if (wooyeon !== undefined) {
+      setDate(new Date(wooyeon?.created_at));
+    }
+  }, [getSuccess]);
+
   return (
     <StyledDetailContent>
       <Box className="detail_header">
@@ -147,7 +153,8 @@ export default function DetailContent({
               </LazyTypography>
               <Box className="detailInfo">
                 <Typography variant="caption" className="createAt">
-                  {date && timeAgo.format(date?.getTime())}
+                  {wooyeon?.created_at !== undefined &&
+                    timeAgo.format(new Date(wooyeon?.created_at))}
                 </Typography>
                 |
                 <Box className="location">

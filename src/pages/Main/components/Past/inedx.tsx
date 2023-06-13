@@ -58,7 +58,7 @@ const Past = () => {
     preview !== undefined &&
       mapRef.current?.flyTo({
         center: [preview.longitude, preview.latitude],
-        duration: 80,
+        duration: 500,
       });
   }, [searchDate, preview]);
 

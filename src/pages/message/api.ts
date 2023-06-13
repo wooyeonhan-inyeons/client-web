@@ -29,3 +29,18 @@ export const getMessage = async (token: string, group_id: string) => {
   });
   return response;
 };
+
+export const postMessage = async (
+  token: string,
+  post_id: string,
+  content: string
+): Promise<void> => {
+  await fetch(`${BACK_URL}/chat`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ post_id: post_id, content: content }),
+  });
+};

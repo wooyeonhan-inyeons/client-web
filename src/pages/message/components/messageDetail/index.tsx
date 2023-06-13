@@ -9,25 +9,11 @@ import { useRecoilState } from "recoil";
 import { ContextInterface, HeaderOptinterface } from "../../../../interface";
 import { CaretLeft, PaperPlaneTilt } from "@phosphor-icons/react";
 import { WrapperOptInterface } from "../../../../component/MainWrapper/interface";
-import { useQuery } from "react-query";
-import { getMessage } from "../../api";
+import { useMutation, useQuery } from "react-query";
+import { getMessage, postMessage } from "../../api";
 import { userState } from "../../../../recoil";
-import {
-  Box,
-  Button,
-  Divider,
-  IconButton,
-  Paper,
-  Stack,
-  TextField,
-  useTheme,
-} from "@mui/material";
-import {
-  MessageBoxStyle,
-  MyMessageStyle,
-  ReceivedMessageStyle,
-  messageStyle,
-} from "../../style";
+import { Box, IconButton, Stack, TextField, useTheme } from "@mui/material";
+import { MessageBoxStyle, messageStyle } from "../../style";
 import { mainPrimary } from "../../../../common";
 import MyMessage from "../MyMessage";
 import ReceivedMessage from "../ReceivedMessage";
@@ -69,14 +55,25 @@ export default function MessageDetail() {
     }
   );
 
-  const [comment, setComment] = useState("");
-  const handleComment = (e: ChangeEvent<HTMLInputElement>) => {
-    setComment(e.target.value);
+  const { mutate: postMutateMessage } = useMutation(
+    "postMessage",
+    () =>
+      postMessage(user.access_token as string, message_id as string, message),
+    {
+      onSuccess(data) {
+        console.log(data);
+      },
+    }
+  );
+
+  const [message, setMessage] = useState("");
+  const handleMessage = (e: ChangeEvent<HTMLInputElement>) => {
+    setMessage(e.target.value);
   };
 
-  const handleSubmitComment = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmitMessage = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (comment !== "") {
+    if (message !== "") {
       // console.log(comment);
     }
   };
@@ -108,12 +105,12 @@ export default function MessageDetail() {
         })}
       </Stack>
       <Box sx={MessageBoxStyle}>
-        <form onSubmit={handleSubmitComment}>
+        <form onSubmit={handleSubmitMessage}>
           <TextField
             fullWidth
             placeholder="메세지를 입력하세요."
-            value={comment}
-            onChange={handleComment}
+            value={message}
+            onChange={handleMessage}
           />
           <IconButton>
             <PaperPlaneTilt color={mainPrimary} weight="fill" />

@@ -233,12 +233,13 @@ export default function Detail() {
           </Stack>
         </Box>
         <Box sx={CommentBoxStyle}>
-          {wooyeon?.category === "GROUP" && (
-            //채팅
-            <IconButton onClick={() => navigate("/")}>
-              <ChatCircle weight="fill" />
-            </IconButton>
-          )}
+          {wooyeon?.user_id !== user.user_id &&
+            wooyeon?.category === "GROUP" && (
+              //채팅
+              <IconButton onClick={() => navigate(`/message/${post_id}`)}>
+                <ChatCircle weight="fill" />
+              </IconButton>
+            )}
           <form onSubmit={handleSubmitComment}>
             <TextField
               fullWidth

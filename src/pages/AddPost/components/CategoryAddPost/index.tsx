@@ -38,6 +38,7 @@ const CategoryAddPost = () => {
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
+        overflow: "auto",
       }}
     >
       <Box sx={{ padding: "1rem 0.5rem" }}>
@@ -59,7 +60,7 @@ const CategoryAddPost = () => {
 
       <Box
         sx={{
-          pt: "10rem",
+          pt: "8rem",
           "@media (max-width: 375px)": {
             pt: "3rem",
           },

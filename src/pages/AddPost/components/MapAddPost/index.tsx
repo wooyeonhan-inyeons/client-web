@@ -78,6 +78,7 @@ const MapAddPost = () => {
         "& .mapboxgl-ctrl, & .mapboxgl-ctrl-logo ": {
           display: "none",
         },
+        scroll: "auto",
       }}
     >
       <Box sx={{ padding: "1rem 1.5rem" }}>
@@ -102,7 +103,10 @@ const MapAddPost = () => {
           "@media (max-width: 375px)": {
             height: 350,
           },
-          height: 530,
+          "@media (max-width: 390px)": {
+            height: 400,
+          },
+          height: 500,
           overflow: "hidden",
         }}
       >

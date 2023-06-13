@@ -140,6 +140,7 @@ const ContentAddPost = () => {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
+          overflow: "auto",
         }}
       >
         <Box

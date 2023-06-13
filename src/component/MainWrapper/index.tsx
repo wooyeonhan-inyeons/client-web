@@ -1,13 +1,12 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { Box } from "@mui/material";
-import { HeaderOptinterface, LocationProps } from "../../interface";
+import { HeaderOptinterface } from "../../interface";
 import { HeaderProp, WrapperOptInterface } from "./interface";
 import Header from "../Header";
 import { StyledContainer } from "./style";
 import { useRecoilState } from "recoil";
 import { userState } from "../../recoil";
-import { getCurrentGeocode, getCurrentLocation } from "./utils";
 
 export const defaultPosition = {
   longitude: 127.9068,
@@ -29,15 +28,6 @@ function MainWrapper({ isHeader }: HeaderProp) {
     scrollable: false,
     isBtn: false,
   });
-
-  const positionRef = useRef<LocationProps | undefined>(defaultPosition);
-  const [initPosition, setInitPosition] =
-    useState<LocationProps>(defaultPosition);
-
-  useEffect(() => {
-    if (positionRef.current === defaultPosition)
-      getCurrentLocation({ setInitPosition });
-  }, []);
 
   return (
     <>
@@ -74,7 +64,6 @@ function MainWrapper({ isHeader }: HeaderProp) {
               navigate,
               setWrapperOpt,
               user,
-              initPosition,
             }}
           />
         </Box>

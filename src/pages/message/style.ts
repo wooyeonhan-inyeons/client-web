@@ -1,7 +1,9 @@
 import { Theme } from "@mui/material";
 
 export const messageStyle = (theme: Theme) => ({
-  padding: "1rem",
+  padding: "2rem 1rem",
+  height: "calc(100vh - 56px - 88px)",
+  overflowY: "scroll",
 
   "& .no_message": {
     padding: "3rem 0",
@@ -18,4 +20,73 @@ export const messageStyle = (theme: Theme) => ({
     border: "none",
   },
   "& .messageTitle": {},
+});
+
+export const MessageBoxStyle = (theme: Theme) => ({
+  "&": {
+    width: "100%",
+    maxWidth: "444px",
+    position: "fixed",
+    bottom: "0",
+    backgroundColor: theme.palette.background.default,
+    padding: "1rem 1rem 2rem 1rem",
+    boxShadow: `${theme.shadows[5]}`,
+  },
+  "& form": {
+    width: "100%",
+    display: "flex",
+    alignItems: "center",
+    gap: "0.5rem",
+  },
+  "& .MuiInputBase-root": {
+    backgroundColor: theme.palette.background.paper,
+    borderRadius: "1rem",
+    padding: 0,
+  },
+  "& .MuiInputBase-root input": {
+    padding: "0.5rem 0rem 0.5rem 1rem",
+  },
+  "& .MuiInputBase-root fieldset": {
+    border: "none",
+  },
+});
+
+export const MyMessageStyle = (theme: Theme) => ({
+  marginTop: "0.5rem",
+  marginLeft: "auto",
+  display: "flex",
+  alignItems: "flex-end",
+  gap: "0.3rem",
+
+  "& .MuiPaper-root": {
+    backgroundColor: theme.palette.primary.main,
+    color: theme.palette.background.default,
+    borderRadius: "2rem 2rem 0 2rem",
+    textAlign: "right",
+    maxWidth: "70%",
+    width: "fit-content",
+    minWidth: "5rem",
+    padding: "0.7rem 1.5rem",
+  },
+  "& .MuiBox-root": { display: "flex", justifyContent: "center" },
+});
+
+export const ReceivedMessageStyle = (theme: Theme) => ({
+  marginTop: "0.5rem",
+  marginRight: "auto",
+  display: "flex",
+  alignItems: "flex-end",
+  gap: "0.3rem",
+
+  "& .MuiPaper-root": {
+    backgroundColor: theme.palette.background.paper,
+    color: theme.palette.text.primary,
+    borderRadius: "2rem 2rem 2rem 0",
+    textAlign: "left",
+    maxWidth: "70%",
+    width: "fit-content",
+    minWidth: "5rem",
+    padding: "0.7rem 1.5rem",
+  },
+  "& .MuiBox-root": { display: "flex", justifyContent: "center" },
 });

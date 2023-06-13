@@ -1,13 +1,14 @@
 import { Button, Typography } from "@mui/material";
 import React from "react";
 import StyledAvatar from "../../../../component/StyledAvatar";
+import { NavigateFunction } from "react-router-dom";
 
 export default function MessageItem({
   index,
   navigate,
 }: {
   index: number;
-  navigate: any;
+  navigate: NavigateFunction;
 }) {
   return (
     <Button

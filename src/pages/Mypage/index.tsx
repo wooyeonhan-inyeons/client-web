@@ -13,7 +13,6 @@ import { ContextInterface, HeaderOptinterface } from "../../interface.d";
 import { useOutletContext } from "react-router-dom";
 import { WrapperOptInterface } from "../../component/MainWrapper/interface";
 import { CaretLeft, CaretRight, GearSix } from "@phosphor-icons/react";
-import Header from "../../component/Header";
 import { avatarColors } from "../../common";
 import StyledAvatar from "../../component/StyledAvatar";
 import { buttonStyle, logoutStyle } from "./style";
@@ -62,7 +61,6 @@ export default function Mypage() {
 
   return (
     <>
-      <Header headProp={headerOption} navigate={navigate} />
       <Box
         sx={{
           height: "100%",

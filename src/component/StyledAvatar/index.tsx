@@ -16,7 +16,7 @@ const StyledAvatar = ({
   colors?: string[];
 }) => {
   return (
-    <div style={{ borderRadius: "50%" }}>
+    <div style={{ borderRadius: "50%", display: "flex" }}>
       <Avatar
         size={size}
         colors={colors}

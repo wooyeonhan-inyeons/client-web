@@ -30,6 +30,12 @@ const MapAddPost = () => {
 
   useEffect(() => {
     positionRef.current = viewState;
+
+    if (mapRef.current === null) return;
+    const language = new MapboxLanguage({
+      defaultLanguage: "ko",
+    });
+    mapRef.current.addControl(language);
   }, [viewState]);
 
   useEffect(() => {
@@ -59,12 +65,6 @@ const MapAddPost = () => {
       address: geocode,
     }));
   }, [geocode]);
-
-  useEffect(() => {
-    if (mapRef.current === null) return;
-    const language = new MapboxLanguage();
-    mapRef.current.addControl(language);
-  }, [mapRef.current]);
 
   return (
     <Box

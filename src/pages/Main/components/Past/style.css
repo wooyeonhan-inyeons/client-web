@@ -3,10 +3,13 @@
   top: -6rem;
   z-index: 200;
   width: 100%;
+  left: 50%;
+  transform: translateX(-50%);
   overflow-x: auto;
   white-space: nowrap;
   scrollbar-width: none;
   -ms-overflow-style: none;
+  cursor: pointer;
 }
 
 .previewBar::-webkit-scrollbar {

@@ -1,7 +1,7 @@
 import React, { useLayoutEffect } from "react";
 import { useOutletContext } from "react-router-dom";
 import { ContextInterface, HeaderOptinterface } from "../../interface.d";
-import { Box, Stack } from "@mui/material";
+import { Box, CircularProgress, Stack } from "@mui/material";
 import NotiItem from "./components/NotiItem";
 import { WrapperOptInterface } from "../../component/MainWrapper/interface";
 import { X } from "@phosphor-icons/react";
@@ -28,35 +28,47 @@ export default function Notification() {
     //네비게이션 리스트 업데이트
     setHeadOpt(headerOption);
     setWrapperOpt(wrapperOpt);
+    console.log("notification", notification);
   }, []);
 
-  const { data: notification } = useQuery(
-    "getWooyeon",
-    () => getNotification(user.access_token),
-    {
-      onSuccess(data) {
-        console.log(data);
-      },
-    }
-  );
+  const {
+    data: notification,
+    isLoading,
+    isSuccess,
+  } = useQuery("getWooyeon", () => getNotification(user.access_token), {
+    onError(data) {
+      console.log(data);
+    },
+  });
 
-  if (!headOpt) {
-    return <Box />;
+  if (notification === undefined) {
+    return (
+      <Box sx={NotificationStyle}>
+        <Box className="notificationBox" sx={{ textAlign: "center" }}>
+          <CircularProgress />
+        </Box>
+      </Box>
+    );
   }
   return (
     <Box sx={NotificationStyle}>
       <Box className="notificationBox">
         {notification?.length === 0 ? (
-          <Box className="no_notification">알람이 없습니다.</Box>
+          !isLoading ? (
+            <Box className="no_notification">알람이 없습니다.</Box>
+          ) : (
+            <CircularProgress />
+          )
         ) : (
           <Stack spacing={2}>
-            {notification?.map((item) => (
-              <NotiItem
-                key={item.notification_id}
-                navigate={navigate}
-                item={item}
-              />
-            ))}
+            {notification.length &&
+              notification.map((item) => (
+                <NotiItem
+                  key={item.notification_id}
+                  navigate={navigate}
+                  item={item}
+                />
+              ))}
           </Stack>
         )}
       </Box>

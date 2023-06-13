@@ -1,4 +1,10 @@
-import React, { Suspense } from "react";
+import React, {
+  Suspense,
+  lazy,
+  useEffect,
+  useLayoutEffect,
+  useState,
+} from "react";
 import { Box, IconButton, Skeleton, Typography } from "@mui/material";
 import { StyledDetailContent } from "./style";
 import TimeAgo from "javascript-time-ago";
@@ -17,10 +23,8 @@ import {
 import { useRecoilState } from "recoil";
 import { userState } from "../../../../recoil";
 
-const LazyAvatar = React.lazy(
-  () => import("../../../../component/StyledAvatar")
-);
-const LazyTypography = React.lazy(() => import("@mui/material/Typography"));
+const LazyAvatar = lazy(() => import("../../../../component/StyledAvatar"));
+const LazyTypography = lazy(() => import("@mui/material/Typography"));
 
 const wooyeonCategory: Array<{ id: WooyeonsCategory; value: string }> = [
   { id: "DAILY", value: "일상" },
@@ -39,49 +43,60 @@ function getWooyeonCategory(key: string) {
 export default function DetailContent({
   wooyeon,
   refetch,
+  getSuccess,
 }: {
   wooyeon: GetPostInterface | undefined;
   refetch: <TPageData>(
     options?: (RefetchOptions & RefetchQueryFilters<TPageData>) | undefined
   ) => Promise<QueryObserverResult<GetPostInterface, unknown>>;
+  getSuccess: boolean;
 }) {
-  // const [ownEmotion, setOwnEmotion] = useState<boolean>(
-  //   wooyeon?.own_emotion ? wooyeon.own_emotion : false
-  // );
+  const [ableEmotion, setAbleEmotion] = useState(true);
+  const [date, setDate] = useState<Date>(new Date());
+
   const [user] = useRecoilState(userState);
   TimeAgo.addLocale(ko);
   const timeAgo = new TimeAgo("ko");
 
-  let date;
-  if (wooyeon !== undefined) {
-    date = new Date(wooyeon?.created_at);
-  }
-
-  // useEffect(() => {
-  //   getEmotionMutate();
-  // }, [wooyeon]);
-
-  const { mutate: postEmotionMutate, isLoading: postLoading } = useMutation(
+  const { mutate: postEmotionMutate } = useMutation(
     "postEmotion",
     () => postEmotion(wooyeon?.post_id as string, user.access_token),
     {
+      //emotion 중복 처리 방지
+      onMutate() {
+        setAbleEmotion(false);
+      },
       onSuccess() {
-        // getEmotionMutate();
         refetch();
+
+        setAbleEmotion(false);
+        setTimeout(() => setAbleEmotion(true), 300);
       },
     }
   );
 
-  const { mutate: removeEmotionMutate, isLoading: removeLoading } = useMutation(
+  const { mutate: removeEmotionMutate } = useMutation(
     "deleteEmotion",
     () => removeEmotion(wooyeon?.post_id as string, user.access_token),
     {
+      onMutate() {
+        setAbleEmotion(false);
+      },
       onSuccess() {
-        // getEmotionMutate();
         refetch();
+
+        setAbleEmotion(false);
+        setTimeout(() => setAbleEmotion(true), 300);
       },
     }
   );
+
+  const handleEmotion = () => {
+    if (ableEmotion && getSuccess) {
+      if (wooyeon?.own_emotion) removeEmotionMutate();
+      else postEmotionMutate();
+    }
+  };
 
   // const { mutate: getEmotionMutate, data } = useMutation(
   //   "getEmotion",
@@ -93,6 +108,12 @@ export default function DetailContent({
   //     },
   //   }
   // );
+
+  useLayoutEffect(() => {
+    if (wooyeon !== undefined) {
+      setDate(new Date(wooyeon?.created_at));
+    }
+  }, [getSuccess]);
 
   return (
     <StyledDetailContent>
@@ -132,7 +153,8 @@ export default function DetailContent({
               </LazyTypography>
               <Box className="detailInfo">
                 <Typography variant="caption" className="createAt">
-                  {date && timeAgo.format(date?.getTime())}
+                  {wooyeon?.created_at !== undefined &&
+                    timeAgo.format(new Date(wooyeon?.created_at))}
                 </Typography>
                 |
                 <Box className="location">
@@ -152,12 +174,8 @@ export default function DetailContent({
         <Box className="footer_content">
           <Box className="favorite">
             <IconButton
-              disabled={postLoading || removeLoading}
-              onClick={() =>
-                wooyeon?.own_emotion
-                  ? removeEmotionMutate()
-                  : postEmotionMutate()
-              }
+              disabled={!ableEmotion && getSuccess}
+              onClick={handleEmotion}
             >
               <Heart
                 color={secondary}

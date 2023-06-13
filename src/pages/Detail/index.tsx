@@ -132,11 +132,7 @@ export default function Detail() {
   } = useMutation(
     "getWooyeon_emotion",
     () => getComment(wooyeon?.post_id as string, user.access_token),
-    {
-      onSuccess(data) {
-        // console.log("comment", data);
-      },
-    }
+    {}
   );
 
   //////

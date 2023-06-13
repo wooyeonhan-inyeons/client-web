@@ -12,7 +12,13 @@ import { WrapperOptInterface } from "../../../../component/MainWrapper/interface
 import { useMutation, useQuery } from "react-query";
 import { getMessage, postMessage } from "../../api";
 import { userState } from "../../../../recoil";
-import { Box, IconButton, Stack, TextField, useTheme } from "@mui/material";
+import {
+  Box,
+  CircularProgress,
+  IconButton,
+  Stack,
+  TextField,
+} from "@mui/material";
 import { MessageBoxStyle, messageStyle } from "../../style";
 import { mainPrimary } from "../../../../common";
 import MyMessage from "../MyMessage";
@@ -24,7 +30,6 @@ export default function MessageDetail() {
   const [user] = useRecoilState(userState);
   const { setHeadOpt, navigate, setWrapperOpt } =
     useOutletContext<ContextInterface>();
-  const theme = useTheme();
 
   const headerOption: HeaderOptinterface = {
     menus: [{ key: "채팅", value: "/message" }],
@@ -45,7 +50,7 @@ export default function MessageDetail() {
     setWrapperOpt(wrapperOpt);
   }, []);
 
-  const { data: messages } = useQuery(
+  const { data: messages, refetch } = useQuery(
     "getMessages",
     () => getMessage(user.access_token as string, message_id as string),
     {
@@ -62,6 +67,7 @@ export default function MessageDetail() {
     {
       onSuccess(data) {
         console.log(data);
+        refetch();
       },
     }
   );
@@ -75,34 +81,42 @@ export default function MessageDetail() {
     e.preventDefault();
     if (message !== "") {
       // console.log(comment);
+      postMutateMessage();
     }
   };
 
   return (
     <>
       <Stack sx={messageStyle}>
-        {testData.map((item, index) => {
-          return (
-            <>
-              {index !== 0 ? (
-                testData[index - 1].createAt.getDate() !==
-                  item.createAt.getDate() && (
-                  <DateItem createAt={item.createAt} />
-                )
-              ) : (
-                <DateItem createAt={item.createAt} />
-              )}
-              {item.is_own ? (
-                <MyMessage content={item.content} createAt={item.createAt} />
-              ) : (
-                <ReceivedMessage
-                  content={item.content}
-                  createAt={item.createAt}
-                />
-              )}
-            </>
-          );
-        })}
+        {messages ? (
+          messages.map((item, index) => {
+            return (
+              <>
+                {index !== 0 ? (
+                  testData[index - 1].createAt.getDate() !==
+                    new Date(item.created_at).getDate() && (
+                    <DateItem createAt={item.created_at} />
+                  )
+                ) : (
+                  <DateItem createAt={item.created_at} />
+                )}
+                {item.is_own ? (
+                  <MyMessage
+                    content={item.content}
+                    createAt={item.created_at}
+                  />
+                ) : (
+                  <ReceivedMessage
+                    content={item.content}
+                    createAt={item.created_at}
+                  />
+                )}
+              </>
+            );
+          })
+        ) : (
+          <CircularProgress />
+        )}
       </Stack>
       <Box sx={MessageBoxStyle}>
         <form onSubmit={handleSubmitMessage}>

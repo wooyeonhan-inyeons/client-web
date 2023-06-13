@@ -1,12 +1,12 @@
 import React from "react";
-import { Box, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 
-export const DateItem = ({ createAt }: { createAt: Date }) => (
+export const DateItem = ({ createAt }: { createAt: string }) => (
   <Typography variant="body2" sx={{ textAlign: "center", padding: "0.7rem 0" }}>
-    {createAt.getFullYear() +
+    {new Date(createAt).getFullYear() +
       "-" +
-      createAt.getMonth() +
+      new Date(createAt).getMonth() +
       "-" +
-      createAt.getDate()}
+      new Date(createAt).getDate()}
   </Typography>
 );

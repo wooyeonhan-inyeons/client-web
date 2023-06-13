@@ -7,12 +7,12 @@ export default function MyMessage({
   createAt,
 }: {
   content: string;
-  createAt: Date;
+  createAt: string;
 }) {
   return (
     <Box sx={MyMessageStyle}>
       <Typography variant="caption">
-        {createAt.getHours() + ":" + createAt.getMinutes()}
+        {new Date(createAt).getHours() + ":" + new Date(createAt).getMinutes()}
       </Typography>
       <Paper elevation={0}>
         <Box>{content}</Box>

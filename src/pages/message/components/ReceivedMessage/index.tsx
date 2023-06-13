@@ -7,7 +7,7 @@ export default function ReceivedMessage({
   createAt,
 }: {
   content: string;
-  createAt: Date;
+  createAt: string;
 }) {
   return (
     <Box sx={ReceivedMessageStyle}>
@@ -15,7 +15,7 @@ export default function ReceivedMessage({
         <Box>{content}</Box>
       </Paper>
       <Typography variant="caption">
-        {createAt.getHours() + ":" + createAt.getMinutes()}
+        {new Date(createAt).getHours() + ":" + new Date(createAt).getMinutes()}
       </Typography>
     </Box>
   );

@@ -60,18 +60,18 @@ function Calendar({ setDisplayDate, setSearchDate, existDays }: CalendarProps) {
     const time = e.currentTarget.querySelector(".hiddenValue")?.innerHTML;
     let newDate: Date;
     if (time !== undefined) {
-      newDate = new Date(time);
+      newDate = new Date(parseInt(time));
 
       // 미래의 날짜는 선택 불가능 하도록
       if (Number(time) > today.getTime()) {
         return;
       }
       setSelectDay(Number(time));
-      setSearchDate((prevDate: SearchDateType) => ({
-        ...prevDate,
+      setSearchDate({
+        year: newDate.getFullYear(),
         month: newDate.getMonth() + 1,
         date: newDate.getDate(),
-      }));
+      });
     }
   };
 

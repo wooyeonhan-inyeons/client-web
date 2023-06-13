@@ -15,7 +15,7 @@ import { Badge } from "@mui/material";
 
 function Main() {
   const [user] = useRecoilState(userState);
-  const { setHeadOpt, navigate, setWrapperOpt, initPosition } =
+  const { setHeadOpt, navigate, setWrapperOpt } =
     useOutletContext<ContextInterface>();
   const headerOption: HeaderOptinterface = {
     menus: [
@@ -72,7 +72,7 @@ function Main() {
     }
   );
 
-  return <Outlet context={{ navigate, Map, initPosition }} />;
+  return <Outlet context={{ navigate, Map }} />;
 }
 
 export default Main;

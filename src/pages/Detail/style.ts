@@ -43,6 +43,10 @@ export const CommentBoxStyle = (theme: Theme) => {
       backgroundColor: theme.palette.background.default,
       padding: "1rem 1rem 2rem 1rem",
       boxShadow: `${theme.shadows[5]}`,
+      display: "flex",
+    },
+    "& form": {
+      width: "100%",
     },
     "& .MuiInputBase-root": {
       backgroundColor: theme.palette.background.paper,

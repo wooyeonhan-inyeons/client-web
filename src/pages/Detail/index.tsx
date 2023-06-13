@@ -13,12 +13,13 @@ import {
   Box,
   Button,
   GlobalStyles,
+  IconButton,
   Stack,
   TextField,
   useTheme,
 } from "@mui/material";
 import { WrapperOptInterface } from "../../component/MainWrapper/interface";
-import { CaretLeft, Trash } from "@phosphor-icons/react";
+import { CaretLeft, ChatCircle, Trash } from "@phosphor-icons/react";
 import { useMutation, useQuery } from "react-query";
 import { deletePost, getComment, getDetailWooyeon, postComment } from "./api";
 import DetailContent from "./components/DetailContent";
@@ -232,6 +233,12 @@ export default function Detail() {
           </Stack>
         </Box>
         <Box sx={CommentBoxStyle}>
+          {wooyeon?.category === "GROUP" && (
+            //채팅
+            <IconButton onClick={() => navigate("/")}>
+              <ChatCircle weight="fill" />
+            </IconButton>
+          )}
           <form onSubmit={handleSubmitComment}>
             <TextField
               fullWidth

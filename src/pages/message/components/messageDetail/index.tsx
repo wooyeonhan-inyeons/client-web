@@ -45,7 +45,7 @@ export default function MessageDetail() {
     icon_L: CaretLeft,
     fn_L: () => navigate(-1),
     headerType: "V3",
-    bgColor: theme.palette.background.default,
+    // bgColor: theme.palette.background.default,
   };
 
   const wrapperOpt: WrapperOptInterface = {

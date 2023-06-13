@@ -60,13 +60,13 @@ export const MyMessageStyle = (theme: Theme) => ({
 
   "& .MuiPaper-root": {
     backgroundColor: theme.palette.primary.main,
-    color: theme.palette.background.default,
+    color: "#fff",
     borderRadius: "2rem 2rem 0 2rem",
     textAlign: "right",
     maxWidth: "70%",
     width: "fit-content",
     minWidth: "5rem",
-    padding: "0.7rem 1.5rem",
+    padding: "0.5rem 1.5rem",
   },
   "& .MuiBox-root": { display: "flex", justifyContent: "center" },
 });
@@ -86,7 +86,7 @@ export const ReceivedMessageStyle = (theme: Theme) => ({
     maxWidth: "70%",
     width: "fit-content",
     minWidth: "5rem",
-    padding: "0.7rem 1.5rem",
+    padding: "0.5rem 1.5rem",
   },
   "& .MuiBox-root": { display: "flex", justifyContent: "center" },
 });

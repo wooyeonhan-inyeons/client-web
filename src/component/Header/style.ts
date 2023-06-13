@@ -1,8 +1,9 @@
 import styled from "@emotion/styled";
 import { ThemeProps } from "../../interface";
 import { grey } from "@mui/material/colors";
+import { Box } from "@mui/material";
 
-export const HeaderWrapper = styled("div")(({ theme }: ThemeProps) => ({
+export const HeaderWrapper = styled(Box)(({ theme }: ThemeProps) => ({
   width: "calc(100% - 2rem)",
   maxWidth: "444px",
   margin: "0 auto",

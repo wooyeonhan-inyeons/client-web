@@ -32,6 +32,16 @@ export const StyledDetailContent = styled(Box)(({ theme }: ThemeProps) => ({
     gap: "1rem",
     alignItems: "center",
   },
+  "& .detail_header .header_user .detailInfo": {
+    display: "flex",
+    gap: "0.5rem",
+    alignItems: "center",
+  },
+  "& .detail_header .header_user .detailInfo .location": {
+    display: "flex",
+    gap: "0.3rem",
+    alignItems: "center",
+  },
   "& .detail_header .header_content": {
     minHeight: "3rem",
   },

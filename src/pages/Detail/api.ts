@@ -92,11 +92,12 @@ export const getEmotion = async (
   post_id: string,
   token: string | undefined
 ) => {
-  const response: GetPostInterface = await fetch(
-    `${BACK_URL}/readPost?post_id=${post_id}`,
+  const response: { own_emotion: boolean } = await fetch(
+    `${BACK_URL}/emotion?post_id=${post_id}`,
     {
       method: "GET",
       headers: {
+        credentials: "include",
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },

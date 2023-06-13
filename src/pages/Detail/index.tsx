@@ -76,7 +76,7 @@ export default function Detail() {
     }
   };
 
-  const { data: wooyeon } = useQuery(
+  const { data: wooyeon, refetch } = useQuery(
     "getWooyeon",
     () => getDetailWooyeon(post_id as unknown as string, user.access_token),
     {
@@ -225,7 +225,7 @@ export default function Detail() {
             <DetailImg wooyeon={wooyeon} />
           </Box>
           <Stack className="DetailSection" spacing={2} ref={targetRef}>
-            <DetailContent wooyeon={wooyeon} />
+            <DetailContent wooyeon={wooyeon} refetch={refetch} />
             <DetailComment
               comment={wooyeon_comment}
               isLoading={isGetCommentLoading}

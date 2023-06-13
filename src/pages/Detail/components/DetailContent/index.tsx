@@ -6,9 +6,14 @@ import ko from "javascript-time-ago/locale/ko";
 import { avatarColors, secondary } from "../../../../common";
 import { GetPostInterface } from "../../interface";
 import { WooyeonsCategory } from "../../../../interface";
-import { Heart } from "@phosphor-icons/react";
+import { Heart, MapPin } from "@phosphor-icons/react";
 import { postEmotion, removeEmotion } from "../../api";
-import { useMutation } from "react-query";
+import {
+  QueryObserverResult,
+  RefetchOptions,
+  RefetchQueryFilters,
+  useMutation,
+} from "react-query";
 import { useRecoilState } from "recoil";
 import { userState } from "../../../../recoil";
 
@@ -33,9 +38,16 @@ function getWooyeonCategory(key: string) {
 
 export default function DetailContent({
   wooyeon,
+  refetch,
 }: {
   wooyeon: GetPostInterface | undefined;
+  refetch: <TPageData>(
+    options?: (RefetchOptions & RefetchQueryFilters<TPageData>) | undefined
+  ) => Promise<QueryObserverResult<GetPostInterface, unknown>>;
 }) {
+  // const [ownEmotion, setOwnEmotion] = useState<boolean>(
+  //   wooyeon?.own_emotion ? wooyeon.own_emotion : false
+  // );
   const [user] = useRecoilState(userState);
   TimeAgo.addLocale(ko);
   const timeAgo = new TimeAgo("ko");
@@ -45,13 +57,42 @@ export default function DetailContent({
     date = new Date(wooyeon?.created_at);
   }
 
-  const { mutate: postEmotionMutate } = useMutation("deletePost", () =>
-    postEmotion(wooyeon?.post_id as string, user.access_token)
+  // useEffect(() => {
+  //   getEmotionMutate();
+  // }, [wooyeon]);
+
+  const { mutate: postEmotionMutate, isLoading: postLoading } = useMutation(
+    "postEmotion",
+    () => postEmotion(wooyeon?.post_id as string, user.access_token),
+    {
+      onSuccess() {
+        // getEmotionMutate();
+        refetch();
+      },
+    }
   );
 
-  const { mutate: removeEmotionMutate } = useMutation("deletePost", () =>
-    removeEmotion(wooyeon?.post_id as string, user.access_token)
+  const { mutate: removeEmotionMutate, isLoading: removeLoading } = useMutation(
+    "deleteEmotion",
+    () => removeEmotion(wooyeon?.post_id as string, user.access_token),
+    {
+      onSuccess() {
+        // getEmotionMutate();
+        refetch();
+      },
+    }
   );
+
+  // const { mutate: getEmotionMutate, data } = useMutation(
+  //   "getEmotion",
+  //   () => getEmotion(wooyeon?.post_id as string, user.access_token),
+  //   {
+  //     onSuccess(data) {
+  //       console.log(data);
+  //       setOwnEmotion(data.own_emotion);
+  //     },
+  //   }
+  // );
 
   return (
     <StyledDetailContent>
@@ -86,10 +127,19 @@ export default function DetailContent({
                 </>
               }
             >
-              <LazyTypography variant="body1">뜨거운 감자</LazyTypography>
-              <Typography variant="body2">
-                {date && timeAgo.format(date?.getTime())}
-              </Typography>
+              <LazyTypography variant="body1" className="nickName">
+                뜨거운 감자
+              </LazyTypography>
+              <Box className="detailInfo">
+                <Typography variant="caption" className="createAt">
+                  {date && timeAgo.format(date?.getTime())}
+                </Typography>
+                |
+                <Box className="location">
+                  <MapPin weight="fill" />
+                  <Typography variant="caption">신당동</Typography>
+                </Box>
+              </Box>
             </Suspense>
           </Box>
           <Box className="categoryTag">
@@ -102,6 +152,7 @@ export default function DetailContent({
         <Box className="footer_content">
           <Box className="favorite">
             <IconButton
+              disabled={postLoading || removeLoading}
               onClick={() =>
                 wooyeon?.own_emotion
                   ? removeEmotionMutate()

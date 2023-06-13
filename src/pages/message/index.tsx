@@ -63,6 +63,7 @@ export default function Message() {
           <MessageItem
             key={item.group_id}
             message_id={item.group_id}
+            recent_chat={item.recent_chat}
             index={index}
             navigate={navigate}
           />

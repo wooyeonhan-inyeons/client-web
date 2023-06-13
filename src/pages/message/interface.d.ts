@@ -1,6 +1,6 @@
 export interface chatListInterface {
   group_id: string;
-  is_own: string;
+  recent_chat: string;
 }
 
 export interface chatItemInterface {

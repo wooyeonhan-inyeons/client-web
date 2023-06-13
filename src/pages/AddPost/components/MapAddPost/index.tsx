@@ -49,6 +49,7 @@ const MapAddPost = () => {
       longitude: viewState?.longitude,
       address: geocode,
     }));
+    console.log("이동시 현재위치", viewState.longitude, viewState.latitude);
   }, [geocode]);
 
   useEffect(() => {

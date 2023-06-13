@@ -57,6 +57,7 @@ function HeaderAddPost() {
     if (post !== null) {
       setCategory(post.category as string);
     }
+    console.log("저장된 위치: ", post?.longitude, post?.latitude);
   }, [post]);
 
   const uploadWooyeon = (post: UploadPostType | null) => {

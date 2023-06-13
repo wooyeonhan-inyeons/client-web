@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Box, Skeleton, Typography, useTheme } from "@mui/material";
 import { useOutletContext } from "react-router";
 import { Map, MapRef, Marker, ViewStateChangeEvent } from "react-map-gl";
@@ -11,35 +11,44 @@ import { defaultPosition } from "../../../../component/MainWrapper/index";
 import MapboxLanguage from "@mapbox/mapbox-gl-language";
 
 const MapAddPost = () => {
-  const { setPost, initPosition } = useOutletContext<PostStateInterface>();
+  const { setPost } = useOutletContext<PostStateInterface>();
   const mapRef = useRef<MapRef | null>(null);
+  const initPosition = {
+    longitude: 127.9068,
+    latitude: 35.6699,
+    zoom: 6,
+  };
   const [viewState, setViewState] = React.useState<LocationProps>(initPosition);
   const [geocode, setGeocode] = useState<string>("");
-  const positionRef = useRef<LocationProps>(initPosition);
+  const positionRef = useRef<LocationProps | undefined>(initPosition);
   const theme = useTheme();
-  const getAddress = () => {
-    console.log("getAddress");
-    if (positionRef.current !== initPosition || geocode === "") {
-      getCurrentGeocode(positionRef.current).then((e) => {
-        setGeocode(e.reverse().join(" "));
-      });
-    }
-  };
 
   // 사용자의 위치정보 가져와서 viewport에 저장
   useEffect(() => {
-    if (positionRef.current !== initPosition) {
-      getCurrentLocation({ setViewState });
-    }
+    getCurrentLocation({ setViewState });
   }, [navigator]);
-
-  useEffect(() => {
-    getAddress();
-  }, []);
 
   useEffect(() => {
     positionRef.current = viewState;
   }, [viewState]);
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      getGeo({
+        longitude: position.coords.longitude,
+        latitude: position.coords.latitude,
+        zoom: 15,
+      });
+      console.log(position.coords);
+      console.log("viewstate: ", viewState);
+    });
+  }, []);
+
+  function getGeo(viewstate: LocationProps) {
+    getCurrentGeocode(viewstate).then((e) => {
+      setGeocode(e.reverse().join(" "));
+    });
+  }
 
   useEffect(() => {
     // post state 저장
@@ -49,7 +58,6 @@ const MapAddPost = () => {
       longitude: viewState?.longitude,
       address: geocode,
     }));
-    console.log("이동시 현재위치", viewState.longitude, viewState.latitude);
   }, [geocode]);
 
   useEffect(() => {
@@ -112,7 +120,14 @@ const MapAddPost = () => {
             }}
             mapLib={mapboxgl}
             //touch 종료 때 마다 이벤트 실행
-            onTouchEnd={getAddress}
+            onTouchEnd={() => {
+              //touch 종료 때 마다 이벤트 실행
+              if (positionRef.current !== undefined) {
+                getCurrentGeocode(positionRef.current).then((e) => {
+                  setGeocode(e.reverse().join(" "));
+                });
+              }
+            }}
           >
             <Marker
               longitude={viewState.longitude}

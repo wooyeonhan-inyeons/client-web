@@ -16,7 +16,6 @@ export interface UploadPostType {
 export interface PostStateInterface {
   post: UploadPostType | null;
   setPost: React.Dispatch<React.SetStateAction<UploadPostType | null>>;
-  initPosition: LocationProps;
   // Map: MapContextType | undefined;
   // mapboxgl: object;
 }

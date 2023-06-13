@@ -19,7 +19,7 @@ const initialPostState: UploadPostType = {
 };
 
 function HeaderAddPost() {
-  const { setHeadOpt, navigate, setWrapperOpt, user, initPosition } =
+  const { setHeadOpt, navigate, setWrapperOpt, user } =
     useOutletContext<ContextInterface>();
 
   const headerOption: HeaderOptinterface = {
@@ -111,7 +111,6 @@ function HeaderAddPost() {
           shaking,
           setShaking,
           setCategory,
-          initPosition,
         }}
       />
       <Box

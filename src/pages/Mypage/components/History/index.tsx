@@ -23,7 +23,7 @@ import Map from "react-map-gl";
 import MapboxLanguage from "@mapbox/mapbox-gl-language";
 
 const History = () => {
-  const { navigate, initPosition, setHeadOpt, setWrapperOpt } =
+  const { navigate, setHeadOpt, setWrapperOpt } =
     useOutletContext<ContextInterface>();
   const [user] = useRecoilState(userState);
   const { open, Drawer, toggleDrawer } = useDrawer();
@@ -34,6 +34,12 @@ const History = () => {
       today.getMonth() < 10 ? "0" + today.getMonth() : today.getMonth()
     }`
   );
+
+  const initPosition = {
+    longitude: 127.9068,
+    latitude: 35.6699,
+    zoom: 6,
+  };
 
   //drawer를 올릴 떄 터치 이벤트를 사용할 수 없는 환경을 위함
   const isTouchDevice = "ontouchstart" in window;
@@ -52,7 +58,7 @@ const History = () => {
   const [existDays, setExistDays] = useState<Array<number>>([]);
 
   useEffect(() => {
-    if (positionRef.current !== initPosition) {
+    if (positionRef.current === initPosition) {
       getCurrentLocation({ setViewState });
     }
     mutate();

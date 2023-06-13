@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { Outlet, useLocation, useOutletContext } from "react-router-dom";
 import { UploadPostType } from "./interface";
 import { WrapperOptInterface } from "../../component/MainWrapper/interface";
@@ -40,7 +40,7 @@ function HeaderAddPost() {
     isBtn: true,
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setHeadOpt(headerOption);
     setWrapperOpt(wrapperOption);
   }, []);

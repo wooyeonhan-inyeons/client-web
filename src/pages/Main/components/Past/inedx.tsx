@@ -70,6 +70,13 @@ const Past = () => {
         center: [preview.longitude, preview.latitude],
         duration: 80,
       });
+    //지도 언어설정
+    if (mapRef.current === null) return;
+    const language = new MapboxLanguage({
+      defaultLanguage: "ko",
+    });
+    console.log(language);
+    mapRef.current.addControl(language);
   }, [viewState]);
 
   const { mutate } = useMutation(
@@ -94,11 +101,13 @@ const Past = () => {
     }
   );
 
-  useEffect(() => {
-    if (mapRef.current === null) return;
-    const language = new MapboxLanguage();
-    mapRef.current.addControl(language);
-  }, [mapboxgl, mapRef]);
+  // useEffect(() => {
+  //   if (mapRef.current === null) return;
+  //   const language = new MapboxLanguage({
+  //     defaultLanguage: "ko",
+  //   });
+  //   mapRef.current.addControl(language);
+  // }, [mapRef]);
 
   return (
     <>

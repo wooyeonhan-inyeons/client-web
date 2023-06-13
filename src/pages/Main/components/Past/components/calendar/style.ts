@@ -1,4 +1,4 @@
-import { Theme, alpha } from "@mui/material";
+import { Theme } from "@mui/material";
 import { mainPrimary, secondary } from "../../../../../../common";
 
 export const calendarStyle = (theme: Theme) => {
@@ -59,7 +59,7 @@ export const calendarStyle = (theme: Theme) => {
       visibility: "hidden",
     },
     "& .hasWooyeon": {
-      border: "2px solid rgba(0, 166, 81, 0.21);",
+      border: `2px solid ${mainPrimary}`,
     },
   };
 };

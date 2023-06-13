@@ -4,7 +4,6 @@ import { TodayWooyeonProp, WooyeonsType } from "../../interface";
 import "../../style.css";
 // 해당 날짜에 생성된 우연들 제네릭 배열
 const Preview = ({ todayWooyeons, setPreview }: TodayWooyeonProp) => {
-  // console.log("프리뷰 오늘의 우연: ", todayWooyeons);
   const open = true;
 
   const moveMap = (item: WooyeonsType) => {

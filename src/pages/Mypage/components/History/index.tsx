@@ -62,6 +62,7 @@ const History = () => {
         center: [preview.longitude, preview.latitude],
         duration: 80,
       });
+    console.log("fly to ", preview?.longitude, preview?.latitude);
   }, [searchDate, preview]);
 
   useEffect(() => {
@@ -79,6 +80,7 @@ const History = () => {
     {
       onMutate() {
         //기존 우연들 초기화와 함께 시작
+        setTodayWooyeons([]);
         console.log("onmutate");
       },
       onSuccess: (wooyeons) => {

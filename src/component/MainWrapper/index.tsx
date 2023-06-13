@@ -13,6 +13,7 @@ export const defaultPosition = {
   latitude: 35.6699,
   zoom: 6,
 };
+
 function MainWrapper({ isHeader }: HeaderProp) {
   const [user] = useRecoilState(userState);
   const [headOpt, setHeadOpt] = useState<HeaderOptinterface>({

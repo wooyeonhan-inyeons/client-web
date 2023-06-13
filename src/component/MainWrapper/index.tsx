@@ -33,21 +33,11 @@ function MainWrapper({ isHeader }: HeaderProp) {
   const positionRef = useRef<LocationProps | undefined>(defaultPosition);
   const [initPosition, setInitPosition] =
     useState<LocationProps>(defaultPosition);
-  const [initGeocode, setInitGeocode] = useState<string | undefined>(undefined);
 
   useEffect(() => {
     if (positionRef.current === defaultPosition)
       getCurrentLocation({ setInitPosition });
   }, []);
-
-  useEffect(() => {
-    if (initPosition !== defaultPosition) {
-      getCurrentGeocode(initPosition).then((e) => {
-        setInitGeocode(e.reverse().join(" "));
-      });
-    }
-    console.log("역지오코드");
-  }, [initPosition]);
 
   return (
     <>
@@ -85,7 +75,6 @@ function MainWrapper({ isHeader }: HeaderProp) {
               setWrapperOpt,
               user,
               initPosition,
-              initGeocode,
             }}
           />
         </Box>

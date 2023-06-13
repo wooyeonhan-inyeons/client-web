@@ -17,8 +17,6 @@ import { useRecoilState } from "recoil";
 import mapboxgl from "mapbox-gl";
 import MapboxLanguage from "@mapbox/mapbox-gl-language";
 
-// 가끔 우연 정보가 안받아와짐
-
 const Past = () => {
   const [user] = useRecoilState(userState);
   const { navigate } = useOutletContext<ContextInterface>();
@@ -58,7 +56,6 @@ const Past = () => {
     }
     mutate();
     console.log("preview: ", preview);
-    // console.log(user.access_token);
     preview !== undefined &&
       mapRef.current?.flyTo({
         center: [preview.longitude, preview.latitude],
@@ -166,7 +163,6 @@ const Past = () => {
         open={open}
         toggleDrawer={toggleDrawer}
         headerChildren={CalendarHeader({
-          displayDate,
           todayWooyeons,
           setPreview,
         })}

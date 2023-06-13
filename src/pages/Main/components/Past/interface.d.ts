@@ -14,7 +14,6 @@ export interface PreviewProp {
 }
 
 export interface CalendarHeaderProp {
-  displayDate: string;
   todayWooyeons: WooyeonsType[];
   setPreview: Dispatch<SetStateAction<WooyeonsType>>;
 }

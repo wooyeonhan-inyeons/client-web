@@ -72,7 +72,7 @@ function Main() {
     }
   );
 
-  return <Outlet context={{ navigate, Map }} />;
+  return <Outlet context={{ navigate, Map, initPosition }} />;
 }
 
 export default Main;

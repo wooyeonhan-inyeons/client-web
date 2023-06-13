@@ -20,11 +20,12 @@ import { forUntouchableStyle } from "../../../Main/components/Search/style";
 import { CalendarHeader } from "../../../Main/components/Past/components/calendarHeader";
 import Calendar from "../../../Main/components/Past/components/calendar";
 import Map from "react-map-gl";
+import MapboxLanguage from "@mapbox/mapbox-gl-language";
 
-const Past = () => {
-  const [user] = useRecoilState(userState);
+const History = () => {
   const { navigate, initPosition, setHeadOpt, setWrapperOpt } =
     useOutletContext<ContextInterface>();
+  const [user] = useRecoilState(userState);
   const { open, Drawer, toggleDrawer } = useDrawer();
   const theme = useTheme();
   const today = new Date();
@@ -39,7 +40,7 @@ const Past = () => {
   // 검색할 날짜 연월일
   const [searchDate, setSearchDate] = useState<SearchDateType>({
     year: today.getFullYear(),
-    month: 1 + today.getMonth(),
+    month: today.getMonth() + 1,
     date: today.getDate(),
   });
   let monthlyList: WooyeonsType[][];
@@ -64,7 +65,6 @@ const Past = () => {
   }, [searchDate, preview]);
 
   useEffect(() => {
-    console.log("viewstate: ", viewState);
     positionRef.current = viewState;
     preview !== undefined &&
       mapRef.current?.flyTo({
@@ -89,16 +89,22 @@ const Past = () => {
           today.getFullYear(),
           today.getMonth() + 1
         );
-        console.log(searchDate.month);
         setTodayWooyeons(monthlyList[searchDate.date - 1]); // 오늘 생성된 조회한 우연들
+        console.log("오늘: ", todayWooyeons);
         setExistDays(getDaysExist(monthlyList));
       },
     }
   );
 
+  useEffect(() => {
+    if (mapRef.current === null) return;
+    const language = new MapboxLanguage();
+    mapRef.current.addControl(language);
+  }, [mapRef.current]);
+
   //// 헤더 설정
   const headerOption: HeaderOptinterface = {
-    menus: [{ key: "내가 발견한 우연들", value: "/history" }],
+    menus: [{ key: "나의 우연들", value: "/history" }],
     icon_L: CaretLeft,
     fn_L: () => navigate(-1),
     headerType: "V3",
@@ -175,7 +181,6 @@ const Past = () => {
         open={open}
         toggleDrawer={toggleDrawer}
         headerChildren={CalendarHeader({
-          displayDate,
           todayWooyeons,
           setPreview,
         })}
@@ -191,4 +196,4 @@ const Past = () => {
   );
 };
 
-export default Past;
+export default History;

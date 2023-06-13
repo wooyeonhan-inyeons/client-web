@@ -11,13 +11,20 @@ import { defaultPosition } from "../../../../component/MainWrapper/index";
 import MapboxLanguage from "@mapbox/mapbox-gl-language";
 
 const MapAddPost = () => {
-  const { setPost, initPosition, initGeocode } =
-    useOutletContext<PostStateInterface>();
+  const { setPost, initPosition } = useOutletContext<PostStateInterface>();
   const mapRef = useRef<MapRef | null>(null);
   const [viewState, setViewState] = React.useState<LocationProps>(initPosition);
-  const [geocode, setGeocode] = useState<string>(initGeocode);
+  const [geocode, setGeocode] = useState<string>("");
   const positionRef = useRef<LocationProps>(initPosition);
   const theme = useTheme();
+  const getAddress = () => {
+    console.log("getAddress");
+    if (positionRef.current !== initPosition || geocode === "") {
+      getCurrentGeocode(positionRef.current).then((e) => {
+        setGeocode(e.reverse().join(" "));
+      });
+    }
+  };
 
   // 사용자의 위치정보 가져와서 viewport에 저장
   useEffect(() => {
@@ -27,8 +34,12 @@ const MapAddPost = () => {
   }, [navigator]);
 
   useEffect(() => {
+    getAddress();
+  }, []);
+
+  useEffect(() => {
     positionRef.current = viewState;
-  }, [viewState, navigator]);
+  }, [viewState]);
 
   useEffect(() => {
     // post state 저장
@@ -99,14 +110,8 @@ const MapAddPost = () => {
                 theme.palette.mode === "light" ? "#f6f6f4" : "#343332",
             }}
             mapLib={mapboxgl}
-            onTouchEnd={() => {
-              //touch 종료 때 마다 이벤트 실행
-              if (positionRef.current !== initPosition) {
-                getCurrentGeocode(positionRef.current).then((e) => {
-                  setGeocode(e.reverse().join(" "));
-                });
-              }
-            }}
+            //touch 종료 때 마다 이벤트 실행
+            onTouchEnd={getAddress}
           >
             <Marker
               longitude={viewState.longitude}

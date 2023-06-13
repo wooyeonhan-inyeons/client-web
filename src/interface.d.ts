@@ -53,9 +53,6 @@ export interface ContextInterface {
   post: UploadPostType | null;
   setPost: React.Dispatch<React.SetStateAction<UploadPostType | null>>;
   initPosition: LocationProps;
-  initGeocode: string;
-  // 정리 부탁
-
   Map: MapContextType | undefined;
   mapboxgl: object;
   user: userState;

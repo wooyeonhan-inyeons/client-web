@@ -3,8 +3,9 @@ import { Avatar, Box, useTheme } from "@mui/material";
 import { useDrawer } from "../../../../hook/useDrawer";
 import { CalendarHeader } from "./components/calendarHeader";
 import Calendar from "./components/calendar";
-import { Map, MapRef, Marker } from "react-map-gl";
+import { Map, MapRef, Marker, ViewStateChangeEvent } from "react-map-gl";
 import { forUntouchableStyle } from "../Search/style";
+import { getCurrentLocation } from "../../../AddPost/components/MapAddPost/utils";
 import { ContextInterface, LocationProps } from "../../../../interface";
 import { getPastWooyeon } from "./api";
 import { SearchDateType, WooyeonsType } from "./interface";
@@ -14,14 +15,13 @@ import { useOutletContext } from "react-router";
 import { userState } from "../../../../recoil";
 import { useRecoilState } from "recoil";
 import mapboxgl from "mapbox-gl";
-import { getCurrentLocation } from "../../../AddPost/components/MapAddPost/utils";
 import MapboxLanguage from "@mapbox/mapbox-gl-language";
 
 // 가끔 우연 정보가 안받아와짐
 
 const Past = () => {
   const [user] = useRecoilState(userState);
-  const { navigate, initPosition } = useOutletContext<ContextInterface>();
+  const { navigate } = useOutletContext<ContextInterface>();
   const { open, Drawer, toggleDrawer } = useDrawer();
   const theme = useTheme();
   const today = new Date();
@@ -40,14 +40,20 @@ const Past = () => {
   });
   let monthlyList: WooyeonsType[][];
   const [todayWooyeons, setTodayWooyeons] = useState<WooyeonsType[]>([]);
+  const initPosition = {
+    longitude: 127.9068,
+    latitude: 35.6699,
+    zoom: 15,
+  };
   const mapRef = useRef<MapRef | null>(null);
   const [viewState, setViewState] = React.useState(initPosition);
   const positionRef = useRef<LocationProps | undefined>(initPosition);
   const [preview, setPreview] = useState<WooyeonsType>();
   const [existDays, setExistDays] = useState<Array<number>>([]);
+
   // 초기화면 : 지도를 현재위치로 고정
   useEffect(() => {
-    if (positionRef.current !== initPosition) {
+    if (positionRef.current === initPosition) {
       getCurrentLocation({ setViewState });
     }
     mutate();
@@ -95,7 +101,7 @@ const Past = () => {
     if (mapRef.current === null) return;
     const language = new MapboxLanguage();
     mapRef.current.addControl(language);
-  }, [mapRef.current]);
+  }, [mapboxgl, mapRef]);
 
   return (
     <>
@@ -123,6 +129,9 @@ const Past = () => {
             dragPan={false}
             dragRotate={false}
             scrollZoom={false}
+            doubleClickZoom={false}
+            touchPitch={false}
+            touchZoomRotate={false}
           >
             {preview !== undefined && (
               <Marker

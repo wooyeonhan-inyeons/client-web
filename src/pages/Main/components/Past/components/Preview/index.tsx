@@ -8,7 +8,7 @@ const Preview = ({ todayWooyeons, setPreview }: TodayWooyeonProp) => {
 
   const moveMap = (item: WooyeonsType) => {
     setPreview(item);
-    console.log("item: ", item);
+    console.log("클릭된 우연: ", item);
   };
 
   return (

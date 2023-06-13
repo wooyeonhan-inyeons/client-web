@@ -1,5 +1,6 @@
 import { LocationProps } from "../../../../interface";
 import { GetWooyeonsType } from "../Search/interface";
+import { MapRef } from "react-map-gl";
 
 export interface SearchDateType {
   year: number;

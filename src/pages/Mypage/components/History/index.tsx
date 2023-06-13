@@ -60,18 +60,13 @@ const History = () => {
     preview !== undefined &&
       mapRef.current?.flyTo({
         center: [preview.longitude, preview.latitude],
-        duration: 80,
+        duration: 500,
       });
     console.log("fly to ", preview?.longitude, preview?.latitude);
   }, [searchDate, preview]);
 
   useEffect(() => {
     positionRef.current = viewState;
-    preview !== undefined &&
-      mapRef.current?.flyTo({
-        center: [preview.longitude, preview.latitude],
-        duration: 80,
-      });
   }, [viewState]);
 
   const { mutate } = useMutation(
@@ -130,13 +125,15 @@ const History = () => {
           "& .mapboxgl-map": {
             touchAction: "none",
           },
+          overflow: "auto",
         }}
       >
         {Map && (
           <Map
             ref={mapRef}
+            initialViewState={initPosition}
             mapboxAccessToken={import.meta.env.VITE_MAP_API}
-            {...viewState}
+            // {...viewState}
             // onMove={(evt: ViewStateChangeEvent) => setViewState(evt.viewState)}
             mapStyle={`mapbox://styles/mapbox/${theme.palette.mode}-v9`}
             style={{
@@ -149,6 +146,9 @@ const History = () => {
             dragPan={false}
             dragRotate={false}
             scrollZoom={false}
+            doubleClickZoom={false}
+            touchPitch={false}
+            touchZoomRotate={false}
           >
             {preview !== undefined && (
               <Marker

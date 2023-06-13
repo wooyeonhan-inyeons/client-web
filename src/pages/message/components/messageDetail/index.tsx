@@ -76,6 +76,9 @@ export default function MessageDetail() {
         setMessage("");
         refetch();
       },
+      onError(error) {
+        console.log(error);
+      },
     }
   );
 

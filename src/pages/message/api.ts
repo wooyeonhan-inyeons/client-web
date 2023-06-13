@@ -35,6 +35,7 @@ export const postMessage = async (
   post_id: string,
   content: string
 ): Promise<void> => {
+  console.log(token, post_id, content);
   await fetch(`${BACK_URL}/chat`, {
     method: "POST",
     headers: {

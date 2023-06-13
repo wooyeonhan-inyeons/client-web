@@ -127,7 +127,7 @@ export default function Mypage() {
             <Button
               sx={buttonStyle(theme)}
               variant="contained"
-              // onClick={}
+              onClick={() => navigate("/message")}
             >
               <Typography variant="subtitle2">모임 채팅</Typography>
               <Typography variant="subtitle2">

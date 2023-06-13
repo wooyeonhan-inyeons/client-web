@@ -20,6 +20,7 @@ import { forUntouchableStyle } from "../../../Main/components/Search/style";
 import { CalendarHeader } from "../../../Main/components/Past/components/calendarHeader";
 import Calendar from "../../../Main/components/Past/components/calendar";
 import Map from "react-map-gl";
+import MapboxLanguage from "@mapbox/mapbox-gl-language";
 
 const History = () => {
   const { navigate, initPosition, setHeadOpt, setWrapperOpt } =
@@ -39,7 +40,7 @@ const History = () => {
   // 검색할 날짜 연월일
   const [searchDate, setSearchDate] = useState<SearchDateType>({
     year: today.getFullYear(),
-    month: 1 + today.getMonth(),
+    month: today.getMonth() + 1,
     date: today.getDate(),
   });
   let monthlyList: WooyeonsType[][];
@@ -64,7 +65,6 @@ const History = () => {
   }, [searchDate, preview]);
 
   useEffect(() => {
-    console.log("viewstate: ", viewState);
     positionRef.current = viewState;
     preview !== undefined &&
       mapRef.current?.flyTo({
@@ -89,12 +89,18 @@ const History = () => {
           today.getFullYear(),
           today.getMonth() + 1
         );
-        // console.log(searchDate.month);
         setTodayWooyeons(monthlyList[searchDate.date - 1]); // 오늘 생성된 조회한 우연들
+        console.log("오늘: ", todayWooyeons);
         setExistDays(getDaysExist(monthlyList));
       },
     }
   );
+
+  useEffect(() => {
+    if (mapRef.current === null) return;
+    const language = new MapboxLanguage();
+    mapRef.current.addControl(language);
+  }, [mapRef.current]);
 
   //// 헤더 설정
   const headerOption: HeaderOptinterface = {
